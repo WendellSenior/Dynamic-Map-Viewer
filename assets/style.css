@@ -188,6 +188,17 @@ main {
 #event-panel .meta { color: #666; font-size: 12px; margin: 0 0 12px; }
 #event-panel .body { white-space: pre-wrap; }
 #event-panel .empty { color: #999; }
+.jump-to-pin {
+  margin-top: 16px;
+  padding: 6px 14px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+}
+.jump-to-pin:hover { background: #1d4ed8; }
 
 footer {
   flex-shrink: 0;

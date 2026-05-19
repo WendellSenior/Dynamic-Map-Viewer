@@ -13,3 +13,7 @@ Thumbs.db
 # Internal calibration tool — local-only.
 /calibrate.html
 /calibrate.bat
+
+# Local session editor.
+/sessions.html
+/sessions.bat

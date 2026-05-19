@@ -3,11 +3,14 @@ const state = {
   snapshots: [],
   coords: { countries: {}, provinces: {} },
   provinces: {},
+  sessions: [],
   mapConfig: { width: 1024, height: 512 },
   currentTime: 0,
   filter: 'all',
   tMin: 0,
   tMax: 0,
+  allTMin: 0,
+  allTMax: 0,
   view: { x: 0, y: 0, scale: 1, minScale: 1 },
 };
 
@@ -68,6 +71,20 @@ function applyTransform() {
     `translate(${state.view.x}px, ${state.view.y}px) scale(${state.view.scale})`;
   document.getElementById('event-dots')
     .style.setProperty('--inv-scale', 1 / state.view.scale);
+}
+
+function zoomToCoords(coords, scale = 2.0) {
+  const c = document.getElementById('map-container');
+  const cw = c.clientWidth, ch = c.clientHeight;
+  const s = Math.max(state.view.minScale, Math.min(MAX_SCALE, scale));
+  state.view.scale = s;
+  state.view.x = cw / 2 - coords[0] * s;
+  state.view.y = ch / 2 - coords[1] * s;
+  clampView();
+  const frame = document.getElementById('map-frame');
+  frame.style.transition = 'transform 0.35s ease';
+  applyTransform();
+  setTimeout(() => { frame.style.transition = ''; }, 380);
 }
 
 function refitOnResize() {
@@ -143,6 +160,49 @@ function wireMapInteractions() {
   new ResizeObserver(refitOnResize).observe(container);
 }
 
+function parseSessionFilter(f) {
+  if (typeof f !== 'string' || !f.startsWith('session:')) return null;
+  return parseInt(f.slice(8), 10);
+}
+
+function getActiveSession() {
+  const idx = parseSessionFilter(state.filter);
+  if (idx === null) return null;
+  return state.sessions[idx] || null;
+}
+
+function isEventVisible(e, t) {
+  const eT = parseDate(e.date);
+  const session = getActiveSession();
+  if (session) {
+    if (eT < parseDate(session.start) || eT > parseDate(session.end)) return false;
+    return eT <= t;
+  }
+  if (state.filter === 'past') return eT <= t;
+  return true;
+}
+
+function applyFilter(newFilter) {
+  state.filter = newFilter;
+  const session = getActiveSession();
+  if (session) {
+    state.tMin = parseDate(session.start);
+    state.tMax = parseDate(session.end);
+  } else {
+    state.tMin = state.allTMin;
+    state.tMax = state.allTMax;
+  }
+  state.currentTime = Math.min(state.tMax, Math.max(state.tMin, state.currentTime));
+  document.getElementById('timeline').value = timeToSlider(state.currentTime);
+  const labels = document.getElementById('timeline-labels');
+  labels.innerHTML = state.tMax > state.tMin
+    ? `<span>${formatDate(state.tMin)}</span><span>${formatDate(state.tMax)}</span>`
+    : '';
+  renderTimelineMarks();
+  render();
+  updateBrowserVisibility();
+}
+
 function snapshotForTime(t) {
   if (state.snapshots.length === 0) return null;
   let best = state.snapshots[0];
@@ -177,8 +237,7 @@ function render() {
   const dotsEl = document.getElementById('event-dots');
   dotsEl.replaceChildren();
   for (const e of state.events) {
-    const eT = parseDate(e.date);
-    if (state.filter === 'past' && eT > t) continue;
+    if (!isEventVisible(e, t)) continue;
     const xy = resolveCoords(e);
     if (!xy) continue;
 
@@ -199,7 +258,9 @@ function renderTimelineMarks() {
   if (range <= 0) return;
 
   for (const e of state.events) {
-    const pct = ((parseDate(e.date) - state.tMin) / range) * 100;
+    const eT = parseDate(e.date);
+    if (eT < state.tMin || eT > state.tMax) continue;
+    const pct = ((eT - state.tMin) / range) * 100;
     const m = document.createElement('div');
     m.className = 'tl-mark event';
     m.style.left = `${pct}%`;
@@ -208,15 +269,18 @@ function renderTimelineMarks() {
   }
 
   for (const s of state.snapshots) {
-    const pct = ((parseDate(s.date) - state.tMin) / range) * 100;
+    const sT = parseDate(s.date);
+    if (sT < state.tMin || sT > state.tMax) continue;
+    const pct = ((sT - state.tMin) / range) * 100;
     const m = document.createElement('div');
     m.className = 'tl-mark snapshot';
     m.style.left = `${pct}%`;
     m.title = `${s.date}${s.label ? ' — ' + s.label : ''}`;
     m.addEventListener('click', () => {
-      state.currentTime = parseDate(s.date);
+      state.currentTime = sT;
       document.getElementById('timeline').value = timeToSlider(state.currentTime);
       render();
+      updateBrowserVisibility();
     });
     container.appendChild(m);
   }
@@ -240,6 +304,15 @@ function showEvent(e) {
   body.className = 'body';
   body.textContent = e.fullText || e.snippet || '';
   panel.appendChild(body);
+
+  const coords = resolveCoords(e);
+  if (coords) {
+    const btn = document.createElement('button');
+    btn.className = 'jump-to-pin';
+    btn.textContent = 'Zoom to map pin';
+    btn.addEventListener('click', () => zoomToCoords(coords));
+    panel.appendChild(btn);
+  }
 
   // Sync row selection in the browser table.
   const tbody = document.getElementById('events-tbody');
@@ -315,12 +388,13 @@ function updateBrowserVisibility() {
   if (!tbody) return;
   const t = state.currentTime;
   let visible = 0;
-  for (const tr of tbody.children) {
-    const eT = parseDate(tr.dataset.date);
-    const hide = state.filter === 'past' && eT > t;
+  state.events.forEach((e, i) => {
+    const tr = tbody.children[i];
+    if (!tr) return;
+    const hide = !isEventVisible(e, t);
     tr.hidden = hide;
     if (!hide) visible++;
-  }
+  });
   document.getElementById('event-count').textContent = `(${visible})`;
 }
 
@@ -338,11 +412,12 @@ function wireTabs() {
 
 async function init() {
   try {
-    const [eventsData, snapshotsData, coordsData, provincesData] = await Promise.all([
+    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData] = await Promise.all([
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
       loadJSON('data/reference/eu4/provinces.json').catch(() => ({})),
+      loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
     ]);
 
     state.events = (eventsData.events || []).slice().sort(
@@ -354,14 +429,17 @@ async function init() {
     if (snapshotsData.config) Object.assign(state.mapConfig, snapshotsData.config);
     state.coords = { countries: {}, provinces: {}, ...coordsData };
     state.provinces = provincesData;
+    state.sessions = sessionsData.sessions || [];
 
     const allTimes = [
       ...state.events.map(e => parseDate(e.date)),
       ...state.snapshots.map(s => parseDate(s.date)),
     ];
     if (allTimes.length > 0) {
-      state.tMin = Math.min(...allTimes);
-      state.tMax = Math.max(...allTimes);
+      state.allTMin = Math.min(...allTimes);
+      state.allTMax = Math.max(...allTimes);
+      state.tMin = state.allTMin;
+      state.tMax = state.allTMax;
       state.currentTime = state.tMin;
     }
 
@@ -377,12 +455,22 @@ async function init() {
     });
 
     const filterEl = document.getElementById('filter');
+    if (state.sessions.length > 0) {
+      const og = document.createElement('optgroup');
+      og.label = 'Sessions';
+      state.sessions.forEach((s, idx) => {
+        const opt = document.createElement('option');
+        opt.value = `session:${idx}`;
+        const startYear = (s.start || '').split('-')[0];
+        const endYear = (s.end || '').split('-')[0];
+        const yrs = startYear && endYear ? ` (${startYear}–${endYear})` : '';
+        opt.textContent = `${s.name}${yrs}`;
+        og.appendChild(opt);
+      });
+      filterEl.appendChild(og);
+    }
     filterEl.value = state.filter;
-    filterEl.addEventListener('change', () => {
-      state.filter = filterEl.value;
-      render();
-      updateBrowserVisibility();
-    });
+    filterEl.addEventListener('change', () => applyFilter(filterEl.value));
 
     const labels = document.getElementById('timeline-labels');
     if (state.tMax > state.tMin) {
