@@ -1,17 +1,17 @@
 {
   "countries": {
     "FRA": {
-      "capital": "Paris",
+      "capital": "FRA",
       "coords": [
-        490,
-        200
+        2849,
+        556
       ]
     },
     "ENG": {
-      "capital": "London",
+      "capital": "ENG",
       "coords": [
-        460,
-        170
+        2807,
+        498
       ]
     },
     "HAB": {
@@ -24,22 +24,22 @@
     "ARA": {
       "capital": "ARA",
       "coords": [
-        2836,
-        698
+        2835,
+        699
       ]
     },
     "TUR": {
       "capital": "TUR",
       "coords": [
-        3257,
+        3256,
         722
       ]
     },
     "POR": {
       "capital": "POR",
       "coords": [
-        2668,
-        741
+        2666,
+        740
       ]
     }
   },
