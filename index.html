@@ -22,14 +22,37 @@
   </header>
 
   <main>
-    <div id="map-container">
-      <div id="map-frame">
-        <img id="map-image" alt="Campaign map">
-        <div id="event-dots"></div>
+    <div class="left-col">
+      <div id="map-container">
+        <div id="map-frame">
+          <img id="map-image" alt="Campaign map">
+          <div id="event-dots"></div>
+        </div>
       </div>
+      <section id="browser">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="events" role="tab">
+            Events <span id="event-count" class="count"></span>
+          </button>
+        </div>
+        <div id="tab-events" class="tab-panel active" role="tabpanel">
+          <table id="events-table">
+            <thead>
+              <tr>
+                <th class="col-date">Date</th>
+                <th class="col-country">Country</th>
+                <th class="col-province">Province</th>
+                <th class="col-author">Author</th>
+                <th class="col-snippet">Title / snippet</th>
+              </tr>
+            </thead>
+            <tbody id="events-tbody"></tbody>
+          </table>
+        </div>
+      </section>
     </div>
     <aside id="event-panel">
-      <p class="empty">Click a dot to see the event.</p>
+      <p class="empty">Click a dot or a row to see the event.</p>
     </aside>
   </main>
 
