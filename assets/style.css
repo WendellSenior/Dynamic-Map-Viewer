@@ -21,7 +21,10 @@ header {
 }
 
 header h1 { margin: 0; font-size: 16px; font-weight: 600; }
-#current-date { font-variant-numeric: tabular-nums; color: #555; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.filter-toggle { font-size: 13px; color: #555; display: inline-flex; gap: 6px; align-items: center; }
+.filter-toggle select { font: inherit; padding: 2px 4px; }
+#current-date { font-variant-numeric: tabular-nums; color: #555; min-width: 90px; text-align: right; }
 
 main {
   flex: 1;
@@ -94,6 +97,36 @@ footer {
   border-top: 1px solid #e3e3e3;
 }
 
+.timeline-track { position: relative; padding-top: 16px; }
+#timeline-marks {
+  position: absolute;
+  left: 8px; right: 8px; top: 0;
+  height: 14px;
+  pointer-events: none;
+}
+.tl-mark {
+  position: absolute;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+.tl-mark.snapshot {
+  width: 2px;
+  height: 14px;
+  top: 0;
+  background: #2563eb;
+  cursor: pointer;
+}
+.tl-mark.snapshot::after {
+  content: "";
+  position: absolute;
+  inset: -4px -3px;
+}
+.tl-mark.event {
+  width: 1px;
+  height: 6px;
+  top: 8px;
+  background: #aaa;
+}
 #timeline { width: 100%; }
 #timeline-labels {
   display: flex;

@@ -4,8 +4,13 @@ const state = {
   coords: { countries: {}, provinces: {} },
   provinces: {},
   mapConfig: { width: 1024, height: 512 },
-  currentIndex: 0,
+  currentTime: 0,
+  filter: 'all',
+  tMin: 0,
+  tMax: 0,
 };
+
+const SLIDER_RES = 1000;
 
 async function loadJSON(path) {
   const r = await fetch(path);
@@ -15,10 +20,14 @@ async function loadJSON(path) {
 
 function parseDate(s) { return new Date(s + 'T00:00:00Z').getTime(); }
 
+function formatDate(t) {
+  const d = new Date(t);
+  return d.toISOString().slice(0, 10);
+}
+
 function resolveCoords(event) {
   if (Array.isArray(event.coords)) return event.coords;
   if (event.province) {
-    // Manual override in coords.json wins; otherwise fall back to positions.txt data.
     if (state.coords.provinces[event.province]) {
       return state.coords.provinces[event.province];
     }
@@ -32,9 +41,8 @@ function resolveCoords(event) {
   return null;
 }
 
-function snapshotForDate(dateStr) {
+function snapshotForTime(t) {
   if (state.snapshots.length === 0) return null;
-  const t = parseDate(dateStr);
   let best = state.snapshots[0];
   for (const s of state.snapshots) {
     if (parseDate(s.date) <= t) best = s;
@@ -42,37 +50,73 @@ function snapshotForDate(dateStr) {
   return best;
 }
 
+function timeToSlider(t) {
+  const range = state.tMax - state.tMin;
+  if (range <= 0) return 0;
+  return Math.round(((t - state.tMin) / range) * SLIDER_RES);
+}
+
+function sliderToTime(v) {
+  const range = state.tMax - state.tMin;
+  return state.tMin + (v / SLIDER_RES) * range;
+}
+
 function render() {
-  const event = state.events[state.currentIndex];
-  if (!event) return;
+  const t = state.currentTime;
+  document.getElementById('current-date').textContent = formatDate(t);
 
-  document.getElementById('current-date').textContent = event.date;
-
-  const snap = snapshotForDate(event.date);
+  const snap = snapshotForTime(t);
   const img = document.getElementById('map-image');
   if (snap) {
     const target = new URL(snap.image, location.href).href;
     if (img.src !== target) img.src = snap.image;
   }
 
-  const currentT = parseDate(event.date);
   const dotsEl = document.getElementById('event-dots');
   dotsEl.replaceChildren();
-
   for (const e of state.events) {
-    const t = parseDate(e.date);
-    if (t > currentT) continue;
+    const eT = parseDate(e.date);
+    if (state.filter === 'past' && eT > t) continue;
     const xy = resolveCoords(e);
     if (!xy) continue;
 
     const dot = document.createElement('div');
     dot.className = 'event-dot';
-    if (e === event) dot.classList.add('recent');
     dot.style.left = `${(xy[0] / state.mapConfig.width) * 100}%`;
     dot.style.top = `${(xy[1] / state.mapConfig.height) * 100}%`;
     dot.title = `${e.date} — ${e.snippet || ''}`;
     dot.addEventListener('click', () => showEvent(e));
     dotsEl.appendChild(dot);
+  }
+}
+
+function renderTimelineMarks() {
+  const container = document.getElementById('timeline-marks');
+  container.replaceChildren();
+  const range = state.tMax - state.tMin;
+  if (range <= 0) return;
+
+  for (const e of state.events) {
+    const pct = ((parseDate(e.date) - state.tMin) / range) * 100;
+    const m = document.createElement('div');
+    m.className = 'tl-mark event';
+    m.style.left = `${pct}%`;
+    m.title = `${e.date} — ${e.snippet || ''}`;
+    container.appendChild(m);
+  }
+
+  for (const s of state.snapshots) {
+    const pct = ((parseDate(s.date) - state.tMin) / range) * 100;
+    const m = document.createElement('div');
+    m.className = 'tl-mark snapshot';
+    m.style.left = `${pct}%`;
+    m.title = `${s.date}${s.label ? ' — ' + s.label : ''}`;
+    m.addEventListener('click', () => {
+      state.currentTime = parseDate(s.date);
+      document.getElementById('timeline').value = timeToSlider(state.currentTime);
+      render();
+    });
+    container.appendChild(m);
   }
 }
 
@@ -115,20 +159,41 @@ async function init() {
     state.coords = { countries: {}, provinces: {}, ...coordsData };
     state.provinces = provincesData;
 
+    const allTimes = [
+      ...state.events.map(e => parseDate(e.date)),
+      ...state.snapshots.map(s => parseDate(s.date)),
+    ];
+    if (allTimes.length > 0) {
+      state.tMin = Math.min(...allTimes);
+      state.tMax = Math.max(...allTimes);
+      state.currentTime = state.tMin;
+    }
+
     const slider = document.getElementById('timeline');
-    slider.max = Math.max(0, state.events.length - 1);
+    slider.min = 0;
+    slider.max = SLIDER_RES;
+    slider.step = 1;
+    slider.value = 0;
     slider.addEventListener('input', () => {
-      state.currentIndex = parseInt(slider.value, 10);
+      state.currentTime = sliderToTime(parseInt(slider.value, 10));
+      render();
+    });
+
+    const filterEl = document.getElementById('filter');
+    filterEl.value = state.filter;
+    filterEl.addEventListener('change', () => {
+      state.filter = filterEl.value;
       render();
     });
 
     const labels = document.getElementById('timeline-labels');
-    if (state.events.length > 0) {
+    if (state.tMax > state.tMin) {
       labels.innerHTML =
-        `<span>${state.events[0].date}</span>` +
-        `<span>${state.events.at(-1).date}</span>`;
+        `<span>${formatDate(state.tMin)}</span>` +
+        `<span>${formatDate(state.tMax)}</span>`;
     }
 
+    renderTimelineMarks();
     render();
   } catch (err) {
     document.getElementById('event-panel').innerHTML =

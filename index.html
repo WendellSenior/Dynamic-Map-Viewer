@@ -9,7 +9,16 @@
 <body>
   <header>
     <h1>Dynamic Map Viewer</h1>
-    <div id="current-date" aria-live="polite"></div>
+    <div class="header-right">
+      <label class="filter-toggle">
+        Show:
+        <select id="filter">
+          <option value="all">All events</option>
+          <option value="past">Past only</option>
+        </select>
+      </label>
+      <div id="current-date" aria-live="polite"></div>
+    </div>
   </header>
 
   <main>
@@ -25,7 +34,10 @@
   </main>
 
   <footer>
-    <input type="range" id="timeline" min="0" max="0" value="0" step="1" aria-label="Timeline">
+    <div class="timeline-track">
+      <div id="timeline-marks"></div>
+      <input type="range" id="timeline" min="0" max="1000" value="0" step="1" aria-label="Timeline">
+    </div>
     <div id="timeline-labels"></div>
   </footer>
 

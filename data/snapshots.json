@@ -7,7 +7,17 @@
     {
       "date": "1444-11-11",
       "image": "data/maps/eu4_map_FRA_1444_11_11_1.png",
-      "label": "EU4 campaign start"
+      "label": "Campaign start"
+    },
+    {
+      "date": "1550-01-20",
+      "image": "data/maps/eu4_map_FRA_1550_01_20_2.png",
+      "label": "1550"
+    },
+    {
+      "date": "1641-04-28",
+      "image": "data/maps/eu4_map_FRA_1641_04_28_1.png",
+      "label": "1641"
     }
   ]
 }
