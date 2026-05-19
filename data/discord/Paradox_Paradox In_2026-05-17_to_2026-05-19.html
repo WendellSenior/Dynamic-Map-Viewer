@@ -1,0 +1,1290 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root {
+        color-scheme: light;
+        --bg-canvas: #ffffff;
+        --bg-surface: #f7f8fa;
+        --bg-surface-2: #f2f3f5;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --text-muted: #9ca3af;
+        --border-soft: #e5e7eb;
+        --border-strong: #d1d5db;
+        --accent: #5865f2;
+        --accent-soft: rgba(88, 101, 242, 0.12);
+        --hover-bg: rgba(17, 24, 39, 0.03);
+        --code-bg: #111827;
+        --code-text: #e5e7eb;
+        --shadow-soft: 0 8px 24px rgba(17, 24, 39, 0.06);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --bg-canvas: #313338;
+          --bg-surface: #2b2d31;
+          --bg-surface-2: #1f2125;
+          --text-primary: #e5e7eb;
+          --text-secondary: #b5bac1;
+          --text-muted: #8a9099;
+          --border-soft: #3a3d43;
+          --border-strong: #4b5563;
+          --accent: #7c87ff;
+          --accent-soft: rgba(124, 135, 255, 0.2);
+          --hover-bg: rgba(255, 255, 255, 0.04);
+          --code-bg: #111827;
+          --code-text: #e5e7eb;
+          --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+        font-size: 15px;
+        line-height: 1.45;
+        background: var(--bg-canvas);
+        color: var(--text-primary);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      .top-bar {
+        position: relative;
+        flex-shrink: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin: 10px;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--bg-surface) 88%, transparent);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .server-info {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 280px;
+      }
+
+      #server-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 1px solid var(--border-soft);
+      }
+
+      .chatlog-manifest {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .chatlog-manifest h4 {
+        margin: 0;
+        font-size: clamp(16px, 2.2vw, 20px);
+        letter-spacing: 0.01em;
+      }
+
+      #message_count,
+      #date_range {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-soft);
+        background: var(--bg-surface-2);
+      }
+
+      .top-bar-right {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .search-input {
+        width: clamp(170px, 22vw, 260px);
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 10px;
+        outline: none;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: var(--bg-canvas);
+      }
+
+      .search-input:focus {
+        border-color: color-mix(in srgb, var(--accent) 65%, var(--border-soft));
+      }
+
+      .sort-options {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .sort-radio {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .copy-json-btn {
+        height: 34px;
+        border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border-soft));
+        border-radius: 10px;
+        padding: 0 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: white;
+        background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 80%, #111827));
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+
+      .copy-json-btn:hover {
+        opacity: 0.95;
+        transform: translateY(-1px);
+      }
+
+      .messages-list-container {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        background: var(--bg-surface);
+        overflow: hidden;
+      }
+
+      .chat-main {
+        display: flex;
+        align-items: stretch;
+        flex: 1;
+        gap: 0;
+        overflow: hidden;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        margin: 0 10px 10px;
+        background: var(--bg-canvas);
+      }
+
+      .chat-main .messages-list-container {
+        flex: 1;
+        height: 100%;
+        overflow-y: auto;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .search-sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 0;
+        height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        background: #f9fafb;
+        border-right: 0 solid #e3e5e8;
+        transition: width 0.2s ease, opacity 0.2s ease, border-width 0.2s ease;
+      }
+
+      .search-sidebar.open {
+        width: 320px;
+        opacity: 1;
+        border-right-width: 1px;
+      }
+
+      .search-sidebar-head {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 10px;
+        border-bottom: 1px solid var(--border-soft);
+        background: #f9fafb;
+      }
+
+      .search-head-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .search-sidebar-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .search-results-count {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .search-input-wrap {
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 28px 0 10px;
+        outline: none;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: var(--bg-canvas);
+      }
+
+      .search-clear-btn {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .search-open-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 10px;
+        background: var(--bg-canvas);
+        color: var(--text-secondary);
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .search-close-btn {
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
+        background: var(--bg-canvas);
+        color: var(--text-secondary);
+        font-size: 11px;
+        padding: 3px 8px;
+        cursor: pointer;
+      }
+
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+      }
+
+      .search-result-item {
+        display: grid;
+        grid-template-columns: 22px 1fr auto;
+        gap: 8px;
+        align-items: start;
+        width: 100%;
+        padding: 9px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        text-align: left;
+        background: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+      }
+
+      .search-result-item:hover {
+        border-color: var(--border-soft);
+        background: var(--bg-canvas);
+      }
+
+      .search-result-avatar {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+      }
+
+      .search-result-name {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .search-result-snippet {
+        margin-top: 2px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .search-result-snippet mark {
+        background: color-mix(in srgb, var(--accent) 25%, transparent);
+        color: var(--text-primary);
+        border-radius: 3px;
+        padding: 0 2px;
+      }
+
+      .jump-flash {
+        animation: jumpFlash 2s ease;
+      }
+
+      @keyframes jumpFlash {
+        0% {
+          background: color-mix(in srgb, var(--accent) 25%, transparent);
+          box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent) 70%, transparent);
+        }
+        100% {
+          background: transparent;
+          box-shadow: inset 0 0 0 0 transparent;
+        }
+      }
+
+      .search-result-time {
+        font-size: 10px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+
+      .search-sidebar::-webkit-scrollbar,
+      .search-results::-webkit-scrollbar,
+      .messages-list-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .search-sidebar::-webkit-scrollbar-thumb,
+      .search-results::-webkit-scrollbar-thumb,
+      .messages-list-container::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--text-muted) 45%, transparent);
+        border-radius: 999px;
+      }
+
+      .search-sidebar::-webkit-scrollbar-track,
+      .search-results::-webkit-scrollbar-track,
+      .messages-list-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .search-empty {
+        padding: 16px 10px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .search-overlay {
+        display: none;
+      }
+
+      .messages-list-container.reverse {
+        flex-direction: column-reverse;
+      }
+
+      .message-box {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 10px;
+        padding: 10px 14px;
+        border-top: 1px solid color-mix(in srgb, var(--border-soft) 70%, transparent);
+        transition: background-color 0.15s ease;
+      }
+
+      .message-box:first-child {
+        border-top: 0;
+      }
+
+      .message-box:hover {
+        background: var(--hover-bg);
+      }
+
+      .message-box.compact {
+        grid-template-columns: 56px 1fr;
+        padding-top: 4px;
+      }
+
+      .avatar-slot {
+        display: flex;
+        justify-content: center;
+      }
+
+      .message-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--border-soft);
+        object-fit: cover;
+      }
+
+      .message-box.compact .message-avatar {
+        visibility: hidden;
+      }
+
+      .message-body {
+        min-width: 0;
+      }
+
+      .message-header {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 2px;
+      }
+
+      .message-box.compact .message-header {
+        display: none;
+      }
+
+      .message-author {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .message-date {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .message-content {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        color: var(--text-primary);
+      }
+
+      .mention-inline {
+        display: inline-block;
+        border-radius: 5px;
+        padding: 0 4px;
+        margin: 0 1px;
+        color: var(--accent);
+        background: var(--accent-soft);
+        font-weight: 600;
+      }
+
+      .message-reference {
+        margin: 6px 0 8px;
+        padding: 8px 10px;
+        border-left: 3px solid color-mix(in srgb, var(--accent) 65%, var(--border-soft));
+        border-radius: 8px;
+        background: var(--bg-surface-2);
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .message-reference-author {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .message-reference-timestamp {
+        margin-left: 8px;
+        color: var(--text-muted);
+      }
+
+      .message-embeded {
+        margin-top: 8px;
+        border-left: 4px solid var(--accent);
+        border-radius: 10px;
+        background: var(--bg-surface-2);
+        padding: 10px;
+      }
+
+      .embed-container {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .embed-text {
+        font-weight: 700;
+      }
+
+      .embed-description {
+        color: var(--text-secondary);
+      }
+
+      .attach-container,
+      .embed-image-box {
+        margin-top: 8px;
+      }
+
+      img,
+      video {
+        max-width: min(680px, 100%);
+        max-height: 420px;
+        border-radius: 10px;
+      }
+
+      audio {
+        width: min(440px, 100%);
+      }
+
+      .zoomable {
+        cursor: zoom-in;
+        transition: transform 0.15s ease;
+      }
+
+      .zoomable:hover {
+        transform: scale(1.01);
+      }
+
+      .video-thumbnail-container {
+        position: relative;
+        display: inline-block;
+        margin: 8px 0;
+      }
+
+      .video-thumbnail-link {
+        display: inline-block;
+        position: relative;
+      }
+
+      .video-thumbnail-img {
+        display: block;
+        max-width: 100%;
+        border-radius: 8px;
+      }
+
+      .video-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 64px;
+        height: 64px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+        pointer-events: none;
+      }
+
+      .video-play-btn::before {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 24px solid white;
+        border-top: 14px solid transparent;
+        border-bottom: 14px solid transparent;
+        margin-left: 4px;
+      }
+
+      .video-thumbnail-link:hover .video-play-btn {
+        background: rgba(200, 0, 0, 0.85);
+      }
+
+      pre.code-wrap {
+        position: relative;
+        margin: 8px 0 0;
+        padding: 12px;
+        border-radius: 10px;
+        overflow: auto;
+        background: var(--code-bg);
+        color: var(--code-text);
+        border: 1px solid color-mix(in srgb, var(--code-bg) 75%, white);
+      }
+
+      pre.code-wrap code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .code-copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 7px;
+        padding: 3px 8px;
+        font-size: 11px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(3px);
+      }
+
+      .lightbox.open {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: min(92vw, 1400px);
+        max-height: 88vh;
+        border-radius: 12px;
+        box-shadow: 0 14px 50px rgba(0, 0, 0, 0.6);
+      }
+
+      @media (max-width: 768px) {
+        .top-bar {
+          top: 0;
+          border-radius: 10px;
+        }
+
+        .server-info {
+          min-width: 100%;
+        }
+
+        #server-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+        }
+
+        .message-box {
+          grid-template-columns: 44px 1fr;
+          padding: 8px 10px;
+        }
+
+        .message-avatar {
+          width: 32px;
+          height: 32px;
+        }
+
+        .search-open-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .chat-main {
+          position: relative;
+          margin: 0;
+          border-radius: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 0;
+        }
+
+        .search-sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 40;
+          width: min(320px, 90vw);
+          max-width: 90vw;
+          height: 100vh;
+          opacity: 1;
+          border-right: 1px solid #e3e5e8;
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+        }
+
+        .search-sidebar.open {
+          width: min(320px, 90vw);
+          transform: translateX(0);
+        }
+
+        .search-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 30;
+          background: rgba(0, 0, 0, 0.35);
+          display: none;
+        }
+
+        .search-overlay.open {
+          display: block;
+        }
+      }</style></head><body><div class="container"><div><div id="chatlogs-title" class="top-bar"><div class="server-info"><img id="server-icon" src="http://"><div class="chatlog-manifest"><h4>Paradox Interactive Roleplay Server
+Invite to Server - Paradox Interactive Roleplay Server:
+eu4-diplo-4-legacy</h4><div id="message_count"></div><div id="date_range"></div></div></div><div class="top-bar-right"><button id="search-open-btn" class="search-open-btn" type="button">Search</button><div class="sort-options"><label class="sort-radio"><input type="radio" name="sort" value="asc" checked="checked" onchange="sortMessages('asc')"> <span>Oldest first</span></label> <label class="sort-radio"><input type="radio" name="sort" value="desc" onchange="sortMessages('desc')"> <span>Newest first</span></label></div><button class="copy-json-btn" onclick="copyJsonToClipboard()">Copy JSON</button></div></div></div><div class="chat-main"><aside id="search-sidebar" class="search-sidebar"><div class="search-sidebar-head"><div class="search-head-row"><span class="search-sidebar-title">Search Results</span> <button id="search-close-btn" class="search-close-btn" type="button">Close</button></div><div class="search-input-wrap"><input id="search-input" class="search-input" type="search" placeholder="Search & locate..."> <button id="search-clear-btn" class="search-clear-btn" type="button" aria-label="Clear search">×</button></div><div id="search-results-count" class="search-results-count">0 results</div></div><div id="search-results" class="search-results"></div></aside><div class="messages-list-container" id="chatlogs-message-list-container"></div></div><div id="search-overlay" class="search-overlay"></div></div><script>function getAvatarUrl(authorId, avatar) {
+        if (avatar && (avatar.startsWith('media/avatars/') || avatar.startsWith('avatars/') || avatar.startsWith('media/images/') || avatar.startsWith('images/') || avatar.startsWith('media/videos/') || avatar.startsWith('videos/'))) {
+          return avatar;
+        }
+        const defaultAvatar =
+          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAAY1BMVEVYZfJib/OMlfahqPeWn/eBi/XLz/vq6/7////19f5tePTq7P22vPnV2Pyrsvirsvl3gvT09f7Axfp3gfRtePNsePPg4v22vPq2u/qCi/WhqPjf4/zf4v2Xn/essvjLzvuXnvdbidFTAAAETElEQVR4AezBgQAAAACAoP2pF6kCAAAAAAAAAAAAAAAAAAAAAIDZudMtV1UlDuCFRKlWIEJ6uOwbzXn/lzzzYc/GWiT6zya/79WrLeYSc5Vq9IFWa3Sr6JehWt0ZZn5RtFJvmHnodPsrPLx1/B9PKx1ziLOPnIRRO84EXaAP/CWnR3pArTWcybpA5G8NsX20pw+cSbpAngEeOQenY+Cf8KIZ4FuDfSV4Ko/7hS7wNjYH7W3MvNeHtn2jvxn+OXcgaP0x8KJo43vgnwqu85EXDfGVULWON9G1BOmDN/M/AnTgDSWC0xve0KAITeSsykFw4qzOQWB4YwNBOfLmPAHpeXsvr5XOgJkjGA3vIlU6A2bvOHvAnXwiCMrwTl5UpUtg5us7BAB2gcg78nXugaC6QORd+bo7AEAXiLwzX+8SANEFNHPdXcAwV90FDgxA037+zwAc7aZlCKnSNTDrADZBdU6DBwbha5wCAabBkWGkSqfAzFa6C8xeADYB9Y2ByEBsbSMAYAy0zHWPActQLPQuKBh3DiwiDRlwzwFOv9JfTpORh5x5rVfQc8CQiLLJiEMaA1oW6XgVq+grVh4yY56JA68x07fm8hCIhXCUPn823zgkG/HK4Rf6kYv8YBt5BQ03BQyv9CMq8M/JQ7IItw+e6cd8QQjKTqCX3OMTtOdCCNZOoCnqkrYgZEFD2/FF/08qDAE4Dji+TtHPKHknVmBboVB2i9HI9zIGahZUhaVqVxCyQEEVQ7rSBMj3QiPUUTCWJkC+8zrQVjzmELBYG2H5jDYUFqAiQDlMtAwKQgjr+nwoq9O2BSEQJQFVWKeNBSEQ6+BYeG3BFIUAHIfasmsLh7IQgLcjDZd0AWXEIZRDMDYCuuj73g95yJGxEuBLPmr6VBSyzMO9Fpzko3kqeA1r8W4GHOWNKQ/JIl4COL4SZf2lPAQhAY4lYrv860rlIVmHlYAsuBhjFwpCwO4LOkb0TMAzAc8EPBPwTMAGngl4JuCZgMig4jMB27AMykJUhCr4ekwzKI10T9hpwzcz6DNSUbRdORzThW/CJSKagd4LjKurof1suFCYVR54MDckpsBXDLk3pliQgxBTHneBrwiaNtOfeUUKCnMQYlKC32x2r7SlmSUpoOQdi5xtoqx1DNP8WW9kKSCVvAu8QnC2USR4/I2bP5vDmhS80pdOjXULw8dc7HSiL6ljYLTmz/ooKvJTdkqTt9G5s/mHczH6qXlV9I32Ehi0+QVfQbn7HryHhvY033V1Tuu3CRncOIj3rL3EV9pf7+53ced0bY+MIZm7ndEt9uNnkxN8OSWhAvjjZ8ktnIoKaMDHF0yH8S416C4Rpv7bU094pWJ9QFv4BJOBvnkFzjWKMvhu4G78IibMIz2EFM3KFUAwCEI+ID9MDia6kd/+enpFj+YE+af+aA8OZAAAAAAG+Vvf46sAAAAAAAAAAAAAAAAAAAAAAFYCeHSjWah9hFcAAAAASUVORK5CYII=';
+        if (!avatar) return defaultAvatar;
+        if (String(avatar).indexOf('a_') === 0) return `https://cdn.discordapp.com/avatars/${authorId}/${avatar}.gif`;
+        return `https://cdn.discordapp.com/avatars/${authorId}/${avatar}.png`;
+      }
+
+      const messages = [{"type":0,"content":"===========","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:03:43.708000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506401997115359385","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"*I'm using this channel to test something. Please disregard, for now.*","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:03:52.049000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506402032100048896","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"11_Nov_1444\nAragon\n\n# The King of Barcelona\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at interdum ante. Quisque condimentum leo nisi, sit amet varius magna feugiat sit amet. Aenean ac pulvinar velit. Suspendisse non neque tellus. Aenean laoreet ullamcorper consequat. Pellentesque at enim a turpis commodo vehicula. Integer posuere nec nisl et venenatis. Aliquam viverra lorem eget justo malesuada, ut vehicula nunc pellentesque.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:06:58.494000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506402814107324427","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"4_Mar_1453\nOttomans\n\n# Killing Byzantium\n## A General Scorned\nAenean nec consectetur leo. Nam condimentum urna vitae faucibus sagittis. In egestas mauris non turpis rutrum bibendum. Praesent aliquam imperdiet leo ut tempus. Pellentesque eget mauris semper, tempus mauris at, pulvinar enim. Sed gravida ante a nisi auctor, ut porta erat pellentesque. Mauris tortor nunc, viverra vitae nunc eget, faucibus accumsan odio. Quisque maximus consequat lacus, et sodales nisl tristique et. Vestibulum blandit vulputate mollis. Proin sodales sit amet odio nec pellentesque. Ut vitae lorem ullamcorper, porta lorem non, fringilla lacus. Aenean vulputate diam eget sem pulvinar, non tincidunt elit tincidunt. Integer tempus congue placerat.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:07:25.614000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506402927856586982","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"26_4_1492\nEngland\n\nQuisque egestas, ipsum sed mollis varius, urna velit tempus ligula, eu faucibus eros turpis eu risus. Suspendisse condimentum enim non ante gravida tristique vulputate in nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam lobortis neque vitae ex volutpat consequat. Praesent scelerisque tincidunt lorem, vel tempor felis. Sed convallis suscipit sem, eu viverra urna pellentesque sit amet. Nunc in diam aliquam tortor fringilla ullamcorper.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:07:51.735000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403037415997531","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"13th December 1513\n\nVestibulum et molestie dui, vitae lobortis nisl. Ut vel diam ut neque scelerisque maximus. Morbi iaculis dapibus imperdiet. Nunc bibendum, ante in tempor pretium, mauris diam iaculis libero, sit amet tempus lectus magna ac ante. In malesuada mauris nisl, ut dignissim risus sollicitudin et. Nulla sit amet consectetur eros. Aliquam id metus massa. Cras commodo tortor a mollis porttitor. Sed in accumsan mi. Nunc lacus metus,","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:08:24.668000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403175547146341","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"1563\nFrance\nNunc lacus metus, fermentum vel est vitae, egestas venenatis elit. Maecenas eu suscipit felis, ac mollis lectus. Sed odio diam, fermentum id massa nec, tempor consequat ex. Nulla vehicula vulputate magna nec tempor. Pellentesque egestas rhoncus lacus, vel lobortis enim pellentesque sit amet.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:08:53.391000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403296020140133","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"1673 May 10\nPortugal","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:10:08.770000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403612182450286","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"Sed ipsum arcu, finibus eu rhoncus ac, fringilla sed neque. Praesent enim urna, mollis eget porta eget, consectetur vitae ante. Integer eu pellentesque turpis. Aliquam vel laoreet sapien, auctor commodo risus.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:10:11.375000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403623108874301","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"Aenean eget sapien tempus, facilisis felis quis, vehicula sem. Ut pharetra sodales lorem. Nullam ornare maximus blandit. Duis imperdiet lectus quis sollicitudin elementum. Nulla metus tellus, vestibulum vel congue sit amet, ultricies a urna. Curabitur condimentum quam eu dignissim ultricies. Praesent sodales arcu nisl, auctor ultricies tortor laoreet vitae.","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-19T21:10:13.803000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1506403633292509284","channel_id":"1132472723457724497","author":{"id":"874750350538727434","username":"tartessos","avatar":"ad5f918cc9a39fa40c9769fd6bef1f36","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"Tartarus","avatar_decoration_data":null,"collectibles":null,"display_name_styles":null,"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false}];
+      const state = {
+        allMessages: Array.isArray(messages) ? messages : [],
+        renderedMessages: [],
+        searchTerm: '',
+        sidebarOpen: false,
+        sortOrder: 'asc',
+      };
+
+      const els = {
+        container: document.getElementById('chatlogs-message-list-container'),
+        serverIcon: document.getElementById('server-icon'),
+        messageCount: document.getElementById('message_count'),
+        dateRange: document.getElementById('date_range'),
+        topBarRight: document.querySelector('.top-bar-right'),
+        searchSidebar: document.getElementById('search-sidebar'),
+        searchResults: document.getElementById('search-results'),
+        searchCloseBtn: document.getElementById('search-close-btn'),
+        searchInput: document.getElementById('search-input'),
+        searchClearBtn: document.getElementById('search-clear-btn'),
+        searchResultsCount: document.getElementById('search-results-count'),
+        searchOpenBtn: document.getElementById('search-open-btn'),
+        searchOverlay: document.getElementById('search-overlay'),
+        topBar: document.getElementById('chatlogs-title'),
+      };
+
+      els.serverIcon.src = 'https://cdn.discordapp.com/icons/507915886477312023/a_9b4fce70db2a8829e049004ff4b949ea.webp?size=80&quality=lossless';
+
+      function setSidebarOpen(open) {
+        state.sidebarOpen = !!open;
+        els.searchSidebar.classList.toggle('open', state.sidebarOpen);
+        if (els.searchOverlay) {
+          els.searchOverlay.classList.toggle('open', state.sidebarOpen);
+        }
+      }
+
+      function formatDateTime(ts) {
+        const d = new Date(ts);
+        return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+      }
+
+      function formatRelativeTime(ts) {
+        const diff = Date.now() - new Date(ts).getTime();
+        const min = Math.floor(diff / 60000);
+        if (min < 1) return 'just now';
+        if (min < 60) return `${min} min ago`;
+        const hr = Math.floor(min / 60);
+        if (hr < 24) return `${hr} h ago`;
+        const day = Math.floor(hr / 24);
+        return `${day} day${day > 1 ? 's' : ''} ago`;
+      }
+
+      function escapeHtml(text) {
+        return String(text || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function createMentionMap(msg) {
+        const map = new Map();
+        (msg.mentions || []).forEach(m => {
+          map.set(`@${m.username}`, `<span class="mention-inline">@${escapeHtml(m.username)}</span>`);
+          map.set(`<@${m.id}>`, `<span class="mention-inline">@${escapeHtml(m.username)}</span>`);
+        });
+        return map;
+      }
+
+      function renderContentWithMentions(content, mentionMap) {
+        let safe = escapeHtml(content);
+        for (const [raw, html] of mentionMap.entries()) {
+          const escapedRaw = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          safe = safe.replace(new RegExp(escapedRaw, 'g'), html);
+        }
+        return safe;
+      }
+
+      function appendCodeBlocks(container, content) {
+        const codeFence = /```([\w-]*)\n([\s\S]*?)```/g;
+        let matched = false;
+        let m = null;
+        while ((m = codeFence.exec(content)) !== null) {
+          matched = true;
+          const pre = document.createElement('pre');
+          pre.className = 'code-wrap';
+          const code = document.createElement('code');
+          code.textContent = m[2].trim();
+          pre.appendChild(code);
+          const btn = document.createElement('button');
+          btn.className = 'code-copy-btn';
+          btn.textContent = 'Copy';
+          btn.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              btn.textContent = 'Copied';
+              setTimeout(() => (btn.textContent = 'Copy'), 900);
+            } catch (e) {
+              btn.textContent = 'Error';
+              setTimeout(() => (btn.textContent = 'Copy'), 900);
+            }
+          };
+          pre.appendChild(btn);
+          container.appendChild(pre);
+        }
+        return matched;
+      }
+
+      function extractYouTubeId(url) {
+        if (!url) return null;
+        try {
+          const u = new URL(url);
+          const h = u.hostname.toLowerCase();
+          if (h === 'youtube.com' || h.endsWith('.youtube.com')) {
+            return u.searchParams.get('v');
+          }
+          if (h === 'youtu.be') {
+            return u.pathname.slice(1);
+          }
+        } catch {}
+        return null;
+      }
+
+      function createEmbed(embed) {
+        const wrap = document.createElement('div');
+        wrap.className = 'message-embeded';
+        const block = document.createElement('div');
+        block.className = 'embed-container';
+        wrap.appendChild(block);
+
+        if (embed.title) {
+          const t = document.createElement('div');
+          t.className = 'embed-text';
+          if (embed.url) {
+            const a = document.createElement('a');
+            a.href = embed.url;
+            a.target = '_blank';
+            a.rel = 'noreferrer';
+            a.textContent = embed.title;
+            t.appendChild(a);
+          } else {
+            t.textContent = embed.title;
+          }
+          block.appendChild(t);
+        }
+
+        if (embed.description) {
+          const d = document.createElement('div');
+          d.className = 'embed-description';
+          d.textContent = embed.description;
+          block.appendChild(d);
+        }
+
+        if (embed.video && embed.video.url) {
+          if (embed.provider && embed.provider.name === 'YouTube') {
+            const videoId = extractYouTubeId(embed.video.url);
+            const thumbnailUrl = videoId
+              ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+              : embed.thumbnail?.url || '';
+            const container = document.createElement('div');
+            container.className = 'video-thumbnail-container';
+            const link = document.createElement('a');
+            link.href = embed.url || embed.video.url;
+            link.target = '_blank';
+            link.rel = 'noreferrer';
+            link.className = 'video-thumbnail-link';
+
+            if (thumbnailUrl) {
+              const img = document.createElement('img');
+              img.src = thumbnailUrl;
+              img.className = 'video-thumbnail-img';
+              img.loading = 'lazy';
+              link.appendChild(img);
+            }
+
+            const playBtn = document.createElement('div');
+            playBtn.className = 'video-play-btn';
+            playBtn.innerHTML = '&#9658;';
+            link.appendChild(playBtn);
+
+            container.appendChild(link);
+            block.appendChild(container);
+          }
+          else if (embed.provider && embed.provider.name === 'Twitch') {
+            const container = document.createElement('div');
+            container.className = 'video-thumbnail-container';
+            const link = document.createElement('a');
+            link.href = embed.url || embed.video.url;
+            link.target = '_blank';
+            link.rel = 'noreferrer';
+            link.className = 'video-thumbnail-link';
+
+            if (embed.thumbnail && embed.thumbnail.url) {
+              const img = document.createElement('img');
+              img.src = embed.thumbnail.url;
+              img.className = 'video-thumbnail-img';
+              img.loading = 'lazy';
+              link.appendChild(img);
+            }
+
+            const playBtn = document.createElement('div');
+            playBtn.className = 'video-play-btn';
+            playBtn.innerHTML = '&#9658;';
+            link.appendChild(playBtn);
+
+            container.appendChild(link);
+            block.appendChild(container);
+          }
+          else {
+            const v = document.createElement('video');
+            v.src = embed.video.url;
+            v.controls = true;
+            v.loop = true;
+            v.muted = true;
+            if (embed.video.width) v.width = Math.min(embed.video.width, 640);
+            block.appendChild(v);
+          }
+        }
+        else if (embed.thumbnail && embed.thumbnail.url) {
+          if (embed.url) {
+            const a = document.createElement('a');
+            a.href = embed.url;
+            a.target = '_blank';
+            a.rel = 'noreferrer';
+            const img = document.createElement('img');
+            img.src = embed.thumbnail.url;
+            img.className = 'zoomable';
+            img.loading = 'lazy';
+            a.appendChild(img);
+            block.appendChild(a);
+          } else {
+            const img = document.createElement('img');
+            img.src = embed.thumbnail.url;
+            img.className = 'zoomable';
+            img.loading = 'lazy';
+            block.appendChild(img);
+          }
+        }
+        else if (embed.image && embed.image.url) {
+          const img = document.createElement('img');
+          img.src = embed.image.url;
+          img.className = 'zoomable';
+          img.loading = 'lazy';
+          block.appendChild(img);
+        }
+
+        return wrap;
+      }
+
+      function createAttachment(att) {
+        const wrap = document.createElement('div');
+        wrap.className = 'attach-container';
+        const t = att.content_type || '';
+        if (t.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = att.url;
+          img.className = 'zoomable';
+          img.loading = 'lazy';
+          wrap.appendChild(img);
+        } else if (t.startsWith('video/')) {
+          const v = document.createElement('video');
+          v.controls = true;
+          v.src = att.url;
+          wrap.appendChild(v);
+        } else if (t.startsWith('audio/')) {
+          const a = document.createElement('audio');
+          a.controls = true;
+          a.src = att.url;
+          wrap.appendChild(a);
+        } else {
+          const link = document.createElement('a');
+          link.href = att.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = att.filename || att.url;
+          link.style.color = 'var(--accent)';
+          wrap.appendChild(link);
+        }
+        return wrap;
+      }
+
+      function withinCompactWindow(prev, curr) {
+        if (!prev || !curr) return false;
+        if (!prev.author || !curr.author) return false;
+        if (prev.author.id !== curr.author.id) return false;
+        const prevTs = new Date(prev.timestamp).getTime();
+        const currTs = new Date(curr.timestamp).getTime();
+        return currTs - prevTs <= 7 * 60 * 1000;
+      }
+
+      function renderMessages() {
+        const list = state.sortOrder === 'asc' ? [...state.allMessages] : [...state.allMessages].reverse();
+        state.renderedMessages = list;
+        els.container.innerHTML = '';
+
+        let prev = null;
+        list.forEach((msg, idx) => {
+          const messageId = String(msg.id || `msg-${idx}`);
+          const box = document.createElement('div');
+          box.className = 'message-box';
+          box.dataset.messageId = messageId;
+          if (withinCompactWindow(prev, msg)) box.classList.add('compact');
+
+          const avatarSlot = document.createElement('div');
+          avatarSlot.className = 'avatar-slot';
+          const avatar = document.createElement('img');
+          avatar.className = 'message-avatar';
+          avatar.src = getAvatarUrl(msg.author.id, msg.author.avatar);
+          avatar.width = 40;
+          avatar.height = 40;
+          avatarSlot.appendChild(avatar);
+          box.appendChild(avatarSlot);
+
+          const body = document.createElement('div');
+          body.className = 'message-body';
+
+          const header = document.createElement('div');
+          header.className = 'message-header';
+          const author = document.createElement('span');
+          author.className = 'message-author';
+          author.textContent = msg.author.global_name || msg.author.username;
+          const date = document.createElement('span');
+          date.className = 'message-date';
+          date.textContent = formatDateTime(msg.timestamp);
+          header.appendChild(author);
+          header.appendChild(date);
+          body.appendChild(header);
+
+          if (msg.referenced_message) {
+            const ref = document.createElement('div');
+            ref.className = 'message-reference';
+            const ra = document.createElement('span');
+            ra.className = 'message-reference-author';
+            ra.textContent = `@${msg.referenced_message.author.global_name || msg.referenced_message.author.username}`;
+            const rt = document.createElement('span');
+            rt.className = 'message-reference-timestamp';
+            rt.textContent = formatDateTime(msg.referenced_message.timestamp);
+            const rc = document.createElement('div');
+            rc.textContent = msg.referenced_message.content || '';
+            ref.appendChild(ra);
+            ref.appendChild(rt);
+            ref.appendChild(rc);
+            (msg.referenced_message.attachments || []).forEach(att => ref.appendChild(createAttachment(att)));
+            body.appendChild(ref);
+          }
+
+          const messageContent = document.createElement('div');
+          messageContent.className = 'message-content';
+          const mentionMap = createMentionMap(msg);
+          const rendered = renderContentWithMentions(msg.content || '', mentionMap);
+          messageContent.innerHTML = rendered;
+          body.appendChild(messageContent);
+
+          appendCodeBlocks(body, msg.content || '');
+
+          (msg.embeds || []).forEach(embed => body.appendChild(createEmbed(embed)));
+          (msg.attachments || []).forEach(att => body.appendChild(createAttachment(att)));
+
+          box.appendChild(body);
+          els.container.appendChild(box);
+          prev = msg;
+        });
+
+        bindLightbox();
+        if (state.searchTerm) {
+          updateSearchResults(state.searchTerm);
+        }
+      }
+
+      function updateMeta(list) {
+        const count = list.length;
+        els.messageCount.textContent = `${count.toLocaleString()} messages`;
+        if (!count) {
+          els.dateRange.textContent = 'No message in current filter';
+          return;
+        }
+        const start = new Date(list[0].timestamp);
+        const end = new Date(list[list.length - 1].timestamp);
+        els.dateRange.textContent = `${formatDateTime(start)} - ${formatDateTime(end)}`;
+      }
+
+      function closeSearchSidebar() {
+        state.searchTerm = '';
+        setSidebarOpen(false);
+        if (els.searchResults) els.searchResults.innerHTML = '';
+        if (els.searchResultsCount) els.searchResultsCount.textContent = '0 results';
+      }
+
+      function makeSnippet(content, q) {
+        const full = String(content || '');
+        if (!q) return escapeHtml(full.slice(0, 120));
+        const lower = full.toLowerCase();
+        const idx = lower.indexOf(q);
+        if (idx < 0) return escapeHtml(full.slice(0, 120));
+        const start = Math.max(0, idx - 24);
+        const end = Math.min(full.length, idx + q.length + 36);
+        const raw = full.slice(start, end);
+        const escaped = escapeHtml(raw);
+        const escapedQ = escapeHtml(full.slice(idx, idx + q.length));
+        return escaped.replace(new RegExp(escapedQ.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), `<mark>${escapedQ}</mark>`);
+      }
+
+      function jumpToMessage(messageId) {
+        const target = els.container.querySelector(`[data-message-id="${CSS.escape(messageId)}"]`);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.remove('jump-flash');
+        void target.offsetWidth;
+        target.classList.add('jump-flash');
+        setTimeout(() => target.classList.remove('jump-flash'), 2100);
+      }
+
+      function updateSearchResults(keyword) {
+        const q = String(keyword || '')
+          .trim()
+          .toLowerCase();
+        state.searchTerm = q;
+        if (!q) {
+          closeSearchSidebar();
+          return;
+        }
+
+        const matches = state.renderedMessages.filter(m => {
+          const base = `${m.content || ''} ${m.author?.global_name || ''} ${m.author?.username || ''}`.toLowerCase();
+          return base.includes(q);
+        });
+
+        setSidebarOpen(true);
+        els.searchResults.innerHTML = '';
+        els.searchResultsCount.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}`;
+
+        if (!matches.length) {
+          const empty = document.createElement('div');
+          empty.className = 'search-empty';
+          empty.textContent = 'No results found';
+          els.searchResults.appendChild(empty);
+          return;
+        }
+
+        matches.forEach(m => {
+          const renderIdx = state.renderedMessages.indexOf(m);
+          const messageId = String(m.id || `msg-${renderIdx >= 0 ? renderIdx : 0}`);
+          const item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'search-result-item';
+          item.addEventListener('click', () => jumpToMessage(messageId));
+
+          const av = document.createElement('img');
+          av.className = 'search-result-avatar';
+          av.src = getAvatarUrl(m.author.id, m.author.avatar);
+
+          const textWrap = document.createElement('div');
+          const name = document.createElement('div');
+          name.className = 'search-result-name';
+          name.textContent = `${m.author.global_name || m.author.username}:`;
+          const snippet = document.createElement('div');
+          snippet.className = 'search-result-snippet';
+          snippet.innerHTML = `...${makeSnippet(m.content || '', q)}...`;
+          textWrap.appendChild(name);
+          textWrap.appendChild(snippet);
+          item.appendChild(av);
+          item.appendChild(textWrap);
+          const rel = document.createElement('div');
+          rel.className = 'search-result-time';
+          rel.textContent = formatRelativeTime(m.timestamp);
+          item.appendChild(rel);
+          els.searchResults.appendChild(item);
+        });
+      }
+
+      function ensureLightbox() {
+        let lb = document.getElementById('img-lightbox');
+        if (lb) return lb;
+        lb = document.createElement('div');
+        lb.id = 'img-lightbox';
+        lb.className = 'lightbox';
+        const img = document.createElement('img');
+        lb.appendChild(img);
+        lb.addEventListener('click', () => lb.classList.remove('open'));
+        document.body.appendChild(lb);
+        return lb;
+      }
+
+      function bindLightbox() {
+        const lightbox = ensureLightbox();
+        const target = lightbox.querySelector('img');
+        document.querySelectorAll('.zoomable').forEach(node => {
+          node.addEventListener('click', e => {
+            e.preventDefault();
+            target.src = node.src;
+            lightbox.classList.add('open');
+          });
+        });
+      }
+
+      function copyJsonToClipboard() {
+        navigator.clipboard
+          .writeText(JSON.stringify(state.allMessages, null, 2))
+          .then(() => {
+            const btn = document.querySelector('.copy-json-btn');
+            if (!btn) return;
+            const old = btn.textContent;
+            btn.textContent = 'Copied JSON';
+            setTimeout(() => (btn.textContent = old), 900);
+          })
+          .catch(err => console.error('Failed to copy:', err));
+      }
+
+      function sortMessages(order) {
+        state.sortOrder = order === 'desc' ? 'desc' : 'asc';
+        renderMessages();
+      }
+
+      els.searchInput.addEventListener('input', e => updateSearchResults(e.target.value));
+      els.searchClearBtn.addEventListener('click', () => {
+        els.searchInput.value = '';
+        closeSearchSidebar();
+      });
+      els.searchCloseBtn.addEventListener('click', () => closeSearchSidebar());
+      els.searchOpenBtn.addEventListener('click', () => {
+        const nextOpen = !state.sidebarOpen;
+        setSidebarOpen(nextOpen);
+        if (nextOpen) els.searchInput.focus();
+      });
+      if (els.searchOverlay) {
+        els.searchOverlay.addEventListener('click', () => closeSearchSidebar());
+      }
+
+      updateMeta(state.allMessages);
+      renderMessages();</script></body></html>

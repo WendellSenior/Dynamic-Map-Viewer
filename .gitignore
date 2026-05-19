@@ -9,3 +9,6 @@ Thumbs.db
 # Local Discord exports (large, often contain personal usernames).
 /Paradox_*.html
 /Paradox_*.json
+
+# Internal calibration tool — local-only.
+/calibrate.html

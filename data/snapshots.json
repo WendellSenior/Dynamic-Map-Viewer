@@ -1,13 +1,13 @@
 {
   "config": {
-    "width": 1024,
-    "height": 512
+    "width": 5632,
+    "height": 2048
   },
   "snapshots": [
     {
-      "date": "1789-01-01",
-      "image": "data/maps/placeholder.svg",
-      "label": "Placeholder base map"
+      "date": "1444-11-11",
+      "image": "data/maps/eu4_map_FRA_1444_11_11_1.png",
+      "label": "EU4 campaign start"
     }
   ]
 }
