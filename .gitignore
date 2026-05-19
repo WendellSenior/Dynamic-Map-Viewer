@@ -12,3 +12,4 @@ Thumbs.db
 
 # Internal calibration tool — local-only.
 /calibrate.html
+/calibrate.bat
