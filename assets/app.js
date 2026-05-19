@@ -2,6 +2,7 @@ const state = {
   events: [],
   snapshots: [],
   coords: { countries: {}, provinces: {} },
+  provinces: {},
   mapConfig: { width: 1024, height: 512 },
   currentIndex: 0,
 };
@@ -16,8 +17,14 @@ function parseDate(s) { return new Date(s + 'T00:00:00Z').getTime(); }
 
 function resolveCoords(event) {
   if (Array.isArray(event.coords)) return event.coords;
-  if (event.province && state.coords.provinces[event.province]) {
-    return state.coords.provinces[event.province];
+  if (event.province) {
+    // Manual override in coords.json wins; otherwise fall back to positions.txt data.
+    if (state.coords.provinces[event.province]) {
+      return state.coords.provinces[event.province];
+    }
+    if (state.provinces[event.province]?.coords) {
+      return state.provinces[event.province].coords;
+    }
   }
   if (event.country && state.coords.countries[event.country]?.coords) {
     return state.coords.countries[event.country].coords;
@@ -91,10 +98,11 @@ function showEvent(e) {
 
 async function init() {
   try {
-    const [eventsData, snapshotsData, coordsData] = await Promise.all([
+    const [eventsData, snapshotsData, coordsData, provincesData] = await Promise.all([
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
+      loadJSON('data/reference/eu4/provinces.json').catch(() => ({})),
     ]);
 
     state.events = (eventsData.events || []).slice().sort(
@@ -105,6 +113,7 @@ async function init() {
     );
     if (snapshotsData.config) Object.assign(state.mapConfig, snapshotsData.config);
     state.coords = { countries: {}, provinces: {}, ...coordsData };
+    state.provinces = provincesData;
 
     const slider = document.getElementById('timeline');
     slider.max = Math.max(0, state.events.length - 1);
