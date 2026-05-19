@@ -8,9 +8,11 @@ const state = {
   filter: 'all',
   tMin: 0,
   tMax: 0,
+  view: { x: 0, y: 0, scale: 1, minScale: 1 },
 };
 
 const SLIDER_RES = 1000;
+const MAX_SCALE = 8;
 
 async function loadJSON(path) {
   const r = await fetch(path);
@@ -39,6 +41,106 @@ function resolveCoords(event) {
     return state.coords.countries[event.country].coords;
   }
   return null;
+}
+
+function computeMinScale() {
+  const c = document.getElementById('map-container');
+  return Math.min(
+    c.clientWidth / state.mapConfig.width,
+    c.clientHeight / state.mapConfig.height,
+  );
+}
+
+function clampView() {
+  const c = document.getElementById('map-container');
+  const cw = c.clientWidth, ch = c.clientHeight;
+  const mw = state.mapConfig.width * state.view.scale;
+  const mh = state.mapConfig.height * state.view.scale;
+  state.view.x = mw <= cw ? (cw - mw) / 2 : Math.min(0, Math.max(cw - mw, state.view.x));
+  state.view.y = mh <= ch ? (ch - mh) / 2 : Math.min(0, Math.max(ch - mh, state.view.y));
+}
+
+function applyTransform() {
+  const frame = document.getElementById('map-frame');
+  frame.style.width = state.mapConfig.width + 'px';
+  frame.style.height = state.mapConfig.height + 'px';
+  frame.style.transform =
+    `translate(${state.view.x}px, ${state.view.y}px) scale(${state.view.scale})`;
+  document.getElementById('event-dots')
+    .style.setProperty('--inv-scale', 1 / state.view.scale);
+}
+
+function refitOnResize() {
+  const oldMin = state.view.minScale;
+  state.view.minScale = computeMinScale();
+  // If user was at fit-scale, keep them at fit-scale through resize.
+  if (Math.abs(state.view.scale - oldMin) < 0.0005) {
+    state.view.scale = state.view.minScale;
+  } else {
+    state.view.scale = Math.max(state.view.minScale, state.view.scale);
+  }
+  clampView();
+  applyTransform();
+}
+
+function wireMapInteractions() {
+  const container = document.getElementById('map-container');
+
+  container.addEventListener('wheel', e => {
+    e.preventDefault();
+    const rect = container.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const worldX = (mx - state.view.x) / state.view.scale;
+    const worldY = (my - state.view.y) / state.view.scale;
+    const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+    const next = Math.max(state.view.minScale, Math.min(state.view.scale * factor, MAX_SCALE));
+    state.view.x = mx - worldX * next;
+    state.view.y = my - worldY * next;
+    state.view.scale = next;
+    clampView();
+    applyTransform();
+  }, { passive: false });
+
+  let drag = null;
+  let dragMoved = false;
+
+  container.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    if (e.target.closest('.event-dot')) return;
+    drag = { x: e.clientX, y: e.clientY, vx: state.view.x, vy: state.view.y };
+    dragMoved = false;
+    container.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    const dy = e.clientY - drag.y;
+    if (!dragMoved && Math.abs(dx) + Math.abs(dy) > 4) dragMoved = true;
+    state.view.x = drag.vx + dx;
+    state.view.y = drag.vy + dy;
+    clampView();
+    applyTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!drag) return;
+    drag = null;
+    container.classList.remove('dragging');
+  });
+
+  // Suppress click events that follow a real drag, so pans don't double as clicks.
+  container.addEventListener('click', e => {
+    if (dragMoved) {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMoved = false;
+    }
+  }, true);
+
+  new ResizeObserver(refitOnResize).observe(container);
 }
 
 function snapshotForTime(t) {
@@ -151,6 +253,15 @@ function showEvent(e) {
   }
 }
 
+function jumpToEvent(e) {
+  const t = parseDate(e.date);
+  state.currentTime = t;
+  document.getElementById('timeline').value = timeToSlider(t);
+  render();
+  updateBrowserVisibility();
+  showEvent(e);
+}
+
 function extractTitle(e) {
   if (!e.fullText) return null;
   for (const line of e.fullText.split('\n')) {
@@ -193,7 +304,7 @@ function renderBrowser() {
     tdSnip.textContent = extractTitle(e) || e.snippet || '';
     tr.appendChild(tdSnip);
 
-    tr.addEventListener('click', () => showEvent(e));
+    tr.addEventListener('click', () => jumpToEvent(e));
     tbody.appendChild(tr);
   }
   updateBrowserVisibility();
@@ -283,6 +394,7 @@ async function init() {
     renderTimelineMarks();
     renderBrowser();
     wireTabs();
+    wireMapInteractions();
     render();
   } catch (err) {
     document.getElementById('event-panel').innerHTML =

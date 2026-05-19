@@ -43,13 +43,14 @@ main {
 #map-container {
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
   background: #f5f6f7;
-  padding: 16px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  position: relative;
+  cursor: grab;
+  touch-action: none;
 }
+#map-container.dragging { cursor: grabbing; }
+#map-container.dragging * { cursor: grabbing !important; }
 
 #browser {
   flex-shrink: 0;
@@ -133,23 +134,28 @@ main {
 #events-table td.muted { color: #aaa; }
 
 #map-frame {
-  position: relative;
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
   line-height: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transform-origin: 0 0;
+  will-change: transform;
 }
 
 #map-image {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   background: #cde6f5;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 #event-dots {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  --inv-scale: 1;
 }
 
 .event-dot {
@@ -163,9 +169,11 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   pointer-events: auto;
   cursor: pointer;
+  transform: scale(var(--inv-scale, 1));
+  transform-origin: center;
   transition: transform 0.1s;
 }
-.event-dot:hover { transform: scale(1.3); }
+.event-dot:hover { transform: scale(calc(var(--inv-scale, 1) * 1.4)); }
 .event-dot.recent { background: #f4a020; }
 
 #event-panel {
