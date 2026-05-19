@@ -1,0 +1,105 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 14px/1.4 system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+header {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e3e3e3;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+header h1 { margin: 0; font-size: 16px; font-weight: 600; }
+#current-date { font-variant-numeric: tabular-nums; color: #555; }
+
+main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+#map-container {
+  flex: 1;
+  overflow: auto;
+  background: #f5f6f7;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#map-frame {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+#map-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #cde6f5;
+}
+
+#event-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.event-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #d63838;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.event-dot:hover { transform: scale(1.3); }
+.event-dot.recent { background: #f4a020; }
+
+#event-panel {
+  width: 320px;
+  flex-shrink: 0;
+  border-left: 1px solid #e3e3e3;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+#event-panel h2 { margin: 0 0 4px; font-size: 16px; }
+#event-panel .meta { color: #666; font-size: 12px; margin: 0 0 12px; }
+#event-panel .body { white-space: pre-wrap; }
+#event-panel .empty { color: #999; }
+
+footer {
+  flex-shrink: 0;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #e3e3e3;
+}
+
+#timeline { width: 100%; }
+#timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #777;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+}

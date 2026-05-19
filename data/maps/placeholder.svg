@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" width="1024" height="512">
+  <rect width="1024" height="512" fill="#cde6f5"/>
+  <rect x="20" y="20" width="984" height="472" fill="#e8f0e3" stroke="#8aa07a" stroke-width="2"/>
+  <text x="512" y="248" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#456">
+    Placeholder map
+  </text>
+  <text x="512" y="280" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#789">
+    Drop snapshot images into data/maps/ and register them in data/snapshots.json
+  </text>
+</svg>

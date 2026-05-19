@@ -1,0 +1,13 @@
+{
+  "countries": {
+    "FRA": { "capital": "Paris", "coords": [490, 200] },
+    "ENG": { "capital": "London", "coords": [460, 170] },
+    "HAB": { "capital": "Vienna", "coords": [580, 195] }
+  },
+  "provinces": {
+    "Paris": [490, 200],
+    "Versailles": [486, 204],
+    "London": [460, 170],
+    "Vienna": [580, 195]
+  }
+}

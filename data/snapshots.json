@@ -1,0 +1,13 @@
+{
+  "config": {
+    "width": 1024,
+    "height": 512
+  },
+  "snapshots": [
+    {
+      "date": "1789-01-01",
+      "image": "data/maps/placeholder.svg",
+      "label": "Placeholder base map"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local Discord exports — opt-in commit by moving to samples/ and removing this line.
+/*.html
+/*.json
+!/data/*.json
+!/package.json
