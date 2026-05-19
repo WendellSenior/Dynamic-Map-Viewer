@@ -175,8 +175,8 @@ function isEventVisible(e, t) {
   const eT = parseDate(e.date);
   const session = getActiveSession();
   if (session) {
-    if (eT < parseDate(session.start) || eT > parseDate(session.end)) return false;
-    return eT <= t;
+    // Show every event inside the session range — timeline cursor only drives the map snapshot.
+    return eT >= parseDate(session.start) && eT <= parseDate(session.end);
   }
   if (state.filter === 'past') return eT <= t;
   return true;
