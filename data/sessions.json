@@ -1,3 +1,29 @@
 {
-  "sessions": []
+  "sessions": [
+    {
+      "name": "Session 1",
+      "start": "1444-11-11",
+      "end": "1500-01-01"
+    },
+    {
+      "name": "Session 2",
+      "start": "1500-01-01",
+      "end": "1600-01-01"
+    },
+    {
+      "name": "Session 3",
+      "start": "1600-01-01",
+      "end": "1700-01-01"
+    },
+    {
+      "name": "Session 4",
+      "start": "1700-01-01",
+      "end": "1800-01-01"
+    },
+    {
+      "name": "Session 5",
+      "start": "1800-01-01",
+      "end": "1821-01-01"
+    }
+  ]
 }
