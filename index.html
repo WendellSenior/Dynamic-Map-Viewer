@@ -3,67 +3,86 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Dynamic Map Viewer</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <title>Dynamic Map Viewer — campaigns</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh;
+      font: 15px/1.5 system-ui, -apple-system, sans-serif;
+      background: #f5f6f7; color: #1a1a1a;
+      display: flex; flex-direction: column;
+    }
+    header {
+      padding: 24px 32px; background: #fff; border-bottom: 1px solid #e3e3e3;
+    }
+    header h1 { margin: 0 0 4px; font-size: 22px; }
+    header p { margin: 0; color: #666; }
+    main {
+      flex: 1; padding: 32px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px; align-content: start;
+      max-width: 1200px; width: 100%; margin: 0 auto;
+    }
+    .campaign {
+      display: block; padding: 20px;
+      background: #fff; border: 1px solid #e3e3e3; border-radius: 8px;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.1s, box-shadow 0.1s, transform 0.1s;
+    }
+    .campaign:hover {
+      border-color: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+      transform: translateY(-1px);
+    }
+    .campaign.placeholder {
+      border-style: dashed; opacity: 0.7;
+    }
+    .campaign h2 { margin: 0 0 4px; font-size: 17px; }
+    .campaign .game-tag {
+      display: inline-block; padding: 2px 8px;
+      background: #eef2ff; color: #3730a3;
+      border-radius: 3px; font-size: 11px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      font-weight: 600;
+    }
+    .campaign .dates {
+      margin: 8px 0 0; color: #666; font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .campaign .desc { margin: 8px 0 0; font-size: 13px; color: #555; }
+    .campaign .arrow {
+      margin-top: 12px; color: #2563eb; font-size: 13px;
+    }
+    footer {
+      padding: 16px 32px; color: #888; font-size: 12px;
+      border-top: 1px solid #e3e3e3; background: #fff;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Dynamic Map Viewer</h1>
-    <div class="header-right">
-      <label class="filter-toggle">
-        Show:
-        <select id="filter">
-          <option value="all">All events</option>
-          <option value="past">Past only</option>
-        </select>
-      </label>
-      <div id="current-date" aria-live="polite"></div>
-    </div>
+    <h1>Paradox AAR campaigns</h1>
+    <p>Interactive timeline + map review for past multiplayer campaigns.</p>
   </header>
-
   <main>
-    <div class="left-col">
-      <div id="map-container">
-        <div id="map-frame">
-          <img id="map-image" alt="Campaign map">
-          <div id="event-dots"></div>
-        </div>
-      </div>
-      <section id="browser">
-        <div class="tabs" role="tablist">
-          <button class="tab active" data-tab="events" role="tab">
-            Events <span id="event-count" class="count"></span>
-          </button>
-        </div>
-        <div id="tab-events" class="tab-panel active" role="tabpanel">
-          <table id="events-table">
-            <thead>
-              <tr>
-                <th class="col-date">Date</th>
-                <th class="col-country">Country</th>
-                <th class="col-province">Province</th>
-                <th class="col-author">Author</th>
-                <th class="col-snippet">Title / snippet</th>
-              </tr>
-            </thead>
-            <tbody id="events-tbody"></tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-    <aside id="event-panel">
-      <p class="empty">Click a dot or a row to see the event.</p>
-    </aside>
+    <a class="campaign" href="eu4-paradox-in/view.html">
+      <span class="game-tag">EU4</span>
+      <h2>Paradox In</h2>
+      <p class="dates">1444 – 1821</p>
+      <p class="desc">Discord-server AAR with snapshot maps at 1444, 1550, and 1641.</p>
+      <p class="arrow">Open viewer →</p>
+    </a>
+
+    <a class="campaign placeholder" href="eu5-tbd/view.html">
+      <span class="game-tag">EU5</span>
+      <h2>TBD</h2>
+      <p class="dates">—</p>
+      <p class="desc">Placeholder — drop EU5 maps and reference data into <code>eu5-tbd/data/</code> to populate.</p>
+      <p class="arrow">Open viewer →</p>
+    </a>
   </main>
-
   <footer>
-    <div class="timeline-track">
-      <div id="timeline-marks"></div>
-      <input type="range" id="timeline" min="0" max="1000" value="0" step="1" aria-label="Timeline">
-    </div>
-    <div id="timeline-labels"></div>
+    Static site, no build step. Each card is a self-contained campaign folder.
   </footer>
-
-  <script src="assets/app.js"></script>
 </body>
 </html>

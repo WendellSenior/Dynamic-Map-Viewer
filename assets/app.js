@@ -416,7 +416,7 @@ async function init() {
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
-      loadJSON('data/reference/eu4/provinces.json').catch(() => ({})),
+      loadJSON(`data/reference/${window.CAMPAIGN_GAME || 'eu4'}/provinces.json`).catch(() => ({})),
       loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
     ]);
 

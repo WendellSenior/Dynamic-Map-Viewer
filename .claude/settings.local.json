@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\(\"$PWD\\\\data\\\\maps\\\\eu4_map_FRA_1444_11_11_1.png\"\\); \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\))",
-      "Bash(python tools/preprocess.py \"data/discord/Paradox_Paradox In_2026-05-17_to_2026-05-19.html\" --non-interactive)"
+      "Bash(python tools/preprocess.py \"data/discord/Paradox_Paradox In_2026-05-17_to_2026-05-19.html\" --non-interactive)",
+      "Bash(git add *)"
     ]
   }
 }

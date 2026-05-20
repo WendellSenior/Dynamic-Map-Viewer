@@ -7,13 +7,16 @@ __pycache__/
 Thumbs.db
 
 # Local Discord exports (large, often contain personal usernames).
-/Paradox_*.html
-/Paradox_*.json
+Paradox_*.html
+Paradox_*.json
 
-# Internal calibration tool — local-only.
-/calibrate.html
-/calibrate.bat
+# Internal calibration tool — local-only (per-campaign, may live in any subfolder).
+calibrate.html
+calibrate.bat
 
 # Local session editor.
-/sessions.html
-/sessions.bat
+sessions.html
+sessions.bat
+
+# Preprocessor side outputs.
+untagged.log
