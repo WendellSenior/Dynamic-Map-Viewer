@@ -42,6 +42,16 @@ TAG_ALIASES = {
                   "negotiation", "talks"],
     "History":   ["history", "historical", "background", "lore", "narration",
                   "general", "intro", "introduction", "context"],
+    "Religion":  ["religion", "religious", "faith", "prayer", "worship", "spiritual"],
+    "Catholic":  ["catholic", "christian", "christianity", "catholicism"],
+    "Muslim":    ["muslim", "islam", "islamic", "sunni", "shia", "shiite", "sufi"],
+    "Jewish":    ["jewish", "judaism", "jew", "hebrew"],
+    "Taoism":    ["taoism", "tao", "taoist", "yinyang", "yin yang", "yin-yang",
+                  "confucianism", "confucian"],
+    "Orthodox":  ["orthodox", "orthodoxy", "eastern orthodox"],
+    "Hindu":     ["hindu", "hinduism", "vedic", "vedanta"],
+    "Buddhism":  ["dharma", "dharmic", "buddhism", "buddhist", "zen",
+                  "theravada", "mahayana"],
 }
 TAG_LOOKUP = {}
 for _canonical, _aliases in TAG_ALIASES.items():

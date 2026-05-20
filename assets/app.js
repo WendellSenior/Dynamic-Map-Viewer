@@ -30,6 +30,14 @@ const TAG_ICONS = {
   Treaty: '📜',
   Meeting: '🤝',
   History: '⏳',
+  Religion: '🙏',
+  Catholic: '✝️',
+  Muslim: '☪️',
+  Jewish: '✡️',
+  Taoism: '☯️',
+  Orthodox: '☦️',
+  Hindu: '🕉️',
+  Buddhism: '☸️',
 };
 
 async function loadJSON(path) {

@@ -52,6 +52,14 @@ Fields:
   | `Treaty` | 📜 | Peace deals, alliances, royal marriages |
   | `Meeting` | 🤝 | Diplomacy, councils, conferences |
   | `History` | ⏳ | General historical narration / background |
+  | `Religion` | 🙏 | Generic faith / religious event |
+  | `Catholic` | ✝️ | Catholic / Christian (alias: `Christian`) |
+  | `Orthodox` | ☦️ | Eastern / Russian / Greek Orthodox |
+  | `Muslim` | ☪️ | Islam (aliases: `Sunni`, `Shia`, `Sufi`) |
+  | `Jewish` | ✡️ | Judaism (alias: `Hebrew`) |
+  | `Hindu` | 🕉️ | Hinduism (alias: `Vedic`) |
+  | `Buddhism` | ☸️ | Buddhism (aliases: `Dharma`, `Dharmic`, `Zen`) |
+  | `Taoism` | ☯️ | Chinese folk religions (aliases: `YinYang`, `Confucianism`) |
 
 Brackets may all sit on one line, or be split across several lines. Free text after the last bracket becomes the body.
 
