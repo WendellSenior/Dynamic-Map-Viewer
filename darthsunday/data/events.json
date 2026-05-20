@@ -333,7 +333,7 @@
     {
       "id": "1506416113385472061",
       "date": "1337-01-01",
-      "country": null,
+      "country": "MOS",
       "countryRaw": "Muscovy",
       "province": "Novgorod",
       "tag": "Meeting",
@@ -345,7 +345,7 @@
     {
       "id": "1505836303139209216",
       "date": "1337-01-01",
-      "country": null,
+      "country": "WAL",
       "countryRaw": "Wallachia",
       "province": "Targoviste",
       "tag": "History",

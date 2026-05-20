@@ -14,7 +14,12 @@ DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
 CHANNEL_ID    = "1434628920371581079"
 EVENTS_FILE   = "darthsunday/data/events.json"
 CACHE_FILE    = "darthsunday/data/processed_ids.json"
+REFERENCE_DIR = "darthsunday/data/reference/eu5"
 EDIT_LOOKBACK_DAYS = 7
+
+# Populated once at startup by load_country_lookup(); maps lowercase
+# name/alias/tag -> canonical TAG. Empty dict if reference data is missing.
+COUNTRY_LOOKUP = {}
 
 DISCORD_EPOCH = 1_420_070_400_000
 
@@ -152,10 +157,13 @@ def parse_event_tags(text):
 
     country_stripped = raw_country.strip()
     if re.fullmatch(r"[A-Z]{2,3}", country_stripped):
+        # Already a tag — trust it as-is.
         country     = country_stripped
         country_raw = None
     else:
-        country     = None
+        # Free-form name. Try the lookup; fall back to countryRaw-only if unknown.
+        resolved    = resolve_country(country_stripped)
+        country     = resolved
         country_raw = country_stripped
 
     tag = None
@@ -224,6 +232,60 @@ def save_json(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def load_country_lookup(reference_dir):
+    """Build {name|alias|tag (lowercase) -> TAG} from tags.json + country_aliases.json.
+
+    Lets us resolve `[Country:Muscovy]` to the canonical tag `MOS` so the
+    viewer doesn't grey out the country cell. Non-interactive: unknown names
+    just stay unresolved (countryRaw only). Missing reference files are
+    tolerated — returns whatever was loaded so the sync still runs.
+
+    Mirrors the resolution chain in tools/preprocess.py (build_country_lookup)
+    minus the interactive fuzzy-match prompts."""
+    lookup = {}
+
+    tags_path = os.path.join(reference_dir, "tags.json")
+    tags = load_json(tags_path, {})
+    if not tags:
+        log(f"  (no country reference at {tags_path} — strict tag-only mode)")
+        return lookup
+
+    for tag, info in tags.items():
+        if isinstance(info, str):
+            name, aliases = info, []
+        else:
+            name    = info.get("name", "")
+            aliases = info.get("aliases", []) or []
+        if name:
+            lookup[name.lower()] = tag
+        for alias in aliases:
+            if alias:
+                lookup[alias.lower()] = tag
+        lookup[tag.lower()] = tag
+
+    # country_aliases.json is the source-of-truth that gets baked into tags.json
+    # by parse_eu5_reference.py, but layering it again here means hand-edits to
+    # country_aliases.json take effect on the next sync run without rebuilding.
+    extras_path = os.path.join(reference_dir, "country_aliases.json")
+    extras = load_json(extras_path, {})
+    for tag, aliases in extras.items():
+        if tag.startswith("_"):  # skip "_comment"
+            continue
+        for alias in (aliases or []):
+            if alias:
+                lookup[alias.lower()] = tag
+
+    log(f"  Country lookup: {len(lookup)} name/alias entries loaded.")
+    return lookup
+
+
+def resolve_country(raw_name):
+    """Return canonical tag for a raw country name, or None. Case-insensitive."""
+    if not raw_name:
+        return None
+    return COUNTRY_LOOKUP.get(raw_name.strip().lower())
 
 
 def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=None):
@@ -305,6 +367,11 @@ def main():
     now_utc   = datetime.now(tz=timezone.utc)
     today_utc = now_utc.date()
     today_str = today_utc.isoformat()
+
+    # Load the country-name -> tag lookup once. Failure is non-fatal: the sync
+    # then falls back to strict tag-or-raw (countryRaw only for free-form names).
+    global COUNTRY_LOOKUP
+    COUNTRY_LOOKUP = load_country_lookup(REFERENCE_DIR)
 
     cache           = load_json(CACHE_FILE, {})
     processed_today = set(cache.get(today_str, []))
