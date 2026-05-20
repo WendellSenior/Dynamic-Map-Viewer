@@ -16,6 +16,11 @@ def main():
     ran = 0
     for snap_path in sorted(repo_root.glob("*/data/snapshots.json")):
         campaign = snap_path.parent.parent
+        # Skip campaigns owned by a GH-Actions Discord sync — their events.json is the
+        # authoritative live state and a local preprocess would overwrite it with stale data.
+        if (campaign / "scripts" / "sync_events.py").exists():
+            print(f"  {campaign.name}: skipped (Discord sync owns events.json)")
+            continue
         discord_dir = campaign / "data" / "discord"
         if not discord_dir.is_dir():
             continue

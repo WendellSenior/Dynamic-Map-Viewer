@@ -32,7 +32,10 @@
       "Bash(python)",
       "Bash(python tools/parse_eu5_reference.py --ref-dir eu5-tbd/data/reference/eu5 --snapshots eu5-tbd/data/snapshots.json)",
       "Bash(awk '/^\\\\tMOS = {/,/^\\\\t}/' \"/c/Program Files \\(x86\\)/Steam/steamapps/common/Europa Universalis V/game/main_menu/setup/start/10_countries.txt\")",
-      "Bash(python tools/parse_eu5_reference.py --ref-dir darthsunday/data/reference/eu5 --snapshots darthsunday/data/snapshots.json)"
+      "Bash(python tools/parse_eu5_reference.py --ref-dir darthsunday/data/reference/eu5 --snapshots darthsunday/data/snapshots.json)",
+      "Bash(cp darthsunday/events.html eu4-paradox-in/events.html)",
+      "Bash(cp darthsunday/events.html eu5-tbd/events.html)",
+      "Bash(cd \"/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer\" && rm -f darthsunday/data/discord/*.html darthsunday/data/untagged.log darthsunday/data/untagged.json && ls darthsunday/data/discord/ -la && echo === && ls darthsunday/data/ | head -10)"
     ]
   }
 }

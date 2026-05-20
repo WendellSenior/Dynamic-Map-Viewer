@@ -34,6 +34,13 @@ VALID_TAGS = {
     "meeting":   "Meeting",
     "history":   "History",
     "religion":  "Religion",
+    "catholic":  "Catholic",
+    "muslim":    "Muslim",
+    "jewish":    "Jewish",
+    "hindu":     "Hindu",
+    "buddhism":  "Buddhism",
+    "orthodox":  "Orthodox",
+    "taoism":    "Taoism",
 }
 
 TAG_RE = re.compile(

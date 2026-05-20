@@ -2,20 +2,9 @@
 setlocal
 cd /d "%~dp0\.."
 
-set "HAS_HTML="
-for %%F in (darthsunday\data\discord\*.html) do set "HAS_HTML=1"
-if defined HAS_HTML (
-  echo Preprocessing all exports in darthsunday\data\discord\
-  python tools\preprocess.py darthsunday\data\discord ^
-    --out darthsunday\data\events.json ^
-    --tags darthsunday\data\reference\eu5\tags.json ^
-    --raw-tags darthsunday\data\reference\eu5\00_countries.txt ^
-    --aliases darthsunday\data\reference\eu5\aliases.json ^
-    --untagged-log darthsunday\data\untagged.log ^
-    --non-interactive
-) else (
-  echo No discord exports in darthsunday\data\discord\ -- skipping preprocess
-)
+REM events.json for this campaign is owned by the GH-Actions Discord sync.
+REM No local preprocess step here — see darthsunday/scripts/sync_events.py and
+REM .github/workflows/discord-sync.yml.
 
 python tools\downsample_maps.py
 python tools\refresh_snapshots.py
