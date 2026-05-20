@@ -5,7 +5,7 @@ import re
 import json
 import time
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -13,6 +13,7 @@ DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
 CHANNEL_ID    = "1434628920371581079"
 EVENTS_FILE   = "darthsunday/data/events.json"
 CACHE_FILE    = "darthsunday/data/processed_ids.json"
+EDIT_LOOKBACK_DAYS = 7
 
 DISCORD_EPOCH = 1_420_070_400_000
 
@@ -54,6 +55,11 @@ def log(msg):
 def date_to_snowflake(dt):
     ms = int(dt.timestamp() * 1000)
     return str((max(ms - DISCORD_EPOCH, 0)) << 22)
+
+
+def snowflake_to_dt(snowflake):
+    ms = (int(snowflake) >> 22) + DISCORD_EPOCH
+    return datetime.fromtimestamp(ms / 1000, tz=timezone.utc)
 
 
 def api_get(path, params=None, retries=5):
@@ -176,8 +182,58 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+def check_edits(events_data, event_meta, now_utc):
+    """
+    For every event posted within the last EDIT_LOOKBACK_DAYS days,
+    fetch its message from Discord and check if edited_timestamp changed.
+    If it did, re-parse and update the entry in events_data in-place.
+    Returns True if any event was updated.
+    """
+    cutoff = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    updated = False
+
+    for i, event in enumerate(events_data["events"]):
+        event_id = event["id"]
+
+        # Only check recent messages (by real post date, from snowflake)
+        posted_at = snowflake_to_dt(event_id)
+        if posted_at < cutoff:
+            continue
+
+        meta = event_meta.get(event_id)
+        if not meta:
+            continue
+
+        channel_id     = meta["channel_id"]
+        stored_edited  = meta.get("edited_timestamp")
+
+        msg = api_get(f"/channels/{channel_id}/messages/{event_id}")
+        if not msg:
+            continue
+
+        current_edited = msg.get("edited_timestamp")
+
+        if current_edited == stored_edited:
+            continue
+
+        log(f"  ~ {event_id} was edited (was: {stored_edited}, now: {current_edited})")
+        meta["edited_timestamp"] = current_edited
+
+        parsed = parse_event_tags(msg.get("content", ""))
+        if parsed:
+            events_data["events"][i] = build_event(msg, parsed)
+            log(f"    updated: [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+        else:
+            log(f"    tags removed after edit — keeping old entry unchanged")
+
+        updated = True
+
+    return updated
+
+
 def main():
-    today_utc       = datetime.now(tz=timezone.utc).date()
+    now_utc         = datetime.now(tz=timezone.utc)
+    today_utc       = now_utc.date()
     today_str       = today_utc.isoformat()
     today_midnight  = datetime.combine(today_utc, datetime.min.time()).replace(tzinfo=timezone.utc)
     after_snowflake = date_to_snowflake(today_midnight)
@@ -186,6 +242,8 @@ def main():
 
     cache           = load_json(CACHE_FILE, {})
     processed_today = set(cache.get(today_str, []))
+    # event_meta: {msg_id: {channel_id, edited_timestamp}}
+    event_meta      = cache.get("event_meta", {})
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
 
@@ -202,19 +260,21 @@ def main():
 
     channels_to_scan = [CHANNEL_ID] + [t["id"] for t in active_threads]
 
+    # Collect messages tagged with which channel they came from
     all_messages = []
     for ch_id in channels_to_scan:
         label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
         msgs  = fetch_messages_since(ch_id, after_snowflake)
         log(f"  {len(msgs)} message(s) from {label}")
-        all_messages.extend(msgs)
+        for msg in msgs:
+            all_messages.append((msg, ch_id))
 
     log(f"Total messages to evaluate: {len(all_messages)}")
 
     new_events = []
     seen       = set()
 
-    for msg in all_messages:
+    for msg, ch_id in all_messages:
         msg_id = msg["id"]
         if msg_id in processed_today or msg_id in existing_ids or msg_id in seen:
             continue
@@ -224,21 +284,47 @@ def main():
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
             new_events.append(build_event(msg, parsed))
+            event_meta[msg_id] = {
+                "channel_id":       ch_id,
+                "edited_timestamp": msg.get("edited_timestamp"),
+            }
             log(f"  + {msg_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
             log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
 
-    had_changes = bool(new_events)
-    if had_changes:
-        events_data["events"].extend(new_events)
-        save_json(EVENTS_FILE, events_data)
-        log(f"Saved {len(new_events)} new event(s).")
-    else:
-        log("No new events this run.")
+    # ── Edit check ────────────────────────────────────────────────────────────
+    log("Checking recent events for edits ...")
+    edits_found = check_edits(events_data, event_meta, now_utc)
+    if not edits_found:
+        log("  No edits found.")
 
-    cache[today_str] = list(processed_today)
-    cutoff = (today_utc - timedelta(days=7)).isoformat()
-    cache  = {k: v for k, v in cache.items() if k >= cutoff}
+    # ── Persist ───────────────────────────────────────────────────────────────
+    had_changes = bool(new_events) or edits_found
+
+    if new_events:
+        events_data["events"].extend(new_events)
+
+    if had_changes:
+        save_json(EVENTS_FILE, events_data)
+        log(f"Saved events.json ({len(new_events)} new, edits={edits_found}).")
+    else:
+        log("No changes this run.")
+
+    # Prune event_meta entries older than EDIT_LOOKBACK_DAYS
+    cutoff_dt = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    event_meta = {
+        k: v for k, v in event_meta.items()
+        if snowflake_to_dt(k) >= cutoff_dt
+    }
+
+    cache[today_str]   = list(processed_today)
+    cache["event_meta"] = event_meta
+
+    cutoff_date = (today_utc - timedelta(days=7)).isoformat()
+    cache = {
+        k: v for k, v in cache.items()
+        if k == "event_meta" or k >= cutoff_date
+    }
     save_json(CACHE_FILE, cache)
 
     github_output = os.environ.get("GITHUB_OUTPUT", "")
