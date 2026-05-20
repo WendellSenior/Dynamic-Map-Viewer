@@ -79,7 +79,7 @@
       const root = document.getElementById('campaigns');
       let data;
       try {
-        const r = await fetch('campaigns.json');
+        const r = await fetch('campaigns.json?t=' + Date.now());
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         data = await r.json();
       } catch (err) {
