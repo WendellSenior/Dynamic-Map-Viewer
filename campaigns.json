@@ -4,26 +4,34 @@
       "folder": "eu4-paradox-in",
       "game": "eu4",
       "label": "Paradox In",
-      "dates": "1444 – 1821",
+      "dates": "1444 \u2013 1821",
       "description": "Discord-server AAR with snapshot maps at 1444, 1550, and 1641.",
       "hidden": true
     },
     {
       "folder": "eu5-tbd",
       "game": "eu5",
-      "label": "Darth Sunday (April 2026)",
-      "dates": "—",
-      "description": "Interactive timeline and campaign map for the ParadoxRP discord server.",
-      "placeholder": false,
+      "label": "Test Campaign",
+      "dates": "\u2014",
+      "description": "Test data including maps and events for, uh, testing.",
+      "placeholder": true,
       "hidden": false
     },
     {
       "folder": "darth-sunday-april",
       "game": "eu5",
       "label": "Sunday Campaign (April 2026)",
-      "dates": "—",
+      "dates": "\u2014",
       "description": "",
       "hidden": true
+    },
+    {
+      "folder": "darthsunday",
+      "game": "eu5",
+      "label": "Darth Sunday Campaign",
+      "dates": "\u2014",
+      "description": "",
+      "hidden": false
     }
   ]
 }

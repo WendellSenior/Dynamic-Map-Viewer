@@ -2,13 +2,14 @@
 setlocal
 cd /d "%~dp0\.."
 
-set "LATEST="
-for %%F in (darth-sunday-april\data\discord\*.html) do set "LATEST=%%F"
-if defined LATEST (
-  echo Preprocessing %LATEST%
-  python tools\preprocess.py "%LATEST%" ^
+set "HAS_HTML="
+for %%F in (darth-sunday-april\data\discord\*.html) do set "HAS_HTML=1"
+if defined HAS_HTML (
+  echo Preprocessing all exports in darth-sunday-april\data\discord\
+  python tools\preprocess.py darth-sunday-april\data\discord ^
     --out darth-sunday-april\data\events.json ^
     --tags darth-sunday-april\data\reference\eu5\tags.json ^
+    --raw-tags darth-sunday-april\data\reference\eu5\00_countries.txt ^
     --aliases darth-sunday-april\data\reference\eu5\aliases.json ^
     --untagged-log darth-sunday-april\data\untagged.log ^
     --non-interactive

@@ -287,7 +287,9 @@ def resolve_country(raw_name, lookup, tags, alias_cache, interactive):
 
 def main():
     ap = argparse.ArgumentParser(description="Discord export -> events.json")
-    ap.add_argument("input", type=Path, help="DiscordChatExporter HTML or JSON export")
+    ap.add_argument("inputs", type=Path, nargs="+",
+                    help="One or more DCE exports, or a directory containing them. "
+                         "Messages from all sources are merged and sorted by timestamp.")
     ap.add_argument("--out", type=Path, default=Path("data/events.json"))
     ap.add_argument("--tags", type=Path, default=Path("data/reference/eu4/tags.json"))
     ap.add_argument("--raw-tags", type=Path, default=None,
@@ -298,16 +300,34 @@ def main():
                     help="Skip prompts for unresolved countries (mark as null instead)")
     args = ap.parse_args()
 
-    if args.input.suffix.lower() == ".html":
-        messages = extract_messages_from_html(args.input)
-    elif args.input.suffix.lower() == ".json":
-        messages = extract_messages_from_json(args.input)
-    else:
-        raise SystemExit(f"Unsupported input format: {args.input.suffix}")
+    # Expand inputs: directories → all *.html / *.json children. Files → themselves.
+    input_files = []
+    for p in args.inputs:
+        if p.is_dir():
+            for sub in sorted(p.iterdir()):
+                if sub.suffix.lower() in (".html", ".json") and not sub.name.startswith("."):
+                    input_files.append(sub)
+        else:
+            input_files.append(p)
+    if not input_files:
+        raise SystemExit("No HTML or JSON inputs found.")
+
+    messages = []
+    for inp in input_files:
+        if inp.suffix.lower() == ".html":
+            messages.extend(extract_messages_from_html(inp))
+        elif inp.suffix.lower() == ".json":
+            messages.extend(extract_messages_from_json(inp))
+        else:
+            print(f"Skipping unsupported file: {inp}")
+    # Merge order: chronological. Discord IDs / ISO timestamps both sort safely as strings.
+    messages.sort(key=lambda m: m.get("timestamp") or "")
 
     # Rewrite relative attachment URLs (DiscordChatExporter --media mode) so the viewer
     # can resolve them from the campaign root (parent of data/).
-    input_dir = args.input.parent.resolve()
+    # All inputs are expected to share the same discord/ directory; take the first as base.
+    first = input_files[0].resolve()
+    input_dir = first if first.is_dir() else first.parent
     viewer_dir = args.out.parent.parent.resolve()
     def to_viewer_url(url):
         if not url:
@@ -328,7 +348,9 @@ def main():
 
     events = []
     untagged = []
-    last_event_by_author = {}  # author_id -> (event_ref, last_ts)
+    # Keyed by (channel_id, author_id) so a same-author follow-up in one channel never
+    # merges into an event posted in a different channel within the continuation window.
+    last_event_by_author = {}
 
     for msg in messages:
         content = (msg.get("content") or "").strip()
@@ -347,6 +369,8 @@ def main():
         author = msg.get("author") or {}
         author_name = author.get("global_name") or author.get("username") or "unknown"
         author_id = author.get("id") or author_name
+        channel_id = msg.get("channel_id") or ""
+        cont_key = (channel_id, author_id)
         msg_id = msg.get("id") or hashlib.sha1(content.encode("utf-8")).hexdigest()[:12]
         ts_str = msg.get("timestamp")
         try:
@@ -400,7 +424,7 @@ def main():
             }
             events.append(event)
             if ts:
-                last_event_by_author[author_id] = (event, ts)
+                last_event_by_author[cont_key] = (event, ts)
         elif header_attempted:
             # Tried to start a new event but format was broken — surface in untagged with a reason.
             # Never merge a header-attempted post into the previous event's narrative.
@@ -414,7 +438,7 @@ def main():
                 "reason": invalid_reason or "header attempted but unparseable",
             })
         else:
-            prev = last_event_by_author.get(author_id)
+            prev = last_event_by_author.get(cont_key)
             if prev and ts and (ts - prev[1]) <= CONTINUATION_WINDOW:
                 ev, _ = prev
                 if content:
@@ -422,7 +446,7 @@ def main():
                     ev["snippet"] = ev["fullText"][:120]
                 if msg_images:
                     ev["images"] = (ev.get("images") or []) + msg_images
-                last_event_by_author[author_id] = (ev, ts)
+                last_event_by_author[cont_key] = (ev, ts)
             else:
                 untagged.append({
                     "id": msg_id,

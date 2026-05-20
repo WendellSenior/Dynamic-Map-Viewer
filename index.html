@@ -32,6 +32,46 @@
       letter-spacing: 0.04em; text-transform: uppercase;
       font-weight: 600;
     }
+
+    #tag-generator {
+      background: #fff; border-bottom: 1px solid #e3e3e3;
+      padding: 20px 32px;
+    }
+    .gen-inner { max-width: 1200px; margin: 0 auto; }
+    #tag-generator h2 { margin: 0 0 4px; font-size: 16px; }
+    #tag-generator > .gen-inner > p { margin: 0 0 14px; color: #666; font-size: 13px; }
+    .gen-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 2fr 2fr 1.6fr;
+      gap: 10px;
+    }
+    @media (max-width: 900px) {
+      .gen-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .gen-grid label {
+      display: flex; flex-direction: column; gap: 4px;
+      font-size: 12px; color: #555;
+    }
+    .gen-grid input, .gen-grid select {
+      padding: 6px 8px; font: inherit; border: 1px solid #ccc; border-radius: 4px;
+      background: #fff;
+    }
+    .gen-output-row {
+      display: flex; gap: 8px; align-items: stretch; margin-top: 12px;
+    }
+    #gen-output {
+      flex: 1; padding: 8px 10px;
+      font-family: ui-monospace, Menlo, monospace; font-size: 13px;
+      background: #f5f6f7; border: 1px solid #e3e3e3; border-radius: 4px;
+      overflow: auto; white-space: nowrap; user-select: all;
+    }
+    #gen-output.placeholder { color: #999; }
+    #gen-copy {
+      background: #2563eb; color: #fff; border: none; border-radius: 4px;
+      padding: 6px 16px; cursor: pointer; font: inherit; white-space: nowrap;
+    }
+    #gen-copy:hover { background: #1d4ed8; }
+    #gen-copy.copied { background: #16a34a; }
     main {
       flex: 1; padding: 32px;
       display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -92,6 +132,62 @@
       <div class="supported-games" id="supported-games"></div>
     </div>
   </header>
+  <section id="tag-generator">
+    <div class="gen-inner">
+      <h2>Tag generator</h2>
+      <p>Build a properly-formatted tag for your Discord post — copy the output and paste it at the top of your event narrative.</p>
+      <div class="gen-grid">
+        <label>
+          Game
+          <select id="gen-game"></select>
+        </label>
+        <label>
+          Date
+          <input type="date" id="gen-date">
+        </label>
+        <label>
+          Country
+          <input type="text" id="gen-country" list="country-list" placeholder="e.g. France or FRA" autocomplete="off">
+          <datalist id="country-list"></datalist>
+        </label>
+        <label>
+          Location
+          <input type="text" id="gen-location" placeholder="e.g. Paris" autocomplete="off">
+        </label>
+        <label>
+          Tag
+          <select id="gen-tag">
+            <option value="">(none)</option>
+            <optgroup label="General">
+              <option value="WarDec">🎺 WarDec</option>
+              <option value="Battle">⚔️ Battle</option>
+              <option value="Character">👤 Character</option>
+              <option value="Trade">📦 Trade</option>
+              <option value="Economy">💰 Economy</option>
+              <option value="Discover">🚢 Discover</option>
+              <option value="Treaty">📜 Treaty</option>
+              <option value="Meeting">🤝 Meeting</option>
+              <option value="History">⏳ History</option>
+            </optgroup>
+            <optgroup label="Religion">
+              <option value="Religion">🙏 Religion</option>
+              <option value="Catholic">✝️ Catholic</option>
+              <option value="Orthodox">☦️ Orthodox</option>
+              <option value="Muslim">☪️ Muslim</option>
+              <option value="Jewish">✡️ Jewish</option>
+              <option value="Hindu">🕉️ Hindu</option>
+              <option value="Buddhism">☸️ Buddhism</option>
+              <option value="Taoism">☯️ Taoism</option>
+            </optgroup>
+          </select>
+        </label>
+      </div>
+      <div class="gen-output-row">
+        <code id="gen-output" class="placeholder">[Date:…][Country:…][Location:…][Tag:…]</code>
+        <button id="gen-copy">Copy</button>
+      </div>
+    </div>
+  </section>
   <main id="campaigns">
     <p class="empty">Loading…</p>
   </main>
@@ -121,9 +217,9 @@
 
       // Populate "Games supported" pills from distinct game tags (visible + hidden).
       const gamesEl = document.getElementById('supported-games');
+      const games = [...new Set(campaigns.map(c => c.game).filter(Boolean))].sort();
       if (gamesEl) {
         gamesEl.replaceChildren();
-        const games = [...new Set(campaigns.map(c => c.game).filter(Boolean))].sort();
         for (const g of games) {
           const pill = document.createElement('span');
           pill.className = 'game-pill';
@@ -131,6 +227,9 @@
           gamesEl.appendChild(pill);
         }
       }
+
+      // Wire the tag generator.
+      setupTagGenerator(campaigns, games);
 
       root.replaceChildren();
       if (campaigns.length === 0) {
@@ -193,6 +292,98 @@
           .catch(() => {});
       }
     })();
+
+    function setupTagGenerator(campaigns, games) {
+      const gameSel = document.getElementById('gen-game');
+      const dateEl  = document.getElementById('gen-date');
+      const cntEl   = document.getElementById('gen-country');
+      const locEl   = document.getElementById('gen-location');
+      const tagEl   = document.getElementById('gen-tag');
+      const outEl   = document.getElementById('gen-output');
+      const copyBtn = document.getElementById('gen-copy');
+      const listEl  = document.getElementById('country-list');
+
+      // Populate game selector. Default to the first visible campaign's game, or first available.
+      gameSel.replaceChildren();
+      for (const g of games) {
+        const opt = document.createElement('option');
+        opt.value = g;
+        opt.textContent = String(g).toUpperCase();
+        gameSel.appendChild(opt);
+      }
+      const firstVisible = campaigns.find(c => !c.hidden && c.game);
+      if (firstVisible) gameSel.value = firstVisible.game;
+
+      async function loadCountries(game) {
+        // Pick the first campaign with this game as the data source.
+        const src = campaigns.find(c => c.game === game);
+        if (!src) { listEl.replaceChildren(); return; }
+        const names = new Set();
+        // tags.json — full tag/name map (canonical for EU5, curated for EU4).
+        try {
+          const tags = await fetch(`${src.folder}/data/reference/${game}/tags.json?t=${Date.now()}`)
+            .then(r => r.ok ? r.json() : {});
+          for (const [tag, info] of Object.entries(tags || {})) {
+            if (info && info.name) names.add(info.name);
+            names.add(tag);
+          }
+        } catch {}
+        // 00_countries.txt — fills in the EU4 gap (full ~700 tags from filenames).
+        try {
+          const txt = await fetch(`${src.folder}/data/reference/${game}/00_countries.txt?t=${Date.now()}`)
+            .then(r => r.ok ? r.text() : '');
+          const re = /^([A-Z][A-Z0-9]{1,3})\s*=\s*"countries\/([^"]+)\.txt"/gm;
+          let m;
+          while ((m = re.exec(txt)) !== null) {
+            names.add(m[1]);
+            names.add(m[2].replace(/([a-z])([A-Z])/g, '$1 $2'));
+          }
+        } catch {}
+        listEl.replaceChildren();
+        for (const n of [...names].sort()) {
+          const o = document.createElement('option');
+          o.value = n;
+          listEl.appendChild(o);
+        }
+      }
+
+      function regenerate() {
+        const parts = [];
+        if (dateEl.value) parts.push(`[Date:${dateEl.value}]`);
+        const c = cntEl.value.trim();
+        if (c) parts.push(`[Country:${c}]`);
+        const l = locEl.value.trim();
+        if (l) parts.push(`[Location:${l}]`);
+        if (tagEl.value) parts.push(`[Tag:${tagEl.value}]`);
+        if (parts.length === 0) {
+          outEl.textContent = '[Date:…][Country:…][Location:…][Tag:…]';
+          outEl.classList.add('placeholder');
+        } else {
+          outEl.textContent = parts.join('');
+          outEl.classList.remove('placeholder');
+        }
+      }
+
+      gameSel.addEventListener('change', () => loadCountries(gameSel.value));
+      [dateEl, cntEl, locEl, tagEl].forEach(el => el.addEventListener('input', regenerate));
+      tagEl.addEventListener('change', regenerate);
+
+      copyBtn.addEventListener('click', async () => {
+        if (outEl.classList.contains('placeholder')) return;
+        try {
+          await navigator.clipboard.writeText(outEl.textContent);
+          const orig = copyBtn.textContent;
+          copyBtn.textContent = 'Copied ✓';
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            copyBtn.textContent = orig;
+            copyBtn.classList.remove('copied');
+          }, 1500);
+        } catch {}
+      });
+
+      if (gameSel.value) loadCountries(gameSel.value);
+    }
   </script>
 </body>
 </html>

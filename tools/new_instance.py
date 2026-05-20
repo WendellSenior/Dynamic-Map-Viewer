@@ -103,11 +103,11 @@ INIT_BAT_TEMPLATE = """@echo off
 setlocal
 cd /d "%~dp0\\.."
 
-set "LATEST="
-for %%F in (__FOLDER__\\data\\discord\\*.html) do set "LATEST=%%F"
-if defined LATEST (
-  echo Preprocessing %LATEST%
-  python tools\\preprocess.py "%LATEST%" ^
+set "HAS_HTML="
+for %%F in (__FOLDER__\\data\\discord\\*.html) do set "HAS_HTML=1"
+if defined HAS_HTML (
+  echo Preprocessing all exports in __FOLDER__\\data\\discord\\
+  python tools\\preprocess.py __FOLDER__\\data\\discord ^
     --out __FOLDER__\\data\\events.json ^
     --tags __FOLDER__\\data\\reference\\__GAME__\\tags.json ^
     --raw-tags __FOLDER__\\data\\reference\\__GAME__\\00_countries.txt ^

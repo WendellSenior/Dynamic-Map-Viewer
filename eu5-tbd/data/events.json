@@ -32,6 +32,7 @@
       "province": "London",
       "tag": "Character",
       "author": "Tartarus",
+      "title": "The King of England is Dead",
       "snippet": "[Date:1336-32-32][Location:England][Tag:Economy]\n\nThe King of england is dead oh no rip man sucks to suck",
       "fullText": "[Date:1336-32-32][Location:England][Tag:Economy]\n\nThe King of england is dead oh no rip man sucks to suck",
       "images": []
@@ -44,6 +45,7 @@
       "province": "Barcelona",
       "tag": "Treaty",
       "author": "Tartarus",
+      "title": "Spanish Treaty",
       "snippet": "date: 1336 country: spain location: barcelona tag: treaty\n\nim sooooo stupid i dont know how to use square brackets but d",
       "fullText": "date: 1336 country: spain location: barcelona tag: treaty\n\nim sooooo stupid i dont know how to use square brackets but dont you DARE detier me man",
       "images": []
@@ -124,6 +126,7 @@
       "province": null,
       "tag": null,
       "author": "Tartarus",
+      "title": null,
       "snippet": "## Why I Am So Much of a Genius\nI forgot to add the bracketed tags to my post.",
       "fullText": "## Why I Am So Much of a Genius\nI forgot to add the bracketed tags to my post.",
       "images": [

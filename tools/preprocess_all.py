@@ -19,13 +19,13 @@ def main():
         discord_dir = campaign / "data" / "discord"
         if not discord_dir.is_dir():
             continue
-
-        # Latest export alphabetically (DCE filenames sort by date).
-        latest = None
-        for f in sorted(discord_dir.iterdir()):
-            if f.suffix.lower() in HTML_EXTS and not f.name.startswith("."):
-                latest = f
-        if not latest:
+        # Process every export in the campaign's discord/ folder, not just the latest.
+        # preprocess.py handles directories: it expands to all .html / .json children.
+        has_inputs = any(
+            f.suffix.lower() in HTML_EXTS and not f.name.startswith(".")
+            for f in discord_dir.iterdir()
+        )
+        if not has_inputs:
             continue
 
         # Game = first subfolder of data/reference/, by convention.
@@ -42,7 +42,7 @@ def main():
 
         ref = ref_root / game
         cmd = [
-            sys.executable, str(preprocess), str(latest),
+            sys.executable, str(preprocess), str(discord_dir),
             "--out",          str(campaign / "data" / "events.json"),
             "--tags",         str(ref / "tags.json"),
             "--raw-tags",     str(ref / "00_countries.txt"),
@@ -50,7 +50,7 @@ def main():
             "--untagged-log", str(campaign / "data" / "untagged.log"),
             "--non-interactive",
         ]
-        print(f"  {campaign.name}: preprocessing {latest.name}")
+        print(f"  {campaign.name}: preprocessing all exports in {discord_dir.name}/")
         subprocess.run(cmd, check=False)
         ran += 1
 

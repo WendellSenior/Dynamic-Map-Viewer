@@ -1,0 +1,13 @@
+{
+  "config": {
+    "width": 16384,
+    "height": 8192
+  },
+  "snapshots": [
+    {
+      "date": "1337-01-01",
+      "image": "data/maps/1337_April_01.png",
+      "label": "1337"
+    }
+  ]
+}
