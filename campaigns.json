@@ -14,7 +14,7 @@
       "label": "TBD",
       "dates": "—",
       "description": "Placeholder — drop EU5 maps and reference data into eu5-tbd/data/ to populate.",
-      "placeholder": true,
+      "placeholder": false,
       "hidden": false
     },
     {
