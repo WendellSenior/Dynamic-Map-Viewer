@@ -36,10 +36,13 @@ VALID_TAGS = {
 }
 
 TAG_RE = re.compile(
-    r"\[Date:(\d{4}-\d{2}-\d{2})\]"
-    r"\[Country:([^\]]+)\]"
-    r"\[Location:([^\]]+)\]"
-    r"(?:\[Tag:([^\]]+)\])?",
+    r"\[Date:\s*(\d{4}-\d{2}-\d{2})\s*\]"
+    r"\s*"
+    r"\[Country:\s*([^\]]+?)\s*\]"
+    r"\s*"
+    r"\[Location:\s*([^\]]+?)\s*\]"
+    r"\s*"
+    r"(?:\[Tag:\s*([^\]]+?)\s*\])?",
     re.IGNORECASE,
 )
 
@@ -252,7 +255,8 @@ def main():
             new_events.append(message_to_event(msg, parsed))
             log(f"  + {msg_id}  [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
-            log(f"  - {msg_id} (no valid tags)")
+            snippet = repr(msg.get("content", "")[:120])
+            log(f"  - {msg_id} (no valid tags) | {snippet}")
 
     had_changes = bool(new_events)
     if had_changes:
