@@ -37,7 +37,8 @@
       "Bash(cp darthsunday/events.html eu5-tbd/events.html)",
       "Bash(cd \"/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer\" && rm -f darthsunday/data/discord/*.html darthsunday/data/untagged.log darthsunday/data/untagged.json && ls darthsunday/data/discord/ -la && echo === && ls darthsunday/data/ | head -10)",
       "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py'\\).read\\(\\)\\); print\\('sync_events.py OK'\\)\")",
-      "Bash(python darthsunday/scripts/sync_events.py --help)"
+      "Bash(python darthsunday/scripts/sync_events.py --help)",
+      "PowerShell($env:DISCORD_TOKEN='dummy'; python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")"
     ]
   }
 }

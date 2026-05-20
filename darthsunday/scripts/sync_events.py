@@ -25,23 +25,25 @@ HEADERS = {
 }
 
 VALID_TAGS = {
-    "wardec":    "WarDec",
-    "battle":    "Battle",
-    "character": "Character",
-    "trade":     "Trade",
-    "economy":   "Economy",
-    "discover":  "Discover",
-    "treaty":    "Treaty",
-    "meeting":   "Meeting",
-    "history":   "History",
-    "religion":  "Religion",
-    "catholic":  "Catholic",
-    "muslim":    "Muslim",
-    "jewish":    "Jewish",
-    "hindu":     "Hindu",
-    "buddhism":  "Buddhism",
-    "orthodox":  "Orthodox",
-    "taoism":    "Taoism",
+    "wardec":      "WarDec",
+    "battle":      "Battle",
+    "character":   "Character",
+    "trade":       "Trade",
+    "economy":     "Economy",
+    "discover":    "Discover",
+    "treaty":      "Treaty",
+    "meeting":     "Meeting",
+    "interaction": "Meeting",
+    "diplomacy":   "Meeting",
+    "history":     "History",
+    "religion":    "Religion",
+    "catholic":    "Catholic",
+    "muslim":      "Muslim",
+    "jewish":      "Jewish",
+    "hindu":       "Hindu",
+    "buddhism":    "Buddhism",
+    "orthodox":    "Orthodox",
+    "taoism":      "Taoism",
 }
 
 TAG_RE = re.compile(
@@ -160,17 +162,24 @@ def parse_event_tags(text):
     if raw_tag:
         tag = VALID_TAGS.get(raw_tag.strip().lower())
 
+    # Strip the matched bracket header so it doesn't appear in the snippet/body.
+    # Snippets are user-facing; the bracket noise hides the actual title.
+    cleaned = (text[:match.start()] + text[match.end():]).strip()
+
     return {
         "date":       raw_date,
         "country":    country,
         "countryRaw": country_raw,
         "province":   raw_location.strip(),
         "tag":        tag,
+        "cleaned":    cleaned,
     }
 
 
-def build_event(msg, parsed):
-    content  = msg.get("content", "")
+def build_event(msg, parsed, thread_title=None):
+    # Use cleaned content (bracket header removed) for snippet/fullText so the
+    # tags don't show up as title-fallback text in the viewer.
+    content  = parsed.get("cleaned") or msg.get("content", "")
     author   = msg.get("author", {})
     username = author.get("global_name") or author.get("username", "unknown")
     images = [
@@ -183,7 +192,7 @@ def build_event(msg, parsed):
         for att in msg.get("attachments", [])
         if (att.get("content_type") or "").startswith("image/")
     ]
-    return {
+    event = {
         "id":         msg["id"],
         "date":       parsed["date"],
         "country":    parsed["country"],
@@ -195,6 +204,12 @@ def build_event(msg, parsed):
         "fullText":   content,
         "images":     images,
     }
+    # If the message lives in a named thread, the thread name is almost always
+    # the post's title. The viewer reads `title` first before falling back to
+    # markdown-heading / bold-line heuristics.
+    if thread_title:
+        event["title"] = thread_title
+    return event
 
 
 def load_json(path, default):
@@ -211,7 +226,8 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def check_edits_and_deletions(events_data, event_meta, now_utc):
+def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=None):
+    thread_names = thread_names or {}
     cutoff      = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
     updated     = False
     to_delete   = []
@@ -250,7 +266,8 @@ def check_edits_and_deletions(events_data, event_meta, now_utc):
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
-            events_data["events"][i] = build_event(msg, parsed)
+            thread_title = thread_names.get(channel_id) if channel_id != CHANNEL_ID else None
+            events_data["events"][i] = build_event(msg, parsed, thread_title=thread_title)
             log(f"    updated: [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
             log(f"    tags removed after edit — keeping old entry unchanged")
@@ -324,6 +341,11 @@ def main():
     active_threads = fetch_active_threads(guild_id)
     log(f"  {len(active_threads)} active thread(s).")
 
+    # Map channel/thread ID -> thread name. Used as the event title when the
+    # author posts inside a named thread (Discord threads carry the title even
+    # if the message body has no `# Heading` or `**Bold**` line).
+    thread_names = {t["id"]: t.get("name", "") for t in active_threads if t.get("name")}
+
     channels_to_scan = [CHANNEL_ID] + [t["id"] for t in active_threads]
 
     # Collect messages tagged with which channel they came from
@@ -356,7 +378,8 @@ def main():
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
-            new_events.append(build_event(msg, parsed))
+            thread_title = thread_names.get(ch_id) if ch_id != CHANNEL_ID else None
+            new_events.append(build_event(msg, parsed, thread_title=thread_title))
             event_meta[msg_id] = {
                 "channel_id":       ch_id,
                 "edited_timestamp": msg.get("edited_timestamp"),
@@ -367,7 +390,7 @@ def main():
 
     # ── Edit check ────────────────────────────────────────────────────────────
     log("Checking recent events for edits/deletions ...")
-    edits_found = check_edits_and_deletions(events_data, event_meta, now_utc)
+    edits_found = check_edits_and_deletions(events_data, event_meta, now_utc, thread_names)
     if not edits_found:
         log("  No changes found.")
 
