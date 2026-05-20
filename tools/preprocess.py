@@ -399,6 +399,8 @@ def main():
                 "author": author_name,
                 "timestamp": ts_str,
                 "preview": content[:160],
+                "content": content,
+                "images": msg_images,
                 "reason": invalid_reason or "header attempted but unparseable",
             })
         else:
@@ -417,12 +419,73 @@ def main():
                     "author": author_name,
                     "timestamp": ts_str,
                     "preview": content[:160],
+                    "content": content,
+                    "images": msg_images,
                     "reason": "no header detected",
                 })
+
+    # Apply manual overrides from data/overrides.json (written by events.html editor).
+    overrides_path = args.out.parent / "overrides.json"
+    if overrides_path.exists():
+        try:
+            overrides = json.loads(overrides_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            overrides = {}
+    else:
+        overrides = {}
+
+    if overrides:
+        # Merge overrides onto matching parsed events (per-field, non-empty wins).
+        for ev in events:
+            ov = overrides.get(ev["id"])
+            if not ov:
+                continue
+            for k, v in ov.items():
+                if v is None or v == "":
+                    continue
+                ev[k] = v
+            if "fullText" in ov:
+                ev["snippet"] = (ov.get("fullText") or "")[:120]
+
+        # Promote untagged messages that have an override with a valid date into real events.
+        kept_untagged = []
+        promoted_ids = set()
+        existing_ids = {ev["id"] for ev in events}
+        for u in untagged:
+            ov = overrides.get(u["id"])
+            if ov and ov.get("date") and u["id"] not in existing_ids:
+                full = ov.get("fullText") or u.get("content", "")
+                events.append({
+                    "id": u["id"],
+                    "date": ov["date"],
+                    "country": ov.get("country"),
+                    "countryRaw": ov.get("countryRaw") or ov.get("country"),
+                    "province": ov.get("province"),
+                    "tag": ov.get("tag"),
+                    "author": ov.get("author") or u["author"],
+                    "snippet": (full or "")[:120],
+                    "fullText": full,
+                    "images": ov.get("images", u.get("images", [])),
+                })
+                promoted_ids.add(u["id"])
+            else:
+                kept_untagged.append(u)
+        untagged = kept_untagged
+        if promoted_ids:
+            print(f"  promoted {len(promoted_ids)} untagged message(s) via overrides.json")
+        events.sort(key=lambda e: e["date"])
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(
         json.dumps({"events": events}, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    # Structured untagged.json for the events.html editor (alongside untagged.log).
+    untagged_json_path = args.untagged_log.with_suffix(".json")
+    untagged_json_path.parent.mkdir(parents=True, exist_ok=True)
+    untagged_json_path.write_text(
+        json.dumps(untagged, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
     args.aliases.parent.mkdir(parents=True, exist_ok=True)

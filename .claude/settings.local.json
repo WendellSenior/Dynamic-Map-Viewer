@@ -23,7 +23,12 @@
       "Bash(cd \"/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer\" && ls -la | grep -i april && echo --- && ls eu5-april-2026-sundays/ 2>&1 || echo \"Folder not there now\")",
       "Bash(python tools/new_instance.py)",
       "Bash(python -c \"import json; d=json.load\\(open\\('campaigns.json',encoding='utf-8'\\)\\); print\\('campaigns.json OK -', len\\(d['campaigns']\\), 'entries:'\\); [print\\(' ',c['folder']\\) for c in d['campaigns']]\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/campaigns.json)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/campaigns.json)",
+      "Bash(cp eu4-paradox-in/events.html eu5-tbd/events.html)",
+      "Bash(cp eu4-paradox-in/events.html darth-sunday-april/events.html)",
+      "Bash(cat)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('eu5-tbd/data/untagged.json',encoding='utf-8'\\)\\); print\\(f'{len\\(d\\)} untagged entries, keys per entry:', sorted\\(d[0].keys\\(\\)\\) if d else '\\(empty\\)'\\)\")",
+      "Bash(python tools/preprocess_all.py)"
     ]
   }
 }

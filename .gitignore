@@ -13,3 +13,8 @@ Thumbs.db
 
 # Preprocessor diagnostic, regenerated on every run.
 untagged.log
+untagged.json
+
+# Local-only events editor (per-campaign). Manual overrides ARE committed via overrides.json.
+events.html
+events.bat

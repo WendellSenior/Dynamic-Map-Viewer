@@ -247,7 +247,7 @@ def main():
          if c.is_dir() and c != folder_path and (c / "sessions.html").exists()),
         None,
     )
-    for editor in ("sessions", "calibrate"):
+    for editor in ("sessions", "calibrate", "events"):
         bat = (
             EDITOR_BAT_TEMPLATE
             .replace("__FOLDER__", folder)

@@ -454,8 +454,8 @@ function renderMarkdown(text) {
 function extractTitle(e) {
   if (!e.fullText) return null;
   for (const line of e.fullText.split('\n')) {
-    const s = line.trim();
-    if (s.startsWith('# ')) return s.slice(2).trim();
+    const m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
+    if (m) return m[1];
   }
   return null;
 }
