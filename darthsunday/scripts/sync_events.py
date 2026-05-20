@@ -17,6 +17,14 @@ CACHE_FILE    = "darthsunday/data/processed_ids.json"
 REFERENCE_DIR = "darthsunday/data/reference/eu5"
 EDIT_LOOKBACK_DAYS = 7
 
+# Per-run cap on promotion-check API calls. Once `rejected_meta` grows past
+# this (a few hundred for a long-running campaign), the check rotates through
+# entries in *least-recently-checked* order — every entry still gets revisited,
+# just spread over multiple cron runs. With cap=100 and ~500 rejections, each
+# entry is rechecked every ~5 hours instead of every hour. Set to None to
+# disable the cap.
+MAX_PROMOTION_CHECK_PER_RUN = 100
+
 # Populated once at startup by load_country_lookup(); maps lowercase
 # name/alias/tag -> canonical TAG. Empty dict if reference data is missing.
 COUNTRY_LOOKUP = {}
@@ -372,7 +380,7 @@ def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=Non
     return updated
 
 
-def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_names=None):
+def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_names=None, skip_ids=None):
     """Re-fetch each rejected message inside the 7-day window; promote any that
     now parse cleanly into events.
 
@@ -382,16 +390,25 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
     AND check_edits_and_deletions wouldn't see it either (only iterates events
     already in events.json). This closes that hole.
 
+    `skip_ids` is the set of message IDs the scan loop already processed in
+    this run. Re-fetching them would double the API cost on backfills (the
+    cursor scan covers them, the promotion check would re-cover them) — they
+    already have the latest edited_timestamp recorded fresh, so the promotion
+    check is a no-op for them anyway.
+
     Returns (new_events, any_changes) — any_changes covers prunes & status
     updates even when no promotions actually happened, so the cache gets saved.
     """
     thread_names = thread_names or {}
+    skip_ids     = skip_ids or set()
     cutoff       = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    now_iso      = now_utc.isoformat()
     new_events   = []
     to_drop      = []
     any_changes  = False
 
-    for msg_id, meta in list(rejected_meta.items()):
+    # ── Pass 1: prune stale entries (no API calls). ───────────────────────────
+    for msg_id, meta in rejected_meta.items():
         try:
             posted_at = snowflake_to_dt(msg_id)
         except (ValueError, TypeError):
@@ -402,13 +419,38 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
             to_drop.append(msg_id)
             any_changes = True
             continue
-
-        channel_id    = meta.get("channel_id")
-        stored_edited = meta.get("edited_timestamp")
-        if not channel_id:
+        if not meta.get("channel_id"):
             to_drop.append(msg_id)
             any_changes = True
             continue
+    for msg_id in to_drop:
+        rejected_meta.pop(msg_id, None)
+    to_drop = []
+
+    # ── Pass 2: pick candidates, cap to N least-recently-checked. ─────────────
+    # Entries with no `last_checked` (just-rejected or pre-cap-feature) sort
+    # first, then by oldest-checked ascending. Skip anything the scan loop
+    # already touched this run — its stored edited_timestamp is already fresh.
+    def _last_checked_key(item):
+        meta = item[1]
+        lc = meta.get("last_checked")
+        # (has_been_checked?, last_checked_iso) — never-checked sorts before
+        # any checked entries; checked entries sort by oldest-first.
+        return (lc is not None, lc or "")
+
+    candidates = sorted(
+        ((mid, m) for mid, m in rejected_meta.items() if mid not in skip_ids),
+        key=_last_checked_key,
+    )
+    if MAX_PROMOTION_CHECK_PER_RUN is not None and len(candidates) > MAX_PROMOTION_CHECK_PER_RUN:
+        log(f"  Rejected_meta has {len(candidates)} candidate(s); capping check at "
+            f"{MAX_PROMOTION_CHECK_PER_RUN} (least-recently-checked first).")
+        candidates = candidates[:MAX_PROMOTION_CHECK_PER_RUN]
+
+    # ── Pass 3: refetch + promote/update edited_timestamp. ───────────────────
+    for msg_id, meta in candidates:
+        channel_id    = meta["channel_id"]
+        stored_edited = meta.get("edited_timestamp")
 
         msg = fetch_message(channel_id, msg_id)
 
@@ -418,7 +460,14 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
             any_changes = True
             continue
         if not msg:
+            # Fetch failed (rate-limited / timeout); leave last_checked alone
+            # so this entry stays at the front of the rotation next run.
             continue
+
+        # Successful API call — mark the rotation timestamp regardless of
+        # outcome, so we move on to the next entry on subsequent runs.
+        meta["last_checked"] = now_iso
+        any_changes = True
 
         current_edited = msg.get("edited_timestamp")
         if current_edited == stored_edited:
@@ -437,13 +486,11 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
             }
             to_drop.append(msg_id)
             log(f"    PROMOTED to event: [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
-            any_changes = True
         else:
             # Still no valid tags, but record the new edited_timestamp so we
-            # don't re-fetch this one on every subsequent run.
-            rejected_meta[msg_id]["edited_timestamp"] = current_edited
+            # don't keep flagging this as an edit on every subsequent run.
+            meta["edited_timestamp"] = current_edited
             log(f"    still no valid tags after edit")
-            any_changes = True
 
     for msg_id in to_drop:
         rejected_meta.pop(msg_id, None)
@@ -592,10 +639,32 @@ def main():
 
     # Map channel/thread ID -> thread name. Used as the event title when the
     # author posts inside a named thread (Discord threads carry the title even
-    # if the message body has no `# Heading` or `**Bold**` line).
+    # if the message body has no `# Heading` or `**Bold**` line). Built before
+    # filtering so promotion-check can still look up names for old threads.
     thread_names = {t["id"]: t.get("name", "") for t in all_threads if t.get("name")}
 
-    channels_to_scan = [CHANNEL_ID] + [t["id"] for t in all_threads]
+    # Filter threads with no messages newer than the cursor — saves an empty
+    # `/messages?after=...` API call per dead thread. Each archived thread
+    # listing includes `last_message_id`; threads whose newest message predates
+    # the cursor have nothing to give us this run. (`None` last_message_id =
+    # empty thread, skip; missing field = unknown, keep to be safe.)
+    cursor_int = int(after_snowflake)
+    def _has_new_messages(thread):
+        if "last_message_id" not in thread:
+            return True  # API didn't tell us; scan to find out.
+        lmi = thread.get("last_message_id")
+        if lmi is None:
+            return False  # empty thread
+        try:
+            return int(lmi) > cursor_int
+        except (TypeError, ValueError):
+            return True  # malformed; be permissive
+    skipped = sum(1 for t in all_threads if not _has_new_messages(t))
+    if skipped:
+        log(f"  Skipping {skipped} thread(s) with no messages newer than cursor.")
+    threads_to_scan = [t for t in all_threads if _has_new_messages(t)]
+
+    channels_to_scan = [CHANNEL_ID] + [t["id"] for t in threads_to_scan]
 
     # Collect messages tagged with which channel they came from
     all_messages = []
@@ -672,7 +741,7 @@ def main():
     # loop only sees messages newer than the cursor.
     log("Checking recent rejections for late-added tags ...")
     promoted_events, promotions_found = check_rejected_for_promotions(
-        rejected_meta, event_meta, now_utc, thread_names
+        rejected_meta, event_meta, now_utc, thread_names, skip_ids=seen
     )
     if promoted_events:
         new_events.extend(promoted_events)
