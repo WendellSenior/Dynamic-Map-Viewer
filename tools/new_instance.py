@@ -259,6 +259,27 @@ def main():
     if template_src is None:
         print("  (no template campaign found — sessions.html / calibrate.html not copied)")
 
+    # Append to the hub manifest so the new campaign appears on index.html automatically.
+    campaigns_file = repo_root / "campaigns.json"
+    if campaigns_file.exists():
+        try:
+            manifest = json.loads(campaigns_file.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            manifest = {"campaigns": []}
+    else:
+        manifest = {"campaigns": []}
+    existing_folders = {c.get("folder") for c in manifest.get("campaigns", [])}
+    if folder not in existing_folders:
+        manifest.setdefault("campaigns", []).append({
+            "folder": folder,
+            "game": game,
+            "label": label,
+            "dates": "—",
+            "description": "",
+        })
+        write_json(campaigns_file, manifest)
+        print(f"  appended to campaigns.json (hub will list it on next load)")
+
     print(f"\n  Created {folder}/ ({label}, game={game})")
     print()
     print("Next steps:")
@@ -268,7 +289,7 @@ def main():
         print(f"  - Add reference files  {folder}/data/reference/{game}/  (no existing {game} campaign to copy from)")
         print(f"  - Update map dims in   {folder}/data/snapshots.json config")
     print(f"  - Launch with          {folder}\\init.bat")
-    print(f"  - Add a hub card to    index.html for the new campaign")
+    print(f"  - Edit campaign card   campaigns.json  (dates/description optional)")
 
 
 if __name__ == "__main__":

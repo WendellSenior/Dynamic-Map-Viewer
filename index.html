@@ -53,6 +53,10 @@
     .campaign .arrow {
       margin-top: 12px; color: #2563eb; font-size: 13px;
     }
+    .empty {
+      grid-column: 1 / -1;
+      padding: 40px; text-align: center; color: #888; font-size: 14px;
+    }
     footer {
       padding: 16px 32px; color: #888; font-size: 12px;
       border-top: 1px solid #e3e3e3; background: #fff;
@@ -64,25 +68,67 @@
     <h1>Paradox AAR campaigns</h1>
     <p>Interactive timeline + map review for past multiplayer campaigns.</p>
   </header>
-  <main>
-    <a class="campaign" href="eu4-paradox-in/view.html">
-      <span class="game-tag">EU4</span>
-      <h2>Paradox In</h2>
-      <p class="dates">1444 – 1821</p>
-      <p class="desc">Discord-server AAR with snapshot maps at 1444, 1550, and 1641.</p>
-      <p class="arrow">Open viewer →</p>
-    </a>
-
-    <a class="campaign placeholder" href="eu5-tbd/view.html">
-      <span class="game-tag">EU5</span>
-      <h2>TBD</h2>
-      <p class="dates">—</p>
-      <p class="desc">Placeholder — drop EU5 maps and reference data into <code>eu5-tbd/data/</code> to populate.</p>
-      <p class="arrow">Open viewer →</p>
-    </a>
+  <main id="campaigns">
+    <p class="empty">Loading…</p>
   </main>
   <footer>
-    Static site, no build step. Each card is a self-contained campaign folder.
+    Static site, no build step. Campaigns listed from <code>campaigns.json</code>; add new ones with <code>newinstance.bat</code>.
   </footer>
+  <script>
+    (async function main() {
+      const root = document.getElementById('campaigns');
+      let data;
+      try {
+        const r = await fetch('campaigns.json');
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        data = await r.json();
+      } catch (err) {
+        root.replaceChildren();
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = `Could not load campaigns.json: ${err.message}`;
+        root.appendChild(p);
+        return;
+      }
+      const campaigns = (data && data.campaigns) || [];
+      root.replaceChildren();
+      if (campaigns.length === 0) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = 'No campaigns yet. Run newinstance.bat to scaffold one.';
+        root.appendChild(p);
+        return;
+      }
+      for (const c of campaigns) {
+        const a = document.createElement('a');
+        a.className = 'campaign' + (c.placeholder ? ' placeholder' : '');
+        a.href = `${c.folder}/view.html`;
+        if (c.game) {
+          const tag = document.createElement('span');
+          tag.className = 'game-tag';
+          tag.textContent = String(c.game).toUpperCase();
+          a.appendChild(tag);
+        }
+        const h2 = document.createElement('h2');
+        h2.textContent = c.label || c.folder;
+        a.appendChild(h2);
+        const dates = document.createElement('p');
+        dates.className = 'dates';
+        dates.textContent = c.dates || '—';
+        a.appendChild(dates);
+        if (c.description) {
+          const desc = document.createElement('p');
+          desc.className = 'desc';
+          desc.textContent = c.description;
+          a.appendChild(desc);
+        }
+        const arrow = document.createElement('p');
+        arrow.className = 'arrow';
+        arrow.textContent = 'Open viewer →';
+        a.appendChild(arrow);
+        root.appendChild(a);
+      }
+    })();
+  </script>
 </body>
 </html>
