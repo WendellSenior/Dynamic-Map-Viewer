@@ -130,7 +130,8 @@ main {
 #events-table td.col-date { white-space: nowrap; }
 #events-table td.col-country,
 #events-table td.col-province,
-#events-table td.col-author { white-space: nowrap; }
+#events-table td.col-author,
+#events-table td.col-tag { white-space: nowrap; }
 #events-table td.muted { color: #aaa; }
 
 #map-frame {
@@ -176,6 +177,21 @@ main {
 .event-dot:hover { transform: scale(calc(var(--inv-scale, 1) * 1.4)); }
 .event-dot.recent { background: #f4a020; }
 
+.event-dot.has-tag {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  color: initial;
+}
+.event-dot.has-tag.recent { border-color: #f4a020; background: rgba(255, 246, 230, 0.95); }
+
 #event-panel {
   width: 320px;
   flex-shrink: 0;
@@ -188,6 +204,16 @@ main {
 #event-panel .meta { color: #666; font-size: 12px; margin: 0 0 12px; }
 #event-panel .body { white-space: pre-wrap; }
 #event-panel .empty { color: #999; }
+#event-panel .event-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 0 0 12px;
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
 .jump-to-pin {
   margin-top: 16px;
   padding: 6px 14px;

@@ -26,7 +26,38 @@ Per-campaign local tools (`calibrate.html` / `calibrate.bat` for picking coords,
 
 ## Tag format used in Discord
 
-Players head a post with a date line, optionally a country line:
+**Canonical format** — please use this going forward:
+
+```
+[Date:1337-04-01][Country:France][Location:Paris][Tag:History]
+# Title
+…body…
+```
+
+Fields:
+
+- `Date` (required) — `YYYY-MM-DD` in in-game time. Many other formats are also accepted by the parser, but ISO is preferred.
+- `Country` (optional) — full game name (`France`, `Ottomans`, `Aragon`).
+- `Location` (optional) — province/city name. Maps to its pixel coords via the game's reference data.
+- `Tag` (optional) — categorises the event; renders a themed icon on the map and in the events table. Choose from:
+
+  | Tag | Icon | Use for |
+  | --- | --- | --- |
+  | `WarDec` | 🎺 | War declarations |
+  | `Battle` | ⚔️ | Battles, sieges, military engagements |
+  | `Character` | 👤 | Births, deaths, succession, personal stories |
+  | `Trade` | 📦 | Trade goods, merchants, trade routes |
+  | `Economy` | 🪙 | Income, debt, taxation, currency |
+  | `Discover` | 🚢 | Exploration, colonisation, new lands |
+  | `Treaty` | 📜 | Peace deals, alliances, royal marriages |
+  | `Meeting` | 🤝 | Diplomacy, councils, conferences |
+  | `History` | ⏳ | General historical narration / background |
+
+Brackets may all sit on one line, or be split across several lines. Free text after the last bracket becomes the body.
+
+Events without a `Tag` show the default red dot.
+
+**Fallback format** — for backwards compatibility, the parser also accepts the older loose convention (date on line 1, country on line 2, body follows):
 
 ```
 11 Nov 1444
@@ -36,7 +67,7 @@ Aragon
 …body…
 ```
 
-Many date formats accepted (`11_Nov_1444`, `4_Mar_1453`, `26_4_1492`, `13th December 1513`, `1563`, `1673 May 10`). Country line is the full game name (`Aragon`, `Ottomans`, …). Bare follow-up posts from the same author within 5 minutes are merged in as continuation text.
+Bare follow-up posts from the same author within 5 minutes are merged in as continuation text for both formats.
 
 ## Workflow for a new campaign
 

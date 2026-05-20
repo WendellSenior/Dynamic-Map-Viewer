@@ -17,6 +17,18 @@ const state = {
 const SLIDER_RES = 1000;
 const MAX_SCALE = 8;
 
+const TAG_ICONS = {
+  WarDec: '🎺',
+  Battle: '⚔️',
+  Character: '👤',
+  Trade: '📦',
+  Economy: '🪙',
+  Discover: '🚢',
+  Treaty: '📜',
+  Meeting: '🤝',
+  History: '⏳',
+};
+
 async function loadJSON(path) {
   const r = await fetch(path);
   if (!r.ok) throw new Error(`Failed to load ${path} (${r.status})`);
@@ -243,9 +255,15 @@ function render() {
 
     const dot = document.createElement('div');
     dot.className = 'event-dot';
+    const icon = e.tag && TAG_ICONS[e.tag];
+    if (icon) {
+      dot.classList.add('has-tag');
+      dot.dataset.tag = e.tag;
+      dot.textContent = icon;
+    }
     dot.style.left = `${(xy[0] / state.mapConfig.width) * 100}%`;
     dot.style.top = `${(xy[1] / state.mapConfig.height) * 100}%`;
-    dot.title = `${e.date} — ${e.snippet || ''}`;
+    dot.title = `${e.date}${e.tag ? ' · ' + e.tag : ''} — ${e.snippet || ''}`;
     dot.addEventListener('click', () => showEvent(e));
     dotsEl.appendChild(dot);
   }
@@ -299,6 +317,14 @@ function showEvent(e) {
   meta.className = 'meta';
   meta.textContent = [place, e.author].filter(Boolean).join(' — ');
   panel.appendChild(meta);
+
+  if (e.tag) {
+    const tagEl = document.createElement('p');
+    tagEl.className = 'event-tag';
+    const icon = TAG_ICONS[e.tag] || '';
+    tagEl.textContent = `${icon} ${e.tag}`.trim();
+    panel.appendChild(tagEl);
+  }
 
   const body = document.createElement('div');
   body.className = 'body';
@@ -356,6 +382,16 @@ function renderBrowser() {
     tdDate.className = 'col-date';
     tdDate.textContent = e.date;
     tr.appendChild(tdDate);
+
+    const tdTag = document.createElement('td');
+    tdTag.className = 'col-tag' + (e.tag ? '' : ' muted');
+    if (e.tag) {
+      const icon = TAG_ICONS[e.tag] || '';
+      tdTag.textContent = `${icon} ${e.tag}`.trim();
+    } else {
+      tdTag.textContent = '—';
+    }
+    tr.appendChild(tdTag);
 
     const tdCountry = document.createElement('td');
     tdCountry.className = 'col-country' + (e.country ? '' : ' muted');

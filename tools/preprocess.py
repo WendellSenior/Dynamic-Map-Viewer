@@ -27,6 +27,14 @@ MONTH_NAMES = {
 CONTINUATION_WINDOW = timedelta(minutes=5)
 COUNTRY_CANDIDATE_RE = re.compile(r"^[A-Za-z][A-Za-z\s\-'’]{0,30}$")
 
+KNOWN_TAGS = [
+    "WarDec", "Battle", "Character", "Trade", "Economy",
+    "Discover", "Treaty", "Meeting", "History",
+]
+TAG_LOOKUP = {t.lower(): t for t in KNOWN_TAGS}
+
+BRACKET_FIELD_RE = re.compile(r"\[(\w+)\s*:\s*([^\]]+)\]")
+
 
 def parse_date(s):
     """Multi-format historical date parser. Returns ISO 'YYYY-MM-DD' or None."""
@@ -58,6 +66,38 @@ def parse_date(s):
         if 1000 <= y <= 2999:
             return f"{y:04d}-01-01"
     return None
+
+
+def parse_bracket_header(content):
+    """Canonical format: `[Date:YYYY-MM-DD][Country:Name][Location:Name][Tag:Name]`.
+    Brackets may span one line or multiple. Returns (fields_dict, body) or (None, None)."""
+    lines = content.split("\n")
+    fields = {}
+    consumed = 0
+    for i, raw in enumerate(lines):
+        line = raw.strip()
+        if not line:
+            if fields:
+                consumed = i + 1
+            continue
+        matches = BRACKET_FIELD_RE.findall(line)
+        leftover = BRACKET_FIELD_RE.sub("", line).strip()
+        if matches and not leftover:
+            for k, v in matches:
+                fields[k.lower()] = v.strip()
+            consumed = i + 1
+        elif matches and leftover:
+            for k, v in matches:
+                fields[k.lower()] = v.strip()
+            lines[i] = leftover
+            consumed = i
+            break
+        else:
+            break
+    if "date" not in fields:
+        return None, None
+    body = "\n".join(lines[consumed:]).strip()
+    return fields, body
 
 
 def parse_header(content):
@@ -243,7 +283,19 @@ def main():
         except ValueError:
             ts = None
 
-        date, candidate, body = parse_header(content)
+        # Try the canonical [Date:…][Country:…][Location:…][Tag:…] format first.
+        bracket_fields, bracket_body = parse_bracket_header(content)
+        if bracket_fields is not None:
+            date = parse_date(bracket_fields["date"])
+            candidate = bracket_fields.get("country")
+            province_raw = bracket_fields.get("location")
+            tag_raw = (bracket_fields.get("tag") or "").strip()
+            tag = TAG_LOOKUP.get(tag_raw.lower()) if tag_raw else None
+            body = bracket_body
+        else:
+            date, candidate, body = parse_header(content)
+            province_raw = None
+            tag = None
 
         if date is not None:
             country_tag = None
@@ -252,15 +304,16 @@ def main():
                     candidate, lookup, tags, alias_cache,
                     interactive=not args.non_interactive,
                 )
-                if country_tag is None:
-                    # Couldn't resolve — put the line back into the body so it's not lost.
+                if country_tag is None and bracket_fields is None:
+                    # Loose-format fallback: line wasn't recognised as a country, so it's body.
                     body = (candidate + ("\n\n" + body if body else "")).strip()
             event = {
                 "id": msg_id,
                 "date": date,
                 "country": country_tag,
                 "countryRaw": candidate if country_tag else None,
-                "province": None,
+                "province": province_raw,
+                "tag": tag,
                 "author": author_name,
                 "snippet": (body[:120] if body else ""),
                 "fullText": body,

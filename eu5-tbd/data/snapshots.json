@@ -3,5 +3,21 @@
     "width": 16384,
     "height": 8192
   },
-  "snapshots": []
+  "snapshots": [
+    {
+      "date": "1337-01-01",
+      "image": "data/maps/1337.png",
+      "label": "Campaign start"
+    },
+    {
+      "date": "1345-01-01",
+      "image": "data/maps/1345.png",
+      "label": "1345"
+    },
+    {
+      "date": "1350-01-01",
+      "image": "data/maps/1350.png",
+      "label": "1350"
+    }
+  ]
 }
