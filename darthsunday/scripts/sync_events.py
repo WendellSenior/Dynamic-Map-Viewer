@@ -56,6 +56,11 @@ def date_to_snowflake(dt):
     return str((max(ms - DISCORD_EPOCH, 0)) << 22)
 
 
+def snowflake_to_dt(snowflake):
+    ms = (int(snowflake) >> 22) + DISCORD_EPOCH
+    return datetime.fromtimestamp(ms / 1000, tz=timezone.utc)
+
+
 def api_get(path, params=None, retries=5):
     url = f"{BASE}{path}"
     for _ in range(retries):
@@ -64,7 +69,7 @@ def api_get(path, params=None, retries=5):
             return resp.json()
         if resp.status_code == 429:
             retry_after = float(resp.json().get("retry_after", 1))
-            log(f"  Rate limited on {path}. Waiting {retry_after:.1f}s ...")
+            log(f"  Rate limited. Waiting {retry_after:.1f}s ...")
             time.sleep(retry_after + 0.1)
             continue
         if resp.status_code == 403:
@@ -79,11 +84,22 @@ def api_get(path, params=None, retries=5):
     return None
 
 
-def fetch_messages_since(channel_id, after_snowflake):
+def fetch_active_threads(guild_id):
+    data = api_get(f"/guilds/{guild_id}/threads/active")
+    if not data:
+        return []
+    return [t for t in data.get("threads", []) if t.get("parent_id") == CHANNEL_ID]
+
+
+def fetch_starter_message(thread_id):
+    return api_get(f"/channels/{thread_id}/messages/{thread_id}")
+
+
+def fetch_main_channel_messages(after_snowflake):
     messages = []
     after = after_snowflake
     while True:
-        batch = api_get(f"/channels/{channel_id}/messages", {"limit": 100, "after": after})
+        batch = api_get(f"/channels/{CHANNEL_ID}/messages", {"limit": 100, "after": after})
         if not batch:
             break
         batch.sort(key=lambda m: int(m["id"]))
@@ -94,38 +110,8 @@ def fetch_messages_since(channel_id, after_snowflake):
     return messages
 
 
-def fetch_active_threads(guild_id):
-    data = api_get(f"/guilds/{guild_id}/threads/active")
-    if not data:
-        return []
-    return [t for t in data.get("threads", []) if t.get("parent_id") == CHANNEL_ID]
-
-
-def fetch_archived_public_threads():
-    threads = []
-    before = None
-    while True:
-        params = {"limit": 100}
-        if before:
-            params["before"] = before
-        data = api_get(f"/channels/{CHANNEL_ID}/threads/archived/public", params)
-        if not data:
-            break
-        batch = data.get("threads", [])
-        threads.extend(batch)
-        if not data.get("has_more") or not batch:
-            break
-        before = min(
-            t.get("thread_metadata", {}).get("archive_timestamp", "")
-            for t in batch
-        )
-        if not before:
-            break
-    return threads
-
-
-def parse_event_tags(content):
-    match = TAG_RE.search(content)
+def parse_event_tags(text):
+    match = TAG_RE.search(text)
     if not match:
         return None
 
@@ -157,24 +143,25 @@ def parse_event_tags(content):
     }
 
 
-def message_to_event(msg, parsed):
-    content  = msg.get("content", "")
-    author   = msg.get("author", {})
-    username = author.get("global_name") or author.get("username", "unknown")
-
-    images = [
+def extract_images(msg):
+    return [
         {
             "url":      att["url"],
             "filename": att["filename"],
             "width":    att.get("width"),
             "height":   att.get("height"),
         }
-        for att in msg.get("attachments", [])
+        for att in (msg or {}).get("attachments", [])
         if (att.get("content_type") or "").startswith("image/")
     ]
 
+
+def build_event(event_id, parsed, msg):
+    content  = (msg or {}).get("content", "")
+    author   = (msg or {}).get("author", {})
+    username = author.get("global_name") or author.get("username", "unknown")
     return {
-        "id":         msg["id"],
+        "id":         event_id,
         "date":       parsed["date"],
         "country":    parsed["country"],
         "countryRaw": parsed["countryRaw"],
@@ -183,7 +170,7 @@ def message_to_event(msg, parsed):
         "author":     username,
         "snippet":    content[:150],
         "fullText":   content,
-        "images":     images,
+        "images":     extract_images(msg),
     }
 
 
@@ -202,11 +189,12 @@ def save_json(path, data):
 
 
 def main():
-    today_str = date.today().isoformat()
-    log(f"=== Discord Events Sync ({today_str} UTC) ===")
-
-    today_midnight  = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=timezone.utc)
+    today_utc       = datetime.now(tz=timezone.utc).date()
+    today_str       = today_utc.isoformat()
+    today_midnight  = datetime.combine(today_utc, datetime.min.time()).replace(tzinfo=timezone.utc)
     after_snowflake = date_to_snowflake(today_midnight)
+
+    log(f"=== Discord Events Sync ({today_str} UTC) ===")
 
     cache           = load_json(CACHE_FILE, {})
     processed_today = set(cache.get(today_str, []))
@@ -220,54 +208,68 @@ def main():
     guild_id = channel_info.get("guild_id")
     log(f"Guild ID: {guild_id}")
 
-    channels_to_scan = [CHANNEL_ID]
-
     log("Fetching active threads ...")
-    active = fetch_active_threads(guild_id)
-    log(f"  {len(active)} active thread(s).")
-    channels_to_scan += [t["id"] for t in active]
+    active_threads = fetch_active_threads(guild_id)
+    log(f"  {len(active_threads)} active thread(s).")
 
-    log("Fetching archived public threads ...")
-    archived = fetch_archived_public_threads()
-    log(f"  {len(archived)} archived thread(s).")
-    channels_to_scan += [t["id"] for t in archived]
+    new_events  = []
+    seen        = set()
 
-    all_messages = []
-    for ch_id in channels_to_scan:
-        label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
-        msgs  = fetch_messages_since(ch_id, after_snowflake)
-        log(f"  {len(msgs)} message(s) from {label}")
-        all_messages.extend(msgs)
+    # ── Forum threads: tags live in the thread name (post title) ─────────────
+    for thread in active_threads:
+        thread_id   = thread["id"]
+        thread_name = thread.get("name", "")
+        created_dt  = snowflake_to_dt(thread_id)
 
-    log(f"Total messages to evaluate: {len(all_messages)}")
-
-    new_events    = []
-    seen_this_run = set()
-
-    for msg in all_messages:
-        msg_id = msg["id"]
-        if msg_id in processed_today or msg_id in existing_ids or msg_id in seen_this_run:
+        if thread_id in processed_today or thread_id in existing_ids or thread_id in seen:
             continue
-        seen_this_run.add(msg_id)
+        seen.add(thread_id)
+
+        if created_dt.date() != today_utc:
+            log(f"  ~ thread {thread_id} not from today, skipping")
+            continue
+
+        parsed = parse_event_tags(thread_name)
+        if parsed:
+            starter = fetch_starter_message(thread_id)
+            event   = build_event(thread_id, parsed, starter)
+            new_events.append(event)
+            log(f"  + thread {thread_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']}) | title: {repr(thread_name[:80])}")
+        else:
+            log(f"  - thread {thread_id} (no valid tags) | title: {repr(thread_name[:80])}")
+
+        processed_today.add(thread_id)
+
+    # ── Main channel: tags in message content (non-forum fallback) ───────────
+    main_msgs = fetch_main_channel_messages(after_snowflake)
+    log(f"  {len(main_msgs)} message(s) from main channel")
+
+    for msg in main_msgs:
+        msg_id = msg["id"]
+        if msg_id in processed_today or msg_id in existing_ids or msg_id in seen:
+            continue
+        seen.add(msg_id)
+        processed_today.add(msg_id)
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
-            new_events.append(message_to_event(msg, parsed))
-            log(f"  + {msg_id}  [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+            new_events.append(build_event(msg_id, parsed, msg))
+            log(f"  + msg {msg_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
-            snippet = repr(msg.get("content", "")[:120])
-            log(f"  - {msg_id} (no valid tags) | {snippet}")
+            log(f"  - msg {msg_id} (no valid tags) | {repr(msg.get('content','')[:80])}")
+
+    log(f"Total new events: {len(new_events)}")
 
     had_changes = bool(new_events)
     if had_changes:
         events_data["events"].extend(new_events)
         save_json(EVENTS_FILE, events_data)
-        log(f"Added {len(new_events)} new event(s).")
+        log(f"Saved {len(new_events)} new event(s) to {EVENTS_FILE}.")
     else:
         log("No new events this run.")
 
-    cache[today_str] = list(processed_today | {m["id"] for m in all_messages})
-    cutoff = (date.today() - timedelta(days=7)).isoformat()
+    cache[today_str] = list(processed_today)
+    cutoff = (today_utc - timedelta(days=7)).isoformat()
     cache  = {k: v for k, v in cache.items() if k >= cutoff}
     save_json(CACHE_FILE, cache)
 
