@@ -39,7 +39,9 @@
       "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py'\\).read\\(\\)\\); print\\('sync_events.py OK'\\)\")",
       "Bash(python darthsunday/scripts/sync_events.py --help)",
       "PowerShell($env:DISCORD_TOKEN='dummy'; python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
-      "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py: syntax OK'\\)\")"
+      "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py: syntax OK'\\)\")",
+      "Bash(gh run *)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")"
     ]
   }
 }

@@ -143,6 +143,36 @@ def fetch_active_threads(guild_id):
     return [t for t in data.get("threads", []) if t.get("parent_id") == CHANNEL_ID]
 
 
+def fetch_archived_public_threads(channel_id, max_pages=10):
+    """Paginate archived public threads for the channel, newest-archived first.
+
+    Discord's active-threads endpoint excludes auto-archived threads, so battle/
+    diplomacy posts whose threads have gone quiet vanish from the sync's scan.
+    This pulls them back in. Cap on pages so a channel with thousands of old
+    threads doesn't make the workflow run forever — `max_pages=10` × 100/page
+    = up to 1000 most-recently-archived threads."""
+    out = []
+    before = None
+    for _ in range(max_pages):
+        params = {"limit": 100}
+        if before is not None:
+            params["before"] = before
+        data = api_get(f"/channels/{channel_id}/threads/archived/public", params)
+        if not data:
+            break
+        threads = data.get("threads", [])
+        out.extend(threads)
+        if not data.get("has_more") or not threads:
+            break
+        # Discord paginates archived threads by `archive_timestamp`. The next
+        # page starts before the oldest entry on this page.
+        last_meta = threads[-1].get("thread_metadata") or {}
+        before = last_meta.get("archive_timestamp")
+        if not before:
+            break
+    return out
+
+
 def parse_event_tags(text):
     match = TAG_RE.search(text)
     if not match:
@@ -408,12 +438,26 @@ def main():
     active_threads = fetch_active_threads(guild_id)
     log(f"  {len(active_threads)} active thread(s).")
 
+    log("Fetching archived public threads ...")
+    archived_threads = fetch_archived_public_threads(CHANNEL_ID)
+    log(f"  {len(archived_threads)} archived thread(s).")
+
+    # Dedupe by id in case a thread appears in both lists (defensive — they
+    # shouldn't overlap per Discord's API contract, but cost is one set op).
+    seen_thread_ids = set()
+    all_threads = []
+    for t in active_threads + archived_threads:
+        tid = t.get("id")
+        if tid and tid not in seen_thread_ids:
+            seen_thread_ids.add(tid)
+            all_threads.append(t)
+
     # Map channel/thread ID -> thread name. Used as the event title when the
     # author posts inside a named thread (Discord threads carry the title even
     # if the message body has no `# Heading` or `**Bold**` line).
-    thread_names = {t["id"]: t.get("name", "") for t in active_threads if t.get("name")}
+    thread_names = {t["id"]: t.get("name", "") for t in all_threads if t.get("name")}
 
-    channels_to_scan = [CHANNEL_ID] + [t["id"] for t in active_threads]
+    channels_to_scan = [CHANNEL_ID] + [t["id"] for t in all_threads]
 
     # Collect messages tagged with which channel they came from
     all_messages = []
