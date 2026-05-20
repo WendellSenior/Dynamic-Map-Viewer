@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Calibrate — Dynamic Map Viewer</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+    header {
+      padding: 10px 14px; background: #fff4c5; border-bottom: 1px solid #d9c97a;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    header strong { color: #5a4500; }
+    header label { display: flex; gap: 6px; align-items: center; }
+    header input[type="text"] { padding: 4px 8px; min-width: 140px; }
+    header select, header button { padding: 4px 10px; }
+    main { flex: 1; display: flex; min-height: 0; }
+    #map-container { flex: 1; overflow: auto; background: #f5f6f7; padding: 16px; }
+    #map-frame { position: relative; display: inline-block; line-height: 0; cursor: crosshair; }
+    #map-image { display: block; background: #cde6f5; }
+
+    .pin-group .pin {
+      position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px;
+      border-radius: 50%; border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.5); pointer-events: none;
+    }
+    .pin-group.new .pin { background: rgba(214, 56, 56, 0.9); }
+    .pin-group.existing .pin { background: rgba(70, 70, 70, 0.55); }
+    .pin-group .pin-label {
+      position: absolute; transform: translate(10px, -50%);
+      padding: 1px 5px; border-radius: 3px; font-size: 11px;
+      pointer-events: none; white-space: nowrap;
+    }
+    .pin-group.new .pin-label { background: rgba(0,0,0,0.7); color: #fff; }
+    .pin-group.existing .pin-label { background: rgba(0,0,0,0.4); color: #fff; }
+
+    aside {
+      width: 360px; flex-shrink: 0; border-left: 1px solid #ccc;
+      padding: 12px; background: #fafafa; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    aside p { margin: 0; color: #555; }
+    .row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .primary {
+      background: #2563eb; color: white; border: none; border-radius: 4px;
+      padding: 5px 12px; cursor: pointer; font: inherit;
+    }
+    .primary:hover { background: #1d4ed8; }
+    .primary:disabled { background: #aaa; cursor: not-allowed; }
+
+    #queue-section {
+      border: 1px solid #ddd; border-radius: 4px;
+      padding: 6px 10px; background: #fff;
+    }
+    #queue-section summary { cursor: pointer; user-select: none; font-weight: 500; }
+    #queue-list { margin: 8px 0 0; padding: 0; list-style: none; max-height: 180px; overflow-y: auto; }
+    #queue-list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 6px; border-radius: 3px; cursor: pointer;
+    }
+    #queue-list li:hover { background: #eef2ff; }
+    #queue-list li.active { background: #dbeafe; font-weight: 600; }
+    #queue-list .bucket-tag {
+      font-size: 10px; color: #666; background: #eee;
+      padding: 1px 5px; border-radius: 2px;
+    }
+
+    #output {
+      flex: 1; min-height: 140px;
+      font: 12px/1.4 ui-monospace, monospace;
+      background: #fff; border: 1px solid #ddd; padding: 10px;
+      white-space: pre; overflow: auto; user-select: text;
+    }
+    .hint { font-size: 12px; color: #888; }
+    #status { font-size: 12px; padding: 4px 8px; border-radius: 3px; }
+    #status.ok { background: #dcfce7; color: #166534; }
+    #status.err { background: #fee2e2; color: #991b1b; }
+
+    .status-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      display: inline-block; flex-shrink: 0;
+    }
+    .status-dot.unset { background: #ef4444; }
+    .status-dot.set   { background: #22c55e; }
+    #queue-list li .left { display: flex; align-items: center; gap: 7px; }
+
+    .pin-group.target .pin {
+      outline: 3px solid rgba(37, 99, 235, 0.85);
+      outline-offset: 4px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { outline-offset: 4px; opacity: 1; }
+      50%      { outline-offset: 9px; opacity: 0.75; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Calibrate mode</strong>
+    <label>Label: <input id="label" type="text" placeholder="FRA or Paris" autofocus></label>
+    <label>Bucket:
+      <select id="bucket">
+        <option value="countries">countries</option>
+        <option value="provinces">provinces</option>
+      </select>
+    </label>
+    <button id="skip">Skip ▸</button>
+    <span class="hint">Click map to set · Skip to keep existing.</span>
+  </header>
+  <main>
+    <div id="map-container">
+      <div id="map-frame">
+        <img id="map-image" alt="">
+      </div>
+    </div>
+    <aside>
+      <div class="row">
+        <button id="save" class="primary">Save to coords.json</button>
+        <button id="copy">Copy JSON</button>
+        <button id="clear">Clear new picks</button>
+      </div>
+      <div id="status" hidden></div>
+      <details id="queue-section" open>
+        <summary>Event locations (<span id="queue-count">0</span>)</summary>
+        <p class="hint" style="margin: 6px 0 0;">Red = needs coords. Green = already set (click map to override, or Skip).</p>
+        <ul id="queue-list"></ul>
+      </details>
+      <p class="hint">New picks preview:</p>
+      <div id="output">{}</div>
+      <p class="hint">Map: <span id="dims">…</span> · Existing pins: <span id="existing-count">0</span></p>
+    </aside>
+  </main>
+  <script>
+    const state = {
+      picks: { countries: {}, provinces: {} },
+      currentCoords: { countries: {}, provinces: {} },
+      queue: [],
+      events: [],
+      coordsFileHandle: null,
+    };
+
+    function showError(msg) {
+      const c = document.getElementById('map-container');
+      c.innerHTML = '';
+      const box = document.createElement('pre');
+      box.style.cssText = 'background:#fff0f0;border:1px solid #d99;color:#700;padding:14px;margin:0;white-space:pre-wrap;font:13px/1.5 ui-monospace,monospace;max-width:640px;';
+      box.textContent = msg;
+      c.appendChild(box);
+    }
+
+    function status(msg, kind = 'ok') {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = kind;
+      el.hidden = false;
+      clearTimeout(status._t);
+      status._t = setTimeout(() => { el.hidden = true; }, 4000);
+    }
+
+    async function fetchJSON(path) {
+      const r = await fetch(path);
+      if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
+      return r.json();
+    }
+
+    async function main() {
+      if (location.protocol === 'file:') {
+        showError(
+          'Opened via file:// — browsers block fetch() from disk.\n\n' +
+          'Run calibrate.bat (or `python -m http.server 8000`) from the project root,\n' +
+          'then visit http://localhost:8000/calibrate.html'
+        );
+        return;
+      }
+
+      let snapshots;
+      try { snapshots = await fetchJSON('data/snapshots.json'); }
+      catch (err) { showError(`Could not load data/snapshots.json: ${err.message}`); return; }
+
+      const snap = (snapshots.snapshots || [])[0];
+      if (!snap) { showError('No entries in data/snapshots.json.'); return; }
+
+      const img = document.getElementById('map-image');
+      img.src = snap.image;
+      try { await img.decode(); } catch {}
+      img.style.width = img.naturalWidth + 'px';
+      img.style.height = img.naturalHeight + 'px';
+      document.getElementById('dims').textContent = `${img.naturalWidth} × ${img.naturalHeight}`;
+
+      try { state.currentCoords = await fetchJSON('data/coords.json'); }
+      catch { state.currentCoords = { countries: {}, provinces: {} }; }
+      state.currentCoords.countries ||= {};
+      state.currentCoords.provinces ||= {};
+
+      try {
+        const data = await fetchJSON('data/events.json');
+        state.events = data.events || [];
+      } catch { state.events = []; }
+
+      drawExistingPins();
+      rebuildQueue();
+
+      document.getElementById('map-frame').addEventListener('click', onClick);
+      document.getElementById('save').addEventListener('click', saveCoords);
+      document.getElementById('copy').addEventListener('click', copyOutput);
+      document.getElementById('clear').addEventListener('click', clearPicks);
+      document.getElementById('skip').addEventListener('click', skipActive);
+
+      if (!('showOpenFilePicker' in window)) {
+        const btn = document.getElementById('save');
+        btn.disabled = true;
+        btn.title = 'File System Access API not supported in this browser — use Copy + paste.';
+      }
+    }
+
+    function rebuildQueue() {
+      const seen = new Set();
+      const unset = [];
+      const set = [];
+      for (const e of state.events) {
+        if (e.country) {
+          const key = 'c:' + e.country;
+          if (!seen.has(key)) {
+            seen.add(key);
+            const has = !!state.currentCoords.countries[e.country];
+            (has ? set : unset).push({ bucket: 'countries', label: e.country, hasCoords: has });
+          }
+        }
+        if (e.province) {
+          const key = 'p:' + e.province;
+          if (!seen.has(key)) {
+            seen.add(key);
+            const has = !!state.currentCoords.provinces[e.province];
+            (has ? set : unset).push({ bucket: 'provinces', label: e.province, hasCoords: has });
+          }
+        }
+      }
+      state.queue = [...unset, ...set];
+      renderQueue();
+      if (state.queue.length > 0) {
+        setActive(state.queue[0]);
+      } else {
+        document.getElementById('label').value = '';
+        document.querySelectorAll('.pin-group.target').forEach(el => el.classList.remove('target'));
+      }
+    }
+
+    function renderQueue() {
+      const list = document.getElementById('queue-list');
+      list.innerHTML = '';
+      state.queue.forEach((item, idx) => {
+        const li = document.createElement('li');
+        const left = document.createElement('span');
+        left.className = 'left';
+        const dot = document.createElement('span');
+        dot.className = 'status-dot ' + (item.hasCoords ? 'set' : 'unset');
+        left.appendChild(dot);
+        left.appendChild(document.createTextNode(item.label));
+        li.appendChild(left);
+        const tag = document.createElement('span');
+        tag.className = 'bucket-tag';
+        tag.textContent = item.bucket;
+        li.appendChild(tag);
+        li.addEventListener('click', () => setActive(item));
+        if (idx === 0) li.classList.add('active');
+        list.appendChild(li);
+      });
+      document.getElementById('queue-count').textContent = state.queue.length;
+    }
+
+    function setActive(item) {
+      document.getElementById('label').value = item.label;
+      document.getElementById('bucket').value = item.bucket;
+      const idx = state.queue.indexOf(item);
+      if (idx > 0) {
+        state.queue = [item, ...state.queue.slice(0, idx), ...state.queue.slice(idx + 1)];
+      }
+      renderQueue();
+      highlightAndCenter(item.label);
+    }
+
+    function highlightAndCenter(label) {
+      document.querySelectorAll('.pin-group.target').forEach(el => el.classList.remove('target'));
+      const group = document.querySelector(`.pin-group[data-label="${CSS.escape(label)}"]`);
+      if (!group) return;
+      group.classList.add('target');
+      const pin = group.querySelector('.pin');
+      if (!pin) return;
+      const container = document.getElementById('map-container');
+      const x = parseFloat(pin.style.left) || 0;
+      const y = parseFloat(pin.style.top) || 0;
+      container.scrollTo({
+        left: x - container.clientWidth / 2,
+        top: y - container.clientHeight / 2,
+        behavior: 'smooth',
+      });
+    }
+
+    function skipActive() {
+      if (state.queue.length === 0) return;
+      state.queue = state.queue.slice(1);
+      renderQueue();
+      if (state.queue.length > 0) {
+        setActive(state.queue[0]);
+      } else {
+        document.getElementById('label').value = '';
+        document.querySelectorAll('.pin-group.target').forEach(el => el.classList.remove('target'));
+        status('Queue cleared.', 'ok');
+      }
+    }
+
+    function addPin(x, y, label, kind) {
+      const frame = document.getElementById('map-frame');
+      // Remove any existing group with same label
+      frame.querySelectorAll(`.pin-group[data-label="${CSS.escape(label)}"]`).forEach(el => el.remove());
+
+      const group = document.createElement('div');
+      group.className = `pin-group ${kind}`;
+      group.dataset.label = label;
+
+      const pin = document.createElement('div');
+      pin.className = 'pin';
+      pin.style.left = x + 'px';
+      pin.style.top = y + 'px';
+      group.appendChild(pin);
+
+      const tag = document.createElement('div');
+      tag.className = 'pin-label';
+      tag.style.left = x + 'px';
+      tag.style.top = y + 'px';
+      tag.textContent = label;
+      group.appendChild(tag);
+
+      frame.appendChild(group);
+    }
+
+    function drawExistingPins() {
+      let count = 0;
+      for (const [k, info] of Object.entries(state.currentCoords.countries)) {
+        const xy = info?.coords || info;
+        if (Array.isArray(xy)) { addPin(xy[0], xy[1], k, 'existing'); count++; }
+      }
+      for (const [k, xy] of Object.entries(state.currentCoords.provinces)) {
+        if (Array.isArray(xy)) { addPin(xy[0], xy[1], k, 'existing'); count++; }
+      }
+      document.getElementById('existing-count').textContent = count;
+    }
+
+    function onClick(e) {
+      const img = document.getElementById('map-image');
+      const rect = img.getBoundingClientRect();
+      const x = Math.round(e.clientX - rect.left);
+      const y = Math.round(e.clientY - rect.top);
+      const label = document.getElementById('label').value.trim();
+      const bucket = document.getElementById('bucket').value;
+      if (!label) {
+        document.getElementById('label').focus();
+        status('Type a label first.', 'err');
+        return;
+      }
+
+      if (bucket === 'countries') {
+        state.picks.countries[label] = { capital: label, coords: [x, y] };
+      } else {
+        state.picks.provinces[label] = [x, y];
+      }
+      addPin(x, y, label, 'new');
+      renderPicks();
+
+      const head = state.queue[0];
+      if (head && head.label === label && head.bucket === bucket) {
+        state.queue = state.queue.slice(1);
+        renderQueue();
+        if (state.queue.length > 0) setActive(state.queue[0]);
+        else {
+          document.getElementById('label').value = '';
+          status('Queue cleared — click Save when ready.', 'ok');
+        }
+      }
+    }
+
+    function renderPicks() {
+      document.getElementById('output').textContent = JSON.stringify(state.picks, null, 2);
+    }
+
+    async function copyOutput() {
+      const text = document.getElementById('output').textContent;
+      try { await navigator.clipboard.writeText(text); status('Copied.', 'ok'); }
+      catch { status('Clipboard blocked — select and copy manually.', 'err'); }
+    }
+
+    function clearPicks() {
+      state.picks.countries = {};
+      state.picks.provinces = {};
+      document.querySelectorAll('.pin-group.new').forEach(el => el.remove());
+      renderPicks();
+      rebuildQueue();
+    }
+
+    async function saveCoords() {
+      if (!('showOpenFilePicker' in window)) {
+        status('Save not supported in this browser. Use Copy + paste.', 'err');
+        return;
+      }
+      try {
+        if (!state.coordsFileHandle) {
+          [state.coordsFileHandle] = await window.showOpenFilePicker({
+            types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+            multiple: false,
+          });
+        }
+        let perm = await state.coordsFileHandle.queryPermission({ mode: 'readwrite' });
+        if (perm !== 'granted') {
+          perm = await state.coordsFileHandle.requestPermission({ mode: 'readwrite' });
+          if (perm !== 'granted') { status('Write permission denied.', 'err'); return; }
+        }
+        const merged = {
+          countries: { ...state.currentCoords.countries, ...state.picks.countries },
+          provinces: { ...state.currentCoords.provinces, ...state.picks.provinces },
+        };
+        const writable = await state.coordsFileHandle.createWritable();
+        await writable.write(JSON.stringify(merged, null, 2) + '\n');
+        await writable.close();
+
+        state.currentCoords = merged;
+        state.picks.countries = {};
+        state.picks.provinces = {};
+        renderPicks();
+        document.querySelectorAll('.pin-group.new').forEach(el => {
+          el.classList.remove('new');
+          el.classList.add('existing');
+        });
+        document.getElementById('existing-count').textContent =
+          Object.keys(merged.countries).length + Object.keys(merged.provinces).length;
+        rebuildQueue();
+        status(`Saved.`, 'ok');
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+        status(`Save failed: ${err.message}`, 'err');
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>

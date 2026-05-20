@@ -12,7 +12,16 @@
       "Bash(python -c ' *)",
       "Bash(cat eu5-tbd/data/untagged.log)",
       "Bash(python tools/preprocess.py \"eu5-tbd/data/discord/Paradox_Paradox In_2026-05-18_to_2026-05-20.html\" --out eu5-tbd/data/events.json --tags eu5-tbd/data/reference/eu5/tags.json --aliases eu5-tbd/data/reference/eu5/aliases.json --untagged-log eu5-tbd/data/untagged.log --non-interactive)",
-      "Bash(python -c \"import json; [print\\(f\\\\\"{e['date']}  {e.get\\('country'\\) or '-':4}  {e.get\\('province'\\) or '-':20}  body chars: {len\\(e.get\\('fullText'\\) or ''\\)}\\\\\"\\) for e in json.load\\(open\\('eu5-tbd/data/events.json',encoding='utf-8'\\)\\)['events']]\")"
+      "Bash(python -c \"import json; [print\\(f\\\\\"{e['date']}  {e.get\\('country'\\) or '-':4}  {e.get\\('province'\\) or '-':20}  body chars: {len\\(e.get\\('fullText'\\) or ''\\)}\\\\\"\\) for e in json.load\\(open\\('eu5-tbd/data/events.json',encoding='utf-8'\\)\\)['events']]\")",
+      "Bash(python -c \"import PIL\")",
+      "Bash(python tools/downsample_maps.py)",
+      "Bash(python tools/refresh_snapshots.py)",
+      "Bash(pip install *)",
+      "Bash(cd \"/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer\" && python tools/downsample_maps.py && echo --- && python tools/refresh_snapshots.py && echo --- && ls -la eu5-tbd/data/maps/lowres/ eu4-paradox-in/data/maps/lowres/)",
+      "Bash(cp eu4-paradox-in/sessions.html eu5-tbd/sessions.html)",
+      "Read(//c/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer/eu4-paradox-in/**)",
+      "Bash(cd \"/c/Users/DarkyDu/Documents/Claude/Projects/Dynamic Map Viewer\" && ls -la | grep -i april && echo --- && ls eu5-april-2026-sundays/ 2>&1 || echo \"Folder not there now\")",
+      "Bash(python tools/new_instance.py)"
     ]
   }
 }

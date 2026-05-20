@@ -13,6 +13,7 @@ const state = {
   allTMax: 0,
   view: { x: 0, y: 0, scale: 1, minScale: 1 },
   preloadedImages: [],
+  resolution: 'full',
 };
 
 const SLIDER_RES = 1000;
@@ -23,7 +24,7 @@ const TAG_ICONS = {
   Battle: '⚔️',
   Character: '👤',
   Trade: '📦',
-  Economy: '🪙',
+  Economy: '💰',
   Discover: '🚢',
   Treaty: '📜',
   Meeting: '🤝',
@@ -216,12 +217,17 @@ function applyFilter(newFilter) {
   updateBrowserVisibility();
 }
 
+function imageUrl(snap) {
+  if (state.resolution === 'lowres' && snap.image_lowres) return snap.image_lowres;
+  return snap.image;
+}
+
 function preloadSnapshots() {
   // Keep Image refs alive so the browser is more likely to hold the decoded bitmaps in memory.
   state.preloadedImages = state.snapshots.map(s => {
     const img = new Image();
     img.decoding = 'async';
-    img.src = s.image;
+    img.src = imageUrl(s);
     img.decode().catch(() => {});
     return img;
   });
@@ -254,8 +260,9 @@ function render() {
   const snap = snapshotForTime(t);
   const img = document.getElementById('map-image');
   if (snap) {
-    const target = new URL(snap.image, location.href).href;
-    if (img.src !== target) img.src = snap.image;
+    const desired = imageUrl(snap);
+    const target = new URL(desired, location.href).href;
+    if (img.src !== target) img.src = desired;
   }
 
   const dotsEl = document.getElementById('event-dots');
@@ -350,6 +357,26 @@ function showEvent(e) {
     btn.textContent = 'Zoom to map pin';
     btn.addEventListener('click', () => zoomToCoords(coords));
     panel.appendChild(btn);
+  }
+
+  if (e.images && e.images.length) {
+    const wrap = document.createElement('div');
+    wrap.className = 'event-images';
+    for (const img of e.images) {
+      const a = document.createElement('a');
+      a.href = img.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      const imgEl = document.createElement('img');
+      imgEl.src = img.url;
+      imgEl.alt = img.filename || '';
+      imgEl.loading = 'lazy';
+      imgEl.referrerPolicy = 'no-referrer';
+      imgEl.addEventListener('error', () => a.classList.add('broken'));
+      a.appendChild(imgEl);
+      wrap.appendChild(a);
+    }
+    panel.appendChild(wrap);
   }
 
   // Sync row selection in the browser table.
@@ -508,6 +535,23 @@ async function init() {
       render();
       if (state.filter === 'past') updateBrowserVisibility();
     });
+
+    // Persisted resolution toggle, only meaningful when any snapshot has a lowres variant.
+    const savedRes = localStorage.getItem('mapResolution');
+    if (savedRes === 'full' || savedRes === 'lowres') state.resolution = savedRes;
+    const resWrap = document.getElementById('resolution-toggle-wrap');
+    const resEl = document.getElementById('resolution-toggle');
+    const hasLowres = state.snapshots.some(s => s.image_lowres);
+    if (resWrap && hasLowres) {
+      resWrap.hidden = false;
+      resEl.value = state.resolution;
+      resEl.addEventListener('change', () => {
+        state.resolution = resEl.value;
+        localStorage.setItem('mapResolution', state.resolution);
+        preloadSnapshots();
+        render();
+      });
+    }
 
     const filterEl = document.getElementById('filter');
     if (state.sessions.length > 0) {

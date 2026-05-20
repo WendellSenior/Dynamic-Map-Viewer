@@ -7,17 +7,20 @@
     {
       "date": "1444-11-11",
       "image": "data/maps/eu4_map_FRA_1444_11_11_1.png",
-      "label": "Campaign start"
+      "label": "Campaign start",
+      "image_lowres": "data/maps/lowres/eu4_map_FRA_1444_11_11_1.webp"
     },
     {
       "date": "1550-01-20",
       "image": "data/maps/eu4_map_FRA_1550_01_20_2.png",
-      "label": "1550"
+      "label": "1550",
+      "image_lowres": "data/maps/lowres/eu4_map_FRA_1550_01_20_2.webp"
     },
     {
       "date": "1641-04-28",
       "image": "data/maps/eu4_map_FRA_1641_04_28_1.png",
-      "label": "1641"
+      "label": "1641",
+      "image_lowres": "data/maps/lowres/eu4_map_FRA_1641_04_28_1.webp"
     }
   ]
 }

@@ -16,6 +16,7 @@ if defined LATEST (
   echo No discord exports in eu5-tbd\data\discord\ — skipping preprocess
 )
 
+python tools\downsample_maps.py
 python tools\refresh_snapshots.py
 
 echo.

@@ -47,7 +47,7 @@ Fields:
   | `Battle` | ⚔️ | Battles, sieges, military engagements |
   | `Character` | 👤 | Births, deaths, succession, personal stories |
   | `Trade` | 📦 | Trade goods, merchants, trade routes |
-  | `Economy` | 🪙 | Income, debt, taxation, currency |
+  | `Economy` | 💰 | Income, debt, taxation, currency |
   | `Discover` | 🚢 | Exploration, colonisation, new lands |
   | `Treaty` | 📜 | Peace deals, alliances, royal marriages |
   | `Meeting` | 🤝 | Diplomacy, councils, conferences |
@@ -68,6 +68,10 @@ Aragon
 ```
 
 Bare follow-up posts from the same author within 5 minutes are merged in as continuation text for both formats.
+
+## Image attachments
+
+Image attachments on Discord posts (screenshots, fan art, etc.) are extracted by the preprocessor and rendered in the event detail panel. Discord's CDN URLs **expire after ~24 hours**, so for archival-quality campaigns export the channel with DiscordChatExporter's `--media` flag, which downloads attachments into a sibling `..._Files/` folder. The preprocessor rewrites those relative paths so the viewer can serve them from the campaign folder. Without `--media` the URLs still work, just only for a day after the export.
 
 ## Workflow for a new campaign
 

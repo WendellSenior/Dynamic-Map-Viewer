@@ -279,6 +279,20 @@ def main():
     else:
         raise SystemExit(f"Unsupported input format: {args.input.suffix}")
 
+    # Rewrite relative attachment URLs (DiscordChatExporter --media mode) so the viewer
+    # can resolve them from the campaign root (parent of data/).
+    input_dir = args.input.parent.resolve()
+    viewer_dir = args.out.parent.parent.resolve()
+    def to_viewer_url(url):
+        if not url:
+            return url
+        if url.startswith(("http://", "https://", "data:", "//")):
+            return url
+        try:
+            return (input_dir / url).resolve().relative_to(viewer_dir).as_posix()
+        except (ValueError, OSError):
+            return url
+
     tags = load_country_tags(args.tags, args.raw_tags)
     lookup = build_country_lookup(tags)
     alias_cache = (
@@ -292,7 +306,17 @@ def main():
 
     for msg in messages:
         content = (msg.get("content") or "").strip()
-        if not content:
+        msg_images = []
+        for a in (msg.get("attachments") or []):
+            ct = (a.get("content_type") or "").lower()
+            if ct.startswith("image/"):
+                msg_images.append({
+                    "url": to_viewer_url(a.get("url")),
+                    "filename": a.get("filename"),
+                    "width": a.get("width"),
+                    "height": a.get("height"),
+                })
+        if not content and not msg_images:
             continue
         author = msg.get("author") or {}
         author_name = author.get("global_name") or author.get("username") or "unknown"
@@ -346,6 +370,7 @@ def main():
                 "author": author_name,
                 "snippet": (body[:120] if body else ""),
                 "fullText": body,
+                "images": msg_images,
             }
             events.append(event)
             if ts:
@@ -364,8 +389,11 @@ def main():
             prev = last_event_by_author.get(author_id)
             if prev and ts and (ts - prev[1]) <= CONTINUATION_WINDOW:
                 ev, _ = prev
-                ev["fullText"] = (ev["fullText"] + "\n\n" + content).strip() if ev["fullText"] else content
-                ev["snippet"] = ev["fullText"][:120]
+                if content:
+                    ev["fullText"] = (ev["fullText"] + "\n\n" + content).strip() if ev["fullText"] else content
+                    ev["snippet"] = ev["fullText"][:120]
+                if msg_images:
+                    ev["images"] = (ev.get("images") or []) + msg_images
                 last_event_by_author[author_id] = (ev, ts)
             else:
                 untagged.append({

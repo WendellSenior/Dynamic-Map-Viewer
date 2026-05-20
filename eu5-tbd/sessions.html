@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Session editor — Dynamic Map Viewer</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #1a1a1a; }
+    header {
+      padding: 10px 16px; background: #fff4c5; border-bottom: 1px solid #d9c97a;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    header strong { color: #5a4500; }
+    .primary {
+      background: #2563eb; color: #fff; border: none; border-radius: 4px;
+      padding: 5px 12px; cursor: pointer; font: inherit;
+    }
+    .primary:hover { background: #1d4ed8; }
+    .primary:disabled { background: #aaa; cursor: not-allowed; }
+    main { padding: 16px; max-width: 780px; }
+    p.hint { color: #666; font-size: 13px; margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    th {
+      text-align: left; padding: 8px 8px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.04em; color: #555;
+      border-bottom: 1px solid #e3e3e3;
+    }
+    td { padding: 5px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    td.row-idx { color: #888; width: 32px; font-variant-numeric: tabular-nums; }
+    td.date-cell { width: 160px; }
+    td.name-cell { width: auto; }
+    td.actions { width: 28px; text-align: right; }
+    td input {
+      padding: 4px 8px; font: inherit; width: 100%;
+      border: 1px solid #ccc; border-radius: 3px;
+    }
+    td.date-cell input { font-variant-numeric: tabular-nums; }
+    td input.invalid { border-color: #d11; background: #fff1f1; }
+    .delete-btn {
+      background: transparent; border: none; cursor: pointer;
+      color: #b91c1c; font-size: 18px; padding: 0 6px;
+    }
+    .delete-btn:hover { color: #7f1d1d; }
+    #add { padding: 5px 12px; background: #fff; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font: inherit; }
+    #add:hover { background: #f5f5f5; }
+    #status { font-size: 12px; padding: 4px 8px; border-radius: 3px; }
+    #status.ok { background: #dcfce7; color: #166534; }
+    #status.err { background: #fee2e2; color: #991b1b; }
+    .overlap-warn { color: #92400e; font-size: 12px; margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Session editor</strong>
+    <button id="save" class="primary">Save to sessions.json</button>
+    <div id="status" hidden></div>
+  </header>
+  <main>
+    <p class="hint">Each session has a name and an in-game date range. Sessions are sorted by start date when saved. Use the format YYYY-MM-DD.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Start</th>
+          <th>End</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="sessions-tbody"></tbody>
+    </table>
+    <button id="add">+ Add session</button>
+    <div id="warnings"></div>
+  </main>
+  <script>
+    const DATE_RE = /^\d{3,4}-\d{2}-\d{2}$/;
+    const state = { sessions: [], fileHandle: null };
+
+    function status(msg, kind = 'ok') {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = kind;
+      el.hidden = false;
+      clearTimeout(status._t);
+      status._t = setTimeout(() => { el.hidden = true; }, 4000);
+    }
+
+    async function fetchJSON(path) {
+      const r = await fetch(path);
+      if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
+      return r.json();
+    }
+
+    async function init() {
+      if (location.protocol === 'file:') {
+        document.body.innerHTML =
+          '<p style="padding:24px;color:#700;font:14px/1.5 system-ui;">' +
+          'Open via <code>sessions.bat</code> (or visit ' +
+          '<code>http://localhost:8000/sessions.html</code>). Browsers block ' +
+          '<code>fetch()</code> from <code>file://</code>.</p>';
+        return;
+      }
+      try {
+        const data = await fetchJSON('data/sessions.json');
+        state.sessions = (data.sessions || []).map(s => ({ ...s }));
+      } catch {
+        state.sessions = [];
+      }
+      render();
+      document.getElementById('save').addEventListener('click', save);
+      document.getElementById('add').addEventListener('click', () => {
+        state.sessions.push({
+          name: `Session ${state.sessions.length + 1}`,
+          start: '',
+          end: '',
+        });
+        render();
+        // Name is pre-filled, jump straight to the start-date input.
+        const inputs = document.querySelectorAll('#sessions-tbody tr:last-child input');
+        if (inputs[1]) inputs[1].focus();
+      });
+      if (!('showOpenFilePicker' in window)) {
+        const btn = document.getElementById('save');
+        btn.disabled = true;
+        btn.title = 'File System Access API not supported in this browser.';
+      }
+    }
+
+    function render() {
+      const tbody = document.getElementById('sessions-tbody');
+      tbody.innerHTML = '';
+      state.sessions.forEach((s, idx) => {
+        const tr = document.createElement('tr');
+
+        const idxTd = document.createElement('td');
+        idxTd.className = 'row-idx';
+        idxTd.textContent = idx + 1;
+        tr.appendChild(idxTd);
+
+        tr.appendChild(makeInputCell(s, 'name', 'name-cell', `Session ${idx + 1}`, false));
+        tr.appendChild(makeInputCell(s, 'start', 'date-cell', 'YYYY-MM-DD', true));
+        tr.appendChild(makeInputCell(s, 'end',   'date-cell', 'YYYY-MM-DD', true));
+
+        const actionsTd = document.createElement('td');
+        actionsTd.className = 'actions';
+        const del = document.createElement('button');
+        del.className = 'delete-btn';
+        del.textContent = '×';
+        del.title = 'Delete session';
+        del.addEventListener('click', () => {
+          state.sessions.splice(idx, 1);
+          render();
+        });
+        actionsTd.appendChild(del);
+        tr.appendChild(actionsTd);
+
+        tbody.appendChild(tr);
+      });
+      renderWarnings();
+    }
+
+    function makeInputCell(session, field, cssClass, placeholder, isDate) {
+      const td = document.createElement('td');
+      td.className = cssClass;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = session[field] || '';
+      input.placeholder = placeholder;
+      const updateInvalid = () => {
+        input.classList.toggle('invalid', isDate && input.value && !DATE_RE.test(input.value));
+      };
+      input.addEventListener('input', () => {
+        session[field] = input.value;
+        updateInvalid();
+        renderWarnings();
+      });
+      updateInvalid();
+      td.appendChild(input);
+      return td;
+    }
+
+    function renderWarnings() {
+      const el = document.getElementById('warnings');
+      el.innerHTML = '';
+      const valid = state.sessions
+        .map((s, i) => ({ ...s, i }))
+        .filter(s => DATE_RE.test(s.start) && DATE_RE.test(s.end));
+      // Sort by start
+      const sorted = [...valid].sort((a, b) => a.start.localeCompare(b.start));
+      const warnings = [];
+      for (let i = 0; i < sorted.length; i++) {
+        const s = sorted[i];
+        if (s.start > s.end) warnings.push(`Row ${s.i + 1}: end is before start.`);
+        if (i > 0 && s.start < sorted[i - 1].end) {
+          warnings.push(`Rows ${sorted[i - 1].i + 1} & ${s.i + 1} overlap.`);
+        }
+      }
+      for (const w of warnings) {
+        const div = document.createElement('div');
+        div.className = 'overlap-warn';
+        div.textContent = '⚠ ' + w;
+        el.appendChild(div);
+      }
+    }
+
+    async function save() {
+      // Empty names get a chronological default after sorting.
+      const cleaned = state.sessions
+        .filter(s => DATE_RE.test(s.start) && DATE_RE.test(s.end))
+        .sort((a, b) => a.start.localeCompare(b.start))
+        .map((s, idx) => ({
+          name: (s.name || '').trim() || `Session ${idx + 1}`,
+          start: s.start,
+          end: s.end,
+        }));
+
+      try {
+        if (!state.fileHandle) {
+          [state.fileHandle] = await window.showOpenFilePicker({
+            types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+            multiple: false,
+          });
+        }
+        let perm = await state.fileHandle.queryPermission({ mode: 'readwrite' });
+        if (perm !== 'granted') {
+          perm = await state.fileHandle.requestPermission({ mode: 'readwrite' });
+          if (perm !== 'granted') { status('Write permission denied.', 'err'); return; }
+        }
+        const writable = await state.fileHandle.createWritable();
+        await writable.write(JSON.stringify({ sessions: cleaned }, null, 2) + '\n');
+        await writable.close();
+        state.sessions = cleaned.map(s => ({ ...s }));
+        render();
+        status(`Saved ${cleaned.length} session(s).`, 'ok');
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+        status(`Save failed: ${err.message}`, 'err');
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

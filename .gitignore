@@ -6,17 +6,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Local Discord exports (large, often contain personal usernames).
+# Local Discord exports — large, contain personal usernames, CDN URLs expire in ~24h.
+# Keep them out of the repo even with --media (the _Files/ siblings can be huge).
 **/data/discord/*
 !**/data/discord/.gitkeep
 
-# Internal calibration tool — local-only (per-campaign, may live in any subfolder).
-calibrate.html
-calibrate.bat
-
-# Local session editor.
-sessions.html
-sessions.bat
-
-# Preprocessor side outputs.
+# Preprocessor diagnostic, regenerated on every run.
 untagged.log

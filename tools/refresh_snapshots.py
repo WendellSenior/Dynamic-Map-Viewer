@@ -36,6 +36,7 @@ def refresh_one(snapshots_path, maps_dir):
     )
     config = existing.get("config", {})
     by_image = {s["image"]: s for s in existing.get("snapshots", [])}
+    lowres_dir = maps_dir / "lowres"
 
     new_snapshots = []
     skipped = []
@@ -44,17 +45,29 @@ def refresh_one(snapshots_path, maps_dir):
             continue
         rel = f"data/maps/{path.name}"
         if rel in by_image:
-            new_snapshots.append(by_image[rel])
-            continue
-        date = derive_date(path.stem)
-        if date is None:
-            skipped.append(path.name)
-            continue
-        new_snapshots.append({
-            "date": date,
-            "image": rel,
-            "label": date.split("-")[0],
-        })
+            snap = dict(by_image[rel])
+        else:
+            date = derive_date(path.stem)
+            if date is None:
+                skipped.append(path.name)
+                continue
+            snap = {
+                "date": date,
+                "image": rel,
+                "label": date.split("-")[0],
+            }
+        # Sync the lowres pointer with what's on disk — accept any image extension.
+        lowres_match = None
+        for ext in IMAGE_EXTS:
+            cand = lowres_dir / (path.stem + ext)
+            if cand.exists():
+                lowres_match = cand
+                break
+        if lowres_match is not None:
+            snap["image_lowres"] = f"data/maps/lowres/{lowres_match.name}"
+        else:
+            snap.pop("image_lowres", None)
+        new_snapshots.append(snap)
     new_snapshots.sort(key=lambda s: s["date"])
 
     out = {"config": config, "snapshots": new_snapshots}

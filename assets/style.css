@@ -226,6 +226,28 @@ main {
 }
 .jump-to-pin:hover { background: #1d4ed8; }
 
+.event-images {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.event-images a {
+  display: block;
+  line-height: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  transition: border-color 0.1s;
+}
+.event-images a:hover { border-color: #2563eb; }
+.event-images a.broken { display: none; }
+.event-images img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 footer {
   flex-shrink: 0;
   padding: 10px 16px 14px;

@@ -9,7 +9,8 @@
       "tag": "Character",
       "author": "Tartarus",
       "snippet": "# Coronation of King Louis\nKing Louis will be coronated as King of France. Montjoie saint denis. Together we will withst",
-      "fullText": "# Coronation of King Louis\nKing Louis will be coronated as King of France. Montjoie saint denis. Together we will withstand the trials and tests of time and build a glorious French kingdom."
+      "fullText": "# Coronation of King Louis\nKing Louis will be coronated as King of France. Montjoie saint denis. Together we will withstand the trials and tests of time and build a glorious French kingdom.",
+      "images": []
     },
     {
       "id": "1506454218670604359",
@@ -20,7 +21,8 @@
       "tag": "History",
       "author": "Tartarus",
       "snippet": "# Aragon, 1330-1336\nblah balhalhawerijhqaiorhweiotuwoierg blah balb ahlahlaerioqwehjiowe blah abl h ablhalhaioaehiowejht",
-      "fullText": "# Aragon, 1330-1336\nblah balhalhawerijhqaiorhweiotuwoierg blah balb ahlahlaerioqwehjiowe blah abl h ablhalhaioaehiowejhtiowtoi halekrbiqweopqwp"
+      "fullText": "# Aragon, 1330-1336\nblah balhalhawerijhqaiorhweiotuwoierg blah balb ahlahlaerioqwehjiowe blah abl h ablhalhaioaehiowejhtiowtoi halekrbiqweopqwp",
+      "images": []
     },
     {
       "id": "1506454610343366891",
@@ -31,7 +33,8 @@
       "tag": null,
       "author": "Tartarus",
       "snippet": "## Title Poop\nuhhhh i dont know lol",
-      "fullText": "## Title Poop\nuhhhh i dont know lol"
+      "fullText": "## Title Poop\nuhhhh i dont know lol",
+      "images": []
     },
     {
       "id": "1506454743998922772",
@@ -42,7 +45,15 @@
       "tag": "Economy",
       "author": "Tartarus",
       "snippet": "# AI Displaces Graduates\nNobody wanna work anymore because AI is graduates",
-      "fullText": "# AI Displaces Graduates\nNobody wanna work anymore because AI is graduates"
+      "fullText": "# AI Displaces Graduates\nNobody wanna work anymore because AI is graduates",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1132472723457724497/1506454744271556668/HIWlo2zWAAAbVFJ.png?ex=6a0e52cf&is=6a0d014f&hm=91747adaf45bf0733ac92abbae676426bf74090a1d44f92170821cebdec65848&",
+          "filename": "HIWlo2zWAAAbVFJ.png",
+          "width": 1097,
+          "height": 1392
+        }
+      ]
     },
     {
       "id": "1506455354257571882",
@@ -53,7 +64,33 @@
       "tag": null,
       "author": "Tartarus",
       "snippet": "## Multiple Images Test\nSo is Stalker Gamma any good or what? Here's an image with multiple images so test that.",
-      "fullText": "## Multiple Images Test\nSo is Stalker Gamma any good or what? Here's an image with multiple images so test that."
+      "fullText": "## Multiple Images Test\nSo is Stalker Gamma any good or what? Here's an image with multiple images so test that.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1132472723457724497/1506455354618413259/HItLkc2WoAEcY22.png?ex=6a0e5361&is=6a0d01e1&hm=d444caf75becbd370a2ea130b0c8aa92df5d1370dd71b04c616283783f9b8854&",
+          "filename": "HItLkc2WoAEcY22.png",
+          "width": 1907,
+          "height": 1066
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1132472723457724497/1506455355004162141/HItLkc2WoAEcY22.png?ex=6a0e5361&is=6a0d01e1&hm=cb13f1ea153831143d78cb88d504edaffb167caabc79846696a800381c7be8c8&",
+          "filename": "HItLkc2WoAEcY22.png",
+          "width": 1907,
+          "height": 1066
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1132472723457724497/1506455355406811146/HItLnUbXgAAznH9.png?ex=6a0e5361&is=6a0d01e1&hm=e93b2bdafd698531b47189d53edf3f39d9387f2dd51a0de3cfaffa634f0e41dc&",
+          "filename": "HItLnUbXgAAznH9.png",
+          "width": 1908,
+          "height": 1071
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1132472723457724497/1506455355805401148/HItLo_UWoAAoiNA.png?ex=6a0e5361&is=6a0d01e1&hm=95d2af780c72a5e5e2b5e2727ecc5d2a8b41ced212aa8c355438e6559af7419a&",
+          "filename": "HItLo_UWoAAoiNA.png",
+          "width": 1896,
+          "height": 1066
+        }
+      ]
     }
   ]
 }
