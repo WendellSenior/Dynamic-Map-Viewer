@@ -59,7 +59,8 @@ for _canonical, _aliases in TAG_ALIASES.items():
     for _alias in _aliases:
         TAG_LOOKUP[_alias.lower()] = _canonical
 
-BRACKET_FIELD_RE = re.compile(r"\[(\w+)\s*:\s*([^\]]+)\]")
+BRACKET_FIELD_RE = re.compile(r"\[(?:(\w+)\s*:\s*)?([^\]]+)\]")
+DECORATIVE_LINE_RE = re.compile(r"^[\W_]+$")
 
 # Heuristics for "this looks like a new event attempt, even if the formal header parser failed."
 COLON_KEYWORD_RE = re.compile(r"^\s*(date|country|location|tag)\s*[:=]", re.IGNORECASE)
@@ -118,29 +119,42 @@ def parse_date(s):
 
 def parse_bracket_header(content):
     """Canonical format: `[Date:YYYY-MM-DD][Country:Name][Location:Name][Tag:Name]`.
-    Brackets may span one line or multiple. Returns (fields_dict, body) or (None, None)."""
+    Brackets may span one line or multiple. Decorative pre-header lines (---/...)
+    are skipped. A naked `[1337-04-01]` bracket (no Date: prefix) is accepted as
+    the date if its content parses as one. Returns (fields_dict, body) or (None, None)."""
     lines = content.split("\n")
     fields = {}
     consumed = 0
+    seen_brackets = False
     for i, raw in enumerate(lines):
         line = raw.strip()
         if not line:
-            if fields:
+            if seen_brackets:
                 consumed = i + 1
             continue
+        if not BRACKET_FIELD_RE.search(line):
+            # Skip decorative pre-header lines (---/...***///etc) — anything non-alphanumeric only.
+            if DECORATIVE_LINE_RE.match(line):
+                if seen_brackets:
+                    consumed = i + 1
+                continue
+            # Real prose with no brackets → end of header zone.
+            break
         matches = BRACKET_FIELD_RE.findall(line)
         leftover = BRACKET_FIELD_RE.sub("", line).strip()
-        if matches and not leftover:
-            for k, v in matches:
-                fields[k.lower()] = v.strip()
+        seen_brackets = True
+        for k, v in matches:
+            v = v.strip()
+            if k:
+                fields[k.lower()] = v
+            elif "date" not in fields and parse_date(v):
+                # Naked bracket whose content parses as a date — treat as Date.
+                fields["date"] = v
+        if not leftover:
             consumed = i + 1
-        elif matches and leftover:
-            for k, v in matches:
-                fields[k.lower()] = v.strip()
+        else:
             lines[i] = leftover
             consumed = i
-            break
-        else:
             break
     if "date" not in fields:
         return None, None
