@@ -100,6 +100,27 @@ def fetch_messages_since(channel_id, after_snowflake):
     return messages
 
 
+_DELETED = object()
+
+def fetch_message(channel_id, message_id):
+    url = f"{BASE}/channels/{channel_id}/messages/{message_id}"
+    for _ in range(5):
+        resp = requests.get(url, headers=HEADERS)
+        if resp.status_code == 200:
+            return resp.json()
+        if resp.status_code == 404:
+            return _DELETED
+        if resp.status_code == 429:
+            retry_after = float(resp.json().get("retry_after", 1))
+            log(f"  Rate limited. Waiting {retry_after:.1f}s ...")
+            time.sleep(retry_after + 0.1)
+            continue
+        if resp.status_code == 403:
+            return None
+        time.sleep(1)
+    return None
+
+
 def fetch_active_threads(guild_id):
     data = api_get(f"/guilds/{guild_id}/threads/active")
     if not data:
@@ -182,20 +203,13 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def check_edits(events_data, event_meta, now_utc):
-    """
-    For every event posted within the last EDIT_LOOKBACK_DAYS days,
-    fetch its message from Discord and check if edited_timestamp changed.
-    If it did, re-parse and update the entry in events_data in-place.
-    Returns True if any event was updated.
-    """
-    cutoff = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
-    updated = False
+def check_edits_and_deletions(events_data, event_meta, now_utc):
+    cutoff      = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    updated     = False
+    to_delete   = []
 
     for i, event in enumerate(events_data["events"]):
-        event_id = event["id"]
-
-        # Only check recent messages (by real post date, from snowflake)
+        event_id  = event["id"]
         posted_at = snowflake_to_dt(event_id)
         if posted_at < cutoff:
             continue
@@ -204,15 +218,22 @@ def check_edits(events_data, event_meta, now_utc):
         if not meta:
             continue
 
-        channel_id     = meta["channel_id"]
-        stored_edited  = meta.get("edited_timestamp")
+        channel_id    = meta["channel_id"]
+        stored_edited = meta.get("edited_timestamp")
 
-        msg = api_get(f"/channels/{channel_id}/messages/{event_id}")
+        msg = fetch_message(channel_id, event_id)
+
+        if msg is _DELETED:
+            log(f"  x {event_id} was deleted — removing from events.json")
+            to_delete.append(i)
+            event_meta.pop(event_id, None)
+            updated = True
+            continue
+
         if not msg:
             continue
 
         current_edited = msg.get("edited_timestamp")
-
         if current_edited == stored_edited:
             continue
 
@@ -227,6 +248,9 @@ def check_edits(events_data, event_meta, now_utc):
             log(f"    tags removed after edit — keeping old entry unchanged")
 
         updated = True
+
+    for i in reversed(to_delete):
+        events_data["events"].pop(i)
 
     return updated
 
@@ -293,10 +317,10 @@ def main():
             log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
 
     # ── Edit check ────────────────────────────────────────────────────────────
-    log("Checking recent events for edits ...")
-    edits_found = check_edits(events_data, event_meta, now_utc)
+    log("Checking recent events for edits/deletions ...")
+    edits_found = check_edits_and_deletions(events_data, event_meta, now_utc)
     if not edits_found:
-        log("  No edits found.")
+        log("  No changes found.")
 
     # ── Persist ───────────────────────────────────────────────────────────────
     had_changes = bool(new_events) or edits_found
