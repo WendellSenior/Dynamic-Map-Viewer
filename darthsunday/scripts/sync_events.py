@@ -372,6 +372,85 @@ def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=Non
     return updated
 
 
+def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_names=None):
+    """Re-fetch each rejected message inside the 7-day window; promote any that
+    now parse cleanly into events.
+
+    Catches the case where someone posts an event without tags, then edits the
+    brackets in later. Without this pass, the main scan loop would skip the
+    edited message via dedup (it's in rejected_meta with the old edited_timestamp),
+    AND check_edits_and_deletions wouldn't see it either (only iterates events
+    already in events.json). This closes that hole.
+
+    Returns (new_events, any_changes) — any_changes covers prunes & status
+    updates even when no promotions actually happened, so the cache gets saved.
+    """
+    thread_names = thread_names or {}
+    cutoff       = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    new_events   = []
+    to_drop      = []
+    any_changes  = False
+
+    for msg_id, meta in list(rejected_meta.items()):
+        try:
+            posted_at = snowflake_to_dt(msg_id)
+        except (ValueError, TypeError):
+            to_drop.append(msg_id)
+            any_changes = True
+            continue
+        if posted_at < cutoff:
+            to_drop.append(msg_id)
+            any_changes = True
+            continue
+
+        channel_id    = meta.get("channel_id")
+        stored_edited = meta.get("edited_timestamp")
+        if not channel_id:
+            to_drop.append(msg_id)
+            any_changes = True
+            continue
+
+        msg = fetch_message(channel_id, msg_id)
+
+        if msg is _DELETED:
+            log(f"  x rejected {msg_id} was deleted — removing from rejected_meta")
+            to_drop.append(msg_id)
+            any_changes = True
+            continue
+        if not msg:
+            continue
+
+        current_edited = msg.get("edited_timestamp")
+        if current_edited == stored_edited:
+            continue  # No edit since last evaluation; still rejected.
+
+        log(f"  ~ rejected {msg_id} was edited (was: {stored_edited}, now: {current_edited})")
+
+        parsed = parse_event_tags(msg.get("content", ""))
+        if parsed:
+            thread_title = thread_names.get(channel_id) if channel_id != CHANNEL_ID else None
+            event = build_event(msg, parsed, thread_title=thread_title)
+            new_events.append(event)
+            event_meta[msg_id] = {
+                "channel_id":       channel_id,
+                "edited_timestamp": current_edited,
+            }
+            to_drop.append(msg_id)
+            log(f"    PROMOTED to event: [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+            any_changes = True
+        else:
+            # Still no valid tags, but record the new edited_timestamp so we
+            # don't re-fetch this one on every subsequent run.
+            rejected_meta[msg_id]["edited_timestamp"] = current_edited
+            log(f"    still no valid tags after edit")
+            any_changes = True
+
+    for msg_id in to_drop:
+        rejected_meta.pop(msg_id, None)
+
+    return new_events, any_changes
+
+
 def parse_since(s):
     """Parse `--since` value. Accepts YYYY-MM-DD or full ISO 8601."""
     if not s:
@@ -392,7 +471,62 @@ def main():
                     help="Override the cursor and backfill from this date "
                          "(YYYY-MM-DD or full ISO). One-shot — the cursor "
                          "moves forward after the run as normal.")
+    ap.add_argument("--debug-fetch", default=os.environ.get("DEBUG_FETCH", ""),
+                    help="One-shot diagnostic: fetch a specific message by "
+                         "`channel_id:message_id` (or full Discord URL) and "
+                         "print its raw content + regex match details to the "
+                         "workflow log. Useful when a post 'should' parse but "
+                         "the strict tag regex is rejecting it. Sync still "
+                         "runs normally afterwards.")
     args = ap.parse_args()
+
+    # ── Debug fetch ───────────────────────────────────────────────────────────
+    # Lets us inspect what the API actually returns for a problem message,
+    # since the normal "no valid tags" log line truncates content to 80 chars.
+    if args.debug_fetch:
+        spec = args.debug_fetch.strip()
+        # Accept full Discord message URLs: .../channels/{guild}/{channel}/{msg}
+        if "/channels/" in spec:
+            parts = spec.rstrip("/").split("/")
+            ch_id, msg_id = parts[-2], parts[-1]
+        elif ":" in spec:
+            ch_id, msg_id = spec.split(":", 1)
+        else:
+            log(f"  DEBUG_FETCH format error: expected `channel:message` or URL, got {spec!r}")
+            ch_id = msg_id = None
+
+        if ch_id and msg_id:
+            log(f"=== DEBUG FETCH: channel={ch_id} message={msg_id} ===")
+            msg = fetch_message(ch_id, msg_id)
+            if msg is None:
+                log("  (fetch failed — 403/timeout)")
+            elif msg is _DELETED:
+                log("  (message deleted)")
+            else:
+                content = msg.get("content", "")
+                log(f"  author: {msg.get('author', {}).get('username')!r} "
+                    f"(global_name={msg.get('author', {}).get('global_name')!r})")
+                log(f"  edited: {msg.get('edited_timestamp')}")
+                log(f"  content length: {len(content)} chars")
+                log(f"  attachments: {len(msg.get('attachments') or [])}")
+                log("  --- RAW CONTENT (repr, so escapes are visible) ---")
+                # Print in chunks; workflow log lines can get long but repr() is fine.
+                log(f"  {content!r}")
+                log("  --- END RAW CONTENT ---")
+                match = TAG_RE.search(content)
+                if match:
+                    log(f"  REGEX MATCH at offset {match.start()}-{match.end()}: {match.group(0)!r}")
+                    log(f"    groups: {match.groups()!r}")
+                else:
+                    log("  REGEX MATCH: NONE — content does not contain "
+                        "`[Date:YYYY-MM-DD][Country:...][Location:...]` in the strict format.")
+                    # Show what bracket-like content is present, if any.
+                    found = re.findall(r"\[[^\]]{1,60}\]", content)
+                    if found:
+                        log(f"  Bracket-like substrings found ({len(found)}):")
+                        for b in found[:20]:
+                            log(f"    {b!r}")
+            log("=== END DEBUG FETCH ===")
 
     now_utc   = datetime.now(tz=timezone.utc)
     today_utc = now_utc.date()
@@ -404,9 +538,13 @@ def main():
     COUNTRY_LOOKUP = load_country_lookup(REFERENCE_DIR)
 
     cache           = load_json(CACHE_FILE, {})
-    processed_today = set(cache.get(today_str, []))
-    # event_meta: {msg_id: {channel_id, edited_timestamp}}
+    # event_meta:    {msg_id: {channel_id, edited_timestamp}} for messages that
+    #                parsed cleanly and are in events.json. Used by edit-detection.
+    # rejected_meta: same shape, for messages that failed parsing. Used by the
+    #                edit-detection-equivalent pass that promotes posts after
+    #                their author edits valid tags in. Both pruned to 7 days.
     event_meta      = cache.get("event_meta", {})
+    rejected_meta   = cache.get("rejected_meta", {})
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
 
@@ -482,10 +620,23 @@ def main():
 
     for msg, ch_id in all_messages:
         msg_id = msg["id"]
-        if msg_id in processed_today or msg_id in existing_ids or msg_id in seen:
+        if msg_id in seen:
             continue
         seen.add(msg_id)
-        processed_today.add(msg_id)
+
+        # Events-already-in-events.json get edit-handled by check_edits_and_deletions.
+        if msg_id in existing_ids:
+            continue
+
+        current_edited = msg.get("edited_timestamp")
+
+        # If we've already evaluated this message AND its edited_timestamp
+        # hasn't changed since, skip silently. If it HAS changed (or the
+        # message is new to us), fall through and re-parse — this is what
+        # lets late-added tag edits get promoted to events.
+        prior = rejected_meta.get(msg_id)
+        if prior and prior.get("edited_timestamp") == current_edited:
+            continue
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
@@ -493,44 +644,79 @@ def main():
             new_events.append(build_event(msg, parsed, thread_title=thread_title))
             event_meta[msg_id] = {
                 "channel_id":       ch_id,
-                "edited_timestamp": msg.get("edited_timestamp"),
+                "edited_timestamp": current_edited,
             }
-            log(f"  + {msg_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+            # If this message was previously rejected, graduate it out of the
+            # rejected pool so subsequent runs use the event_meta entry.
+            promoted = rejected_meta.pop(msg_id, None) is not None
+            log(f"  {'^' if promoted else '+'} {msg_id} "
+                f"[{parsed['date']}] {parsed['province']} ({parsed['tag']})"
+                f"{' — promoted after edit' if promoted else ''}")
         else:
+            rejected_meta[msg_id] = {
+                "channel_id":       ch_id,
+                "edited_timestamp": current_edited,
+            }
             log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
 
     # ── Edit check ────────────────────────────────────────────────────────────
     log("Checking recent events for edits/deletions ...")
     edits_found = check_edits_and_deletions(events_data, event_meta, now_utc, thread_names)
     if not edits_found:
-        log("  No changes found.")
+        log("  No event changes found.")
+
+    # ── Promotion check: rejected messages whose edits added valid tags ──────
+    # This is the symmetric pass to edit-detection: it covers the case where a
+    # post had no brackets when first scanned, then was edited later to add
+    # them. Without it, those edits would be invisible because the main scan
+    # loop only sees messages newer than the cursor.
+    log("Checking recent rejections for late-added tags ...")
+    promoted_events, promotions_found = check_rejected_for_promotions(
+        rejected_meta, event_meta, now_utc, thread_names
+    )
+    if promoted_events:
+        new_events.extend(promoted_events)
+        log(f"  Promoted {len(promoted_events)} rejected post(s) to events.")
+    elif not promotions_found:
+        log("  No rejection changes found.")
 
     # ── Persist ───────────────────────────────────────────────────────────────
-    had_changes = bool(new_events) or edits_found
+    had_changes = bool(new_events) or edits_found or promotions_found
 
     if new_events:
         events_data["events"].extend(new_events)
 
     if had_changes:
         save_json(EVENTS_FILE, events_data)
-        log(f"Saved events.json ({len(new_events)} new, edits={edits_found}).")
+        log(f"Saved events.json ({len(new_events)} new, edits={edits_found}, promotions={bool(promoted_events)}).")
     else:
         log("No changes this run.")
 
-    # Prune event_meta entries older than EDIT_LOOKBACK_DAYS
+    # Prune both metas to the 7-day window — older entries are out of the edit
+    # detection range, so re-fetching them is wasted work.
     cutoff_dt = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
-    event_meta = {
-        k: v for k, v in event_meta.items()
-        if snowflake_to_dt(k) >= cutoff_dt
-    }
 
-    cache[today_str]   = list(processed_today)
-    cache["event_meta"] = event_meta
+    def _prune(meta):
+        out = {}
+        for k, v in meta.items():
+            try:
+                if snowflake_to_dt(k) >= cutoff_dt:
+                    out[k] = v
+            except (ValueError, TypeError):
+                pass  # skip garbage entries
+        return out
 
-    cutoff_date = (today_utc - timedelta(days=7)).isoformat()
+    event_meta    = _prune(event_meta)
+    rejected_meta = _prune(rejected_meta)
+
+    cache["event_meta"]    = event_meta
+    cache["rejected_meta"] = rejected_meta
+
+    # rejected_meta replaces the old per-UTC-day buckets — drop any leftover
+    # ones so the cache file doesn't drift in shape over time.
     cache = {
         k: v for k, v in cache.items()
-        if k == "event_meta" or k >= cutoff_date
+        if k in ("event_meta", "rejected_meta", "last_snowflake")
     }
     save_json(CACHE_FILE, cache)
 

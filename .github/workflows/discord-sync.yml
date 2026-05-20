@@ -9,6 +9,10 @@ on:
         description: 'One-shot backfill from this date (YYYY-MM-DD or ISO). Leave blank for normal cron resume.'
         required: false
         default: ''
+      debug_fetch:
+        description: 'Diagnostic: fetch a specific message and dump its raw content + regex match info. Paste a full Discord URL (.../channels/.../.../...) or channel_id:message_id. Leave blank for normal runs.'
+        required: false
+        default: ''
 
 jobs:
   sync:
@@ -35,6 +39,7 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SYNC_SINCE: ${{ inputs.since }}
+          DEBUG_FETCH: ${{ inputs.debug_fetch }}
         run: python darthsunday/scripts/sync_events.py
 
       - name: Commit and push changes
