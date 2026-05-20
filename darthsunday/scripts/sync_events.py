@@ -53,15 +53,6 @@ def date_to_snowflake(dt):
     return str((max(ms - DISCORD_EPOCH, 0)) << 22)
 
 
-def snowflake_to_date(snowflake):
-    ms = (int(snowflake) >> 22) + DISCORD_EPOCH
-    return datetime.fromtimestamp(ms / 1000, tz=timezone.utc).date()
-
-
-def is_today(snowflake):
-    return snowflake_to_date(snowflake) == date.today()
-
-
 def api_get(path, params=None, retries=5):
     url = f"{BASE}{path}"
     for _ in range(retries):
@@ -240,12 +231,10 @@ def main():
 
     all_messages = []
     for ch_id in channels_to_scan:
-        msgs   = fetch_messages_since(ch_id, after_snowflake)
-        todays = [m for m in msgs if is_today(m["id"])]
-        if todays:
-            label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
-            log(f"  {len(todays)} message(s) from {label}")
-        all_messages.extend(todays)
+        label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
+        msgs  = fetch_messages_since(ch_id, after_snowflake)
+        log(f"  {len(msgs)} message(s) from {label}")
+        all_messages.extend(msgs)
 
     log(f"Total messages to evaluate: {len(all_messages)}")
 
