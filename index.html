@@ -99,6 +99,7 @@
         root.appendChild(p);
         return;
       }
+      const cards = [];
       for (const c of campaigns) {
         if (c.hidden) continue;
         const a = document.createElement('a');
@@ -128,6 +129,27 @@
         arrow.textContent = 'Open viewer →';
         a.appendChild(arrow);
         root.appendChild(a);
+        cards.push({ campaign: c, datesEl: dates });
+      }
+
+      // Asynchronously compute stats per campaign from its events.json and overwrite
+      // the placeholder dates line when there are real events to summarise.
+      for (const { campaign, datesEl } of cards) {
+        fetch(`${campaign.folder}/data/events.json?t=${Date.now()}`)
+          .then(r => r.ok ? r.json() : null)
+          .then(data => {
+            const events = (data && data.events) || [];
+            if (events.length === 0) return;
+            const dates = events.map(e => e.date).filter(Boolean).sort();
+            if (dates.length === 0) {
+              datesEl.textContent = `${events.length} event${events.length === 1 ? '' : 's'}`;
+              return;
+            }
+            const first = dates[0], last = dates[dates.length - 1];
+            const range = first === last ? first : `${first} – ${last}`;
+            datesEl.textContent = `${events.length} event${events.length === 1 ? '' : 's'} · ${range}`;
+          })
+          .catch(() => {});
       }
     })();
   </script>

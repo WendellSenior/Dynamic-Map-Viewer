@@ -202,7 +202,14 @@ main {
 
 #event-panel h2 { margin: 0 0 4px; font-size: 16px; }
 #event-panel .meta { color: #666; font-size: 12px; margin: 0 0 12px; }
-#event-panel .body { white-space: pre-wrap; }
+#event-panel .body { /* whitespace handled by the markdown renderer */ }
+#event-panel .body h3 { font-size: 14px; margin: 12px 0 4px; font-weight: 600; }
+#event-panel .body h4 { font-size: 13px; margin: 10px 0 4px; font-weight: 600; color: #444; }
+#event-panel .body h5 { font-size: 12px; margin: 8px 0 4px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.04em; }
+#event-panel .body p { margin: 4px 0 8px; }
+#event-panel .body p:first-child { margin-top: 0; }
+#event-panel .body strong { font-weight: 600; }
+#event-panel .body em { font-style: italic; }
 #event-panel .empty { color: #999; }
 #event-panel .event-tag {
   display: inline-block;

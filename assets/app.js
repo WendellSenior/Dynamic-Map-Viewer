@@ -47,12 +47,8 @@ function formatDate(t) {
 function resolveCoords(event) {
   if (Array.isArray(event.coords)) return event.coords;
   if (event.province) {
-    if (state.coords.provinces[event.province]) {
-      return state.coords.provinces[event.province];
-    }
-    if (state.provinces[event.province]?.coords) {
-      return state.provinces[event.province].coords;
-    }
+    const xy = state.provincesIndex[event.province.toLowerCase()];
+    if (xy) return xy;
   }
   if (event.country && state.coords.countries[event.country]?.coords) {
     return state.coords.countries[event.country].coords;
@@ -347,7 +343,7 @@ function showEvent(e) {
 
   const body = document.createElement('div');
   body.className = 'body';
-  body.textContent = e.fullText || e.snippet || '';
+  body.appendChild(renderMarkdown(e.fullText || e.snippet || ''));
   panel.appendChild(body);
 
   const coords = resolveCoords(e);
@@ -398,6 +394,61 @@ function jumpToEvent(e) {
   render();
   updateBrowserVisibility();
   showEvent(e);
+}
+
+function renderInline(text, parent) {
+  // **bold** and *italic* only. Tokens are alternating non-marker / marker chunks.
+  const re = /(\*\*[^*\n]+\*\*|\*[^*\n]+\*)/g;
+  let last = 0, m;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+    const tok = m[0];
+    if (tok.startsWith('**')) {
+      const b = document.createElement('strong');
+      b.textContent = tok.slice(2, -2);
+      parent.appendChild(b);
+    } else {
+      const i = document.createElement('em');
+      i.textContent = tok.slice(1, -1);
+      parent.appendChild(i);
+    }
+    last = m.index + tok.length;
+  }
+  if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+}
+
+function renderMarkdown(text) {
+  const frag = document.createDocumentFragment();
+  if (!text) return frag;
+  // Paragraph break on 2+ newlines.
+  for (const block of text.split(/\n{2,}/)) {
+    const lines = block.split('\n');
+    if (lines.length === 1) {
+      const line = lines[0];
+      const h = line.match(/^(#{1,3})\s+(.+)$/);
+      if (h) {
+        const el = document.createElement('h' + (h[1].length + 2)); // # → h3, ## → h4, ### → h5
+        renderInline(h[2], el);
+        frag.appendChild(el);
+        continue;
+      }
+    }
+    const p = document.createElement('p');
+    lines.forEach((line, i) => {
+      const h = line.match(/^(#{1,3})\s+(.+)$/);
+      if (h && i === 0) {
+        // Heading at top of multi-line block: render heading then rest as paragraph.
+        const el = document.createElement('h' + (h[1].length + 2));
+        renderInline(h[2], el);
+        frag.appendChild(el);
+      } else {
+        if (i > 0) p.appendChild(document.createElement('br'));
+        renderInline(line, p);
+      }
+    });
+    if (p.childNodes.length > 0) frag.appendChild(p);
+  }
+  return frag;
 }
 
 function extractTitle(e) {
@@ -512,6 +563,22 @@ async function init() {
     state.coords = { countries: {}, provinces: {}, ...coordsData };
     state.provinces = provincesData;
     state.sessions = sessionsData.sessions || [];
+
+    // Unified case-insensitive index. positions-data first, manual coords.json wins.
+    state.provincesIndex = {};
+    for (const [n, info] of Object.entries(provincesData)) {
+      if (info && Array.isArray(info.coords)) state.provincesIndex[n.toLowerCase()] = info.coords;
+    }
+    for (const [n, coords] of Object.entries(state.coords.provinces || {})) {
+      if (Array.isArray(coords)) state.provincesIndex[n.toLowerCase()] = coords;
+    }
+
+    // Per-game column label for the events table.
+    const provHeader = document.querySelector('th.col-province');
+    if (provHeader) {
+      const labels = { eu4: 'Province', eu5: 'Location' };
+      provHeader.textContent = labels[window.CAMPAIGN_GAME] || 'Location';
+    }
 
     const allTimes = [
       ...state.events.map(e => parseDate(e.date)),

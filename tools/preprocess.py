@@ -27,11 +27,27 @@ MONTH_NAMES = {
 CONTINUATION_WINDOW = timedelta(minutes=5)
 COUNTRY_CANDIDATE_RE = re.compile(r"^[A-Za-z][A-Za-z\s\-'’]{0,30}$")
 
-KNOWN_TAGS = [
-    "WarDec", "Battle", "Character", "Trade", "Economy",
-    "Discover", "Treaty", "Meeting", "History",
-]
-TAG_LOOKUP = {t.lower(): t for t in KNOWN_TAGS}
+TAG_ALIASES = {
+    "WarDec":    ["wardec", "war", "warD", "declaration", "wardeclaration", "declare", "declarewar"],
+    "Battle":    ["battle", "fight", "siege", "combat", "engagement", "war battle"],
+    "Character": ["character", "person", "leader", "ruler", "monarch", "king", "queen",
+                  "death", "birth", "succession", "heir", "marriage"],
+    "Trade":     ["trade", "commerce", "merchant", "goods", "trade goods", "tradegoods"],
+    "Economy":   ["economy", "economic", "money", "income", "tax", "taxation",
+                  "debt", "finance", "wealth", "treasury", "coin"],
+    "Discover":  ["discover", "discovery", "exploration", "explore", "colony",
+                  "colonise", "colonize", "colonisation", "colonization", "expedition", "ship"],
+    "Treaty":    ["treaty", "peace", "alliance", "agreement", "pact", "royalmarriage"],
+    "Meeting":   ["meeting", "diplomacy", "diplo", "council", "conference", "summit",
+                  "negotiation", "talks"],
+    "History":   ["history", "historical", "background", "lore", "narration",
+                  "general", "intro", "introduction", "context"],
+}
+TAG_LOOKUP = {}
+for _canonical, _aliases in TAG_ALIASES.items():
+    TAG_LOOKUP[_canonical.lower()] = _canonical
+    for _alias in _aliases:
+        TAG_LOOKUP[_alias.lower()] = _canonical
 
 BRACKET_FIELD_RE = re.compile(r"\[(\w+)\s*:\s*([^\]]+)\]")
 
@@ -59,18 +75,18 @@ def looks_like_new_event(content):
 def parse_date(s):
     """Multi-format historical date parser. Returns ISO 'YYYY-MM-DD' or None."""
     s = s.strip().lower()
-    # 1492-04-26 (canonical) — bounds-checked
-    m = re.fullmatch(r"(\d{3,4})-(\d{1,2})-(\d{1,2})", s)
+    # 1492-04-26 / 1492.04.26 / 1492/04/26 (Y-M-D, bounds-checked)
+    m = re.fullmatch(r"(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})", s)
     if m:
         y, mo, d = int(m[1]), int(m[2]), int(m[3])
         if 1 <= mo <= 12 and 1 <= d <= 31:
             return f"{y:04d}-{mo:02d}-{d:02d}"
-    # 11_Nov_1444 or 4 Mar 1453
-    m = re.fullmatch(r"(\d{1,2})[_\s]+([a-z]+)[_\s]+(\d{3,4})", s)
+    # 11_Nov_1444 / 4 Mar 1453 / 11-Nov-1444 / 1.Jan.1337
+    m = re.fullmatch(r"(\d{1,2})[_\s./\-]+([a-z]+)[_\s./\-]+(\d{3,4})", s)
     if m and m[2] in MONTH_NAMES:
         return f"{int(m[3]):04d}-{MONTH_NAMES[m[2]]:02d}-{int(m[1]):02d}"
-    # 26_4_1492
-    m = re.fullmatch(r"(\d{1,2})[_\s]+(\d{1,2})[_\s]+(\d{3,4})", s)
+    # 26_4_1492 / 26.4.1492 / 26/4/1492 / 26-4-1492 (D-M-Y numeric)
+    m = re.fullmatch(r"(\d{1,2})[_\s./\-]+(\d{1,2})[_\s./\-]+(\d{3,4})", s)
     if m and 1 <= int(m[2]) <= 12:
         return f"{int(m[3]):04d}-{int(m[2]):02d}-{int(m[1]):02d}"
     # 13th December 1513
@@ -336,7 +352,7 @@ def main():
             raw_date = bracket_fields["date"]
             date = parse_date(raw_date)
             candidate = bracket_fields.get("country")
-            province_raw = bracket_fields.get("location")
+            province_raw = bracket_fields.get("location") or bracket_fields.get("province")
             tag_raw = (bracket_fields.get("tag") or "").strip()
             tag = TAG_LOOKUP.get(tag_raw.lower()) if tag_raw else None
             body = bracket_body
