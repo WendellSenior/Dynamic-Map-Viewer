@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 * * * *'
   workflow_dispatch:
+    inputs:
+      since:
+        description: 'One-shot backfill from this date (YYYY-MM-DD or ISO). Leave blank for normal cron resume.'
+        required: false
+        default: ''
 
 jobs:
   sync:
@@ -29,6 +34,7 @@ jobs:
         id: sync
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SYNC_SINCE: ${{ inputs.since }}
         run: python darthsunday/scripts/sync_events.py
 
       - name: Commit and push changes

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import re
 import json
@@ -262,14 +263,31 @@ def check_edits_and_deletions(events_data, event_meta, now_utc):
     return updated
 
 
-def main():
-    now_utc         = datetime.now(tz=timezone.utc)
-    today_utc       = now_utc.date()
-    today_str       = today_utc.isoformat()
-    today_midnight  = datetime.combine(today_utc, datetime.min.time()).replace(tzinfo=timezone.utc)
-    after_snowflake = date_to_snowflake(today_midnight)
+def parse_since(s):
+    """Parse `--since` value. Accepts YYYY-MM-DD or full ISO 8601."""
+    if not s:
+        return None
+    s = s.strip()
+    if not s:
+        return None
+    # Bare date → UTC midnight.
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", s):
+        return datetime.fromisoformat(s).replace(tzinfo=timezone.utc)
+    # Full ISO; tolerate trailing Z.
+    return datetime.fromisoformat(s.replace("Z", "+00:00"))
 
-    log(f"=== Discord Events Sync ({today_str} UTC) ===")
+
+def main():
+    ap = argparse.ArgumentParser(description="Discord Events Sync")
+    ap.add_argument("--since", default=os.environ.get("SYNC_SINCE", ""),
+                    help="Override the cursor and backfill from this date "
+                         "(YYYY-MM-DD or full ISO). One-shot — the cursor "
+                         "moves forward after the run as normal.")
+    args = ap.parse_args()
+
+    now_utc   = datetime.now(tz=timezone.utc)
+    today_utc = now_utc.date()
+    today_str = today_utc.isoformat()
 
     cache           = load_json(CACHE_FILE, {})
     processed_today = set(cache.get(today_str, []))
@@ -277,6 +295,23 @@ def main():
     event_meta      = cache.get("event_meta", {})
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
+
+    # Resolve where to start fetching from. Priority:
+    #   1. --since arg / SYNC_SINCE env  → one-shot backfill
+    #   2. cache["last_snowflake"]       → resume from last run
+    #   3. today midnight UTC            → first-run fallback
+    since_dt = parse_since(args.since)
+    if since_dt is not None:
+        after_snowflake = date_to_snowflake(since_dt)
+        log(f"=== Discord Events Sync — BACKFILL from {since_dt.isoformat()} ===")
+    elif cache.get("last_snowflake"):
+        after_snowflake = cache["last_snowflake"]
+        cursor_dt = snowflake_to_dt(after_snowflake)
+        log(f"=== Discord Events Sync — resume after {cursor_dt.isoformat()} ===")
+    else:
+        today_midnight = datetime.combine(today_utc, datetime.min.time()).replace(tzinfo=timezone.utc)
+        after_snowflake = date_to_snowflake(today_midnight)
+        log(f"=== Discord Events Sync — first run, starting at today midnight ({today_str} UTC) ===")
 
     channel_info = api_get(f"/channels/{CHANNEL_ID}")
     if not channel_info:
@@ -301,6 +336,13 @@ def main():
             all_messages.append((msg, ch_id))
 
     log(f"Total messages to evaluate: {len(all_messages)}")
+
+    # Advance the cursor to the highest message ID we saw, regardless of whether
+    # each became a new event. This guarantees forward progress even on quiet days.
+    if all_messages:
+        highest_seen = max(int(m[0]["id"]) for m in all_messages)
+        prev_cursor = int(cache.get("last_snowflake") or 0)
+        cache["last_snowflake"] = str(max(prev_cursor, highest_seen))
 
     new_events = []
     seen       = set()
