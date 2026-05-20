@@ -463,6 +463,7 @@ def main():
                     "province": ov.get("province"),
                     "tag": ov.get("tag"),
                     "author": ov.get("author") or u["author"],
+                    "title": ov.get("title"),
                     "snippet": (full or "")[:120],
                     "fullText": full,
                     "images": ov.get("images", u.get("images", [])),

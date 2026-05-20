@@ -11,9 +11,9 @@
     {
       "folder": "eu5-tbd",
       "game": "eu5",
-      "label": "TBD",
+      "label": "Darth Sunday (April 2026)",
       "dates": "—",
-      "description": "Placeholder — drop EU5 maps and reference data into eu5-tbd/data/ to populate.",
+      "description": "Interactive timeline and campaign map for the ParadoxRP discord server.",
       "placeholder": false,
       "hidden": false
     },
@@ -23,7 +23,7 @@
       "label": "Sunday Campaign (April 2026)",
       "dates": "—",
       "description": "",
-      "hidden": false
+      "hidden": true
     }
   ]
 }

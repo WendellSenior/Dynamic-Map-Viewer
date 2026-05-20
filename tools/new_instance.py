@@ -42,8 +42,8 @@ VIEW_HTML_TEMPLATE = """<!doctype html>
       <div id="map-container">
         <div id="map-frame">
           <img id="map-image" alt="Campaign map" decoding="async">
-          <div id="event-dots"></div>
         </div>
+        <div id="event-dots"></div>
       </div>
       <section id="browser">
         <div class="tabs" role="tablist">

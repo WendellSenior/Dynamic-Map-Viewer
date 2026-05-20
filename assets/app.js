@@ -14,6 +14,7 @@ const state = {
   view: { x: 0, y: 0, scale: 1, minScale: 1 },
   preloadedImages: [],
   resolution: 'full',
+  countryNames: {},
 };
 
 const SLIDER_RES = 1000;
@@ -35,6 +36,11 @@ async function loadJSON(path) {
   const r = await fetch(path);
   if (!r.ok) throw new Error(`Failed to load ${path} (${r.status})`);
   return r.json();
+}
+
+function countryDisplay(tag, raw) {
+  if (!tag) return raw || null;
+  return state.countryNames[tag] || raw || tag;
 }
 
 function parseDate(s) { return new Date(s + 'T00:00:00Z').getTime(); }
@@ -79,8 +85,7 @@ function applyTransform() {
   frame.style.height = state.mapConfig.height + 'px';
   frame.style.transform =
     `translate(${state.view.x}px, ${state.view.y}px) scale(${state.view.scale})`;
-  document.getElementById('event-dots')
-    .style.setProperty('--inv-scale', 1 / state.view.scale);
+  updateDotPositions();
 }
 
 function zoomToCoords(coords, scale = 2.0) {
@@ -263,6 +268,7 @@ function render() {
 
   const dotsEl = document.getElementById('event-dots');
   dotsEl.replaceChildren();
+  const { x: vx, y: vy, scale: vs } = state.view;
   for (const e of state.events) {
     if (!isEventVisible(e, t)) continue;
     const xy = resolveCoords(e);
@@ -276,11 +282,27 @@ function render() {
       dot.dataset.tag = e.tag;
       dot.textContent = icon;
     }
-    dot.style.left = `${(xy[0] / state.mapConfig.width) * 100}%`;
-    dot.style.top = `${(xy[1] / state.mapConfig.height) * 100}%`;
+    dot.dataset.mx = xy[0];
+    dot.dataset.my = xy[1];
+    dot.style.left = (vx + xy[0] * vs) + 'px';
+    dot.style.top = (vy + xy[1] * vs) + 'px';
     dot.title = `${e.date}${e.tag ? ' · ' + e.tag : ''} — ${e.snippet || ''}`;
     dot.addEventListener('click', () => showEvent(e));
     dotsEl.appendChild(dot);
+  }
+}
+
+function updateDotPositions() {
+  const { x: vx, y: vy, scale: vs } = state.view;
+  const dots = document.getElementById('event-dots');
+  if (!dots) return;
+  for (const dot of dots.children) {
+    const mx = parseFloat(dot.dataset.mx);
+    const my = parseFloat(dot.dataset.my);
+    if (Number.isFinite(mx) && Number.isFinite(my)) {
+      dot.style.left = (vx + mx * vs) + 'px';
+      dot.style.top = (vy + my * vs) + 'px';
+    }
   }
 }
 
@@ -321,7 +343,7 @@ function renderTimelineMarks() {
 
 function showEvent(e) {
   const panel = document.getElementById('event-panel');
-  const place = [e.country, e.province].filter(Boolean).join(' / ');
+  const place = [countryDisplay(e.country, e.countryRaw), e.province].filter(Boolean).join(' / ');
   panel.innerHTML = '';
 
   const h = document.createElement('h2');
@@ -452,6 +474,7 @@ function renderMarkdown(text) {
 }
 
 function extractTitle(e) {
+  if (e.title) return e.title;
   if (!e.fullText) return null;
   for (const line of e.fullText.split('\n')) {
     const m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
@@ -485,7 +508,8 @@ function renderBrowser() {
 
     const tdCountry = document.createElement('td');
     tdCountry.className = 'col-country' + (e.country ? '' : ' muted');
-    tdCountry.textContent = e.country || '—';
+    tdCountry.textContent = countryDisplay(e.country, e.countryRaw) || '—';
+    if (e.country) tdCountry.title = e.country;
     tr.appendChild(tdCountry);
 
     const tdProv = document.createElement('td');
@@ -538,13 +562,32 @@ function wireTabs() {
 
 async function init() {
   try {
-    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData] = await Promise.all([
+    const game = window.CAMPAIGN_GAME || 'eu4';
+    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData, tagsData, rawCountriesText] = await Promise.all([
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
-      loadJSON(`data/reference/${window.CAMPAIGN_GAME || 'eu4'}/provinces.json`).catch(() => ({})),
+      loadJSON(`data/reference/${game}/provinces.json`).catch(() => ({})),
       loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
+      loadJSON(`data/reference/${game}/tags.json`).catch(() => ({})),
+      fetch(`data/reference/${game}/00_countries.txt`).then(r => r.ok ? r.text() : '').catch(() => ''),
     ]);
+
+    // Build tag → display name map. tags.json first (curated/canonical),
+    // then 00_countries.txt fills in anything missing (EU4 — derive name from filename).
+    state.countryNames = {};
+    for (const [tag, info] of Object.entries(tagsData || {})) {
+      if (info && info.name) state.countryNames[tag] = info.name;
+    }
+    if (rawCountriesText) {
+      const re = /^([A-Z][A-Z0-9]{1,3})\s*=\s*"countries\/([^"]+)\.txt"/gm;
+      let m;
+      while ((m = re.exec(rawCountriesText)) !== null) {
+        if (!state.countryNames[m[1]]) {
+          state.countryNames[m[1]] = m[2].replace(/([a-z])([A-Z])/g, '$1 $2');
+        }
+      }
+    }
 
     const rawEvents = eventsData.events || [];
     const dropped = rawEvents.filter(e => !Number.isFinite(parseDate(e.date)));

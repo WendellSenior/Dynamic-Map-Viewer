@@ -156,7 +156,6 @@ main {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  --inv-scale: 1;
 }
 
 .event-dot {
@@ -170,11 +169,10 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   pointer-events: auto;
   cursor: pointer;
-  transform: scale(var(--inv-scale, 1));
   transform-origin: center;
   transition: transform 0.1s;
 }
-.event-dot:hover { transform: scale(calc(var(--inv-scale, 1) * 1.4)); }
+.event-dot:hover { transform: scale(1.4); }
 .event-dot.recent { background: #f4a020; }
 
 .event-dot.has-tag {

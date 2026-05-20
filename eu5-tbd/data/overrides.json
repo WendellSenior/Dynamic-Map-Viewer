@@ -5,7 +5,8 @@
     "date": "1336-01-01",
     "country": "England",
     "province": "London",
-    "tag": "Character"
+    "tag": "Character",
+    "title": "The King of England is Dead"
   },
   "1506454470320459936": {
     "fullText": "date: 1336 country: spain location: barcelona tag: treaty\n\nim sooooo stupid i dont know how to use square brackets but dont you DARE detier me man",
@@ -13,7 +14,8 @@
     "date": "1336-01-01",
     "country": "Spain",
     "province": "Barcelona",
-    "tag": "Treaty"
+    "tag": "Treaty",
+    "title": "Spanish Treaty"
   },
   "1506454885380390983": {
     "fullText": "## Why I Am So Much of a Genius\nI forgot to add the bracketed tags to my post.",
