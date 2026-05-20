@@ -354,9 +354,22 @@ function showEvent(e) {
   const place = [countryDisplay(e.country, e.countryRaw), e.province].filter(Boolean).join(' / ');
   panel.innerHTML = '';
 
+  const header = document.createElement('div');
+  header.className = 'event-header';
   const h = document.createElement('h2');
   h.textContent = e.date;
-  panel.appendChild(h);
+  header.appendChild(h);
+
+  const coords = resolveCoords(e);
+  if (coords) {
+    const btn = document.createElement('button');
+    btn.className = 'jump-to-pin';
+    btn.textContent = 'Zoom to pin';
+    btn.title = 'Pan and zoom the map to this event';
+    btn.addEventListener('click', () => zoomToCoords(coords));
+    header.appendChild(btn);
+  }
+  panel.appendChild(header);
 
   const meta = document.createElement('p');
   meta.className = 'meta';
@@ -375,15 +388,6 @@ function showEvent(e) {
   body.className = 'body';
   body.appendChild(renderMarkdown(e.fullText || e.snippet || ''));
   panel.appendChild(body);
-
-  const coords = resolveCoords(e);
-  if (coords) {
-    const btn = document.createElement('button');
-    btn.className = 'jump-to-pin';
-    btn.textContent = 'Zoom to map pin';
-    btn.addEventListener('click', () => zoomToCoords(coords));
-    panel.appendChild(btn);
-  }
 
   if (e.images && e.images.length) {
     const wrap = document.createElement('div');
@@ -485,8 +489,12 @@ function extractTitle(e) {
   if (e.title) return e.title;
   if (!e.fullText) return null;
   for (const line of e.fullText.split('\n')) {
-    const m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
+    // Markdown heading: # / ## / ### Title
+    let m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
     if (m) return m[1];
+    // Bold-only line: **Title** or *** Title *** (Discord-style title)
+    m = line.match(/^\s*\*{2,3}\s*([^*]+?)\s*\*{2,3}\s*$/);
+    if (m) return m[1].trim();
   }
   return null;
 }
@@ -615,10 +623,18 @@ async function init() {
     state.provinces = provincesData;
     state.sessions = sessionsData.sessions || [];
 
-    // Unified case-insensitive index. positions-data first, manual coords.json wins.
+    // Unified case-insensitive index. positions-data first (canonical key + any aliases),
+    // then manual coords.json overrides.
     state.provincesIndex = {};
     for (const [n, info] of Object.entries(provincesData)) {
-      if (info && Array.isArray(info.coords)) state.provincesIndex[n.toLowerCase()] = info.coords;
+      if (info && Array.isArray(info.coords)) {
+        state.provincesIndex[n.toLowerCase()] = info.coords;
+        for (const a of (info.aliases || [])) {
+          if (!state.provincesIndex[a.toLowerCase()]) {
+            state.provincesIndex[a.toLowerCase()] = info.coords;
+          }
+        }
+      }
     }
     for (const [n, coords] of Object.entries(state.coords.provinces || {})) {
       if (Array.isArray(coords)) state.provincesIndex[n.toLowerCase()] = coords;

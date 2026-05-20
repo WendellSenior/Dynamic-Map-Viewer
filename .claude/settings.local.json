@@ -29,7 +29,10 @@
       "Bash(cat)",
       "Bash(python -c \"import json; d=json.load\\(open\\('eu5-tbd/data/untagged.json',encoding='utf-8'\\)\\); print\\(f'{len\\(d\\)} untagged entries, keys per entry:', sorted\\(d[0].keys\\(\\)\\) if d else '\\(empty\\)'\\)\")",
       "Bash(python tools/preprocess_all.py)",
-      "Bash(python)"
+      "Bash(python)",
+      "Bash(python tools/parse_eu5_reference.py --ref-dir eu5-tbd/data/reference/eu5 --snapshots eu5-tbd/data/snapshots.json)",
+      "Bash(awk '/^\\\\tMOS = {/,/^\\\\t}/' \"/c/Program Files \\(x86\\)/Steam/steamapps/common/Europa Universalis V/game/main_menu/setup/start/10_countries.txt\")",
+      "Bash(python tools/parse_eu5_reference.py --ref-dir darthsunday/data/reference/eu5 --snapshots darthsunday/data/snapshots.json)"
     ]
   }
 }

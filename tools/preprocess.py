@@ -120,45 +120,71 @@ def parse_date(s):
 def parse_bracket_header(content):
     """Canonical format: `[Date:YYYY-MM-DD][Country:Name][Location:Name][Tag:Name]`.
     Brackets may span one line or multiple. Decorative pre-header lines (---/...)
-    are skipped. A naked `[1337-04-01]` bracket (no Date: prefix) is accepted as
-    the date if its content parses as one. Returns (fields_dict, body) or (None, None)."""
+    and short title-style lines above the brackets are tolerated; the parser scans up
+    to MAX_PRE_LINES for the first line containing a date bracket. A naked
+    `[1337-04-01]` (no Date: prefix) is accepted as the date if its content parses.
+    Returns (fields_dict, body) or (None, None)."""
     lines = content.split("\n")
     fields = {}
-    consumed = 0
-    seen_brackets = False
-    for i, raw in enumerate(lines):
-        line = raw.strip()
+
+    MAX_PRE_LINES = 10
+
+    def has_date_bracket(line):
+        for k, v in BRACKET_FIELD_RE.findall(line):
+            if k and k.lower() == "date":
+                return True
+            if not k and parse_date(v.strip()):
+                return True
+        return False
+
+    # Look for the first line with a date bracket, allowing decorative and short
+    # title-style pre-header lines (e.g. "**Title**", "# Heading") to come before.
+    bracket_idx = None
+    for i, raw in enumerate(lines[:MAX_PRE_LINES]):
+        if has_date_bracket(raw):
+            bracket_idx = i
+            break
+    if bracket_idx is None:
+        return None, None
+
+    # From the bracket line onward, consume contiguous bracket / decorative / empty lines.
+    consumed = bracket_idx
+    for j in range(bracket_idx, len(lines)):
+        line = lines[j].strip()
         if not line:
-            if seen_brackets:
-                consumed = i + 1
+            consumed = j + 1
             continue
         if not BRACKET_FIELD_RE.search(line):
-            # Skip decorative pre-header lines (---/...***///etc) — anything non-alphanumeric only.
             if DECORATIVE_LINE_RE.match(line):
-                if seen_brackets:
-                    consumed = i + 1
+                consumed = j + 1
                 continue
-            # Real prose with no brackets → end of header zone.
-            break
+            break  # real prose → end of header zone
         matches = BRACKET_FIELD_RE.findall(line)
         leftover = BRACKET_FIELD_RE.sub("", line).strip()
-        seen_brackets = True
         for k, v in matches:
             v = v.strip()
             if k:
                 fields[k.lower()] = v
             elif "date" not in fields and parse_date(v):
-                # Naked bracket whose content parses as a date — treat as Date.
                 fields["date"] = v
-        if not leftover:
-            consumed = i + 1
-        else:
-            lines[i] = leftover
-            consumed = i
+        if leftover:
+            lines[j] = leftover
+            consumed = j
             break
+        else:
+            consumed = j + 1
+
     if "date" not in fields:
         return None, None
-    body = "\n".join(lines[consumed:]).strip()
+
+    # Body = pre-bracket lines (excluding pure-decorative) + post-bracket lines.
+    pre_lines = []
+    for raw in lines[:bracket_idx]:
+        stripped = raw.strip()
+        if stripped and DECORATIVE_LINE_RE.match(stripped):
+            continue
+        pre_lines.append(raw)
+    body = "\n".join(pre_lines + lines[consumed:]).strip()
     return fields, body
 
 
@@ -428,7 +454,7 @@ def main():
                 "id": msg_id,
                 "date": date,
                 "country": country_tag,
-                "countryRaw": candidate if country_tag else None,
+                "countryRaw": candidate,
                 "province": province_raw,
                 "tag": tag,
                 "author": author_name,

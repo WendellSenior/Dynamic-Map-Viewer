@@ -219,15 +219,25 @@ main {
   font-size: 12px;
   font-weight: 500;
 }
+#event-panel .event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+#event-panel .event-header h2 { margin: 0; }
 .jump-to-pin {
-  margin-top: 16px;
-  padding: 6px 14px;
+  padding: 4px 10px;
   background: #2563eb;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .jump-to-pin:hover { background: #1d4ed8; }
 

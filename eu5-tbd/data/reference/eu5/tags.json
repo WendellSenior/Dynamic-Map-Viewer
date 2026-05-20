@@ -33,7 +33,9 @@
   },
   "SWE": {
     "name": "Sweden",
-    "aliases": []
+    "aliases": [
+      "Kingdom of Sweden"
+    ]
   },
   "SCA": {
     "name": "Scandinavia",
@@ -41,7 +43,12 @@
   },
   "DAN": {
     "name": "Denmark",
-    "aliases": []
+    "aliases": [
+      "Denmark",
+      "Kingdom of Denmark",
+      "Dane",
+      "Danish"
+    ]
   },
   "SKE": {
     "name": "Scania",
@@ -69,7 +76,10 @@
   },
   "NOR": {
     "name": "Norway",
-    "aliases": []
+    "aliases": [
+      "Kingdom of Norway",
+      "Norwegian"
+    ]
   },
   "FIN": {
     "name": "Finland",
@@ -85,7 +95,11 @@
   },
   "HSA": {
     "name": "Hansa",
-    "aliases": []
+    "aliases": [
+      "Hanse",
+      "Hanseatic League",
+      "Hanseatic"
+    ]
   },
   "LIV": {
     "name": "Livonia",
@@ -113,7 +127,11 @@
   },
   "NOV": {
     "name": "Velikiy Novgorod",
-    "aliases": []
+    "aliases": [
+      "Novgorod",
+      "Novgorod Republic",
+      "Veliky Novgorod"
+    ]
   },
   "MOS": {
     "name": "Muscovy",
@@ -377,7 +395,10 @@
   },
   "ENG": {
     "name": "England",
-    "aliases": []
+    "aliases": [
+      "Kingdom of England",
+      "English Kingdom"
+    ]
   },
   "HEN": {
     "name": "Old North",
@@ -385,7 +406,10 @@
   },
   "SCO": {
     "name": "Scotland",
-    "aliases": []
+    "aliases": [
+      "Scotland",
+      "Kingdom of Scotland"
+    ]
   },
   "SBL": {
     "name": "Balliol",
@@ -709,7 +733,10 @@
   },
   "FRA": {
     "name": "France",
-    "aliases": []
+    "aliases": [
+      "French Kingdom",
+      "Kingdom of France"
+    ]
   },
   "LOT": {
     "name": "Lotharingia",
@@ -885,7 +912,13 @@
   },
   "BYZ": {
     "name": "Byzantium",
-    "aliases": []
+    "aliases": [
+      "Byzantium",
+      "Byzantine",
+      "Byzantine Empire",
+      "Eastern Roman Empire",
+      "Greek Empire"
+    ]
   },
   "THE": {
     "name": "Thessalonica",
@@ -1093,7 +1126,11 @@
   },
   "GEN": {
     "name": "Genoa",
-    "aliases": []
+    "aliases": [
+      "Genoa",
+      "Republic of Genoa",
+      "Genoese"
+    ]
   },
   "GUB": {
     "name": "Gubbio",
@@ -1153,7 +1190,12 @@
   },
   "PAP": {
     "name": "Rome",
-    "aliases": []
+    "aliases": [
+      "Papacy",
+      "Papal States",
+      "Vatican",
+      "Holy See"
+    ]
   },
   "PAR": {
     "name": "Parma",
@@ -1257,7 +1299,11 @@
   },
   "VEN": {
     "name": "Venice",
-    "aliases": []
+    "aliases": [
+      "Venetian Republic",
+      "Republic of Venice",
+      "Most Serene Republic"
+    ]
   },
   "VER": {
     "name": "Verona",
@@ -1545,11 +1591,16 @@
   },
   "CAS": {
     "name": "Castile",
-    "aliases": []
+    "aliases": [
+      "Castile",
+      "Crown of Castile"
+    ]
   },
   "ARA": {
     "name": "Aragon",
-    "aliases": []
+    "aliases": [
+      "Crown of Aragon"
+    ]
   },
   "ANR": {
     "name": "Andorra",
@@ -1557,7 +1608,12 @@
   },
   "BRI": {
     "name": "Brittany",
-    "aliases": []
+    "aliases": [
+      "Brittany",
+      "Duchy of Brittany",
+      "Breton",
+      "Breizh"
+    ]
   },
   "MLL": {
     "name": "Mallorca",
@@ -1661,7 +1717,9 @@
   },
   "POR": {
     "name": "Portugal",
-    "aliases": []
+    "aliases": [
+      "Kingdom of Portugal"
+    ]
   },
   "ADU": {
     "name": "Andalusia",
@@ -2369,7 +2427,11 @@
   },
   "MAM": {
     "name": "Egypt",
-    "aliases": []
+    "aliases": [
+      "Mamluks",
+      "Mamluk Sultanate",
+      "Mamluk"
+    ]
   },
   "TRP": {
     "name": "Tripoli",
@@ -3545,7 +3607,11 @@
   },
   "TUR": {
     "name": "Ottomans",
-    "aliases": []
+    "aliases": [
+      "Turkey",
+      "Türkiye",
+      "Sublime Porte"
+    ]
   },
   "BHT": {
     "name": "Bohtan",
@@ -3721,7 +3787,11 @@
   },
   "POL": {
     "name": "Poland",
-    "aliases": []
+    "aliases": [
+      "Poland",
+      "Polish Kingdom",
+      "Kingdom of Poland"
+    ]
   },
   "TEU": {
     "name": "Teutons",

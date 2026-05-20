@@ -303,6 +303,11 @@
       const copyBtn = document.getElementById('gen-copy');
       const listEl  = document.getElementById('country-list');
 
+      const GAME_START_DATES = {
+        eu4: '1444-11-11',
+        eu5: '1337-04-01',
+      };
+
       // Populate game selector. Default to the first visible campaign's game, or first available.
       gameSel.replaceChildren();
       for (const g of games) {
@@ -364,7 +369,18 @@
         }
       }
 
-      gameSel.addEventListener('change', () => loadCountries(gameSel.value));
+      function applyDefaultDate(game) {
+        const d = GAME_START_DATES[game];
+        if (d) {
+          dateEl.value = d;
+          regenerate();
+        }
+      }
+
+      gameSel.addEventListener('change', () => {
+        loadCountries(gameSel.value);
+        applyDefaultDate(gameSel.value);
+      });
       [dateEl, cntEl, locEl, tagEl].forEach(el => el.addEventListener('input', regenerate));
       tagEl.addEventListener('change', regenerate);
 
@@ -382,7 +398,10 @@
         } catch {}
       });
 
-      if (gameSel.value) loadCountries(gameSel.value);
+      if (gameSel.value) {
+        loadCountries(gameSel.value);
+        applyDefaultDate(gameSel.value);
+      }
     }
   </script>
 </body>
