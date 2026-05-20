@@ -100,6 +100,7 @@
         return;
       }
       for (const c of campaigns) {
+        if (c.hidden) continue;
         const a = document.createElement('a');
         a.className = 'campaign' + (c.placeholder ? ' placeholder' : '');
         a.href = `${c.folder}/view.html`;

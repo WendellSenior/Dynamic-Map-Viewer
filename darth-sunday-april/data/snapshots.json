@@ -3,5 +3,11 @@
     "width": 16384,
     "height": 8192
   },
-  "snapshots": []
+  "snapshots": [
+    {
+      "date": "1337-01-01",
+      "image": "data/maps/1337.png",
+      "label": "1337"
+    }
+  ]
 }

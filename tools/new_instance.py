@@ -276,6 +276,7 @@ def main():
             "label": label,
             "dates": "—",
             "description": "",
+            "hidden": False,
         })
         write_json(campaigns_file, manifest)
         print(f"  appended to campaigns.json (hub will list it on next load)")

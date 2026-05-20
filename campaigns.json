@@ -5,7 +5,8 @@
       "game": "eu4",
       "label": "Paradox In",
       "dates": "1444 – 1821",
-      "description": "Discord-server AAR with snapshot maps at 1444, 1550, and 1641."
+      "description": "Discord-server AAR with snapshot maps at 1444, 1550, and 1641.",
+      "hidden": true
     },
     {
       "folder": "eu5-tbd",
@@ -13,14 +14,16 @@
       "label": "TBD",
       "dates": "—",
       "description": "Placeholder — drop EU5 maps and reference data into eu5-tbd/data/ to populate.",
-      "placeholder": true
+      "placeholder": true,
+      "hidden": false
     },
     {
       "folder": "darth-sunday-april",
       "game": "eu5",
       "label": "Sunday Campaign (April 2026)",
       "dates": "—",
-      "description": ""
+      "description": "",
+      "hidden": false
     }
   ]
 }
