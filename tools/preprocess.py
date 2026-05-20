@@ -35,14 +35,36 @@ TAG_LOOKUP = {t.lower(): t for t in KNOWN_TAGS}
 
 BRACKET_FIELD_RE = re.compile(r"\[(\w+)\s*:\s*([^\]]+)\]")
 
+# Heuristics for "this looks like a new event attempt, even if the formal header parser failed."
+COLON_KEYWORD_RE = re.compile(r"^\s*(date|country|location|tag)\s*[:=]", re.IGNORECASE)
+INLINE_BRACKET_KEYWORD_RE = re.compile(r"\[(date|country|location|tag)\s*:", re.IGNORECASE)
+
+
+def looks_like_new_event(content):
+    """True when the post visibly attempts an event header (brackets, key:value, or markdown heading)."""
+    for line in content.split("\n"):
+        s = line.strip()
+        if not s:
+            continue
+        if INLINE_BRACKET_KEYWORD_RE.search(s):
+            return True
+        if COLON_KEYWORD_RE.match(s):
+            return True
+        if s.startswith("#"):
+            return True
+        return False  # first non-empty line decides
+    return False
+
 
 def parse_date(s):
     """Multi-format historical date parser. Returns ISO 'YYYY-MM-DD' or None."""
     s = s.strip().lower()
-    # 1492-04-26 (canonical)
+    # 1492-04-26 (canonical) — bounds-checked
     m = re.fullmatch(r"(\d{3,4})-(\d{1,2})-(\d{1,2})", s)
     if m:
-        return f"{int(m[1]):04d}-{int(m[2]):02d}-{int(m[3]):02d}"
+        y, mo, d = int(m[1]), int(m[2]), int(m[3])
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            return f"{y:04d}-{mo:02d}-{d:02d}"
     # 11_Nov_1444 or 4 Mar 1453
     m = re.fullmatch(r"(\d{1,2})[_\s]+([a-z]+)[_\s]+(\d{3,4})", s)
     if m and m[2] in MONTH_NAMES:
@@ -242,9 +264,8 @@ def main():
     ap.add_argument("input", type=Path, help="DiscordChatExporter HTML or JSON export")
     ap.add_argument("--out", type=Path, default=Path("data/events.json"))
     ap.add_argument("--tags", type=Path, default=Path("data/reference/eu4/tags.json"))
-    ap.add_argument("--raw-tags", type=Path,
-                    default=Path("data/reference/eu4/00_countries.txt"),
-                    help="EU4 common/country_tags/00_countries.txt — primary tag source")
+    ap.add_argument("--raw-tags", type=Path, default=None,
+                    help="EU4 common/country_tags/00_countries.txt (optional; layered under --tags)")
     ap.add_argument("--aliases", type=Path, default=Path("data/reference/eu4/aliases.json"))
     ap.add_argument("--untagged-log", type=Path, default=Path("data/untagged.log"))
     ap.add_argument("--non-interactive", action="store_true",
@@ -285,17 +306,25 @@ def main():
 
         # Try the canonical [Date:…][Country:…][Location:…][Tag:…] format first.
         bracket_fields, bracket_body = parse_bracket_header(content)
+        header_attempted = bracket_fields is not None
+        invalid_reason = None
         if bracket_fields is not None:
-            date = parse_date(bracket_fields["date"])
+            raw_date = bracket_fields["date"]
+            date = parse_date(raw_date)
             candidate = bracket_fields.get("country")
             province_raw = bracket_fields.get("location")
             tag_raw = (bracket_fields.get("tag") or "").strip()
             tag = TAG_LOOKUP.get(tag_raw.lower()) if tag_raw else None
             body = bracket_body
+            if date is None:
+                invalid_reason = f"bracket header present but date {raw_date!r} couldn't be parsed"
         else:
             date, candidate, body = parse_header(content)
             province_raw = None
             tag = None
+            if date is None and looks_like_new_event(content):
+                header_attempted = True
+                invalid_reason = "looks like a new event (heading or key:value) but no valid date"
 
         if date is not None:
             country_tag = None
@@ -321,6 +350,16 @@ def main():
             events.append(event)
             if ts:
                 last_event_by_author[author_id] = (event, ts)
+        elif header_attempted:
+            # Tried to start a new event but format was broken — surface in untagged with a reason.
+            # Never merge a header-attempted post into the previous event's narrative.
+            untagged.append({
+                "id": msg_id,
+                "author": author_name,
+                "timestamp": ts_str,
+                "preview": content[:160],
+                "reason": invalid_reason or "header attempted but unparseable",
+            })
         else:
             prev = last_event_by_author.get(author_id)
             if prev and ts and (ts - prev[1]) <= CONTINUATION_WINDOW:
@@ -333,7 +372,8 @@ def main():
                     "id": msg_id,
                     "author": author_name,
                     "timestamp": ts_str,
-                    "preview": content[:80],
+                    "preview": content[:160],
+                    "reason": "no header detected",
                 })
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -348,13 +388,14 @@ def main():
     )
     if untagged:
         args.untagged_log.parent.mkdir(parents=True, exist_ok=True)
-        args.untagged_log.write_text(
-            "\n".join(
-                f"[{u['timestamp']}] {u['author']}: {u['preview']}"
-                for u in untagged
-            ),
-            encoding="utf-8",
-        )
+        lines = []
+        for u in untagged:
+            lines.append(f"[{u['timestamp']}] {u['author']} ({u['id']})")
+            lines.append(f"  reason: {u.get('reason', 'unknown')}")
+            preview = (u.get('preview') or '').replace('\n', ' / ')
+            lines.append(f"  preview: {preview}")
+            lines.append("")
+        args.untagged_log.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Parsed {len(events)} events from {len(messages)} messages.")
     print(f"  events  -> {args.out}")

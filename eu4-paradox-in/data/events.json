@@ -6,6 +6,7 @@
       "country": "ARA",
       "countryRaw": "Aragon",
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "# The King of Barcelona\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at interdum ante. Quisque condim",
       "fullText": "# The King of Barcelona\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at interdum ante. Quisque condimentum leo nisi, sit amet varius magna feugiat sit amet. Aenean ac pulvinar velit. Suspendisse non neque tellus. Aenean laoreet ullamcorper consequat. Pellentesque at enim a turpis commodo vehicula. Integer posuere nec nisl et venenatis. Aliquam viverra lorem eget justo malesuada, ut vehicula nunc pellentesque."
@@ -16,6 +17,7 @@
       "country": "TUR",
       "countryRaw": "Ottomans",
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "# Killing Byzantium\n## A General Scorned\nAenean nec consectetur leo. Nam condimentum urna vitae faucibus sagittis. In eg",
       "fullText": "# Killing Byzantium\n## A General Scorned\nAenean nec consectetur leo. Nam condimentum urna vitae faucibus sagittis. In egestas mauris non turpis rutrum bibendum. Praesent aliquam imperdiet leo ut tempus. Pellentesque eget mauris semper, tempus mauris at, pulvinar enim. Sed gravida ante a nisi auctor, ut porta erat pellentesque. Mauris tortor nunc, viverra vitae nunc eget, faucibus accumsan odio. Quisque maximus consequat lacus, et sodales nisl tristique et. Vestibulum blandit vulputate mollis. Proin sodales sit amet odio nec pellentesque. Ut vitae lorem ullamcorper, porta lorem non, fringilla lacus. Aenean vulputate diam eget sem pulvinar, non tincidunt elit tincidunt. Integer tempus congue placerat."
@@ -26,6 +28,7 @@
       "country": "ENG",
       "countryRaw": "England",
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "Quisque egestas, ipsum sed mollis varius, urna velit tempus ligula, eu faucibus eros turpis eu risus. Suspendisse condim",
       "fullText": "Quisque egestas, ipsum sed mollis varius, urna velit tempus ligula, eu faucibus eros turpis eu risus. Suspendisse condimentum enim non ante gravida tristique vulputate in nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam lobortis neque vitae ex volutpat consequat. Praesent scelerisque tincidunt lorem, vel tempor felis. Sed convallis suscipit sem, eu viverra urna pellentesque sit amet. Nunc in diam aliquam tortor fringilla ullamcorper."
@@ -36,6 +39,7 @@
       "country": null,
       "countryRaw": null,
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "Vestibulum et molestie dui, vitae lobortis nisl. Ut vel diam ut neque scelerisque maximus. Morbi iaculis dapibus imperdi",
       "fullText": "Vestibulum et molestie dui, vitae lobortis nisl. Ut vel diam ut neque scelerisque maximus. Morbi iaculis dapibus imperdiet. Nunc bibendum, ante in tempor pretium, mauris diam iaculis libero, sit amet tempus lectus magna ac ante. In malesuada mauris nisl, ut dignissim risus sollicitudin et. Nulla sit amet consectetur eros. Aliquam id metus massa. Cras commodo tortor a mollis porttitor. Sed in accumsan mi. Nunc lacus metus,"
@@ -46,6 +50,7 @@
       "country": "FRA",
       "countryRaw": "France",
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "Nunc lacus metus, fermentum vel est vitae, egestas venenatis elit. Maecenas eu suscipit felis, ac mollis lectus. Sed odi",
       "fullText": "Nunc lacus metus, fermentum vel est vitae, egestas venenatis elit. Maecenas eu suscipit felis, ac mollis lectus. Sed odio diam, fermentum id massa nec, tempor consequat ex. Nulla vehicula vulputate magna nec tempor. Pellentesque egestas rhoncus lacus, vel lobortis enim pellentesque sit amet."
@@ -56,6 +61,7 @@
       "country": "POR",
       "countryRaw": "Portugal",
       "province": null,
+      "tag": null,
       "author": "Tartarus",
       "snippet": "Sed ipsum arcu, finibus eu rhoncus ac, fringilla sed neque. Praesent enim urna, mollis eget porta eget, consectetur vita",
       "fullText": "Sed ipsum arcu, finibus eu rhoncus ac, fringilla sed neque. Praesent enim urna, mollis eget porta eget, consectetur vitae ante. Integer eu pellentesque turpis. Aliquam vel laoreet sapien, auctor commodo risus.\n\nAenean eget sapien tempus, facilisis felis quis, vehicula sem. Ut pharetra sodales lorem. Nullam ornare maximus blandit. Duis imperdiet lectus quis sollicitudin elementum. Nulla metus tellus, vestibulum vel congue sit amet, ultricies a urna. Curabitur condimentum quam eu dignissim ultricies. Praesent sodales arcu nisl, auctor ultricies tortor laoreet vitae."

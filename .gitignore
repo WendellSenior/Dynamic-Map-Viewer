@@ -7,8 +7,8 @@ __pycache__/
 Thumbs.db
 
 # Local Discord exports (large, often contain personal usernames).
-Paradox_*.html
-Paradox_*.json
+**/data/discord/*
+!**/data/discord/.gitkeep
 
 # Internal calibration tool — local-only (per-campaign, may live in any subfolder).
 calibrate.html

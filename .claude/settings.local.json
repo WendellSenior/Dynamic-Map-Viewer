@@ -3,7 +3,16 @@
     "allow": [
       "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\(\"$PWD\\\\data\\\\maps\\\\eu4_map_FRA_1444_11_11_1.png\"\\); \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\))",
       "Bash(python tools/preprocess.py \"data/discord/Paradox_Paradox In_2026-05-17_to_2026-05-19.html\" --non-interactive)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('eu5-tbd/data/events.json',encoding='utf-8'\\)\\); print\\(f'events: {len\\(d.get\\(\\\\\"events\\\\\",[]\\)\\)}'\\); print\\('keys:', list\\(d.get\\('events',[{}]\\)[0].keys\\(\\)\\) if d.get\\('events'\\) else 'empty'\\)\")",
+      "Bash(cmd //c preprocess.bat)",
+      "Bash(cmd //c \"eu4-paradox-in\\\\preprocess.bat\")",
+      "Bash(python tools/preprocess.py \"eu4-paradox-in/data/discord/Paradox_Paradox In_2026-05-17_to_2026-05-19.html\" --out eu4-paradox-in/data/events.json --tags eu4-paradox-in/data/reference/eu4/tags.json --raw-tags eu4-paradox-in/data/reference/eu4/00_countries.txt --aliases eu4-paradox-in/data/reference/eu4/aliases.json --untagged-log eu4-paradox-in/data/untagged.log --non-interactive)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('eu4-paradox-in/data/events.json',encoding='utf-8'\\)\\); e=d['events'][0]; print\\('first event keys:', list\\(e.keys\\(\\)\\)\\); print\\('province field:', e.get\\('province'\\)\\); print\\('tag field:', e.get\\('tag'\\)\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(cat eu5-tbd/data/untagged.log)",
+      "Bash(python tools/preprocess.py \"eu5-tbd/data/discord/Paradox_Paradox In_2026-05-18_to_2026-05-20.html\" --out eu5-tbd/data/events.json --tags eu5-tbd/data/reference/eu5/tags.json --aliases eu5-tbd/data/reference/eu5/aliases.json --untagged-log eu5-tbd/data/untagged.log --non-interactive)",
+      "Bash(python -c \"import json; [print\\(f\\\\\"{e['date']}  {e.get\\('country'\\) or '-':4}  {e.get\\('province'\\) or '-':20}  body chars: {len\\(e.get\\('fullText'\\) or ''\\)}\\\\\"\\) for e in json.load\\(open\\('eu5-tbd/data/events.json',encoding='utf-8'\\)\\)['events']]\")"
     ]
   }
 }

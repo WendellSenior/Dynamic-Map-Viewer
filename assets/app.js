@@ -12,6 +12,7 @@ const state = {
   allTMin: 0,
   allTMax: 0,
   view: { x: 0, y: 0, scale: 1, minScale: 1 },
+  preloadedImages: [],
 };
 
 const SLIDER_RES = 1000;
@@ -38,8 +39,8 @@ async function loadJSON(path) {
 function parseDate(s) { return new Date(s + 'T00:00:00Z').getTime(); }
 
 function formatDate(t) {
-  const d = new Date(t);
-  return d.toISOString().slice(0, 10);
+  if (!Number.isFinite(t)) return '—';
+  return new Date(t).toISOString().slice(0, 10);
 }
 
 function resolveCoords(event) {
@@ -213,6 +214,17 @@ function applyFilter(newFilter) {
   renderTimelineMarks();
   render();
   updateBrowserVisibility();
+}
+
+function preloadSnapshots() {
+  // Keep Image refs alive so the browser is more likely to hold the decoded bitmaps in memory.
+  state.preloadedImages = state.snapshots.map(s => {
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = s.image;
+    img.decode().catch(() => {});
+    return img;
+  });
 }
 
 function snapshotForTime(t) {
@@ -456,9 +468,16 @@ async function init() {
       loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
     ]);
 
-    state.events = (eventsData.events || []).slice().sort(
-      (a, b) => parseDate(a.date) - parseDate(b.date)
-    );
+    const rawEvents = eventsData.events || [];
+    const dropped = rawEvents.filter(e => !Number.isFinite(parseDate(e.date)));
+    if (dropped.length > 0) {
+      console.warn(`Dropping ${dropped.length} event(s) with unparseable dates:`,
+                   dropped.map(e => ({ id: e.id, date: e.date })));
+    }
+    state.events = rawEvents
+      .filter(e => Number.isFinite(parseDate(e.date)))
+      .slice()
+      .sort((a, b) => parseDate(a.date) - parseDate(b.date));
     state.snapshots = (snapshotsData.snapshots || []).slice().sort(
       (a, b) => parseDate(a.date) - parseDate(b.date)
     );
@@ -519,6 +538,7 @@ async function init() {
     renderBrowser();
     wireTabs();
     wireMapInteractions();
+    preloadSnapshots();
     render();
   } catch (err) {
     document.getElementById('event-panel').innerHTML =
