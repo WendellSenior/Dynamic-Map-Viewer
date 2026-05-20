@@ -14,9 +14,24 @@
     }
     header {
       padding: 24px 32px; background: #fff; border-bottom: 1px solid #e3e3e3;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 16px;
     }
-    header h1 { margin: 0 0 4px; font-size: 22px; }
-    header p { margin: 0; color: #666; }
+    .header-left { min-width: 0; }
+    .header-left h1 { margin: 0 0 4px; font-size: 22px; }
+    .header-left p { margin: 0; color: #666; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .header-right .label {
+      color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .supported-games { display: flex; gap: 6px; flex-wrap: wrap; }
+    .supported-games .game-pill {
+      display: inline-block; padding: 3px 10px;
+      background: #eef2ff; color: #3730a3;
+      border-radius: 999px; font-size: 11px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      font-weight: 600;
+    }
     main {
       flex: 1; padding: 32px;
       display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -68,8 +83,14 @@
 </head>
 <body>
   <header>
-    <h1>Paradox AAR campaigns</h1>
-    <p>Interactive timeline + map review for past multiplayer campaigns.</p>
+    <div class="header-left">
+      <h1>ParadoxRP Dynamic Map Viewer</h1>
+      <p>An interactive map and timeline viewer for Paradox Interactive multiplayer campaigns.</p>
+    </div>
+    <div class="header-right">
+      <span class="label">Games supported</span>
+      <div class="supported-games" id="supported-games"></div>
+    </div>
   </header>
   <main id="campaigns">
     <p class="empty">Loading…</p>
@@ -97,6 +118,20 @@
         return;
       }
       const campaigns = (data && data.campaigns) || [];
+
+      // Populate "Games supported" pills from distinct game tags (visible + hidden).
+      const gamesEl = document.getElementById('supported-games');
+      if (gamesEl) {
+        gamesEl.replaceChildren();
+        const games = [...new Set(campaigns.map(c => c.game).filter(Boolean))].sort();
+        for (const g of games) {
+          const pill = document.createElement('span');
+          pill.className = 'game-pill';
+          pill.textContent = String(g).toUpperCase();
+          gamesEl.appendChild(pill);
+        }
+      }
+
       root.replaceChildren();
       if (campaigns.length === 0) {
         const p = document.createElement('p');
