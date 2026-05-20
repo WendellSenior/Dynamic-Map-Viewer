@@ -56,11 +56,6 @@ def date_to_snowflake(dt):
     return str((max(ms - DISCORD_EPOCH, 0)) << 22)
 
 
-def snowflake_to_dt(snowflake):
-    ms = (int(snowflake) >> 22) + DISCORD_EPOCH
-    return datetime.fromtimestamp(ms / 1000, tz=timezone.utc)
-
-
 def api_get(path, params=None, retries=5):
     url = f"{BASE}{path}"
     for _ in range(retries):
@@ -84,22 +79,11 @@ def api_get(path, params=None, retries=5):
     return None
 
 
-def fetch_active_threads(guild_id):
-    data = api_get(f"/guilds/{guild_id}/threads/active")
-    if not data:
-        return []
-    return [t for t in data.get("threads", []) if t.get("parent_id") == CHANNEL_ID]
-
-
-def fetch_starter_message(thread_id):
-    return api_get(f"/channels/{thread_id}/messages/{thread_id}")
-
-
-def fetch_main_channel_messages(after_snowflake):
+def fetch_messages_since(channel_id, after_snowflake):
     messages = []
     after = after_snowflake
     while True:
-        batch = api_get(f"/channels/{CHANNEL_ID}/messages", {"limit": 100, "after": after})
+        batch = api_get(f"/channels/{channel_id}/messages", {"limit": 100, "after": after})
         if not batch:
             break
         batch.sort(key=lambda m: int(m["id"]))
@@ -108,6 +92,13 @@ def fetch_main_channel_messages(after_snowflake):
         if len(batch) < 100:
             break
     return messages
+
+
+def fetch_active_threads(guild_id):
+    data = api_get(f"/guilds/{guild_id}/threads/active")
+    if not data:
+        return []
+    return [t for t in data.get("threads", []) if t.get("parent_id") == CHANNEL_ID]
 
 
 def parse_event_tags(text):
@@ -143,25 +134,22 @@ def parse_event_tags(text):
     }
 
 
-def extract_images(msg):
-    return [
+def build_event(msg, parsed):
+    content  = msg.get("content", "")
+    author   = msg.get("author", {})
+    username = author.get("global_name") or author.get("username", "unknown")
+    images = [
         {
             "url":      att["url"],
             "filename": att["filename"],
             "width":    att.get("width"),
             "height":   att.get("height"),
         }
-        for att in (msg or {}).get("attachments", [])
+        for att in msg.get("attachments", [])
         if (att.get("content_type") or "").startswith("image/")
     ]
-
-
-def build_event(event_id, parsed, msg):
-    content  = (msg or {}).get("content", "")
-    author   = (msg or {}).get("author", {})
-    username = author.get("global_name") or author.get("username", "unknown")
     return {
-        "id":         event_id,
+        "id":         msg["id"],
         "date":       parsed["date"],
         "country":    parsed["country"],
         "countryRaw": parsed["countryRaw"],
@@ -170,7 +158,7 @@ def build_event(event_id, parsed, msg):
         "author":     username,
         "snippet":    content[:150],
         "fullText":   content,
-        "images":     extract_images(msg),
+        "images":     images,
     }
 
 
@@ -212,39 +200,21 @@ def main():
     active_threads = fetch_active_threads(guild_id)
     log(f"  {len(active_threads)} active thread(s).")
 
-    new_events  = []
-    seen        = set()
+    channels_to_scan = [CHANNEL_ID] + [t["id"] for t in active_threads]
 
-    # ── Forum threads: tags live in the thread name (post title) ─────────────
-    for thread in active_threads:
-        thread_id   = thread["id"]
-        thread_name = thread.get("name", "")
-        created_dt  = snowflake_to_dt(thread_id)
+    all_messages = []
+    for ch_id in channels_to_scan:
+        label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
+        msgs  = fetch_messages_since(ch_id, after_snowflake)
+        log(f"  {len(msgs)} message(s) from {label}")
+        all_messages.extend(msgs)
 
-        if thread_id in processed_today or thread_id in existing_ids or thread_id in seen:
-            continue
-        seen.add(thread_id)
+    log(f"Total messages to evaluate: {len(all_messages)}")
 
-        if created_dt.date() != today_utc:
-            log(f"  ~ thread {thread_id} not from today, skipping")
-            continue
+    new_events = []
+    seen       = set()
 
-        parsed = parse_event_tags(thread_name)
-        if parsed:
-            starter = fetch_starter_message(thread_id)
-            event   = build_event(thread_id, parsed, starter)
-            new_events.append(event)
-            log(f"  + thread {thread_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']}) | title: {repr(thread_name[:80])}")
-        else:
-            log(f"  - thread {thread_id} (no valid tags) | title: {repr(thread_name[:80])}")
-
-        processed_today.add(thread_id)
-
-    # ── Main channel: tags in message content (non-forum fallback) ───────────
-    main_msgs = fetch_main_channel_messages(after_snowflake)
-    log(f"  {len(main_msgs)} message(s) from main channel")
-
-    for msg in main_msgs:
+    for msg in all_messages:
         msg_id = msg["id"]
         if msg_id in processed_today or msg_id in existing_ids or msg_id in seen:
             continue
@@ -253,18 +223,16 @@ def main():
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
-            new_events.append(build_event(msg_id, parsed, msg))
-            log(f"  + msg {msg_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+            new_events.append(build_event(msg, parsed))
+            log(f"  + {msg_id} [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
-            log(f"  - msg {msg_id} (no valid tags) | {repr(msg.get('content','')[:80])}")
-
-    log(f"Total new events: {len(new_events)}")
+            log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
 
     had_changes = bool(new_events)
     if had_changes:
         events_data["events"].extend(new_events)
         save_json(EVENTS_FILE, events_data)
-        log(f"Saved {len(new_events)} new event(s) to {EVENTS_FILE}.")
+        log(f"Saved {len(new_events)} new event(s).")
     else:
         log("No new events this run.")
 
