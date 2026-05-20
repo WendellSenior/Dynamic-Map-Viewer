@@ -19,6 +19,7 @@ const state = {
 
 const SLIDER_RES = 1000;
 const MAX_SCALE = 8;
+const MAX_DOTS_UNFILTERED = 200;  // cap when filter === 'all' to keep rendering fast on huge campaigns
 
 const TAG_ICONS = {
   WarDec: '🎺',
@@ -94,6 +95,19 @@ function applyTransform() {
   frame.style.transform =
     `translate(${state.view.x}px, ${state.view.y}px) scale(${state.view.scale})`;
   updateDotPositions();
+}
+
+// rAF-coalesced render. Called from rapid-fire handlers (slider drag) to avoid
+// rebuilding the dot DOM on every input event — at most once per frame.
+let _renderScheduled = false;
+function scheduleRender() {
+  if (_renderScheduled) return;
+  _renderScheduled = true;
+  requestAnimationFrame(() => {
+    _renderScheduled = false;
+    render();
+    if (state.filter === 'past') updateBrowserVisibility();
+  });
 }
 
 function zoomToCoords(coords, scale = 2.0) {
@@ -276,9 +290,18 @@ function render() {
 
   const dotsEl = document.getElementById('event-dots');
   dotsEl.replaceChildren();
+  // Pick events to draw on map. Respect filters; if filter='all' and there are too
+  // many events to render comfortably, draw only the N most recent and surface a hint.
+  let toShow = state.events.filter(e => isEventVisible(e, t));
+  let cappedTotal = 0;
+  if (state.filter === 'all' && toShow.length > MAX_DOTS_UNFILTERED) {
+    cappedTotal = toShow.length;
+    toShow = toShow.slice(-MAX_DOTS_UNFILTERED);  // events already sorted ascending → tail is most recent
+  }
+  updateDotCapNote(cappedTotal);
+
   const { x: vx, y: vy, scale: vs } = state.view;
-  for (const e of state.events) {
-    if (!isEventVisible(e, t)) continue;
+  for (const e of toShow) {
     const xy = resolveCoords(e);
     if (!xy) continue;
 
@@ -297,6 +320,25 @@ function render() {
     dot.title = `${e.date}${e.tag ? ' · ' + e.tag : ''} — ${e.snippet || ''}`;
     dot.addEventListener('click', () => showEvent(e));
     dotsEl.appendChild(dot);
+  }
+}
+
+function updateDotCapNote(cappedTotal) {
+  const labels = document.getElementById('timeline-labels');
+  if (!labels) return;
+  let note = labels.querySelector('.cap-note');
+  if (cappedTotal > 0) {
+    if (!note) {
+      note = document.createElement('span');
+      note.className = 'cap-note';
+      // Insert between the two date labels.
+      const first = labels.firstElementChild;
+      if (first) labels.insertBefore(note, first.nextSibling);
+      else labels.appendChild(note);
+    }
+    note.textContent = `map: ${MAX_DOTS_UNFILTERED} of ${cappedTotal} most recent — pick a session to see older`;
+  } else if (note) {
+    note.remove();
   }
 }
 
@@ -666,8 +708,7 @@ async function init() {
     slider.value = 0;
     slider.addEventListener('input', () => {
       state.currentTime = sliderToTime(parseInt(slider.value, 10));
-      render();
-      if (state.filter === 'past') updateBrowserVisibility();
+      scheduleRender();
     });
 
     // Persisted resolution toggle, only meaningful when any snapshot has a lowres variant.
