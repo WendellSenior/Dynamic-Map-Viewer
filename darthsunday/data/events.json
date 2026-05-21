@@ -891,6 +891,65 @@
       "fullText": "### Edward III Reinstates His Claim to the Throne of France\n-# His Response to Philip VI\n\"To my esteemed cousin Philip. I have been more than patient. You treat with the villianous Scots, you permit your countrymen to ply and raid the English coast. I have paid homage as a boy, showing deference as my father did, as your vassal in my capacity as the Duc d'Aquitaine. Still, it is not enough for you. \n\nMy father was not weak, but he was a gentler hand than I. You surely heard how I dealt with the traitor Mortimer in my own lands, and yet thought when I renounced my claim to your kingdom, it was weakness? No more. **I am the rightful king of France by any just reading of salic law, and it was my generosity that enabled your pretention**. You wanted to personally hold one more piece of *la France*, and now you shall hold none of it. I am coming to take my Kingdom. \n\n*Adieu seignor*,\nEduard III de Plantagenet, la Roi de la France, et Angleterre, et la Duc d'Aquitaine\"",
       "images": [],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1507148166078922833",
+      "date": "1337-04-15",
+      "country": null,
+      "countryRaw": "Morroco",
+      "province": "Fas",
+      "tag": "History",
+      "author": "Wolf legion 45",
+      "snippet": "# An Age of War:\n\n\n\nSince the beginning of his reign Sultan Abu al Hasan Ali ibn Uthman Marinid has spent much of it at war. As the largest of the suc",
+      "fullText": "# An Age of War:\n\n\n\nSince the beginning of his reign Sultan Abu al Hasan Ali ibn Uthman Marinid has spent much of it at war. As the largest of the successor states of the Almohad Caliphate, many have come to the Marinid Sultanate seeking our support in various conflicts. First was the Emirate of Granada that sought our help against the aggression of the Castilian invaders from the north. In 1333, 2 years after taking the throne, Marinid soldiers besieged Gibraltar taking it in the same year. The men of the garrison were allowed to march out freely as a show of respect from the sultan for the bravery in mounting such a defence as isolated and outnumbered as they were.",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1507149441428357260",
+      "date": "1337-04-01",
+      "country": null,
+      "countryRaw": "Morroco",
+      "province": "Fas",
+      "tag": "Meeting",
+      "author": "Wolf legion 45",
+      "snippet": "-----------------------------------------------------\n\n# Rapprochement Long Overdue:\n\n\n\nWith war in the west once again underway, the Sultan of the Ma",
+      "fullText": "-----------------------------------------------------\n\n# Rapprochement Long Overdue:\n\n\n\nWith war in the west once again underway, the Sultan of the Marinids sends an envoy to the north to the Kingdom of Progual to seek a meeting with its king\n<@298192682554228738>",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1507158475124244583",
+      "date": "1337-04-01",
+      "country": "ENG",
+      "countryRaw": "England",
+      "province": "Bordeaux",
+      "tag": "Treaty",
+      "author": "Murlock",
+      "snippet": "**Edward III Claim to the Throne of France Rejected**\n\n*His Response to Eduard III de Plantagenet*\n\n\"Edward III has no legitimate claim to the Throne ",
+      "fullText": "**Edward III Claim to the Throne of France Rejected**\n\n*His Response to Eduard III de Plantagenet*\n\n\"Edward III has no legitimate claim to the Throne of France, for that title belongs to, and shall remain with, King Philip VI of House Valois, <@460814348487753730>. You are not master of France, nor, it would seem, fully master of your own kingdom. This is an act of war and bloodshed, one that serves no righteous cause in Christendom.\n\nYou are not the rightful King of France, for the Church does not recognize succession through the line of female heirs. Your duty should be to the peoples of Christendom, sparing them the suffering of the wars you now seek to instigate.\n\nHenceforth, Pope Benedict XII formally recognizes <@460814348487753730> as the rightful King of France and requests his presence in Avignon, where he shall be crowned before all Christendom by the Holy Father himself.\"",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1507158475892064256/image.png?ex=6a10e236&is=6a0f90b6&hm=64e72a40e587e753f7d80aaab1220b56209de3115da510f26504f0e153fbd091&",
+          "filename": "image.png",
+          "width": 742,
+          "height": 437
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1507166041527161002",
+      "date": "1337-04-01",
+      "country": "FRA",
+      "countryRaw": "France",
+      "province": "Avignon",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "*King Phillipe VI and Cardinal Guillaume look at the letter of the announcement unammused. In a moment of cynical self entertainment, King Phillipe VI",
+      "fullText": "*King Phillipe VI and Cardinal Guillaume look at the letter of the announcement unammused. In a moment of cynical self entertainment, King Phillipe VI writes back.*\n\n\"I'd rather die honorably in Aquitaine against my cousin King Edward III on the field of battle, for he would give me a far more honorable end than if I stepped into Avignon your holiness.\"",
+      "images": [],
+      "title": "Atlantic Diplo"
     }
   ]
 }
