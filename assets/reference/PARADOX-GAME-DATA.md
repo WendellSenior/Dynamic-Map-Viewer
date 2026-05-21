@@ -13,7 +13,8 @@ country-tag mapping.
 | File | Source in EU5 install |
 |---|---|
 | `country_names_l_english.yml` | `localization/english/country_names_l_english.yml` |
-| `location_names_l_english.yml` | `localization/english/location_names_l_english.yml` |
+| `location_names/location_names_l_english.yml` | `localization/english/location_names/location_names_l_english.yml` |
+| `location_names/location_names_*_l_english.yml` | `localization/english/location_names/location_names_<culture>_l_english.yml` — 66 culture-specific endonym files (French calls Nicosia "Nicosie", Portuguese calls Lisbon "Lisboa", German calls Munich "München", etc.). Each contains `location_id.<culture>_language: "Endonym"` entries that `parse_eu5_reference.py` flattens into the location's alias list, so a Discord poster can write `[Location:Nicosie]` and the viewer still pins the right spot. |
 | `country_capitals.txt` | `common/country_capitals.txt` (or similar) |
 | `definitions.txt` | `map_data/definitions.txt` |
 | `default.map` | `map_data/default.map` |

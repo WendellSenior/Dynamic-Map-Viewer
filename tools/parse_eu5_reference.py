@@ -33,21 +33,32 @@ def parse_locators(text, map_height):
     return out
 
 
-LOC_NAME_RE = re.compile(r'^\s*([a-z][a-z0-9_]*)\s*:\s*"([^"]+)"')
+# Two key shapes inside the l_english YAMLs:
+#   1) `location_id: "Display"`               → canonical English display name
+#   2) `location_id.culture_language: "Name"` → culture-specific endonym (e.g. Nicosie, Lisboa)
+# We split rather than alternate regexes because culture suffixes themselves contain
+# letters/numbers/underscores and could otherwise collide.
+LOC_NAME_RE = re.compile(r'^\s*([a-z][a-z0-9_.]*)\s*:\s*"([^"]+)"')
 
 
 def parse_location_names(text):
-    """Parse `location_id: "Display Name"` from location_names_l_english.yml. Returns {id: display_name}."""
-    out = {}
+    """Yield (location_id, name, is_culture_variant) tuples from a location_names YAML.
+
+    Handles both the plain English file (`location_id: "Name"`) and the
+    culture-specific files (`location_id.culture_language: "Endonym"`).
+    Empty endonyms (`""`) and `$placeholder$` references are skipped."""
     for line in text.splitlines():
         m = LOC_NAME_RE.match(line)
-        if m:
-            key, name = m.group(1), m.group(2)
-            # Skip culture variants like moscow.east_slavic_language
-            if "." in key:
-                continue
-            out[key] = name
-    return out
+        if not m:
+            continue
+        key, name = m.group(1), m.group(2)
+        if not name or (name.startswith("$") and name.endswith("$")):
+            continue
+        if "." in key:
+            loc_id = key.split(".", 1)[0]
+            yield loc_id, name, True
+        else:
+            yield key, name, False
 
 
 # Definitions parser: walks the hierarchical `name = { ... }` Clausewitz format and
@@ -232,17 +243,33 @@ def main():
     # Build a reverse index from canonical location id -> the provinces.json display key.
     id_to_key = {info["id"]: key for key, info in provinces.items()}
 
-    # Location display-name aliases from English localization.
-    loc_names_path = ref / "location_names_l_english.yml"
+    # Location display-name aliases. Scans every `location_names_*_l_english.yml`
+    # in <ref>/location_names/. The unsuffixed file (`location_names_l_english.yml`)
+    # is the canonical English name; the per-culture files supply endonyms
+    # (Nicosie, Lisboa, München, etc.) so a Discord poster typing the local name
+    # still resolves to the right pin.
+    loc_names_dir = ref / "location_names"
     name_aliases = 0
-    if loc_names_path.exists():
-        loc_names_text = loc_names_path.read_text(encoding="utf-8-sig", errors="replace")
-        for loc_id, display_name in parse_location_names(loc_names_text).items():
-            key = id_to_key.get(loc_id)
-            if not key:
-                continue
-            provinces[key].setdefault("aliases", set()).add(display_name)
-            name_aliases += 1
+    culture_aliases = 0
+    if loc_names_dir.is_dir():
+        # Glob deliberately uses `*_l_english.yml` (no leading `_`) so it matches
+        # both the default `location_names_l_english.yml` and the culture variants
+        # `location_names_<culture>_l_english.yml`. With `_*_` the default file
+        # would be silently skipped — discovered when Wien wasn't appearing as
+        # a Vienna alias even though it's the English-file canonical name.
+        for yml in sorted(loc_names_dir.glob("location_names*_l_english.yml")):
+            yml_text = yml.read_text(encoding="utf-8-sig", errors="replace")
+            for loc_id, name, is_culture in parse_location_names(yml_text):
+                key = id_to_key.get(loc_id)
+                if not key:
+                    continue
+                if name == key:
+                    continue  # No new info; canonical English already matches.
+                provinces[key].setdefault("aliases", set()).add(name)
+                if is_culture:
+                    culture_aliases += 1
+                else:
+                    name_aliases += 1
 
     # Definitions.txt: area/province/region/etc names -> first contained location id.
     def_path = ref / "definitions.txt"
@@ -291,7 +318,8 @@ def main():
 
     print(f"Parsed {len(provinces)} locations -> {ref}/provinces.json")
     print(f"Parsed {len(tags)} country tags -> {ref}/tags.json")
-    print(f"  Added {name_aliases} display-name aliases from location_names_l_english.yml")
+    print(f"  Added {name_aliases} English display-name aliases from location_names/*.yml")
+    print(f"  Added {culture_aliases} culture-endonym aliases (e.g. Nicosie, Lisboa)")
     print(f"  Added {group_aliases} group-name aliases from definitions.txt")
     print(f"  Added {country_aliases} country-name aliases from country_capitals.txt")
     if manual_alias_count:

@@ -5,24 +5,36 @@ Interactive timeline + map for reviewing Paradox multiplayer campaigns after the
 ## Layout
 
 ```
-index.html               campaign hub — lists each campaign
-assets/style.css         shared viewer styles
-assets/app.js            shared viewer logic (vanilla JS, no build step)
-tools/preprocess.py      Discord export → events.json (per-campaign)
-tools/parse_positions.py EU4 positions.txt → provinces.json (per-game)
-<game>-<campaign>/       one folder per campaign
-    view.html            viewer page; declares window.CAMPAIGN_GAME
-    init.bat             local launcher (Windows)
-    data/events.json     tagged events (preprocessor output)
-    data/snapshots.json  map snapshots + map dimensions
-    data/coords.json     country / province → [x, y] manual lookup
-    data/sessions.json   campaign session date ranges
-    data/maps/           snapshot images
-    data/discord/        raw Discord exports (gitignored)
-    data/reference/<g>/  per-game reference: tags, positions, provinces
+index.html                       campaign hub — lists each campaign
+campaigns.json                   per-campaign manifest (label, game, discord_sync block, …)
+assets/style.css                 shared viewer styles
+assets/app.js                    shared viewer logic (vanilla JS, no build step)
+assets/reference/<game>/         shared game data — read-only at runtime
+                                 (tags, locations, country lists, positions)
+                                 See assets/reference/PARADOX-GAME-DATA.md.
+tools/preprocess.py              Discord export → events.json
+tools/sync_events.py             GH-Actions Discord poller (--campaign <folder>)
+tools/parse_positions.py         EU4 positions.txt → provinces.json
+tools/parse_eu5_reference.py     EU5 locators + names → provinces.json + tags.json
+tools/new_instance.py            campaign scaffolder
+<game>-<campaign>/               one folder per campaign
+    view.html                    viewer page; declares window.CAMPAIGN_GAME
+    init.bat                     local launcher (Windows)
+    data/events.json             tagged events (preprocessor / sync output)
+    data/snapshots.json          map snapshots + map dimensions
+    data/coords.json             country / province → [x, y] manual lookup
+    data/sessions.json           campaign session date ranges
+    data/maps/                   snapshot images
+    data/discord/                raw Discord exports (gitignored)
+    data/reference/<game>/       per-campaign overrides only —
+                                 just aliases.json (interactive lookup cache).
+                                 Bulk game data lives in assets/reference/ above.
+.github/workflows/discord-sync.yml  hourly Discord Bot API → events.json
+                                    (one-campaign-per-workflow currently;
+                                     channel_id read from campaigns.json)
 ```
 
-Per-campaign local tools (`calibrate.html` / `calibrate.bat` for picking coords, `sessions.html` / `sessions.bat` for editing session ranges) are gitignored — they live alongside `view.html` in a campaign folder when in use.
+Per-campaign local tools (`calibrate.html` / `calibrate.bat` for picking coords, `sessions.html` / `sessions.bat` for editing session ranges, `events.html` / `events.bat` for per-event override edits) live alongside `view.html` in each campaign folder.
 
 ## Tag format used in Discord
 
@@ -41,25 +53,49 @@ Fields:
 - `Location` (optional) — province/city name. Maps to its pixel coords via the game's reference data.
 - `Tag` (optional) — categorises the event; renders a themed icon on the map and in the events table. Choose from:
 
-  | Tag | Icon | Use for |
-  | --- | --- | --- |
-  | `WarDec` | 🎺 | War declarations |
-  | `Battle` | ⚔️ | Battles, sieges, military engagements |
-  | `Character` | 👤 | Births, deaths, succession, personal stories |
-  | `Trade` | 📦 | Trade goods, merchants, trade routes |
-  | `Economy` | 💰 | Income, debt, taxation, currency |
-  | `Discover` | 🚢 | Exploration, colonisation, new lands |
-  | `Treaty` | 📜 | Peace deals, alliances, royal marriages |
-  | `Meeting` | 🤝 | Diplomacy, councils, conferences |
-  | `History` | ⏳ | General historical narration / background |
-  | `Religion` | 🙏 | Generic faith / religious event |
-  | `Catholic` | ✝️ | Catholic / Christian (alias: `Christian`) |
-  | `Orthodox` | ☦️ | Eastern / Russian / Greek Orthodox |
-  | `Muslim` | ☪️ | Islam (aliases: `Sunni`, `Shia`, `Sufi`) |
-  | `Jewish` | ✡️ | Judaism (alias: `Hebrew`) |
-  | `Hindu` | 🕉️ | Hinduism (alias: `Vedic`) |
-  | `Buddhism` | ☸️ | Buddhism (aliases: `Dharma`, `Dharmic`, `Zen`) |
-  | `Taoism` | ☯️ | Chinese folk religions (aliases: `YinYang`, `Confucianism`) |
+  | Group | Tag | Icon | Use for |
+  | --- | --- | --- | --- |
+  | General | `WarDec` | 🎺 | War declarations |
+  | | `Battle` | ⚔️ | Battles, sieges, military engagements |
+  | | `Character` | 👤 | Births, deaths, succession, personal stories |
+  | | `Trade` | 📦 | Trade goods, merchants, trade routes |
+  | | `Economy` | 💰 | Income, debt, taxation, currency |
+  | | `Discover` | 🚢 | Exploration, colonisation, new lands |
+  | | `Treaty` | 📜 | Peace deals, alliances, royal marriages |
+  | | `Meeting` | 🤝 | Diplomacy, councils, conferences (aliases: `Diplomacy`, `Interaction`) |
+  | | `History` | ⏳ | General historical narration / background |
+  | Religion | `Religion` | 🙏 | Generic faith / religious event |
+  | | `Catholic` | ✝️ | Catholic / Christian (alias: `Christian`) |
+  | | `Orthodox` | ☦️ | Eastern / Russian / Greek Orthodox |
+  | | `Muslim` | ☪️ | Islam (aliases: `Sunni`, `Shia`, `Sufi`) |
+  | | `Jewish` | ✡️ | Judaism (alias: `Hebrew`) |
+  | | `Hindu` | 🕉️ | Hinduism (alias: `Vedic`) |
+  | | `Buddhism` | ☸️ | Buddhism (aliases: `Dharma`, `Dharmic`, `Zen`) |
+  | | `Taoism` | ☯️ | Chinese folk religions (aliases: `YinYang`, `Confucianism`) |
+  | Civic | `Chaos` | 💥 | Anarchy, riots, revolts, rebellions, unrest |
+  | | `Judge` | ⚖️ | Justice, courts, trials, verdicts, legal rulings |
+  | | `Surrender` | 🏳️ | Capitulation, defeat, yield, ceasefire, armistice |
+  | Sport | `Duel` | 🤺 | Duels, fencing (single combat — use `Battle` for engagements) |
+  | | `Joust` | 🏇 | Tournaments, jousts, tourneys |
+  | Awards | `First` | 🥇 | 1st place, victory, gold, champion |
+  | | `Second` | 🥈 | 2nd place, silver, runner-up |
+  | | `Third` | 🥉 | 3rd place, bronze |
+  | Arts & Knowledge | `Map` | 🗺️ | Cartography, atlas, survey, geography |
+  | | `Architecture` | 🏛️ | Monuments, edifices, construction, buildings |
+  | | `Culture` | 🎭 | Theatre, drama, performance, the arts |
+  | | `Painting` | 🎨 | Painting, art, fresco, mural, portraits |
+  | | `Literature` | 📚 | Books, novels, poetry, writing |
+  | | `Text` | ✒️ | Manuscripts, edicts, decrees, charters, correspondence |
+  | | `Science` | 🔬 | Research, invention, experiment, scholarship |
+  | | `Medicine` | 💊 | Plague, disease, doctors, pandemic, health |
+  | Peoples & Hazards | `Native` | 🗿 | Indigenous, aboriginal, tribal peoples |
+  | | `Secret` | 💼 | Espionage, spy, intrigue, conspiracy, plots |
+  | | `Warning` | ⚠️ | Alerts, ultimatums, threats, danger |
+  | | `Nuclear` | ☢️ | Nukes, atomic, radiation, fallout |
+  | | `Biohazard` | ☣️ | Bioweapons, contamination, contagion |
+  | | `Pirate` | 🏴‍☠️ | Pirates, piracy, raiders, corsairs, privateers |
+
+Aliases are case-insensitive. Full list lives in `tools/preprocess.py` (`TAG_ALIASES`) and `tools/sync_events.py` (`VALID_TAGS`); both kept in sync.
 
 Brackets may all sit on one line, or be split across several lines. Free text after the last bracket becomes the body.
 
@@ -83,14 +119,39 @@ Image attachments on Discord posts (screenshots, fan art, etc.) are extracted by
 
 ## Workflow for a new campaign
 
-1. Create `<game>-<short-name>/` next to the existing campaign folders.
-2. Copy `view.html` from an existing campaign (e.g. `eu4-paradox-in/view.html`), then update its `<title>` and the `window.CAMPAIGN_GAME` value.
-3. Drop snapshot images into `<campaign>/data/maps/` and register them in `<campaign>/data/snapshots.json`.
-4. Place per-game reference files in `<campaign>/data/reference/<game>/` (for EU4: `00_countries.txt`, `positions.txt`; run `tools/parse_positions.py` to derive `provinces.json`).
-5. Run `tools/preprocess.py <discord-export.html>` from the campaign folder to produce `data/events.json`.
-6. Use the local `calibrate.html` (via `calibrate.bat`) to pin country capitals into `data/coords.json`.
-7. Use `sessions.html` to set campaign session date ranges.
-8. Add the campaign to the root `index.html` hub.
+The fastest path is `newinstance.bat` at the repo root — it scaffolds the folder, view.html, init.bat, snapshots dimensions, and a campaigns.json entry.
+
+For an existing-game campaign (game reference data already in `assets/reference/<game>/`):
+
+1. Run `newinstance.bat` (or `python tools/new_instance.py`). Prompts for folder name, game tag, label.
+2. Drop snapshot images into `<campaign>/data/maps/` (run `python tools/refresh_snapshots.py` to register them).
+3. Drop a Discord export into `<campaign>/data/discord/` and run `<campaign>/init.bat` — runs preprocess + downsample + serves on `http://localhost:8000/<campaign>/view.html`.
+4. Use `calibrate.html` to pin country capitals into `data/coords.json`, `sessions.html` to set session date ranges, `events.html` to fine-tune individual events.
+
+For a **new game** with no shared reference data yet:
+
+1. Seed `assets/reference/<game>/` with the game's tag list + position/locator files (see `assets/reference/PARADOX-GAME-DATA.md` for the file list).
+2. Run the relevant parser (`tools/parse_positions.py` for EU4-style games, `tools/parse_eu5_reference.py` for EU5) to derive `tags.json` + `provinces.json`.
+3. Then proceed as above.
+
+## Discord sync (alternative to local preprocessing)
+
+The repo includes an hourly GitHub Actions workflow (`.github/workflows/discord-sync.yml`) that calls Discord's Bot API directly and commits new events to `<campaign>/data/events.json`. To enable for a campaign, add a `discord_sync` block to its `campaigns.json` entry:
+
+```json
+{
+  "folder": "darthsunday",
+  "game": "eu5",
+  …
+  "discord_sync": {
+    "enabled": true,
+    "channel_id": "1434628920371581079",
+    "reference_game": "eu5"
+  }
+}
+```
+
+Requires a `DISCORD_TOKEN` repo secret with View Channels + Read Message History permissions. The workflow is single-campaign for now (hardcoded to `--campaign darthsunday`); fan out via matrix strategy for multiple synced campaigns. The local preprocess pipeline auto-skips campaigns with `discord_sync.enabled` to avoid clobbering live data.
 
 ## Local preview
 
