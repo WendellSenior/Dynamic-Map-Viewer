@@ -615,6 +615,52 @@
       "fullText": "In his office, Hermann Monrnewe receives news about count Guillaume III's approval of meeting the cities in Holland to build trade offices. Such improvement in relations can only lead to a stronger presence of the Hansa in the Channel, thus more money flowing from Köln, and the Baltic sea.\n\nNow, it’s time for the other piece of the puzzle: England. The Stalhof has grown since it was founded, especially thanks to the Carta Mercatoria. However, with hostilities rising, not only does trade in England have to expand, but the bürgermeister considers that ‘saving’ the exports from Bourdeaux will be fundamental for the English. <@1106651545296195655> \n\n||He takes some paper and starts writing to the King’s Council, addressing His Majesty to ask for permission to expand kontors and offices in Bourdeaux. Though the bürgermeister is always supporting of His Majesty, he writes that it would be advantageous if trade from the city (that is, its wine, woad and salt exported to England) is uninterrupted, and if the Hansa were to negotiate with the city council, then it could be ensured even if the worst were to happen. Of course, the League will comply with whatever His Majesty decides on regards to trade, and this is essentially a last resort of sorts...||",
       "images": [],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1506992387644325940",
+      "date": "1337-04-01",
+      "country": "ENG",
+      "countryRaw": "England",
+      "province": "London",
+      "tag": "Character",
+      "author": "jeudlvie",
+      "snippet": "### A Weddynge to Wynnen þe Werre.\n\nRumors abide, that the King of France plans to take from Edward his rightful holdings in Aquitaine. Rumors still, ",
+      "fullText": "### A Weddynge to Wynnen þe Werre.\n\nRumors abide, that the King of France plans to take from Edward his rightful holdings in Aquitaine. Rumors still, suggest that the army the French king may gather will make small the sight of the English. \n\nWhen the Portugese emissary came, it was natural for the match to be made- Portugal is no small kingdom, and England will need all the help it can get. \n\nArrangements are made, and the marriage is planned for next spring - a lovely grove near Oxford is enclosed into a summer home for the Plantagenets, with the wedding being the first of many events to be held there.",
+      "images": [],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1506774603865919679",
+      "date": "1337-04-01",
+      "country": "FRA",
+      "countryRaw": "France",
+      "province": "Praha",
+      "tag": "Meeting",
+      "author": "Cloud",
+      "snippet": "||### A letter from France makes way to Bohemia <@261290667106369536> \n“To the bold and honorable King Jehan de Luxembourg of Bohemia and Count of Lux",
+      "fullText": "||### A letter from France makes way to Bohemia <@261290667106369536> \n“To the bold and honorable King Jehan de Luxembourg of Bohemia and Count of Luxembourg,\nI seek your support and martial skill my friend. \n\nIn a few months time I will begin my confiscation of Gascony from King Edward III of England. A war where we both will find great glory on the battlefield against my rival, and restore a title rightfully belonging to the French crown. \n\nHowever, King Edward III of England has likely found himself a powerful ally with the Papacy. If you are not already aware, the Orsini house has showed [activity of puppeteering the Papacy](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506121571402518620) in their favor with plans to move the Pope from Avignon to Rome, and recently performed an assassination attempt against Cardinal Guillaume de Chanac of Paris to lessen their opposition of their activities within the Papacy. I know it is a serious claim, but the connections between Cardinal Guillaume de Chanac [open lack of support for Orsini actions within the papacy](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506359035106955415) and the recent assassination attempt failing with an [apologetic letter left behind](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506663699254083624) by the assassin that details ‘A powerful family wishes you dead for the actions you have taken’ is clear indication of such accusation being true. \n\nThus, I seek an alliance. One for both of us to display our might on the battlefield, attain victory and glory against the King of England, and ensure the Pope remains in Avignon rather than allow a petty Italian house to stop Guelph competition against your rival Holy Roman Emperor Ludwig IV. \n\nBest wishes, King Philipe VI of France\"||",
+      "images": [],
+      "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1505767119290110013",
+      "date": "1337-04-01",
+      "country": "POR",
+      "countryRaw": "Portugal",
+      "province": "Lisboa",
+      "tag": "Catholic",
+      "author": "nick",
+      "snippet": "# The Imprisonment of Maria de Borgonha\n\nShortly after taking Maria of Portugal as a wife, King Alfonso XI de Borgona had her imprisoned in a convert,",
+      "fullText": "# The Imprisonment of Maria de Borgonha\n\nShortly after taking Maria of Portugal as a wife, King Alfonso XI de Borgona had her imprisoned in a convert, and openly took Leonor Nunez de Guzman as a mistress. Appalled by the treatment of his daughter and the conduct of his nephew, King Afonso sends word to Valladolid. The response from king Alfonso would determine peace in Iberia\n\n\n\nDear Nephew, \n\nYou have betrayed the sanctity of your marriage and the holy union between yourself and Christ. The only solution can be to discard your mistress, return Maria to your court, and make amends to my crown for the great dishonor you have shown my name. Anything less will, must result in war. I will retake my daughter, and my honor along with it if I must.\n\n<@422498641425596418>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1505767119730642944/ytaqlarMoy1xjolCNiVI1JkrVmChVY6JUjYlSNSZK1ZgoVWOiVI2JUoeIyf8C84DJOizRe4AAAAASUVORK5CYII.png?ex=6a0fc6e9&is=6a0e7569&hm=4c4f04d2aef616ad9901d205c9ab8bea2cc17873c7dcc4fa715d3bb5d0b274dd&",
+          "filename": "ytaqlarMoy1xjolCNiVI1JkrVmChVY6JUjYlSNSZK1ZgoVWOiVI2JUoeIyf8C84DJOizRe4AAAAASUVORK5CYII.png",
+          "width": 275,
+          "height": 183
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
     }
   ]
 }
