@@ -815,8 +815,8 @@
       "province": "Tunis",
       "tag": "Treaty",
       "author": "JPThunda",
-      "snippet": "**Good Neighbors**\n\n\n\n*My dear friend and ally, Sultan Abu Said Uthman II Marinid,*\n\n*Peace be upon you, and may this letter find you well.  News has ",
-      "fullText": "**Good Neighbors**\n\n\n\n*My dear friend and ally, Sultan Abu Said Uthman II Marinid,*\n\n*Peace be upon you, and may this letter find you well.  News has come to me of your renewed conflict with the Sultan of Tlemcen, the dog Abu Tashufin whose name I spit upon.  His men took part in the rebellion which I fought so hard to defeat, by the grace of Allah, and I seek satisfaction from his demise and the righting of wrongs.*\n\n*I offer my sword and those of my men in the destruction of the Sultan, and ask only that the lands of the Sheikdom of Algiers be returned to my governance, as it was beneath my forebears.  The rest of his lands you may take as yours, as is your right, with my blessing and gratitude for wrongs righted.*\n\n*If you find this agreeable then I shall raise up my men and we shall crush this den of fools and thieves betwixt us from east and west.  Say only the word, and I am at your service.*\n\n*Sultan Abu Yaya Abu Bakr II Hafsid*\n\n<@327561459976372224>",
+      "snippet": "**Good Neighbors**\n\n\n\n*My dear friend and ally, Sultan Abu al Hasan Ali ibn Uthman Marinid,*\n\n*Peace be upon you, and may this letter find you well.  ",
+      "fullText": "**Good Neighbors**\n\n\n\n*My dear friend and ally, Sultan Abu al Hasan Ali ibn Uthman Marinid,*\n\n*Peace be upon you, and may this letter find you well.  News has come to me of your renewed conflict with the Sultan of Tlemcen, the dog Abu Tashufin whose name I spit upon.  His men took part in the rebellion which I fought so hard to defeat, by the grace of Allah, and I seek satisfaction from his demise and the righting of wrongs.*\n\n*I offer my sword and those of my men in the destruction of the Sultan, and ask only that the lands of the Sheikdom of Algiers be returned to my governance, as it was beneath my forebears.  The rest of his lands you may take as yours, as is your right, with my blessing and gratitude for wrongs righted.*\n\n*If you find this agreeable then I shall raise up my men and we shall crush this den of fools and thieves betwixt us from east and west.  Say only the word, and I am at your service.*\n\n*Sultan Abu Yaya Abu Bakr II Hafsid*\n\n<@327561459976372224>",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1507118831271936020/Giuseppe_Rava_-_Holy_War_Muslim_soldiers_fighting_against_the_Christian_enemy_-_Holy_war_muslims_-_28MeisterDrucke-148706329.png?ex=6a10bd4a&is=6a0f6bca&hm=9c24fad4f5492706141bbd7d8e9bd107afd5203791e99c1f173ae344b80647d8&",
@@ -851,6 +851,45 @@
           "height": 288
         }
       ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1507124928187731988",
+      "date": "1337-04-15",
+      "country": null,
+      "countryRaw": "Morroco",
+      "province": "Fas",
+      "tag": "Treaty",
+      "author": "Wolf legion 45",
+      "snippet": "*My Freind Sultan Abu Yaya Abu Bakr II Hafsid,*\n\n*I thank you for your concern, I agree that you have been wronged by this cur to my west and are with",
+      "fullText": "*My Freind Sultan Abu Yaya Abu Bakr II Hafsid,*\n\n*I thank you for your concern, I agree that you have been wronged by this cur to my west and are within your right to demand satisfaction by taking his head. For myself he and his kingdom have proven to be nothing but pirates that both sully both your own and my own peoples names. Not to mention their own acts of barbary upon others in this land we call home. They are despicable and I shall see this realm rid of their existence as Allah surly would will us to. *\n\n*I accept your aid my friend, let us put an end to this issue once and for all.*\n\n*Sultan Abu al Hasan Ali ibn Uthman Marinid*",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1507122803831210104",
+      "date": "1337-04-01",
+      "country": "FRA",
+      "countryRaw": "France",
+      "province": "London",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "### Demand for the surrender of Gascony\n“To my cousin King Edward III Plantagenet of England <@1106651545296195655>,\nThe council of estates and esteem",
+      "fullText": "### Demand for the surrender of Gascony\n“To my cousin King Edward III Plantagenet of England <@1106651545296195655>,\nThe council of estates and esteemed nobility of France have come to the conclusion in Paris that your claims and hold of Gascony is no longer legal. Therefore, I must confiscate it and do with it as I see fit. Do not make this difficult, and simply surrender the lands cousin.\n~King Philip VI of France”",
+      "images": [],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1507127655143837726",
+      "date": "1337-04-01",
+      "country": "ENG",
+      "countryRaw": "England",
+      "province": "Bordeaux",
+      "tag": "Treaty",
+      "author": "jeudlvie",
+      "snippet": "### Edward III Reinstates His Claim to the Throne of France\n-# His Response to Philip VI\n\"To my esteemed cousin Philip. I have been more than patient.",
+      "fullText": "### Edward III Reinstates His Claim to the Throne of France\n-# His Response to Philip VI\n\"To my esteemed cousin Philip. I have been more than patient. You treat with the villianous Scots, you permit your countrymen to ply and raid the English coast. I have paid homage as a boy, showing deference as my father did, as your vassal in my capacity as the Duc d'Aquitaine. Still, it is not enough for you. \n\nMy father was not weak, but he was a gentler hand than I. You surely heard how I dealt with the traitor Mortimer in my own lands, and yet thought when I renounced my claim to your kingdom, it was weakness? No more. **I am the rightful king of France by any just reading of salic law, and it was my generosity that enabled your pretention**. You wanted to personally hold one more piece of *la France*, and now you shall hold none of it. I am coming to take my Kingdom. \n\n*Adieu seignor*,\nEduard III de Plantagenet, la Roi de la France, et Angleterre, et la Duc d'Aquitaine\"",
+      "images": [],
       "title": "Atlantic Diplo"
     }
   ]
