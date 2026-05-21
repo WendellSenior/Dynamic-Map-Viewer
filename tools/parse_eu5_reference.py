@@ -191,11 +191,14 @@ def parse_country_names(text):
 def main():
     ap = argparse.ArgumentParser(description="EU5 reference -> provinces.json + tags.json")
     ap.add_argument("--ref-dir", type=Path,
-                    default=Path("eu5-tbd/data/reference/eu5"),
+                    default=Path("assets/reference/eu5"),
                     help="Directory containing locators_city.txt + country_names_l_english.yml + "
-                         "location_names_l_english.yml + definitions.txt")
+                         "location_names_l_english.yml + definitions.txt. Defaults to the shared "
+                         "reference dir; outputs (provinces.json + tags.json) are written there too.")
     ap.add_argument("--snapshots", type=Path,
-                    default=Path("eu5-tbd/data/snapshots.json"))
+                    default=Path("eu5-tbd/data/snapshots.json"),
+                    help="Used only to read map height for y-flipping locator coords. Snapshots stay "
+                         "per-campaign so this defaults to whichever campaign you're calibrating.")
     args = ap.parse_args()
 
     ref = args.ref_dir

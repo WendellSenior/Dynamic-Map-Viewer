@@ -177,10 +177,17 @@
       const target = document.getElementById('save-target');
       if (target) target.textContent = `${campaign}/data/overrides.json`;
 
-      // Detect GH-Actions Discord sync — if scripts/sync_events.py exists, edits won't apply.
+      // Detect GH-Actions Discord sync — if this campaign has discord_sync.enabled
+      // in campaigns.json, edits made here won't apply (sync overwrites events.json).
       try {
-        const r = await fetch('scripts/sync_events.py', { method: 'HEAD' });
-        if (r.ok) document.getElementById('sync-banner').hidden = false;
+        const r = await fetch('../campaigns.json');
+        if (r.ok) {
+          const manifest = await r.json();
+          const me = (manifest.campaigns || []).find(c => c.folder === campaign);
+          if (me && (me.discord_sync || {}).enabled) {
+            document.getElementById('sync-banner').hidden = false;
+          }
+        }
       } catch {}
 
       if (location.protocol === 'file:') {

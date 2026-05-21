@@ -109,8 +109,8 @@ if defined HAS_HTML (
   echo Preprocessing all exports in __FOLDER__\\data\\discord\\
   python tools\\preprocess.py __FOLDER__\\data\\discord ^
     --out __FOLDER__\\data\\events.json ^
-    --tags __FOLDER__\\data\\reference\\__GAME__\\tags.json ^
-    --raw-tags __FOLDER__\\data\\reference\\__GAME__\\00_countries.txt ^
+    --tags assets\\reference\\__GAME__\\tags.json ^
+    --raw-tags assets\\reference\\__GAME__\\00_countries.txt ^
     --aliases __FOLDER__\\data\\reference\\__GAME__\\aliases.json ^
     --untagged-log __FOLDER__\\data\\untagged.log ^
     --non-interactive
@@ -179,8 +179,11 @@ def main():
 
     maps_dir = folder_path / "data" / "maps"
     discord_dir = folder_path / "data" / "discord"
-    ref_dir = folder_path / "data" / "reference" / game
-    for d in (maps_dir, discord_dir, ref_dir):
+    # Per-campaign reference dir holds ONLY aliases.json (the interactive
+    # lookup cache). The bulk game reference data is shared at
+    # <repo-root>/assets/reference/<game>/ and is not duplicated here.
+    aliases_dir = folder_path / "data" / "reference" / game
+    for d in (maps_dir, discord_dir, aliases_dir):
         d.mkdir(parents=True)
         (d / ".gitkeep").touch()
 
@@ -190,40 +193,35 @@ def main():
     write_json(folder_path / "data" / "coords.json",
                {"countries": {}, "provinces": {}})
     write_json(folder_path / "data" / "sessions.json", {"sessions": []})
-    (ref_dir / "aliases.json").write_text("{}\n", encoding="utf-8")
+    (aliases_dir / "aliases.json").write_text("{}\n", encoding="utf-8")
 
-    # Port over reference data + map dimensions from an existing campaign of the same game.
+    # Shared reference data check: does <repo>/assets/reference/<game>/ exist
+    # with at least the canonical tags.json? If not, the campaign won't render
+    # country names until someone seeds it.
+    shared_ref_dir = repo_root / "assets" / "reference" / game
+    shared_ref_present = (shared_ref_dir / "tags.json").exists()
+
+    # Port over map dimensions from an existing campaign of the same game —
+    # snapshots.json is per-campaign, but reusing dimensions is a sane default.
     ref_source = next(
         (
             c for c in sorted(repo_root.iterdir())
             if c.is_dir() and c != folder_path
-            and (c / "data" / "reference" / game).is_dir()
-            and any(
-                f.is_file() and f.name != ".gitkeep"
-                for f in (c / "data" / "reference" / game).iterdir()
-            )
+            and (c / "data" / "snapshots.json").exists()
         ),
         None,
     )
     if ref_source:
-        src_ref = ref_source / "data" / "reference" / game
-        copied = 0
-        for src_file in src_ref.iterdir():
-            if src_file.is_file() and src_file.name != ".gitkeep":
-                shutil.copy(src_file, ref_dir / src_file.name)
-                copied += 1
-        print(f"  copied {copied} reference file(s) from {ref_source.name}/data/reference/{game}/")
-
         src_snap_path = ref_source / "data" / "snapshots.json"
-        if src_snap_path.exists():
-            try:
-                src_cfg = json.loads(src_snap_path.read_text(encoding="utf-8")).get("config") or {}
-                if src_cfg.get("width") and src_cfg.get("height"):
-                    snapshots_init["config"] = src_cfg
-                    write_json(folder_path / "data" / "snapshots.json", snapshots_init)
-                    print(f"  set map dimensions to {src_cfg['width']}x{src_cfg['height']}")
-            except (json.JSONDecodeError, KeyError):
-                pass
+        try:
+            src_cfg = json.loads(src_snap_path.read_text(encoding="utf-8")).get("config") or {}
+            if src_cfg.get("width") and src_cfg.get("height"):
+                snapshots_init["config"] = src_cfg
+                write_json(folder_path / "data" / "snapshots.json", snapshots_init)
+                print(f"  set map dimensions to {src_cfg['width']}x{src_cfg['height']} "
+                      f"(from {ref_source.name}/data/snapshots.json)")
+        except (json.JSONDecodeError, KeyError):
+            pass
 
     view = (
         VIEW_HTML_TEMPLATE
@@ -286,8 +284,10 @@ def main():
     print("Next steps:")
     print(f"  - Drop maps into       {folder}/data/maps/")
     print(f"  - Drop Discord exports {folder}/data/discord/   (use --media for image persistence)")
+    if not shared_ref_present:
+        print(f"  - Seed reference data  assets/reference/{game}/  (no shared {game} reference found)")
+        print(f"      - Need: tags.json, provinces.json, plus game files used by tools/parse_*.py")
     if ref_source is None:
-        print(f"  - Add reference files  {folder}/data/reference/{game}/  (no existing {game} campaign to copy from)")
         print(f"  - Update map dims in   {folder}/data/snapshots.json config")
     print(f"  - Launch with          {folder}\\init.bat")
     print(f"  - Edit campaign card   campaigns.json  (dates/description optional)")

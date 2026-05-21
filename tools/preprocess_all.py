@@ -2,6 +2,7 @@
 Discovers campaigns by scanning for <campaign>/data/discord/*.html.
 Auto-detects each campaign's game from its data/reference/<game>/ folder."""
 
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -10,15 +11,33 @@ from pathlib import Path
 HTML_EXTS = {".html", ".json"}
 
 
+def _sync_owned_folders(repo_root):
+    """Returns the set of campaign folder names whose events.json is managed
+    by the GH-Actions Discord sync — preprocess would overwrite their live
+    state with stale local data."""
+    out = set()
+    manifest_path = repo_root / "campaigns.json"
+    if not manifest_path.exists():
+        return out
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return out
+    for entry in manifest.get("campaigns", []):
+        if (entry.get("discord_sync") or {}).get("enabled"):
+            if entry.get("folder"):
+                out.add(entry["folder"])
+    return out
+
+
 def main():
     repo_root = Path(__file__).resolve().parent.parent
     preprocess = repo_root / "tools" / "preprocess.py"
+    sync_owned = _sync_owned_folders(repo_root)
     ran = 0
     for snap_path in sorted(repo_root.glob("*/data/snapshots.json")):
         campaign = snap_path.parent.parent
-        # Skip campaigns owned by a GH-Actions Discord sync — their events.json is the
-        # authoritative live state and a local preprocess would overwrite it with stale data.
-        if (campaign / "scripts" / "sync_events.py").exists():
+        if campaign.name in sync_owned:
             print(f"  {campaign.name}: skipped (Discord sync owns events.json)")
             continue
         discord_dir = campaign / "data" / "discord"
@@ -33,11 +52,14 @@ def main():
         if not has_inputs:
             continue
 
-        # Game = first subfolder of data/reference/, by convention.
-        ref_root = campaign / "data" / "reference"
+        # Game = first subfolder of data/reference/, by convention. After the
+        # shared-reference refactor, that per-campaign subfolder only contains
+        # aliases.json (the interactive lookup cache); the game data itself
+        # lives at <repo-root>/assets/reference/<game>/.
+        per_campaign_ref = campaign / "data" / "reference"
         game = None
-        if ref_root.is_dir():
-            for r in sorted(ref_root.iterdir()):
+        if per_campaign_ref.is_dir():
+            for r in sorted(per_campaign_ref.iterdir()):
                 if r.is_dir():
                     game = r.name
                     break
@@ -45,13 +67,17 @@ def main():
             print(f"  {campaign.name}: skipped (no data/reference/<game>/)")
             continue
 
-        ref = ref_root / game
+        shared_ref = repo_root / "assets" / "reference" / game
+        if not shared_ref.is_dir():
+            print(f"  {campaign.name}: skipped (no shared reference at {shared_ref})")
+            continue
+
         cmd = [
             sys.executable, str(preprocess), str(discord_dir),
             "--out",          str(campaign / "data" / "events.json"),
-            "--tags",         str(ref / "tags.json"),
-            "--raw-tags",     str(ref / "00_countries.txt"),
-            "--aliases",      str(ref / "aliases.json"),
+            "--tags",         str(shared_ref / "tags.json"),
+            "--raw-tags",     str(shared_ref / "00_countries.txt"),
+            "--aliases",      str(per_campaign_ref / game / "aliases.json"),
             "--untagged-log", str(campaign / "data" / "untagged.log"),
             "--non-interactive",
         ]

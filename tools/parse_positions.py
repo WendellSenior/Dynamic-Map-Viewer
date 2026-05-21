@@ -73,9 +73,10 @@ def _emit(out, name, pid, nums, map_height):
 
 def main():
     ap = argparse.ArgumentParser(description="EU4 positions.txt -> provinces.json")
-    ap.add_argument("--input", type=Path, default=Path("data/reference/eu4/positions.txt"))
-    ap.add_argument("--snapshots", type=Path, default=Path("data/snapshots.json"))
-    ap.add_argument("--out", type=Path, default=Path("data/reference/eu4/provinces.json"))
+    ap.add_argument("--input", type=Path, default=Path("assets/reference/eu4/positions.txt"))
+    ap.add_argument("--snapshots", type=Path, default=Path("data/snapshots.json"),
+                    help="Used only for map height; pass a per-campaign snapshots.json.")
+    ap.add_argument("--out", type=Path, default=Path("assets/reference/eu4/provinces.json"))
     args = ap.parse_args()
 
     snapshots = json.loads(args.snapshots.read_text(encoding="utf-8"))

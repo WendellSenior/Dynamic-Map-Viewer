@@ -31,7 +31,12 @@
       "label": "Darth Sunday Campaign",
       "dates": "\u2014",
       "description": "",
-      "hidden": false
+      "hidden": false,
+      "discord_sync": {
+        "enabled": true,
+        "channel_id": "1434628920371581079",
+        "reference_game": "eu5"
+      }
     }
   ]
 }

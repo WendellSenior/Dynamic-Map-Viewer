@@ -11,11 +11,14 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
-CHANNEL_ID    = "1434628920371581079"
-EVENTS_FILE   = "darthsunday/data/events.json"
-CACHE_FILE    = "darthsunday/data/processed_ids.json"
-REFERENCE_DIR = "darthsunday/data/reference/eu5"
 EDIT_LOOKBACK_DAYS = 7
+
+# Per-campaign config is loaded from campaigns.json at run time (--campaign arg
+# selects which entry). These are filled in by load_campaign_config().
+CHANNEL_ID    = None  # str, the Discord channel id
+EVENTS_FILE   = None  # str, path to <campaign>/data/events.json
+CACHE_FILE    = None  # str, path to <campaign>/data/processed_ids.json
+REFERENCE_DIR = None  # str, path to assets/reference/<game>/ (shared, read-only)
 
 # Per-run cap on promotion-check API calls. Once `rejected_meta` grows past
 # this (a few hundred for a long-running campaign), the check rotates through
@@ -38,25 +41,174 @@ HEADERS = {
 }
 
 VALID_TAGS = {
-    "wardec":      "WarDec",
-    "battle":      "Battle",
-    "character":   "Character",
-    "trade":       "Trade",
-    "economy":     "Economy",
-    "discover":    "Discover",
-    "treaty":      "Treaty",
-    "meeting":     "Meeting",
-    "interaction": "Meeting",
-    "diplomacy":   "Meeting",
-    "history":     "History",
-    "religion":    "Religion",
-    "catholic":    "Catholic",
-    "muslim":      "Muslim",
-    "jewish":      "Jewish",
-    "hindu":       "Hindu",
-    "buddhism":    "Buddhism",
-    "orthodox":    "Orthodox",
-    "taoism":      "Taoism",
+    # General
+    "wardec":         "WarDec",
+    "battle":         "Battle",
+    "character":      "Character",
+    "trade":          "Trade",
+    "economy":        "Economy",
+    "discover":       "Discover",
+    "treaty":         "Treaty",
+    "meeting":        "Meeting",
+    "interaction":    "Meeting",
+    "diplomacy":      "Meeting",
+    "history":        "History",
+    # Religion (base + specific)
+    "religion":       "Religion",
+    "catholic":       "Catholic",
+    "muslim":         "Muslim",
+    "jewish":         "Jewish",
+    "hindu":          "Hindu",
+    "buddhism":       "Buddhism",
+    "orthodox":       "Orthodox",
+    "taoism":         "Taoism",
+    # Civic / Justice
+    "chaos":          "Chaos",
+    "anarchy":        "Chaos",
+    "riot":           "Chaos",
+    "revolt":         "Chaos",
+    "rebellion":      "Chaos",
+    "unrest":         "Chaos",
+    "disorder":       "Chaos",
+    "judge":          "Judge",
+    "justice":        "Judge",
+    "law":            "Judge",
+    "court":          "Judge",
+    "trial":          "Judge",
+    "verdict":        "Judge",
+    "ruling":         "Judge",
+    "legal":          "Judge",
+    "judicial":       "Judge",
+    "judgment":       "Judge",
+    "judgement":      "Judge",
+    # Sport
+    "duel":           "Duel",
+    "dueling":        "Duel",
+    "duelling":       "Duel",
+    "fencing":        "Duel",
+    "joust":          "Joust",
+    "jousting":       "Joust",
+    "tournament":     "Joust",
+    "tourney":        "Joust",
+    # Geographic / Built
+    "map":            "Map",
+    "cartography":    "Map",
+    "atlas":          "Map",
+    "geography":      "Map",
+    "survey":         "Map",
+    "architecture":   "Architecture",
+    "construction":   "Architecture",
+    "monument":       "Architecture",
+    "edifice":        "Architecture",
+    "building":       "Architecture",
+    # Placement / awards
+    "first":          "First",
+    "firstplace":     "First",
+    "gold":           "First",
+    "victory":        "First",
+    "winner":         "First",
+    "champion":       "First",
+    "second":         "Second",
+    "secondplace":    "Second",
+    "silver":         "Second",
+    "runnerup":       "Second",
+    "third":          "Third",
+    "thirdplace":     "Third",
+    "bronze":         "Third",
+    # Arts
+    "culture":        "Culture",
+    "cultural":       "Culture",
+    "theatre":        "Culture",
+    "theater":        "Culture",
+    "drama":          "Culture",
+    "performance":    "Culture",
+    "arts":           "Culture",
+    "painting":       "Painting",
+    "painter":        "Painting",
+    "paint":          "Painting",
+    "art":            "Painting",
+    "artwork":        "Painting",
+    "fresco":         "Painting",
+    "mural":          "Painting",
+    "portrait":       "Painting",
+    "literature":     "Literature",
+    "book":           "Literature",
+    "books":          "Literature",
+    "novel":          "Literature",
+    "poetry":         "Literature",
+    "poem":           "Literature",
+    "poet":           "Literature",
+    "writing":        "Literature",
+    "text":           "Text",
+    "manuscript":     "Text",
+    "edict":          "Text",
+    "document":       "Text",
+    "decree":         "Text",
+    "letter":         "Text",
+    "correspondence": "Text",
+    "charter":        "Text",
+    "proclamation":   "Text",
+    # Knowledge
+    "secret":         "Secret",
+    "espionage":      "Secret",
+    "spy":            "Secret",
+    "intrigue":       "Secret",
+    "conspiracy":     "Secret",
+    "covert":         "Secret",
+    "plot":           "Secret",
+    "science":        "Science",
+    "scientific":     "Science",
+    "research":       "Science",
+    "invention":      "Science",
+    "experiment":     "Science",
+    "scholar":        "Science",
+    "medicine":       "Medicine",
+    "medical":        "Medicine",
+    "doctor":         "Medicine",
+    "plague":         "Medicine",
+    "disease":        "Medicine",
+    "illness":        "Medicine",
+    "health":         "Medicine",
+    "pandemic":       "Medicine",
+    "epidemic":       "Medicine",
+    "pestilence":     "Medicine",
+    # Peoples / hazards
+    "native":         "Native",
+    "indigenous":     "Native",
+    "aboriginal":     "Native",
+    "tribal":         "Native",
+    "tribes":         "Native",
+    "tribe":          "Native",
+    "warning":        "Warning",
+    "alert":          "Warning",
+    "danger":         "Warning",
+    "caution":        "Warning",
+    "ultimatum":      "Warning",
+    "threat":         "Warning",
+    "nuclear":        "Nuclear",
+    "nuke":           "Nuclear",
+    "atomic":         "Nuclear",
+    "radiation":      "Nuclear",
+    "fallout":        "Nuclear",
+    "biohazard":      "Biohazard",
+    "bioweapon":      "Biohazard",
+    "contamination":  "Biohazard",
+    "hazard":         "Biohazard",
+    "contagion":      "Biohazard",
+    "pirate":         "Pirate",
+    "piracy":         "Pirate",
+    "raider":         "Pirate",
+    "raid":           "Pirate",
+    "corsair":        "Pirate",
+    "buccaneer":      "Pirate",
+    "privateer":      "Pirate",
+    "surrender":      "Surrender",
+    "capitulation":   "Surrender",
+    "capitulate":     "Surrender",
+    "defeat":         "Surrender",
+    "yield":          "Surrender",
+    "ceasefire":      "Surrender",
+    "armistice":      "Surrender",
 }
 
 TAG_RE = re.compile(
@@ -512,8 +664,37 @@ def parse_since(s):
     return datetime.fromisoformat(s.replace("Z", "+00:00"))
 
 
+def load_campaign_config(folder):
+    """Look up the campaign entry in <repo-root>/campaigns.json by folder name
+    and validate it has `discord_sync.enabled: true` + a `channel_id`."""
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    campaigns_path = os.path.join(repo_root, "campaigns.json")
+    if not os.path.exists(campaigns_path):
+        sys.exit(f"ERROR: campaigns.json not found at {campaigns_path}")
+    with open(campaigns_path, encoding="utf-8") as f:
+        manifest = json.load(f)
+    for entry in manifest.get("campaigns", []):
+        if entry.get("folder") == folder:
+            sync_cfg = entry.get("discord_sync") or {}
+            if not sync_cfg.get("enabled"):
+                sys.exit(f"ERROR: campaign {folder!r} has no discord_sync.enabled in campaigns.json")
+            if not sync_cfg.get("channel_id"):
+                sys.exit(f"ERROR: campaign {folder!r} missing discord_sync.channel_id")
+            game = sync_cfg.get("reference_game") or entry.get("game")
+            return {
+                "folder":     folder,
+                "channel_id": sync_cfg["channel_id"],
+                "game":       game,
+                "repo_root":  repo_root,
+            }
+    sys.exit(f"ERROR: campaign {folder!r} not found in campaigns.json")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Discord Events Sync")
+    ap.add_argument("--campaign", default=os.environ.get("SYNC_CAMPAIGN", ""),
+                    help="Campaign folder name (matched against campaigns.json). "
+                         "Required. Resolves channel_id + per-campaign paths.")
     ap.add_argument("--since", default=os.environ.get("SYNC_SINCE", ""),
                     help="Override the cursor and backfill from this date "
                          "(YYYY-MM-DD or full ISO). One-shot — the cursor "
@@ -526,6 +707,19 @@ def main():
                          "the strict tag regex is rejecting it. Sync still "
                          "runs normally afterwards.")
     args = ap.parse_args()
+
+    if not args.campaign:
+        sys.exit("ERROR: --campaign is required (or set SYNC_CAMPAIGN env). "
+                 "Example: --campaign darthsunday")
+
+    # Resolve campaign config and populate the module-level path constants.
+    cfg = load_campaign_config(args.campaign)
+    global CHANNEL_ID, EVENTS_FILE, CACHE_FILE, REFERENCE_DIR
+    CHANNEL_ID    = cfg["channel_id"]
+    EVENTS_FILE   = f"{cfg['folder']}/data/events.json"
+    CACHE_FILE    = f"{cfg['folder']}/data/processed_ids.json"
+    REFERENCE_DIR = f"assets/reference/{cfg['game']}"
+    log(f"=== Campaign: {cfg['folder']} (channel={CHANNEL_ID}, game={cfg['game']}) ===")
 
     # ── Debug fetch ───────────────────────────────────────────────────────────
     # Lets us inspect what the API actually returns for a problem message,

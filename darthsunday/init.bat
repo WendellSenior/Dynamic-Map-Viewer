@@ -2,8 +2,9 @@
 setlocal
 cd /d "%~dp0\.."
 
-REM events.json for this campaign is owned by the GH-Actions Discord sync.
-REM No local preprocess step here — see darthsunday/scripts/sync_events.py and
+REM events.json for this campaign is owned by the GH-Actions Discord sync
+REM (configured via campaigns.json -> darthsunday.discord_sync).
+REM No local preprocess step here — see tools/sync_events.py and
 REM .github/workflows/discord-sync.yml.
 
 python tools\downsample_maps.py

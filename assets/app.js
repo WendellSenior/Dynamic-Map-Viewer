@@ -22,6 +22,7 @@ const MAX_SCALE = 8;
 const MAX_DOTS_UNFILTERED = 200;  // cap when filter === 'all' to keep rendering fast on huge campaigns
 
 const TAG_ICONS = {
+  // General
   WarDec: '🎺',
   Battle: '⚔️',
   Character: '👤',
@@ -31,6 +32,7 @@ const TAG_ICONS = {
   Treaty: '📜',
   Meeting: '🤝',
   History: '⏳',
+  // Religion
   Religion: '🙏',
   Catholic: '✝️',
   Muslim: '☪️',
@@ -39,6 +41,35 @@ const TAG_ICONS = {
   Orthodox: '☦️',
   Hindu: '🕉️',
   Buddhism: '☸️',
+  // Civic / Justice
+  Chaos: '💥',
+  Judge: '⚖️',
+  // Sport
+  Duel: '🤺',
+  Joust: '🏇',
+  // Geographic / Built
+  Map: '🗺️',
+  Architecture: '🏛️',
+  // Placement / awards
+  First: '🥇',
+  Second: '🥈',
+  Third: '🥉',
+  // Arts
+  Culture: '🎭',
+  Painting: '🎨',
+  Literature: '📚',
+  Text: '✒️',
+  // Knowledge
+  Secret: '💼',
+  Science: '🔬',
+  Medicine: '💊',
+  // Peoples / hazards
+  Native: '🗿',
+  Warning: '⚠️',
+  Nuclear: '☢️',
+  Biohazard: '☣️',
+  Pirate: '🏴‍☠️',
+  Surrender: '🏳️',
 };
 
 async function loadJSON(path) {
@@ -625,10 +656,10 @@ async function init() {
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
-      loadJSON(`data/reference/${game}/provinces.json`).catch(() => ({})),
+      loadJSON(`../assets/reference/${game}/provinces.json`).catch(() => ({})),
       loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
-      loadJSON(`data/reference/${game}/tags.json`).catch(() => ({})),
-      fetch(`data/reference/${game}/00_countries.txt`).then(r => r.ok ? r.text() : '').catch(() => ''),
+      loadJSON(`../assets/reference/${game}/tags.json`).catch(() => ({})),
+      fetch(`../assets/reference/${game}/00_countries.txt`).then(r => r.ok ? r.text() : '').catch(() => ''),
     ]);
 
     // Build tag → display name map. tags.json first (curated/canonical),

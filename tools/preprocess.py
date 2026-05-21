@@ -52,6 +52,51 @@ TAG_ALIASES = {
     "Hindu":     ["hindu", "hinduism", "vedic", "vedanta"],
     "Buddhism":  ["dharma", "dharmic", "buddhism", "buddhist", "zen",
                   "theravada", "mahayana"],
+    # Civic / Justice
+    "Chaos":        ["chaos", "anarchy", "riot", "revolt", "rebellion",
+                     "unrest", "disorder"],
+    "Judge":        ["judge", "justice", "law", "court", "trial", "verdict",
+                     "ruling", "legal", "judicial", "judgment", "judgement"],
+    # Sport
+    "Duel":         ["duel", "dueling", "duelling", "fencing"],
+    "Joust":        ["joust", "jousting", "tournament", "tourney"],
+    # Geographic / Built
+    "Map":          ["map", "cartography", "atlas", "geography", "survey"],
+    "Architecture": ["architecture", "construction", "monument", "edifice",
+                     "building"],
+    # Placement / awards
+    "First":        ["first", "firstplace", "gold", "victory", "winner",
+                     "champion"],
+    "Second":       ["second", "secondplace", "silver", "runnerup"],
+    "Third":        ["third", "thirdplace", "bronze"],
+    # Arts
+    "Culture":      ["culture", "cultural", "theatre", "theater", "drama",
+                     "performance", "arts"],
+    "Painting":     ["painting", "painter", "paint", "art", "artwork",
+                     "fresco", "mural", "portrait"],
+    "Literature":   ["literature", "book", "books", "novel", "poetry",
+                     "poem", "poet", "writing"],
+    "Text":         ["text", "manuscript", "edict", "document", "decree",
+                     "letter", "correspondence", "charter", "proclamation"],
+    # Knowledge
+    "Secret":       ["secret", "espionage", "spy", "intrigue", "conspiracy",
+                     "covert", "plot"],
+    "Science":      ["science", "scientific", "research", "invention",
+                     "experiment", "scholar"],
+    "Medicine":     ["medicine", "medical", "doctor", "plague", "disease",
+                     "illness", "health", "pandemic", "epidemic", "pestilence"],
+    # Peoples / hazards
+    "Native":       ["native", "indigenous", "aboriginal", "tribal",
+                     "tribes", "tribe"],
+    "Warning":      ["warning", "alert", "danger", "caution", "ultimatum",
+                     "threat"],
+    "Nuclear":      ["nuclear", "nuke", "atomic", "radiation", "fallout"],
+    "Biohazard":    ["biohazard", "bioweapon", "contamination", "hazard",
+                     "contagion"],
+    "Pirate":       ["pirate", "piracy", "raider", "raid", "corsair",
+                     "buccaneer", "privateer"],
+    "Surrender":    ["surrender", "capitulation", "capitulate", "defeat",
+                     "yield", "ceasefire", "armistice"],
 }
 TAG_LOOKUP = {}
 for _canonical, _aliases in TAG_ALIASES.items():
@@ -331,9 +376,14 @@ def main():
                     help="One or more DCE exports, or a directory containing them. "
                          "Messages from all sources are merged and sorted by timestamp.")
     ap.add_argument("--out", type=Path, default=Path("data/events.json"))
-    ap.add_argument("--tags", type=Path, default=Path("data/reference/eu4/tags.json"))
+    # Game reference data is shared across campaigns of the same game and lives
+    # at <repo-root>/assets/reference/<game>/. The defaults below assume cwd is
+    # the repo root; preprocess_all.py constructs absolute paths explicitly.
+    ap.add_argument("--tags", type=Path, default=Path("assets/reference/eu4/tags.json"))
     ap.add_argument("--raw-tags", type=Path, default=None,
-                    help="EU4 common/country_tags/00_countries.txt (optional; layered under --tags)")
+                    help="EU4 common/country_tags/00_countries.txt (optional; layered under --tags). "
+                         "Typically assets/reference/eu4/00_countries.txt.")
+    # aliases.json stays per-campaign — it's the interactive lookup cache.
     ap.add_argument("--aliases", type=Path, default=Path("data/reference/eu4/aliases.json"))
     ap.add_argument("--untagged-log", type=Path, default=Path("data/untagged.log"))
     ap.add_argument("--non-interactive", action="store_true",

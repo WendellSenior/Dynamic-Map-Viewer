@@ -42,7 +42,12 @@
       "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py: syntax OK'\\)\")",
       "Bash(gh run *)",
       "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
-      "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('syntax OK'\\)\")"
+      "Bash(python -c \"import ast; ast.parse\\(open\\('darthsunday/scripts/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('syntax OK'\\)\")",
+      "Bash(git mv *)",
+      "Bash(rm -f darthsunday/scripts/__pycache__/*)",
+      "Bash(rmdir darthsunday/scripts/__pycache__)",
+      "Bash(python -c \"import ast; [ast.parse\\(open\\(p, encoding='utf-8'\\).read\\(\\)\\) for p in ['tools/sync_events.py','tools/preprocess.py','tools/preprocess_all.py','tools/parse_eu5_reference.py','tools/parse_positions.py','tools/new_instance.py']]; print\\('all syntax OK'\\)\")",
+      "Bash(python3)"
     ]
   }
 }

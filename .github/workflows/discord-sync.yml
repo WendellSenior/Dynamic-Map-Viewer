@@ -40,7 +40,10 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SYNC_SINCE: ${{ inputs.since }}
           DEBUG_FETCH: ${{ inputs.debug_fetch }}
-        run: python darthsunday/scripts/sync_events.py
+        # Per-campaign channel id + paths come from campaigns.json (--campaign).
+        # To add another synced campaign, add a discord_sync block there and
+        # either parameterize this workflow or fan out via matrix strategy.
+        run: python tools/sync_events.py --campaign darthsunday
 
       - name: Commit and push changes
         if: steps.sync.outputs.had_changes == 'true'
