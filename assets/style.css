@@ -222,6 +222,179 @@ main {
 }
 .event-dot.has-tag.recent { border-color: #f4a020; background: rgba(255, 246, 230, 0.95); }
 
+/* Selected state — applied by updateMapSelection() to whichever pin
+   corresponds to the event currently shown in the side panel. Persists
+   across timeline scrubs and filter changes. Halo via box-shadow so it
+   layers cleanly on top of the existing drop shadow. */
+.event-dot.selected,
+.event-stack.selected,
+.stack-leaf.selected {
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.55),
+    0 0 8px 1px rgba(37, 99, 235, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+  z-index: 7;
+}
+
+/* ── Event stack: multiple events at the same coords ─────────────────────── */
+.event-stack {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.1s;
+  z-index: 2;
+}
+.event-stack:hover { transform: scale(1.4); }
+.event-stack.expanded {
+  transform: none;
+  cursor: default;
+  z-index: 5;
+}
+
+.stack-icon { font-size: 13px; line-height: 1; pointer-events: none; }
+
+.stack-count {
+  position: absolute;
+  top: -7px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #d63838;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  border: 1.5px solid #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 0.15s;
+}
+.event-stack.expanded .stack-count { opacity: 0; }
+
+/* Fanned leaves — children of an expanded .event-stack, positioned by CSS
+   variables --rx and --ry (set in JS from the radial angle).
+   left/top: 50% anchors the leaf's TOP-LEFT at the stack's centre (the stack
+   is 22×22 with margin offsets centring it at the data-mx/my point). Then
+   translate(-50%) centres the leaf itself on that anchor, and (rx,ry) is the
+   radial offset — so the JS maths is simply (cos(θ)·r, sin(θ)·r). */
+.stack-leaf {
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  transform: translate(calc(-50% + var(--rx, 0px)), calc(-50% + var(--ry, 0px)));
+  animation: stack-leaf-in 0.16s ease-out;
+  z-index: 6;
+}
+.stack-leaf.has-tag {
+  margin: 0;  /* override .event-dot.has-tag's -11px offset; we centre via translate */
+}
+.stack-leaf:hover {
+  transform: translate(calc(-50% + var(--rx, 0px)), calc(-50% + var(--ry, 0px))) scale(1.4);
+}
+
+@keyframes stack-leaf-in {
+  from { transform: translate(-50%, -50%); opacity: 0; }
+  to   { transform: translate(calc(-50% + var(--rx, 0px)), calc(-50% + var(--ry, 0px))); opacity: 1; }
+}
+
+.stack-overflow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 22px;
+  border-radius: 11px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  z-index: 6;
+  font-variant-numeric: tabular-nums;
+  transform: translate(calc(-50% + var(--rx, 0px)), calc(-50% + var(--ry, 0px)));
+  animation: stack-leaf-in 0.16s ease-out;
+}
+.stack-overflow:hover { background: #1d4ed8; }
+
+/* Popover list shown when "+N" is clicked. Anchored to the bottom-right of the
+   stack centre. Click-through is blocked at the row level. */
+.stack-overflow-list {
+  position: absolute;
+  left: 30px;
+  top: 14px;
+  min-width: 220px;
+  max-width: 320px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #d3d8e0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  z-index: 10;
+  padding: 4px 0;
+}
+.stack-overflow-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  color: #222;
+}
+.stack-overflow-row:hover { background: #f4f6fb; }
+.stack-overflow-row .sov-icon { width: 16px; text-align: center; flex-shrink: 0; }
+.stack-overflow-row .sov-date { color: #555; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.stack-overflow-row .sov-snippet {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Custom tooltip for stack pins — supports inline <strong>. Anchored to the
+   stack's top-centre and pulled up via translate(-50%,-100%). */
+.stack-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  background: rgba(20, 20, 20, 0.92);
+  color: #fff;
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+}
+.stack-tooltip strong { color: #fff; font-weight: 700; }
+
 #event-panel {
   width: 320px;
   flex-shrink: 0;

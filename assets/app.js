@@ -15,6 +15,7 @@ const state = {
   preloadedImages: [],
   resolution: 'full',
   countryNames: {},
+  selectedEventId: null,
 };
 
 const SLIDER_RES = 1000;
@@ -192,7 +193,8 @@ function wireMapInteractions() {
 
   container.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
-    if (e.target.closest('.event-dot')) return;
+    // Don't start a pan-drag when clicking a pin, a stack, or its fanned children.
+    if (e.target.closest('.event-dot, .event-stack, .stack-overflow, .stack-overflow-list')) return;
     drag = { x: e.clientX, y: e.clientY, vx: state.view.x, vy: state.view.y };
     dragMoved = false;
     container.classList.add('dragging');
@@ -224,6 +226,19 @@ function wireMapInteractions() {
       dragMoved = false;
     }
   }, true);
+
+  // Collapse any open stack fan when clicking outside it (map, dot, panel, etc).
+  // Stack/leaf click handlers call stopPropagation, so they don't reach here.
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.event-stack.expanded').forEach(collapseStack);
+  });
+
+  // Esc also collapses.
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.event-stack.expanded').forEach(collapseStack);
+    }
+  });
 
   new ResizeObserver(refitOnResize).observe(container);
 }
@@ -331,27 +346,275 @@ function render() {
   }
   updateDotCapNote(cappedTotal);
 
-  const { x: vx, y: vy, scale: vs } = state.view;
+  // Group events by their resolved (x, y) so events at the same pin become one
+  // stack badge with a fan-out on click — otherwise events at Paris, Rome, etc.
+  // overlap exactly and only the topmost is reachable.
+  const groups = new Map();
   for (const e of toShow) {
     const xy = resolveCoords(e);
     if (!xy) continue;
+    const key = xy[0] + ',' + xy[1];
+    let g = groups.get(key);
+    if (!g) {
+      g = { xy, events: [] };
+      groups.set(key, g);
+    }
+    g.events.push(e);
+  }
 
-    const dot = document.createElement('div');
-    dot.className = 'event-dot';
+  const { x: vx, y: vy, scale: vs } = state.view;
+  for (const { xy, events } of groups.values()) {
+    if (events.length === 1) {
+      dotsEl.appendChild(createEventDot(events[0], xy, vx, vy, vs));
+    } else {
+      dotsEl.appendChild(createEventStack(events, xy, vx, vy, vs));
+    }
+  }
+  updateMapSelection();  // reapply highlight after the DOM rebuild
+}
+
+function createEventDot(e, xy, vx, vy, vs) {
+  const dot = document.createElement('div');
+  dot.className = 'event-dot';
+  const icon = e.tag && TAG_ICONS[e.tag];
+  if (icon) {
+    dot.classList.add('has-tag');
+    dot.dataset.tag = e.tag;
+    dot.textContent = icon;
+  }
+  dot.dataset.mx = xy[0];
+  dot.dataset.my = xy[1];
+  dot.dataset.eventId = e.id;
+  dot.style.left = (vx + xy[0] * vs) + 'px';
+  dot.style.top = (vy + xy[1] * vs) + 'px';
+  // Custom hover tooltip data. Single dot tooltip format is:
+  //   "**<Province>**: <Title or Snippet>"
+  // Stacks (multi-event pins) keep the "N events in <Location>" format from
+  // showPinTooltip — they have a different _eventCount and no _eventTitle.
+  dot._eventCount = 1;
+  dot._locationName =
+    e.province ||
+    countryDisplay(e.country, e.countryRaw) ||
+    '(unknown)';
+  const titleText = extractTitle(e) || (e.snippet || '').trim() ||
+                    `${e.date}${e.tag ? ' · ' + e.tag : ''}`;
+  dot._eventTitle = titleText.length > 80 ? titleText.slice(0, 79).trimEnd() + '…' : titleText;
+  dot.addEventListener('mouseenter', () => showPinTooltip(dot));
+  dot.addEventListener('mouseleave', () => hidePinTooltip());
+  dot.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    showEvent(e);
+  });
+  return dot;
+}
+
+// Stacks: rendered as a single pin showing the headliner (most recent) event's
+// tag icon + a numeric count badge. Click → fan the rest out radially.
+const STACK_MAX_FAN = 8;       // visible radial slots before overflow kicks in
+const STACK_FAN_RADIUS = 42;   // screen px from stack centre
+
+function createEventStack(events, xy, vx, vy, vs) {
+  const stack = document.createElement('div');
+  stack.className = 'event-stack';
+  stack.dataset.mx = xy[0];
+  stack.dataset.my = xy[1];
+  // Comma-separated ids of every event in the stack — used by
+  // updateMapSelection to highlight the stack when its contained event is selected.
+  stack.dataset.eventIds = events.map(ev => ev.id).join(',');
+  stack.style.left = (vx + xy[0] * vs) + 'px';
+  stack.style.top = (vy + xy[1] * vs) + 'px';
+  // Native title attributes don't support HTML, so we use a custom tooltip
+  // (see showPinTooltip below) that can bold the location name.
+  // Resolve a display name for the stack: use any event's `province` (stacked
+  // events share coords and almost always share province text). Fall back to
+  // country or "(unknown)" so the tooltip never reads blank.
+  const sample = events[0];
+  stack._locationName =
+    sample.province ||
+    countryDisplay(sample.country, sample.countryRaw) ||
+    '(unknown)';
+
+  // Headliner icon (most recent). Events are sorted ascending so the last is newest.
+  const headliner = events[events.length - 1];
+  const icon = headliner.tag && TAG_ICONS[headliner.tag];
+  if (icon) {
+    stack.classList.add('has-tag');
+    const iconEl = document.createElement('span');
+    iconEl.className = 'stack-icon';
+    iconEl.textContent = icon;
+    stack.appendChild(iconEl);
+  }
+
+  const badge = document.createElement('span');
+  badge.className = 'stack-count';
+  badge.textContent = events.length;
+  stack.appendChild(badge);
+
+  stack._events = events;  // attach for the click handler
+  stack.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    if (stack.classList.contains('expanded')) collapseStack(stack);
+    else expandStack(stack);
+  });
+  stack.addEventListener('mouseenter', () => showPinTooltip(stack));
+  stack.addEventListener('mouseleave', () => hidePinTooltip());
+  return stack;
+}
+
+// Custom tooltip for single-event dots, stack pins, and fanned leaves. Lives
+// in <body> (so it isn't clipped by the map container's overflow:hidden) and
+// is positioned in fixed-coords relative to the pin's bounding rect.
+let _pinTooltipEl = null;
+
+function showPinTooltip(pin) {
+  hidePinTooltip();
+  // Don't show while a fan is open — the leaves themselves are the UI.
+  if (pin.classList.contains('expanded')) return;
+
+  const t = document.createElement('div');
+  t.className = 'stack-tooltip';
+
+  if (pin._tooltipText) {
+    // Plain-text mode (used by fanned leaves): location is implied by the
+    // parent stack, so the leaf tooltip just shows its event's title/snippet.
+    t.textContent = pin._tooltipText;
+  } else if (pin._eventCount === 1 && pin._eventTitle) {
+    // Single-dot mode: "<bold Province>: <Title or Snippet>".
+    const strong = document.createElement('strong');
+    strong.textContent = pin._locationName || '(unknown)';
+    t.append(strong, document.createTextNode(': ' + pin._eventTitle));
+  } else {
+    // Stack mode (or single-dot fallback with no title): "<N> event(s) in <bold Location>".
+    const count = pin._eventCount || (pin._events && pin._events.length) || 1;
+    const name = pin._locationName || '(unknown)';
+    const prefix = document.createTextNode(`${count} ${count === 1 ? 'event' : 'events'} in `);
+    const strong = document.createElement('strong');
+    strong.textContent = name;
+    t.append(prefix, strong);
+  }
+
+  const r = pin.getBoundingClientRect();
+  // Position above the pin, horizontally centred. translate(-50%,-100%) in
+  // CSS pulls the bubble to anchor at this point's bottom-centre.
+  t.style.left = (r.left + r.width / 2) + 'px';
+  t.style.top = (r.top - 6) + 'px';
+  document.body.appendChild(t);
+  _pinTooltipEl = t;
+}
+
+function hidePinTooltip() {
+  if (_pinTooltipEl) {
+    _pinTooltipEl.remove();
+    _pinTooltipEl = null;
+  }
+}
+
+function expandStack(stack) {
+  // One expanded stack at a time — collapse anything else first.
+  document.querySelectorAll('.event-stack.expanded').forEach(s => {
+    if (s !== stack) collapseStack(s);
+  });
+  hidePinTooltip();  // bubble would otherwise float on top of the fanned leaves
+
+  const events = stack._events || [];
+  const overflowing = events.length > STACK_MAX_FAN;
+  // If overflowing, reserve the last fan slot for the "+N" badge.
+  const visibleCount = overflowing ? STACK_MAX_FAN - 1 : events.length;
+  const visible = events.slice(-visibleCount);          // most recent N
+  const hidden  = events.slice(0, events.length - visibleCount);
+  const totalSlots = visibleCount + (overflowing ? 1 : 0);
+
+  for (let i = 0; i < visibleCount; i++) {
+    const e = visible[i];
+    const angle = (i / totalSlots) * 2 * Math.PI - Math.PI / 2;  // start at top
+    const rx = Math.cos(angle) * STACK_FAN_RADIUS;
+    const ry = Math.sin(angle) * STACK_FAN_RADIUS;
+
+    const leaf = document.createElement('div');
+    leaf.className = 'event-dot stack-leaf';
+    leaf.dataset.eventId = e.id;
+    if (e.id === state.selectedEventId) leaf.classList.add('selected');
+    leaf.style.setProperty('--rx', rx + 'px');
+    leaf.style.setProperty('--ry', ry + 'px');
     const icon = e.tag && TAG_ICONS[e.tag];
     if (icon) {
-      dot.classList.add('has-tag');
-      dot.dataset.tag = e.tag;
-      dot.textContent = icon;
+      leaf.classList.add('has-tag');
+      leaf.dataset.tag = e.tag;
+      leaf.textContent = icon;
     }
-    dot.dataset.mx = xy[0];
-    dot.dataset.my = xy[1];
-    dot.style.left = (vx + xy[0] * vs) + 'px';
-    dot.style.top = (vy + xy[1] * vs) + 'px';
-    dot.title = `${e.date}${e.tag ? ' · ' + e.tag : ''} — ${e.snippet || ''}`;
-    dot.addEventListener('click', () => showEvent(e));
-    dotsEl.appendChild(dot);
+    // Hover tooltip — title (heading / bold-only line) or snippet fallback.
+    // Truncated so a very long snippet doesn't stretch the bubble off-screen.
+    const tipText = extractTitle(e) || (e.snippet || '').trim() ||
+                    `${e.date}${e.tag ? ' · ' + e.tag : ''}`;
+    leaf._tooltipText = tipText.length > 80 ? tipText.slice(0, 79).trimEnd() + '…' : tipText;
+    leaf.addEventListener('mouseenter', () => showPinTooltip(leaf));
+    leaf.addEventListener('mouseleave', () => hidePinTooltip());
+    leaf.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      showEvent(e);
+      collapseStack(stack);  // close the fan once a leaf is chosen
+    });
+    stack.appendChild(leaf);
   }
+
+  if (overflowing) {
+    const i = visibleCount;
+    const angle = (i / totalSlots) * 2 * Math.PI - Math.PI / 2;
+    const rx = Math.cos(angle) * STACK_FAN_RADIUS;
+    const ry = Math.sin(angle) * STACK_FAN_RADIUS;
+
+    const more = document.createElement('div');
+    more.className = 'stack-overflow';
+    more.style.setProperty('--rx', rx + 'px');
+    more.style.setProperty('--ry', ry + 'px');
+    more.textContent = `+${hidden.length}`;
+    more.title = `${hidden.length} more event(s) at this location — click for list`;
+    more.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      openStackOverflowList(stack, hidden);
+    });
+    stack.appendChild(more);
+  }
+
+  stack.classList.add('expanded');
+}
+
+function collapseStack(stack) {
+  stack.querySelectorAll('.stack-leaf, .stack-overflow, .stack-overflow-list').forEach(el => el.remove());
+  stack.classList.remove('expanded');
+}
+
+function openStackOverflowList(stack, hiddenEvents) {
+  // Toggle: a second click on "+N" while the popover is open closes it.
+  const existing = stack.querySelector('.stack-overflow-list');
+  if (existing) {
+    existing.remove();
+    return;
+  }
+
+  const list = document.createElement('div');
+  list.className = 'stack-overflow-list';
+  // Most recent first within the hidden list.
+  for (const e of [...hiddenEvents].reverse()) {
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'stack-overflow-row';
+    const icon = e.tag && TAG_ICONS[e.tag] || '•';
+    const snippet = (e.snippet || '').slice(0, 50);
+    row.innerHTML = '';
+    row.append(
+      Object.assign(document.createElement('span'), { className: 'sov-icon', textContent: icon }),
+      Object.assign(document.createElement('span'), { className: 'sov-date', textContent: e.date }),
+      Object.assign(document.createElement('span'), { className: 'sov-snippet', textContent: snippet }),
+    );
+    row.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      showEvent(e);
+      collapseStack(stack);
+    });
+    list.appendChild(row);
+  }
+  stack.appendChild(list);
 }
 
 function updateDotCapNote(cappedTotal) {
@@ -422,7 +685,27 @@ function renderTimelineMarks() {
   }
 }
 
+// Apply / clear the `.selected` class on whichever map pin represents the
+// currently-selected event. Called by showEvent and re-applied after every
+// renderDots pass so the highlight survives timeline scrubs and filter changes.
+function updateMapSelection() {
+  const dotsEl = document.getElementById('event-dots');
+  if (!dotsEl) return;
+  for (const el of dotsEl.querySelectorAll('.selected')) el.classList.remove('selected');
+  const id = state.selectedEventId;
+  if (!id) return;
+  for (const dot of dotsEl.querySelectorAll('.event-dot[data-event-id]')) {
+    if (dot.dataset.eventId === id) dot.classList.add('selected');
+  }
+  for (const stack of dotsEl.querySelectorAll('.event-stack')) {
+    const ids = (stack.dataset.eventIds || '').split(',');
+    if (ids.includes(id)) stack.classList.add('selected');
+  }
+}
+
 function showEvent(e) {
+  state.selectedEventId = e.id;
+  updateMapSelection();
   const panel = document.getElementById('event-panel');
   const place = [countryDisplay(e.country, e.countryRaw), e.province].filter(Boolean).join(' / ');
   // Clear panel content but preserve the injected .panel-toggle button.
