@@ -13,6 +13,12 @@ import requests
 DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
 EDIT_LOOKBACK_DAYS = 7
 
+# Same-author follow-up messages within this window get merged into the parent
+# event's body + images. Mirrors `preprocess.py`'s CONTINUATION_WINDOW so a
+# Discord post split into 3-4 chat messages (because of length limits, image
+# uploads, or thinking pauses) shows up as one coherent event in the viewer.
+CONTINUATION_WINDOW = timedelta(minutes=5)
+
 # Per-campaign config is loaded from campaigns.json at run time (--campaign arg
 # selects which entry). These are filled in by load_campaign_config().
 CHANNEL_ID    = None  # str, the Discord channel id
@@ -260,16 +266,29 @@ def api_get(path, params=None, retries=5):
     return None
 
 
-def fetch_messages_since(channel_id, after_snowflake):
+def fetch_messages_since(channel_id, after_snowflake, before_snowflake=None):
+    """Paginate /channels/{id}/messages from `after_snowflake` forward.
+
+    If `before_snowflake` is given, drop messages with id > before_snowflake
+    and stop paginating once we've reached it. Discord's API forbids mixing
+    `after=` + `before=` in one request, so the upper bound is enforced
+    client-side after each batch. Used for chunked backfills."""
     messages = []
     after = after_snowflake
+    upper = int(before_snowflake) if before_snowflake is not None else None
     while True:
         batch = api_get(f"/channels/{channel_id}/messages", {"limit": 100, "after": after})
         if not batch:
             break
         batch.sort(key=lambda m: int(m["id"]))
+        if upper is not None:
+            batch = [m for m in batch if int(m["id"]) <= upper]
+        if not batch:
+            break
         messages.extend(batch)
         after = batch[-1]["id"]
+        if upper is not None and int(after) >= upper:
+            break
         if len(batch) < 100:
             break
     return messages
@@ -374,6 +393,29 @@ def parse_event_tags(text):
     }
 
 
+# Lines that the viewer's extractTitle() will treat as a natural post title.
+# Markdown heading (# / ## / ###) or a bold-only line (**Title** / *** Title ***).
+_HEADING_LINE_RE   = re.compile(r"^\s*#{1,3}\s+\S")
+_BOLD_ONLY_LINE_RE = re.compile(r"^\s*\*{2,3}\s*[^*\n]+?\s*\*{2,3}\s*$")
+
+
+def _content_has_natural_title(text):
+    """True if any line in `text` would be picked up as a title by the viewer's
+    extractTitle() — markdown heading or bold-only line. Used to decide whether
+    to stamp the thread name onto event['title'].
+
+    Without this check, every post in a named thread inherits the thread name,
+    which masks actual post titles like 'La Battaglia di Ferrara' with the
+    parent thread label ('Central Europe and North Africa Diplo'). The thread
+    name is only useful as a fallback when the body has no obvious title."""
+    if not text:
+        return False
+    for line in text.split("\n"):
+        if _HEADING_LINE_RE.match(line) or _BOLD_ONLY_LINE_RE.match(line):
+            return True
+    return False
+
+
 def build_event(msg, parsed, thread_title=None):
     # Use cleaned content (bracket header removed) for snippet/fullText so the
     # tags don't show up as title-fallback text in the viewer.
@@ -402,12 +444,88 @@ def build_event(msg, parsed, thread_title=None):
         "fullText":   content,
         "images":     images,
     }
-    # If the message lives in a named thread, the thread name is almost always
-    # the post's title. The viewer reads `title` first before falling back to
-    # markdown-heading / bold-line heuristics.
-    if thread_title:
+    # Thread name as title — but only when the body has no natural title of
+    # its own. If the post starts with "# Heading" or "**Bold Title**", the
+    # viewer's extractTitle() will surface it; stamping the thread name on
+    # top of that would mask the real title (see _content_has_natural_title
+    # comment above). Falls back to thread name when the body is just prose.
+    if thread_title and not _content_has_natural_title(content):
         event["title"] = thread_title
     return event
+
+
+def _msg_images(msg):
+    return [
+        {
+            "url":      att["url"],
+            "filename": att["filename"],
+            "width":    att.get("width"),
+            "height":   att.get("height"),
+        }
+        for att in msg.get("attachments", [])
+        if (att.get("content_type") or "").startswith("image/")
+    ]
+
+
+def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
+    """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
+    a recent event from the same author in the same channel, merge its content
+    and images into that event. Returns True if the merge happened.
+
+    Search order: this-run's `new_events` first (most recent in-flight), then
+    events.json (older committed). Channel matching uses `event_meta` since
+    events.json itself doesn't carry channel_id.
+    """
+    try:
+        msg_ts = snowflake_to_dt(msg["id"])
+    except (KeyError, ValueError, TypeError):
+        return False
+
+    author = msg.get("author") or {}
+    author_username = author.get("global_name") or author.get("username", "unknown")
+    cutoff = msg_ts - CONTINUATION_WINDOW
+
+    def _matches(ev):
+        if ev.get("author") != author_username:
+            return False
+        meta = event_meta.get(ev["id"])
+        if not meta or meta.get("channel_id") != ch_id:
+            return False
+        try:
+            return snowflake_to_dt(ev["id"]) >= cutoff
+        except (ValueError, TypeError):
+            return False
+
+    # Search this-run's new events (newest last) backwards.
+    candidate = None
+    for ev in reversed(new_events):
+        if _matches(ev):
+            candidate = ev
+            break
+
+    # Fall back to events.json (also append-ordered, so the tail is most recent).
+    if not candidate:
+        for ev in reversed(events_data.get("events", [])):
+            if _matches(ev):
+                candidate = ev
+                break
+
+    if not candidate:
+        return False
+
+    content = (msg.get("content") or "").strip()
+    images = _msg_images(msg)
+    if not content and not images:
+        return False  # nothing useful to merge — let it fall through
+
+    if content:
+        existing = candidate.get("fullText") or ""
+        candidate["fullText"] = (existing + "\n\n" + content).strip() if existing else content
+        candidate["snippet"] = candidate["fullText"][:150]
+    if images:
+        candidate["images"] = (candidate.get("images") or []) + images
+
+    return True
 
 
 def load_json(path, default):
@@ -699,6 +817,12 @@ def main():
                     help="Override the cursor and backfill from this date "
                          "(YYYY-MM-DD or full ISO). One-shot — the cursor "
                          "moves forward after the run as normal.")
+    ap.add_argument("--until", default=os.environ.get("SYNC_UNTIL", ""),
+                    help="Upper bound for this run's scan window (YYYY-MM-DD "
+                         "or full ISO). Messages newer than --until are ignored "
+                         "and the cursor stops there. Used by the workflow's "
+                         "chunked-backfill mode to break a big window into "
+                         "smaller, rate-limit-friendly pieces.")
     ap.add_argument("--debug-fetch", default=os.environ.get("DEBUG_FETCH", ""),
                     help="One-shot diagnostic: fetch a specific message by "
                          "`channel_id:message_id` (or full Discord URL) and "
@@ -786,6 +910,10 @@ def main():
     #                their author edits valid tags in. Both pruned to 7 days.
     event_meta      = cache.get("event_meta", {})
     rejected_meta   = cache.get("rejected_meta", {})
+    # merged_meta:   {follow_up_msg_id: parent_event_id} for messages whose
+    #                content was merged into a same-author event via the
+    #                continuation window. Prevents double-merging on backfills.
+    merged_meta     = cache.get("merged_meta", {})
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
 
@@ -805,6 +933,14 @@ def main():
         today_midnight = datetime.combine(today_utc, datetime.min.time()).replace(tzinfo=timezone.utc)
         after_snowflake = date_to_snowflake(today_midnight)
         log(f"=== Discord Events Sync — first run, starting at today midnight ({today_str} UTC) ===")
+
+    # --until upper bound for chunked backfills. Cursor will be pinned here at
+    # the end of the run so the next chunk picks up exactly where we left off.
+    until_dt = parse_since(args.until)
+    until_snowflake = None
+    if until_dt is not None:
+        until_snowflake = date_to_snowflake(until_dt)
+        log(f"  Chunk upper bound (--until): {until_dt.isoformat()}")
 
     channel_info = api_get(f"/channels/{CHANNEL_ID}")
     if not channel_info:
@@ -864,22 +1000,28 @@ def main():
     all_messages = []
     for ch_id in channels_to_scan:
         label = "main channel" if ch_id == CHANNEL_ID else f"thread {ch_id}"
-        msgs  = fetch_messages_since(ch_id, after_snowflake)
+        msgs  = fetch_messages_since(ch_id, after_snowflake, before_snowflake=until_snowflake)
         log(f"  {len(msgs)} message(s) from {label}")
         for msg in msgs:
             all_messages.append((msg, ch_id))
 
     log(f"Total messages to evaluate: {len(all_messages)}")
 
-    # Advance the cursor to the highest message ID we saw, regardless of whether
-    # each became a new event. This guarantees forward progress even on quiet days.
-    if all_messages:
-        highest_seen = max(int(m[0]["id"]) for m in all_messages)
-        prev_cursor = int(cache.get("last_snowflake") or 0)
-        cache["last_snowflake"] = str(max(prev_cursor, highest_seen))
+    # Advance the cursor to the highest message ID we saw — guarantees forward
+    # progress even on quiet days. For chunked backfills, also pin the cursor
+    # to --until's snowflake so the *next* chunk starts there even when this
+    # chunk happened to contain no messages.
+    prev_cursor = int(cache.get("last_snowflake") or 0)
+    highest_seen = max((int(m[0]["id"]) for m in all_messages), default=0)
+    new_cursor = max(prev_cursor, highest_seen)
+    if until_snowflake is not None and int(until_snowflake) > new_cursor:
+        new_cursor = int(until_snowflake)
+    if new_cursor > prev_cursor:
+        cache["last_snowflake"] = str(new_cursor)
 
     new_events = []
     seen       = set()
+    merges_found = False
 
     for msg, ch_id in all_messages:
         msg_id = msg["id"]
@@ -889,6 +1031,11 @@ def main():
 
         # Events-already-in-events.json get edit-handled by check_edits_and_deletions.
         if msg_id in existing_ids:
+            continue
+
+        # Already merged into another event as a continuation follow-up;
+        # don't re-merge (would duplicate content on backfills).
+        if msg_id in merged_meta:
             continue
 
         current_edited = msg.get("edited_timestamp")
@@ -916,11 +1063,40 @@ def main():
                 f"[{parsed['date']}] {parsed['province']} ({parsed['tag']})"
                 f"{' — promoted after edit' if promoted else ''}")
         else:
-            rejected_meta[msg_id] = {
-                "channel_id":       ch_id,
-                "edited_timestamp": current_edited,
-            }
-            log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
+            # No bracket header — try to merge as a continuation of a same-author
+            # event in the same channel posted within CONTINUATION_WINDOW. This
+            # is how multi-message posts (length splits, image follow-ups, etc.)
+            # get glued back into one event.
+            if try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
+                # Find parent id for the merged_meta record. The merge function
+                # already mutated the candidate; we just need to identify it.
+                parent_id = None
+                target_author = (msg.get("author") or {}).get("global_name") or \
+                                (msg.get("author") or {}).get("username", "unknown")
+                # Most-recent-first scan, same as the helper, to find which event
+                # received the merge. (Cheap enough — events are O(few-hundred).)
+                for ev in reversed(new_events):
+                    if ev.get("author") == target_author and \
+                       event_meta.get(ev["id"], {}).get("channel_id") == ch_id:
+                        parent_id = ev["id"]
+                        break
+                if not parent_id:
+                    for ev in reversed(events_data.get("events", [])):
+                        if ev.get("author") == target_author and \
+                           event_meta.get(ev["id"], {}).get("channel_id") == ch_id:
+                            parent_id = ev["id"]
+                            break
+                merged_meta[msg_id] = parent_id or ""
+                rejected_meta.pop(msg_id, None)  # not rejected — it was absorbed
+                merges_found = True
+                log(f"  ~ {msg_id} merged as continuation of {parent_id} "
+                    f"({(msg.get('content') or '')[:60]!r})")
+            else:
+                rejected_meta[msg_id] = {
+                    "channel_id":       ch_id,
+                    "edited_timestamp": current_edited,
+                }
+                log(f"  - {msg_id} (no valid tags) | {repr(msg.get('content', '')[:80])}")
 
     # ── Edit check ────────────────────────────────────────────────────────────
     log("Checking recent events for edits/deletions ...")
@@ -944,22 +1120,25 @@ def main():
         log("  No rejection changes found.")
 
     # ── Persist ───────────────────────────────────────────────────────────────
-    had_changes = bool(new_events) or edits_found or promotions_found
+    # `merges_found` covers continuations merged into events.json events — those
+    # mutations don't show up in new_events but still need a commit.
+    had_changes = bool(new_events) or edits_found or promotions_found or merges_found
 
     if new_events:
         events_data["events"].extend(new_events)
 
     if had_changes:
         save_json(EVENTS_FILE, events_data)
-        log(f"Saved events.json ({len(new_events)} new, edits={edits_found}, promotions={bool(promoted_events)}).")
+        log(f"Saved events.json ({len(new_events)} new, edits={edits_found}, "
+            f"promotions={bool(promoted_events)}, merges={merges_found}).")
     else:
         log("No changes this run.")
 
-    # Prune both metas to the 7-day window — older entries are out of the edit
-    # detection range, so re-fetching them is wasted work.
+    # Prune all three metas to the 7-day window — older entries are out of the
+    # edit/continuation detection range, so re-fetching them is wasted work.
     cutoff_dt = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
 
-    def _prune(meta):
+    def _prune_dict(meta):
         out = {}
         for k, v in meta.items():
             try:
@@ -969,17 +1148,19 @@ def main():
                 pass  # skip garbage entries
         return out
 
-    event_meta    = _prune(event_meta)
-    rejected_meta = _prune(rejected_meta)
+    event_meta    = _prune_dict(event_meta)
+    rejected_meta = _prune_dict(rejected_meta)
+    merged_meta   = _prune_dict(merged_meta)
 
     cache["event_meta"]    = event_meta
     cache["rejected_meta"] = rejected_meta
+    cache["merged_meta"]   = merged_meta
 
-    # rejected_meta replaces the old per-UTC-day buckets — drop any leftover
-    # ones so the cache file doesn't drift in shape over time.
+    # Keep only the canonical top-level keys so the cache file doesn't drift in
+    # shape over time as we add or rename internal state.
     cache = {
         k: v for k, v in cache.items()
-        if k in ("event_meta", "rejected_meta", "last_snowflake")
+        if k in ("event_meta", "rejected_meta", "merged_meta", "last_snowflake")
     }
     save_json(CACHE_FILE, cache)
 

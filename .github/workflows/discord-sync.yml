@@ -9,6 +9,14 @@ on:
         description: 'One-shot backfill from this date (YYYY-MM-DD or ISO). Leave blank for normal cron resume.'
         required: false
         default: ''
+      chunk_days:
+        description: 'Optional: when set together with since, run the backfill in N-day chunks with a sleep between, to ease Discord rate-limit pressure on large windows. Each chunk commits incrementally. Try 3 or 5 first.'
+        required: false
+        default: ''
+      chunk_pause_seconds:
+        description: 'Seconds to sleep between chunks (default 10). Only used when chunk_days is set.'
+        required: false
+        default: '10'
       debug_fetch:
         description: 'Diagnostic: fetch a specific message and dump its raw content + regex match info. Paste a full Discord URL (.../channels/.../.../...) or channel_id:message_id. Leave blank for normal runs.'
         required: false
@@ -34,7 +42,13 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run Discord sync
+      - name: Configure git
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Discord sync (single pass)
+        if: inputs.chunk_days == ''
         id: sync
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -45,12 +59,68 @@ jobs:
         # either parameterize this workflow or fan out via matrix strategy.
         run: python tools/sync_events.py --campaign darthsunday
 
-      - name: Commit and push changes
-        if: steps.sync.outputs.had_changes == 'true'
+      - name: Commit and push (single pass)
+        if: inputs.chunk_days == '' && steps.sync.outputs.had_changes == 'true'
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add darthsunday/data/events.json
-          git add darthsunday/data/processed_ids.json
+          git add darthsunday/data/events.json darthsunday/data/processed_ids.json
           git commit -m "chore: sync Discord events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
           git push
+
+      # Chunked-backfill mode: walk from `since` to today in `chunk_days`
+      # increments, calling the sync once per chunk with --since/--until and
+      # committing+pushing between chunks. This keeps each chunk's Discord API
+      # usage small enough to avoid global rate-limit churn on large backfills,
+      # and lands progress incrementally so a later failure doesn't lose work.
+      - name: Run Discord sync (chunked backfill)
+        if: inputs.chunk_days != ''
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SINCE: ${{ inputs.since }}
+          CHUNK_DAYS: ${{ inputs.chunk_days }}
+          CHUNK_PAUSE: ${{ inputs.chunk_pause_seconds }}
+        run: |
+          set -euo pipefail
+          if [ -z "$SINCE" ]; then
+            echo "ERROR: chunk_days set but since is empty — chunked mode needs a starting date."
+            exit 1
+          fi
+          if ! [[ "$CHUNK_DAYS" =~ ^[0-9]+$ ]] || [ "$CHUNK_DAYS" -lt 1 ]; then
+            echo "ERROR: chunk_days must be a positive integer, got $CHUNK_DAYS"
+            exit 1
+          fi
+
+          TODAY=$(date -u +%Y-%m-%d)
+          current="$SINCE"
+          chunk_num=0
+          while [ "$current" \< "$TODAY" ]; do
+            chunk_num=$((chunk_num + 1))
+            next=$(date -u -d "$current + $CHUNK_DAYS days" +%Y-%m-%d)
+            if [ "$next" \> "$TODAY" ] || [ "$next" = "$TODAY" ]; then
+              next="$TODAY"
+            fi
+            echo ""
+            echo "════════════════════════════════════════════════════════"
+            echo "  Chunk #$chunk_num: $current → $next"
+            echo "════════════════════════════════════════════════════════"
+
+            python tools/sync_events.py --campaign darthsunday \
+              --since "$current" --until "$next"
+
+            # Commit + push between chunks so progress survives a later failure.
+            git add darthsunday/data/events.json darthsunday/data/processed_ids.json
+            if ! git diff --cached --quiet; then
+              git commit -m "chore: sync Discord events (chunk $current..$next)"
+              git push
+              echo "  committed + pushed chunk $chunk_num"
+            else
+              echo "  no changes in chunk $chunk_num"
+            fi
+
+            current="$next"
+            if [ "$current" != "$TODAY" ]; then
+              echo "  sleeping ${CHUNK_PAUSE}s to ease rate-limit pressure ..."
+              sleep "$CHUNK_PAUSE"
+            fi
+          done
+          echo ""
+          echo "Chunked backfill complete: $chunk_num chunk(s) processed."
