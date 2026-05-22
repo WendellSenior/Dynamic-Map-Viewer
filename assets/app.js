@@ -950,6 +950,12 @@ function renderMarkdown(text) {
   text = stripCustomEmoji(text);
   text = stripMentions(text);
   text = stripLinks(text);
+  // Force any heading-prefixed line (# / ## / ### followed by a space) to
+  // start its own block, even if the player didn't leave a blank line before
+  // it. Without this, a post like "# Title\n### Subhead\nbody" renders the
+  // `### Subhead` line as inline text inside the title's paragraph instead of
+  // as its own subheading. The gm flag lets `^` match every line start.
+  text = text.replace(/^(#{1,3}\s)/gm, '\n\n$1');
   // Paragraph break on 2+ newlines.
   for (const block of text.split(/\n{2,}/)) {
     const lines = block.split('\n');
