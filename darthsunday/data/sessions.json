@@ -1,3 +1,9 @@
 {
-  "sessions": []
+  "sessions": [
+    {
+      "label": "Pre-Game",
+      "start": "1066-01-01",
+      "end": "1337-04-01"
+    }
+  ]
 }
