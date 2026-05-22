@@ -54,7 +54,10 @@
       "Bash(ls \"/c/Program Files \\(x86\\)/Steam/steamapps/common/Europa Universalis V/\" 2>/dev/null | head -20; echo \"---\"; find \"/c/Program Files \\(x86\\)/Steam/steamapps/common\" -maxdepth 2 -iname \"*Europa*\" 2>/dev/null | head)",
       "Bash(python tools/parse_eu5_reference.py)",
       "Bash(python -c \"import ast; ast.parse\\(open\\('tools/parse_eu5_reference.py', encoding='utf-8'\\).read\\(\\)\\); print\\('parser syntax OK'\\)\")",
-      "Bash(node --check assets/app.js)"
+      "Bash(node --check assets/app.js)",
+      "Bash(git stash *)",
+      "Bash(git checkout *)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('tools/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py syntax OK'\\)\")"
     ]
   }
 }
