@@ -332,6 +332,7 @@
     },
     {
       "id": "1506416113385472061",
+      "channel_id": "1506416110680146112",
       "date": "1337-01-01",
       "country": "MOS",
       "countryRaw": "Muscovy",
@@ -344,6 +345,7 @@
     },
     {
       "id": "1505836303139209216",
+      "channel_id": "1505545492736639056",
       "date": "1337-01-01",
       "country": "WAL",
       "countryRaw": "Wallachia",
@@ -356,6 +358,7 @@
     },
     {
       "id": "1505347662616989757",
+      "channel_id": "1434628920371581079",
       "date": "1324-03-31",
       "country": "CYP",
       "countryRaw": "Cyprus",
@@ -368,6 +371,7 @@
     },
     {
       "id": "1505384614510727278",
+      "channel_id": "1434628920371581079",
       "date": "1305-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -387,6 +391,7 @@
     },
     {
       "id": "1505637133522833709",
+      "channel_id": "1505545492736639056",
       "date": "1337-04-01",
       "country": "CYP",
       "countryRaw": "Cyprus",
@@ -399,6 +404,7 @@
     },
     {
       "id": "1506104229759156305",
+      "channel_id": "1505545492736639056",
       "date": "1306-08-04",
       "country": "BOH",
       "countryRaw": null,
@@ -418,6 +424,7 @@
     },
     {
       "id": "1506368461956321491",
+      "channel_id": "1505545492736639056",
       "date": "1337-04-01",
       "country": "CYP",
       "countryRaw": "Cyprus",
@@ -430,6 +437,7 @@
     },
     {
       "id": "1506487684473028650",
+      "channel_id": "1505545415213449216",
       "date": "1333-04-14",
       "country": "FER",
       "countryRaw": null,
@@ -442,6 +450,7 @@
     },
     {
       "id": "1506573253462851665",
+      "channel_id": "1505545415213449216",
       "date": "1337-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -454,19 +463,21 @@
     },
     {
       "id": "1506711552437260500",
+      "channel_id": "1505545415213449216",
       "date": "1337-01-01",
       "country": "BRG",
       "countryRaw": null,
       "province": "Düsseldorf",
       "tag": "History",
       "author": "King Jester The III",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "Berg's direction from Adolf The XI\n\nSince the founding of the junior branch of Ezzonen, during the distant era of the Kingdom of Lotharingia, but now ",
       "fullText": "Berg's direction from Adolf The XI\n\nSince the founding of the junior branch of Ezzonen, during the distant era of the Kingdom of Lotharingia, but now the County of Berg has stood between two cultures: the lowlanders and the Rhish-Fraconians. Strengthening the relations between the houses of the Rhish-Fraconians and the Lowlands to bring wealth and power to the rhine.\n\nThere are however tension in the royal circle of Berg when it has come to the territories of Cologne since the Battle of Worringen with previous counts of the Limbourg branch however Adolf has been confided by his advisors into trying to keep the dynasty intake and to turn on uniting the Count of Mark, the weaker houses, and Berg to help unite the Houses under the Limbourg to help bring stability to the Rhine.",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1505384636426227816",
+      "channel_id": "1434628920371581079",
       "date": "1305-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -479,6 +490,7 @@
     },
     {
       "id": "1505384760174968832",
+      "channel_id": "1434628920371581079",
       "date": "1337-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -491,6 +503,7 @@
     },
     {
       "id": "1505384895822823564",
+      "channel_id": "1434628920371581079",
       "date": "1337-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -528,6 +541,7 @@
     },
     {
       "id": "1506900952173641738",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "TRI",
       "countryRaw": "Trier",
@@ -547,6 +561,7 @@
     },
     {
       "id": "1506862782556147974",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "POR",
       "countryRaw": "Portugal",
@@ -572,6 +587,7 @@
     },
     {
       "id": "1506875136828243968",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "POR",
       "countryRaw": "Portugal",
@@ -584,6 +600,7 @@
     },
     {
       "id": "1506892374666645595",
+      "channel_id": "1505545331591610549",
       "date": "1336-04-01",
       "country": "CYP",
       "countryRaw": "Cyprus",
@@ -596,19 +613,21 @@
     },
     {
       "id": "1506924011467178025",
+      "channel_id": "1505545331591610549",
       "date": "1337-02-01",
       "country": "HSA",
       "countryRaw": "Hansa",
       "province": "London",
       "tag": "Meeting",
       "author": "Onnirio",
+      "title": "Atlantic Diplo",
       "snippet": "In his office, Hermann Monrnewe receives news about count Guillaume III's approval of meeting the cities in Holland to build trade offices. Such impro",
       "fullText": "In his office, Hermann Monrnewe receives news about count Guillaume III's approval of meeting the cities in Holland to build trade offices. Such improvement in relations can only lead to a stronger presence of the Hansa in the Channel, thus more money flowing from Köln, and the Baltic sea.\n\nNow, it’s time for the other piece of the puzzle: England. The Stalhof has grown since it was founded, especially thanks to the Carta Mercatoria. However, with hostilities rising, not only does trade in England have to expand, but the bürgermeister considers that ‘saving’ the exports from Bourdeaux will be fundamental for the English. <@1106651545296195655> \n\n||He takes some paper and starts writing to the King’s Council, addressing His Majesty to ask for permission to expand kontors and offices in Bourdeaux. Though the bürgermeister is always supporting of His Majesty, he writes that it would be advantageous if trade from the city (that is, its wine, woad and salt exported to England) is uninterrupted, and if the Hansa were to negotiate with the city council, then it could be ensured even if the worst were to happen. Of course, the League will comply with whatever His Majesty decides on regards to trade, and this is essentially a last resort of sorts...||",
-      "images": [],
-      "title": "Atlantic Diplo"
+      "images": []
     },
     {
       "id": "1506992387644325940",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "ENG",
       "countryRaw": "England",
@@ -621,19 +640,21 @@
     },
     {
       "id": "1506774603865919679",
+      "channel_id": "1505545492736639056",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
       "province": "Praha",
       "tag": "Meeting",
       "author": "Cloud",
+      "title": "Eastern Europe and Asia Diplo",
       "snippet": "||### A letter from France makes way to Bohemia <@261290667106369536> \n“To the bold and honorable King Jehan de Luxembourg of Bohemia and Count of Lux",
       "fullText": "||### A letter from France makes way to Bohemia <@261290667106369536> \n“To the bold and honorable King Jehan de Luxembourg of Bohemia and Count of Luxembourg,\nI seek your support and martial skill my friend. \n\nIn a few months time I will begin my confiscation of Gascony from King Edward III of England. A war where we both will find great glory on the battlefield against my rival, and restore a title rightfully belonging to the French crown. \n\nHowever, King Edward III of England has likely found himself a powerful ally with the Papacy. If you are not already aware, the Orsini house has showed [activity of puppeteering the Papacy](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506121571402518620) in their favor with plans to move the Pope from Avignon to Rome, and recently performed an assassination attempt against Cardinal Guillaume de Chanac of Paris to lessen their opposition of their activities within the Papacy. I know it is a serious claim, but the connections between Cardinal Guillaume de Chanac [open lack of support for Orsini actions within the papacy](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506359035106955415) and the recent assassination attempt failing with an [apologetic letter left behind](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506663699254083624) by the assassin that details ‘A powerful family wishes you dead for the actions you have taken’ is clear indication of such accusation being true. \n\nThus, I seek an alliance. One for both of us to display our might on the battlefield, attain victory and glory against the King of England, and ensure the Pope remains in Avignon rather than allow a petty Italian house to stop Guelph competition against your rival Holy Roman Emperor Ludwig IV. \n\nBest wishes, King Philipe VI of France\"||",
-      "images": [],
-      "title": "Eastern Europe and Asia Diplo"
+      "images": []
     },
     {
       "id": "1505767119290110013",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "POR",
       "countryRaw": "Portugal",
@@ -653,6 +674,7 @@
     },
     {
       "id": "1506466316976914564",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "NAP",
       "countryRaw": "Naples",
@@ -672,6 +694,7 @@
     },
     {
       "id": "1506573343606968350",
+      "channel_id": "1505545415213449216",
       "date": "1337-01-01",
       "country": "TRI",
       "countryRaw": null,
@@ -684,19 +707,21 @@
     },
     {
       "id": "1506773249810370642",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
       "province": "Trier",
       "tag": "Meeting",
       "author": "Cloud",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "||### Response to Trier  \n-# Responding to https://discordapp.com/channels/507915886477312023/1434628920371581079/1505385129500082317 <@13710107541189",
       "fullText": "||### Response to Trier  \n-# Responding to https://discordapp.com/channels/507915886477312023/1434628920371581079/1505385129500082317 <@137101075411894272> \n“Your offered support is welcomed, and your recognition of my legitimacy over France is well received. Do not fret too much over the whims of the self-righteous King Edwards III of England. His insolence towards his superiors will be well rewarded soon enough. \n\nHowever, I ask you to be knowledgeable of the very questionable happenings of the Papacy as [Cardinal Guillaume de Chanac has presented them to me](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506359035106955415). The Orsini family is to not be trusted, and Cardinal Guillaume de Chanac has given me potentially damning evidence of the serpent family's actions. That being [a letter left behind by the assassin](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506663699254083624) who had a sudden change of heart. In it a ‘powerful family’ evidently hates Cardinal Guillaume, and the assassin describes himself ‘an agent of the serpent‘. It does not take a brilliant man to make the connections, and realize the only family who could possibly find Cardinal Guillaume an enemy is the Orsini family. An enemy for he is the sole Cardinal of France who stands against [Orsini threats, bribes, and actions to puppeteer the papacy](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506121571402518620). An attempt to corrupt what should be kept incorruptible. ||",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1505766854298439741",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
@@ -716,6 +741,7 @@
     },
     {
       "id": "1506304199535624415",
+      "channel_id": "1505545331591610549",
       "date": "1218-04-01",
       "country": "SAV",
       "countryRaw": "Savoy",
@@ -735,6 +761,7 @@
     },
     {
       "id": "1506304294448791765",
+      "channel_id": "1505545331591610549",
       "date": "1323-04-01",
       "country": "SAV",
       "countryRaw": "Savoy",
@@ -747,6 +774,7 @@
     },
     {
       "id": "1506304503912202241",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "SAV",
       "countryRaw": "Savoy",
@@ -766,6 +794,7 @@
     },
     {
       "id": "1506359035106955415",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
@@ -778,6 +807,7 @@
     },
     {
       "id": "1507115717613588602",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "TUN",
       "countryRaw": "Tunis",
@@ -790,6 +820,7 @@
     },
     {
       "id": "1507118830634270770",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "TUN",
       "countryRaw": "Tunis",
@@ -809,6 +840,7 @@
     },
     {
       "id": "1507115267745124542",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "ENG",
       "countryRaw": "England",
@@ -834,19 +866,21 @@
     },
     {
       "id": "1507124928187731988",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-15",
-      "country": null,
+      "country": "MOR",
       "countryRaw": "Morroco",
       "province": "Fas",
       "tag": "Treaty",
       "author": "Wolf legion 45",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "*My Freind Sultan Abu Yaya Abu Bakr II Hafsid,*\n\n*I thank you for your concern, I agree that you have been wronged by this cur to my west and are with",
       "fullText": "*My Freind Sultan Abu Yaya Abu Bakr II Hafsid,*\n\n*I thank you for your concern, I agree that you have been wronged by this cur to my west and are within your right to demand satisfaction by taking his head. For myself he and his kingdom have proven to be nothing but pirates that both sully both your own and my own peoples names. Not to mention their own acts of barbary upon others in this land we call home. They are despicable and I shall see this realm rid of their existence as Allah surly would will us to. *\n\n*I accept your aid my friend, let us put an end to this issue once and for all.*\n\n*Sultan Abu al Hasan Ali ibn Uthman Marinid*",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1507122803831210104",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
@@ -859,6 +893,7 @@
     },
     {
       "id": "1507127655143837726",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "ENG",
       "countryRaw": "England",
@@ -871,8 +906,9 @@
     },
     {
       "id": "1507148166078922833",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-15",
-      "country": null,
+      "country": "MOR",
       "countryRaw": "Morroco",
       "province": "Fas",
       "tag": "History",
@@ -883,8 +919,9 @@
     },
     {
       "id": "1507149441428357260",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
-      "country": null,
+      "country": "MOR",
       "countryRaw": "Morroco",
       "province": "Fas",
       "tag": "Meeting",
@@ -895,6 +932,7 @@
     },
     {
       "id": "1507158475124244583",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "ENG",
       "countryRaw": "England",
@@ -914,19 +952,21 @@
     },
     {
       "id": "1507166041527161002",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
       "province": "Avignon",
       "tag": "Treaty",
       "author": "Cloud",
+      "title": "Atlantic Diplo",
       "snippet": "*King Phillipe VI and Cardinal Guillaume look at the letter of the announcement unammused. In a moment of cynical self entertainment, King Phillipe VI",
       "fullText": "*King Phillipe VI and Cardinal Guillaume look at the letter of the announcement unammused. In a moment of cynical self entertainment, King Phillipe VI writes back.*\n\n\"I'd rather die honorably in Aquitaine against my cousin King Edward III on the field of battle, for he would give me a far more honorable end than if I stepped into Avignon your holiness.\"",
-      "images": [],
-      "title": "Atlantic Diplo"
+      "images": []
     },
     {
       "id": "1507193276627812573",
+      "channel_id": "1505545415213449216",
       "date": "1315-11-15",
       "country": "HAB",
       "countryRaw": null,
@@ -939,19 +979,21 @@
     },
     {
       "id": "1507214962639241278",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
       "province": "Avignon",
       "tag": "Treaty",
       "author": "Cloud",
+      "title": "Atlantic Diplo",
       "snippet": "“I am the King of France, and I have already been crowned on May 29th of 1328 at the Cathedral of Reims as King. I am the one and **only** legitimate ",
       "fullText": "“I am the King of France, and I have already been crowned on May 29th of 1328 at the Cathedral of Reims as King. I am the one and **only** legitimate King of France under the crown’s Sallic Law, and I do not require another coronation. \n\nHowever, there is something that needs to be said. Benedictus XII Fournier, you are undeserving of the Papal role. You hold no spine for the followers of Christ, nor do you have any care for the fate of Christendom by listening to the Orsini. All you care for is your own life, since you are too weak to stand up against the Orsini dagger readied at your back if you deviate from their will. Christ up above knows well of your sins, and the sins of Orsini. You may never admit it, but you know you too will rot in hell if you continue to defile the sanctity of the Church by giving  into this Judas and his serpents. Possibly damning many in the process.\n\nEven more, if the [Orsini assassination attempt upon Cardinal Guillaume de Chanac](https://discordapp.com/channels/507915886477312023/1505545331591610549/1506663699254083624) is evident of anything, it is in fact you and Napoleo Orsini who have risen their swords against France first. Your excommunication will mean nothing to me, for only God holds the power to judge my soul and its innocence. So what will you actually do? Are you just going to hold your sword, or will you come and take my crown from my dead hands as you so infer?\"\n-# This response by King Phillip VI de Valois would be loudly and widely known. He does not support Pope Benedictus XII Fournier, nor any following Pope so long as Napoleo Orsini remains to keep his hands in corrupting the Papacy.",
-      "images": [],
-      "title": "Atlantic Diplo"
+      "images": []
     },
     {
       "id": "1507335408537567352",
+      "channel_id": "1505545415213449216",
       "date": "1328-01-17",
       "country": "UBV",
       "countryRaw": null,
@@ -971,6 +1013,7 @@
     },
     {
       "id": "1506872033785544787",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
@@ -990,6 +1033,7 @@
     },
     {
       "id": "1507374281938440385",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-01",
       "country": "PAP",
       "countryRaw": null,
@@ -1009,6 +1053,7 @@
     },
     {
       "id": "1507431022331953202",
+      "channel_id": "1505545415213449216",
       "date": "1329-01-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
@@ -1021,19 +1066,21 @@
     },
     {
       "id": "1507431163570946218",
+      "channel_id": "1505545415213449216",
       "date": "1329-01-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
       "province": "Nancy",
       "tag": "History",
       "author": "DerNette",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "Now, however, the time has come for a young nobleman to take his place: Raoul the Bold d’Alsace, an ambitious and determined ruler. From an early age,",
       "fullText": "Now, however, the time has come for a young nobleman to take his place: Raoul the Bold d’Alsace, an ambitious and determined ruler. From an early age, he was raised with discipline and became known as a courageous warrior. His noble parents told him stories of Lorraine’s former greatness and power, instilling in him both pride and ambition for his homeland. One day, he hopes to restore Lorraine from obscurity and see it rise again as a great power, reclaiming the legacy of Lothair I and even Charlemagne himself.\n\nYet today, the duchy faces a different challenge: its position as a crossroads between the Holy Roman Empire and the Kingdom of France. Culturally and linguistically, Lorraine leans closer to France, yet diplomatically and legally it remains a member of the Holy Roman Empire and imperial territory. Thus, only time will tell where Lorraine’s destiny truly lies — whether it shall belong to one realm, or perhaps rise once more as a kingdom of its own.\n\nLong live Lotharingia.",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1507431730389323966",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
@@ -1046,6 +1093,7 @@
     },
     {
       "id": "1507432761059709081",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
@@ -1058,6 +1106,7 @@
     },
     {
       "id": "1507433066199781499",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
@@ -1070,6 +1119,7 @@
     },
     {
       "id": "1507444087177871451",
+      "channel_id": "1505545415213449216",
       "date": "1337-06-17",
       "country": "TUN",
       "countryRaw": "Tunis",
@@ -1089,6 +1139,7 @@
     },
     {
       "id": "1507447710087778404",
+      "channel_id": "1505545415213449216",
       "date": "1337-01-01",
       "country": "MIL",
       "countryRaw": "Milan",
@@ -1108,12 +1159,14 @@
     },
     {
       "id": "1507448562051579905",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "MIL",
       "countryRaw": "Milan",
       "province": "Milan",
       "tag": "Treaty",
       "author": "Hoang",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "To the rulers of northern Italy,\n\nFor years, the della Scala have taken advantage of instability to forge a realm that now threatens to dominate all o",
       "fullText": "To the rulers of northern Italy,\n\nFor years, the della Scala have taken advantage of instability to forge a realm that now threatens to dominate all of northern Italy. Their ambition knows no restraint, and if left unchecked, Verona’s influence will stretch over every city in Italy.\n\nIt is time for the rulers of Italy to stand together. We must fight back and break the power of the della Scala.\n\nSigned,\nThe Signoria of Milan\n\n\n\n<@315868897012219904> <@1415049385573875875>",
       "images": [
@@ -1123,50 +1176,53 @@
           "width": 770,
           "height": 793
         }
-      ],
-      "title": "Central Europe and North Africa Diplo"
+      ]
     },
     {
       "id": "1507449865691598858",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "MIL",
       "countryRaw": "Milan",
       "province": "Milan",
       "tag": "Treaty",
       "author": "Hoang",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "To His Imperial Majesty, Ludwig IV, Holy Roman Emperor,\n\nLong have we been bound by ties of loyalty and mutual interest.\n\nTen years ago, Your Imperial",
       "fullText": "To His Imperial Majesty, Ludwig IV, Holy Roman Emperor,\n\nLong have we been bound by ties of loyalty and mutual interest.\n\nTen years ago, Your Imperial Majesty granted us the title of Imperial Vicars of Milan, a dignity which we still hold with honour. For three decades, the Visconti have ruled Milan and upheld the Ghibelline cause in Lombardy, defending imperial order by expelling the della Torres Guelphs from Milan.\n\nLet us now strengthen that bond once more. We ask for help for imperial recognition over our recently acquired (Guelph) territories. These lands must not be allowed to slip from our control, for if they do, they will invite the return of the della Torre and their Guelph allies.\n\nBy confirming Visconti authority, Your Majesty would secure a loyal imperial bastion in Lombardy and deny the enemies of the Empire a foothold in northern Italy.\n\nSigned,\nThe Signoria of Milan\n\n<@763652399784919080>",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1507433462163046480",
+      "channel_id": "1505545331591610549",
       "date": "1337-04-15",
       "country": "HSA",
       "countryRaw": "Hansa",
       "province": "Lübeck",
       "tag": "Character",
       "author": "Onnirio",
+      "title": "Atlantic Diplo",
       "snippet": "With hostilities about to break in Aquitaine, the Flanders situation will turn sour quickly. Though trade still flows in the Channel, the League will ",
       "fullText": "With hostilities about to break in Aquitaine, the Flanders situation will turn sour quickly. Though trade still flows in the Channel, the League will have issues in a matter of a year if not months, and the Holland deal is far from enough.\n\nSome alternatives are already being considered. To supply the wool to Flanders to keep the clothmakers of half of Europe working is a hard task. Wool is common in North Germany and, according to the aldermen in the Peterhof, it’s abundant in the Rus, but it’s too far and there’s nothing quite like the English; not even the Castillian Mesta would bring enough wool, and it’s out of reach because their produce is monopolized by the genoese. The dutch clothmakers will take years to reach any level of expertise enough to compete with the the Flemish… <@420614608399761419> \n\nThe bürgermeister, Monrnewe, lets out an exasperated breath in his office. Nothing can be done in short time frame. Except, if Edward III manages to beat the king of France decisively, the situation would be quickly resolved. Mayhap funding his defense would be the best, most direct option? Risky, too. And, as artisans in Flanders are starting to become aware of what’s going to happen, a revolt would not be out of place… <@990811778474717205> \n\nFor now, contacting Visby and reaching out to Bordeaux, to then jump to the Castillian merchants is the prudent move. If trade in the Channel dies before contingencies are in place, then pleading to Edward III might be the only option. <@1106651545296195655>",
-      "images": [],
-      "title": "Atlantic Diplo"
+      "images": []
     },
     {
       "id": "1507473354163097731",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "FRA",
       "countryRaw": "France",
       "province": "Paris",
       "tag": "Treaty",
       "author": "Cloud",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "“To Duke Raul the Valiant d’Alsace of Lorraine,\n\nYour friendliness and forward eagerness to pursue amicable interests with the Kingdom of France in th",
       "fullText": "“To Duke Raul the Valiant d’Alsace of Lorraine,\n\nYour friendliness and forward eagerness to pursue amicable interests with the Kingdom of France in this era of strife is wholly welcomed. If you are to ever visit my court in Paris, then know you would come and be treated as a friend of the crown. \n\nBe sure to hold the very same friendliness with Prince-Bishop Balduin de Luxembourg of Trier. He too is a friend of the Crown of France, and is under careful watch by the malicious eyes of the Orsini Papacy for merely interacting with the French court. I only hope for the best for him, and would hope he may find other Imperial allies if needed. He would do you no wrong as an ally, Cardinal Guillaume de Chance of Paris can vouch for the strength of his character.\n\n||Other than that matter, I would like to formally invite you in my campaign to confiscate Gascony against King Edward III of England. It will surely be a swift matter, and without much bloodshed for the knights of France and of de Luxembourg who will meet them in glorious and honorable battle. It could prove to be a beneficial martial experience to face a foe in live combat and by leading your knights in battle. An experience that could bring greater prestige and fame to your name. Think upon this opportunity, there will be four months before the campaign will begin.||\n\nRespectfully, King Phillip VI de Valois of France”",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1507480456843497623",
+      "channel_id": "1505545492736639056",
       "date": "1337-04-01",
       "country": "BYZ",
       "countryRaw": "Byzantium",
@@ -1179,8 +1235,9 @@
     },
     {
       "id": "1507489519144800256",
+      "channel_id": "1505545492736639056",
       "date": "1337-04-01",
-      "country": null,
+      "country": "TEU",
       "countryRaw": "Teutonic Order",
       "province": "Marienburg",
       "tag": "History",
@@ -1191,29 +1248,31 @@
     },
     {
       "id": "1507487320918593576",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "SAV",
       "countryRaw": "Savoy",
       "province": "Vercilli",
       "tag": "Treaty",
       "author": "Matchasachi",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "Messenger from the Duke of Savoy, Émon the Pacific, who until now had not taken a position in the matter of the Guelphs and Ghibellines approach the V",
       "fullText": "Messenger from the Duke of Savoy, Émon the Pacific, who until now had not taken a position in the matter of the Guelphs and Ghibellines approach the Visconti in Milan <@545657694489542666> and the Capitano of Genoa<@170593650584059904> carrying letters.\n\n\"To the honoured men leading the cause of the Ghibellines,\n\nI write to you, as the order in Italia seems to evermore crumble, with certain families whose names shall be cast into the fires of hell running roughshood over it. The County of Savoy and Duchy of Aosta have stayed still in this matter for long, as matters in nearby France demand much of our attention, yet the cause of the Ghibellines is near to me.\n\n|| As such, while not outright being able to declare for the cause (mechanically I can't cuz capital not in Italy), the Duke of Aosta seeks to ally with the Ghibellines and their forces, also fully recognizing the conquests of Vercelli and Novare if two matters are resolved. Ivrea and Asti, both supporters of the Guelphs, as per the decrees of the late Emperor Henri VII of the House Luxembourg, are recognized as a lordships of the House Savoy. And secondly, legally support the Savoyard subjugation of the Bishopric of Sion, which has acted treacherously towards my late nephew, Edward.\n\nIf these small favours can be met, I as the Duke of Aosta and Count of Savoy shall pledge my support to the just cause of the Ghibellines, god willing, this madness shall end soon and a proper order be restored. ||",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     },
     {
       "id": "1507489568062967848",
+      "channel_id": "1505545415213449216",
       "date": "1337-04-01",
       "country": "SAV",
       "countryRaw": "Savoy",
       "province": "München",
       "tag": "Treaty",
       "author": "Matchasachi",
+      "title": "Central Europe and North Africa Diplo",
       "snippet": "A small group of envoys, lead by Jacque de Savoie, the Count of Piedmont and Cousin to Émon, Duke of Aosta and Count of Savoy make their way to Munich",
       "fullText": "A small group of envoys, lead by Jacque de Savoie, the Count of Piedmont and Cousin to Émon, Duke of Aosta and Count of Savoy make their way to Munich, in order to bring a matter of 'great import' to Arles to the attention of the just Emperor Ludwig <@763652399784919080> \n\n|| Firstly is the matter of a decree and gift given by the late Emperor Henry VII of the House Luxembourg. Notwithstanding on-going rivalries between the houses, by that decree the Emperor conferred upon Duke Amedé the Lordships over Asti and Ivrea, following leal service in Italian campaigns. Currently both the Bishop of Canavese and the Townspeople of Asti are aligned with the Guelph cause. Duke Émon has already reached out to the Visconti in Milan to offer his aid to the Ghibellines, but reiteration of these two claims would do much to alleviate concerns amongst nobles in Savoy to campaigning in Italy. ||\n\n|| More selfishly, the House de Savoie has recently been offended by the Bishops of Sion, who after long friendship abandoned the late Duke Edward of Savoy, during our feud with the Dauphins. We wish to seek satisfaction and subject the Bishops, which would of course, also ensure that men loyal to the Empire control more Alpine passes. ||",
-      "images": [],
-      "title": "Central Europe and North Africa Diplo"
+      "images": []
     }
   ]
 }

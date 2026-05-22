@@ -416,12 +416,17 @@ def _content_has_natural_title(text):
     return False
 
 
-def build_event(msg, parsed, thread_title=None):
+def build_event(msg, parsed, thread_title=None, channel_id=None):
     # Use cleaned content (bracket header removed) for snippet/fullText so the
     # tags don't show up as title-fallback text in the viewer.
     content  = parsed.get("cleaned") or msg.get("content", "")
     author   = msg.get("author", {})
     username = author.get("global_name") or author.get("username", "unknown")
+    # Prefer the caller-supplied ch_id (ground truth from the scan loop /
+    # edit-detection) and fall back to the message's own field. Threads and the
+    # parent channel use different ids, so the wrong value would break the
+    # Discord URL even for a valid message.
+    ch_id = channel_id or msg.get("channel_id") or ""
     images = [
         {
             "url":      att["url"],
@@ -434,6 +439,10 @@ def build_event(msg, parsed, thread_title=None):
     ]
     event = {
         "id":         msg["id"],
+        # channel_id lets the viewer build a `https://discord.com/channels/.../...`
+        # link back to the original post. Threads have their own id (distinct
+        # from the parent channel); the scan loop passes the right one in.
+        "channel_id": ch_id,
         "date":       parsed["date"],
         "country":    parsed["country"],
         "countryRaw": parsed["countryRaw"],
@@ -637,7 +646,7 @@ def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=Non
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
             thread_title = thread_names.get(channel_id) if channel_id != CHANNEL_ID else None
-            events_data["events"][i] = build_event(msg, parsed, thread_title=thread_title)
+            events_data["events"][i] = build_event(msg, parsed, thread_title=thread_title, channel_id=channel_id)
             log(f"    updated: [{parsed['date']}] {parsed['province']} ({parsed['tag']})")
         else:
             log(f"    tags removed after edit — keeping old entry unchanged")
@@ -748,7 +757,7 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
             thread_title = thread_names.get(channel_id) if channel_id != CHANNEL_ID else None
-            event = build_event(msg, parsed, thread_title=thread_title)
+            event = build_event(msg, parsed, thread_title=thread_title, channel_id=channel_id)
             new_events.append(event)
             event_meta[msg_id] = {
                 "channel_id":       channel_id,
@@ -1051,7 +1060,7 @@ def main():
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
             thread_title = thread_names.get(ch_id) if ch_id != CHANNEL_ID else None
-            new_events.append(build_event(msg, parsed, thread_title=thread_title))
+            new_events.append(build_event(msg, parsed, thread_title=thread_title, channel_id=ch_id))
             event_meta[msg_id] = {
                 "channel_id":       ch_id,
                 "edited_timestamp": current_edited,

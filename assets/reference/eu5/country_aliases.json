@@ -21,5 +21,7 @@
   "SCO": ["Scotland", "Kingdom of Scotland"],
   "DAN": ["Denmark", "Kingdom of Denmark", "Dane", "Danish"],
   "SWE": ["Kingdom of Sweden"],
-  "NOR": ["Kingdom of Norway", "Norwegian"]
+  "NOR": ["Kingdom of Norway", "Norwegian"],
+  "MOR": ["Morocco", "Morroco", "Maroc", "Marrakesh", "Marinid", "Marinids"],
+  "TEU": ["Teutonic Order", "Teutonic Knights", "Teutonic", "Teutons", "Deutscher Orden"]
 }

@@ -57,7 +57,8 @@
       "Bash(node --check assets/app.js)",
       "Bash(git stash *)",
       "Bash(git checkout *)",
-      "Bash(python -c \"import ast; ast.parse\\(open\\('tools/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py syntax OK'\\)\")"
+      "Bash(python -c \"import ast; ast.parse\\(open\\('tools/sync_events.py', encoding='utf-8'\\).read\\(\\)\\); print\\('sync_events.py syntax OK'\\)\")",
+      "Bash(node -e ' *)"
     ]
   }
 }

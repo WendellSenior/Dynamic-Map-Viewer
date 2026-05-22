@@ -35,6 +35,7 @@
       "discord_sync": {
         "enabled": true,
         "channel_id": "1434628920371581079",
+        "guild_id": "507915886477312023",
         "reference_game": "eu5"
       }
     }

@@ -86,9 +86,46 @@ function countryDisplay(tag, raw) {
 
 function parseDate(s) { return new Date(s + 'T00:00:00Z').getTime(); }
 
+// Hard-coded English month names so the rendered date is locale-independent
+// (browsers' built-in formatters can swap to whatever the user's locale is,
+// which would look inconsistent across viewers of the same campaign).
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+                     'July', 'August', 'September', 'October', 'November', 'December'];
+
+function ordinalSuffix(n) {
+  const r100 = n % 100;
+  if (r100 >= 11 && r100 <= 13) return 'th';  // 11th, 12th, 13th — never 11st
+  switch (n % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+}
+
+// Pretty-format a Y/M/D triple — central helper for both date sources.
+function formatYMD(year, month, day) {
+  return `${day}${ordinalSuffix(day)} ${MONTH_NAMES[month - 1]} ${year}`;
+}
+
+// Render an ISO 'YYYY-MM-DD' (the form events.json + snapshots.json store)
+// as "1st April 1337". Falls through to the raw string on malformed input
+// so debugging stays readable.
+function formatEventDate(s) {
+  if (!s || typeof s !== 'string') return '—';
+  const m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (!m) return s;
+  const year = +m[1], month = +m[2], day = +m[3];
+  if (month < 1 || month > 12 || day < 1 || day > 31) return s;
+  return formatYMD(year, month, day);
+}
+
+// Same output for a millisecond timestamp (used by the timeline labels and
+// the header current-date). UTC accessors avoid local-timezone drift.
 function formatDate(t) {
   if (!Number.isFinite(t)) return '—';
-  return new Date(t).toISOString().slice(0, 10);
+  const d = new Date(t);
+  return formatYMD(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
 }
 
 function resolveCoords(event) {
@@ -396,8 +433,8 @@ function createEventDot(e, xy, vx, vy, vs) {
     e.province ||
     countryDisplay(e.country, e.countryRaw) ||
     '(unknown)';
-  const titleText = extractTitle(e) || (e.snippet || '').trim() ||
-                    `${e.date}${e.tag ? ' · ' + e.tag : ''}`;
+  const titleText = extractTitle(e) || cleanInlineText(e.snippet || '') ||
+                    `${formatEventDate(e.date)}${e.tag ? ' · ' + e.tag : ''}`;
   dot._eventTitle = titleText.length > 80 ? titleText.slice(0, 79).trimEnd() + '…' : titleText;
   dot.addEventListener('mouseenter', () => showPinTooltip(dot));
   dot.addEventListener('mouseleave', () => hidePinTooltip());
@@ -544,8 +581,8 @@ function expandStack(stack) {
     }
     // Hover tooltip — title (heading / bold-only line) or snippet fallback.
     // Truncated so a very long snippet doesn't stretch the bubble off-screen.
-    const tipText = extractTitle(e) || (e.snippet || '').trim() ||
-                    `${e.date}${e.tag ? ' · ' + e.tag : ''}`;
+    const tipText = extractTitle(e) || cleanInlineText(e.snippet || '') ||
+                    `${formatEventDate(e.date)}${e.tag ? ' · ' + e.tag : ''}`;
     leaf._tooltipText = tipText.length > 80 ? tipText.slice(0, 79).trimEnd() + '…' : tipText;
     leaf.addEventListener('mouseenter', () => showPinTooltip(leaf));
     leaf.addEventListener('mouseleave', () => hidePinTooltip());
@@ -600,11 +637,11 @@ function openStackOverflowList(stack, hiddenEvents) {
     row.type = 'button';
     row.className = 'stack-overflow-row';
     const icon = e.tag && TAG_ICONS[e.tag] || '•';
-    const snippet = (e.snippet || '').slice(0, 50);
+    const snippet = cleanInlineText(e.snippet || '').slice(0, 50);
     row.innerHTML = '';
     row.append(
       Object.assign(document.createElement('span'), { className: 'sov-icon', textContent: icon }),
-      Object.assign(document.createElement('span'), { className: 'sov-date', textContent: e.date }),
+      Object.assign(document.createElement('span'), { className: 'sov-date', textContent: formatEventDate(e.date) }),
       Object.assign(document.createElement('span'), { className: 'sov-snippet', textContent: snippet }),
     );
     row.addEventListener('click', (ev) => {
@@ -663,7 +700,7 @@ function renderTimelineMarks() {
     const m = document.createElement('div');
     m.className = 'tl-mark event';
     m.style.left = `${pct}%`;
-    m.title = `${e.date} — ${e.snippet || ''}`;
+    m.title = `${formatEventDate(e.date)} — ${cleanInlineText(e.snippet || '')}`;
     container.appendChild(m);
   }
 
@@ -674,7 +711,7 @@ function renderTimelineMarks() {
     const m = document.createElement('div');
     m.className = 'tl-mark snapshot';
     m.style.left = `${pct}%`;
-    m.title = `${s.date}${s.label ? ' — ' + s.label : ''}`;
+    m.title = `${formatEventDate(s.date)}${s.label ? ' — ' + s.label : ''}`;
     m.addEventListener('click', () => {
       state.currentTime = sT;
       document.getElementById('timeline').value = timeToSlider(state.currentTime);
@@ -716,9 +753,14 @@ function showEvent(e) {
   const header = document.createElement('div');
   header.className = 'event-header';
   const h = document.createElement('h2');
-  h.textContent = e.date;
+  h.textContent = formatEventDate(e.date);
   header.appendChild(h);
 
+  // Action buttons live in a flex column on the right side of the header so
+  // multiple actions (Zoom to pin + View on Discord) stack neatly without
+  // crowding the date title.
+  const actions = document.createElement('div');
+  actions.className = 'event-actions';
   const coords = resolveCoords(e);
   if (coords) {
     const btn = document.createElement('button');
@@ -726,8 +768,23 @@ function showEvent(e) {
     btn.textContent = 'Zoom to pin';
     btn.title = 'Pan and zoom the map to this event';
     btn.addEventListener('click', () => zoomToCoords(coords));
-    header.appendChild(btn);
+    actions.appendChild(btn);
   }
+  // "View on Discord" — only if we know the guild (from campaigns.json) and
+  // this event has its channel_id stored (set on every event from now on; for
+  // legacy events we backfilled from the event_meta cache where possible).
+  const sync = state.discordSync;
+  if (sync && sync.guild_id && e.channel_id && e.id) {
+    const link = document.createElement('a');
+    link.className = 'view-on-discord';
+    link.href = `https://discord.com/channels/${sync.guild_id}/${e.channel_id}/${e.id}`;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'View on Discord';
+    link.title = 'Open the original Discord post in a new tab';
+    actions.appendChild(link);
+  }
+  if (actions.childNodes.length > 0) header.appendChild(actions);
   panel.appendChild(header);
 
   const meta = document.createElement('p');
@@ -789,9 +846,76 @@ function jumpToEvent(e) {
   showEvent(e);
 }
 
+// Discord custom emoji syntax: <:name:id> or <a:name:id> (animated). The CDN
+// asset would need the original ID to render, and the syntax otherwise shows
+// as literal text — so we strip them everywhere they'd appear.
+const CUSTOM_EMOJI_RE = /<a?:[a-zA-Z0-9_]+:\d+>/g;
+// User / role / nickname mentions: <@123>, <@!123>, <@&123>. We have no
+// airgapped way to map the snowflake to a display name (events.json stores
+// authors by username, not by id), so we drop these entirely.
+const MENTION_RE = /<@[!&]?\d+>/g;
+// Spoiler tokens: ||hidden text||. Restricted to a single line so a stray ||
+// can't consume the rest of a post.
+const SPOILER_RE = /\|\|([^\n]+?)\|\|/g;
+
+function stripCustomEmoji(text) {
+  return text ? text.replace(CUSTOM_EMOJI_RE, '') : text;
+}
+
+function stripMentions(text) {
+  return text ? text.replace(MENTION_RE, '') : text;
+}
+
+// Discord-style masked links: [Title](URL) — and the nested form players
+// sometimes paste, [Title]([alias](URL)). We keep only the visible title.
+// The regex only matches links with no parens in the URL portion, then loops
+// — that strips innermost first, so nested forms collapse in subsequent
+// iterations.
+function stripLinks(text) {
+  if (!text) return text;
+  let prev;
+  do {
+    prev = text;
+    text = text.replace(/\[([^\]\n]+)\]\(([^()\n]*)\)/g, '$1');
+  } while (text !== prev);
+  return text;
+}
+
+// Snippet/inline plain-text cleaner: drop custom emojis, user mentions, masked
+// links, subtext markers, AND markdown bold / italic markers (they're shown as
+// raw asterisks in tooltips + the events table column). Spoilers are replaced
+// with a "[spoiler]" placeholder so previews don't leak hidden content. The
+// body renderer keeps spoiler / bold / italic markers — renderInline turns
+// them into the right DOM. Bold pattern runs first so ** isn't half-eaten
+// by the * pass.
+function cleanInlineText(text) {
+  if (!text) return text;
+  let s = stripCustomEmoji(text);
+  s = stripMentions(s);
+  s = stripLinks(s);
+  s = s.replace(SPOILER_RE, '[spoiler]');
+  // Subtext: drop the "-# " marker, keep the text (no way to render smaller
+  // in a plain-text preview).
+  s = s.replace(/^\s*-#\s+/gm, '');
+  s = s.replace(/\*\*([^*\n]+?)\*\*/g, '$1');
+  s = s.replace(/\*([^*\n]+?)\*/g, '$1');
+  return s.trim();
+}
+
+// Title cleaner: cleanInlineText + drop a single trailing colon
+// ("An Age of War:" → "An Age of War"). One colon only — "x::" is preserved
+// since it's almost always intentional emphasis.
+function cleanTitleText(text) {
+  let s = cleanInlineText(text);
+  if (s && s.endsWith(':')) s = s.slice(0, -1).trimEnd();
+  return s;
+}
+
 function renderInline(text, parent) {
-  // **bold** and *italic* only. Tokens are alternating non-marker / marker chunks.
-  const re = /(\*\*[^*\n]+\*\*|\*[^*\n]+\*)/g;
+  // Inline tokens: **bold**, *italic*, ||spoiler||. Tokens are alternating
+  // non-marker / marker chunks. Spoiler content is rendered recursively so
+  // nested **bold** inside ||...|| renders correctly when revealed.
+  const re = /(\*\*[^*\n]+\*\*|\*[^*\n]+\*|\|\|[^\n]+?\|\|)/g;
   let last = 0, m;
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
@@ -800,6 +924,12 @@ function renderInline(text, parent) {
       const b = document.createElement('strong');
       b.textContent = tok.slice(2, -2);
       parent.appendChild(b);
+    } else if (tok.startsWith('||')) {
+      const s = document.createElement('span');
+      s.className = 'spoiler';
+      // Recurse so the spoiler can still contain inline bold/italic.
+      renderInline(tok.slice(2, -2), s);
+      parent.appendChild(s);
     } else {
       const i = document.createElement('em');
       i.textContent = tok.slice(1, -1);
@@ -813,6 +943,13 @@ function renderInline(text, parent) {
 function renderMarkdown(text) {
   const frag = document.createDocumentFragment();
   if (!text) return frag;
+  // Pre-strip things that should never reach the renderer:
+  //   - Discord custom emojis (no client-side CDN access)
+  //   - Mentions (no airgapped name resolution)
+  //   - Masked links (display the visible title, drop the URL)
+  text = stripCustomEmoji(text);
+  text = stripMentions(text);
+  text = stripLinks(text);
   // Paragraph break on 2+ newlines.
   for (const block of text.split(/\n{2,}/)) {
     const lines = block.split('\n');
@@ -825,6 +962,14 @@ function renderMarkdown(text) {
         frag.appendChild(el);
         continue;
       }
+      const sub = line.match(/^\s*-#\s+(.+)$/);
+      if (sub) {
+        const p = document.createElement('p');
+        p.className = 'subtext';
+        renderInline(sub[1], p);
+        frag.appendChild(p);
+        continue;
+      }
     }
     const p = document.createElement('p');
     lines.forEach((line, i) => {
@@ -834,8 +979,18 @@ function renderMarkdown(text) {
         const el = document.createElement('h' + (h[1].length + 2));
         renderInline(h[2], el);
         frag.appendChild(el);
+        return;
+      }
+      if (i > 0) p.appendChild(document.createElement('br'));
+      const sub = line.match(/^\s*-#\s+(.+)$/);
+      if (sub) {
+        // Subtext line inside a multi-line paragraph — inline <small> so it
+        // mixes naturally with surrounding text in the same <p>.
+        const small = document.createElement('small');
+        small.className = 'subtext';
+        renderInline(sub[1], small);
+        p.appendChild(small);
       } else {
-        if (i > 0) p.appendChild(document.createElement('br'));
         renderInline(line, p);
       }
     });
@@ -845,17 +1000,23 @@ function renderMarkdown(text) {
 }
 
 function extractTitle(e) {
-  if (e.title) return e.title;
-  if (!e.fullText) return null;
-  for (const line of e.fullText.split('\n')) {
-    // Markdown heading: # / ## / ### Title
-    let m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
-    if (m) return m[1];
-    // Bold-only line: **Title** or *** Title *** (Discord-style title)
-    m = line.match(/^\s*\*{2,3}\s*([^*]+?)\s*\*{2,3}\s*$/);
-    if (m) return m[1].trim();
+  let raw = null;
+  if (e.title) {
+    raw = e.title;
+  } else if (e.fullText) {
+    for (const line of e.fullText.split('\n')) {
+      // Markdown heading: # / ## / ### Title
+      let m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
+      if (m) { raw = m[1]; break; }
+      // Bold-only line: **Title** or *** Title *** (Discord-style title)
+      m = line.match(/^\s*\*{2,3}\s*([^*]+?)\s*\*{2,3}\s*$/);
+      if (m) { raw = m[1].trim(); break; }
+    }
   }
-  return null;
+  // cleanTitleText handles custom emojis, residual markdown markers, and
+  // a single trailing colon ("An Age of War:" → "An Age of War").
+  const cleaned = cleanTitleText(raw);
+  return cleaned || null;
 }
 
 function renderBrowser() {
@@ -868,7 +1029,7 @@ function renderBrowser() {
 
     const tdDate = document.createElement('td');
     tdDate.className = 'col-date';
-    tdDate.textContent = e.date;
+    tdDate.textContent = formatEventDate(e.date);
     tr.appendChild(tdDate);
 
     const tdTag = document.createElement('td');
@@ -899,7 +1060,7 @@ function renderBrowser() {
 
     const tdSnip = document.createElement('td');
     tdSnip.className = 'col-snippet';
-    tdSnip.textContent = extractTitle(e) || e.snippet || '';
+    tdSnip.textContent = extractTitle(e) || cleanInlineText(e.snippet || '');
     tr.appendChild(tdSnip);
 
     tr.addEventListener('click', () => jumpToEvent(e));
@@ -1002,7 +1163,7 @@ function wirePanelToggles() {
 async function init() {
   try {
     const game = window.CAMPAIGN_GAME || 'eu4';
-    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData, tagsData, rawCountriesText] = await Promise.all([
+    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData, tagsData, rawCountriesText, manifestData] = await Promise.all([
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
@@ -1010,7 +1171,23 @@ async function init() {
       loadJSON('data/sessions.json').catch(() => ({ sessions: [] })),
       loadJSON(`../assets/reference/${game}/tags.json`).catch(() => ({})),
       fetch(`../assets/reference/${game}/00_countries.txt`).then(r => r.ok ? r.text() : '').catch(() => ''),
+      loadJSON('../campaigns.json').catch(() => null),
     ]);
+
+    // Find this campaign's entry in the root manifest (matched by folder name
+    // derived from the URL — e.g. /darthsunday/view.html → "darthsunday").
+    // Used to surface the discord_sync block (guild_id) so showEvent can
+    // build a `https://discord.com/channels/.../...` link to the original
+    // Discord post. Falls through silently for non-sync'd campaigns.
+    state.discordSync = null;
+    if (manifestData && Array.isArray(manifestData.campaigns)) {
+      const segments = location.pathname.split('/').filter(Boolean);
+      const folder = segments.length >= 2 ? segments[segments.length - 2] : null;
+      if (folder) {
+        const entry = manifestData.campaigns.find(c => c.folder === folder);
+        if (entry && entry.discord_sync) state.discordSync = entry.discord_sync;
+      }
+    }
 
     // Build tag → display name map. tags.json first (curated/canonical),
     // then 00_countries.txt fills in anything missing (EU4 — derive name from filename).

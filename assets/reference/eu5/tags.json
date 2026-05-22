@@ -1819,7 +1819,14 @@
   },
   "MOR": {
     "name": "Morocco",
-    "aliases": []
+    "aliases": [
+      "Morocco",
+      "Morroco",
+      "Maroc",
+      "Marrakesh",
+      "Marinid",
+      "Marinids"
+    ]
   },
   "FEZ": {
     "name": "Fez",
@@ -3795,7 +3802,13 @@
   },
   "TEU": {
     "name": "Teutons",
-    "aliases": []
+    "aliases": [
+      "Teutonic Order",
+      "Teutonic Knights",
+      "Teutonic",
+      "Teutons",
+      "Deutscher Orden"
+    ]
   },
   "SAX": {
     "name": "Saxony",
