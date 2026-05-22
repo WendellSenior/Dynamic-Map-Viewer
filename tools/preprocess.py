@@ -27,77 +27,32 @@ MONTH_NAMES = {
 CONTINUATION_WINDOW = timedelta(minutes=5)
 COUNTRY_CANDIDATE_RE = re.compile(r"^[A-Za-z][A-Za-z\s\-'’]{0,30}$")
 
-TAG_ALIASES = {
-    "WarDec":    ["wardec", "war", "warD", "declaration", "wardeclaration", "declare", "declarewar"],
-    "Battle":    ["battle", "fight", "siege", "combat", "engagement", "war battle"],
-    "Character": ["character", "person", "leader", "ruler", "monarch", "king", "queen",
-                  "death", "birth", "succession", "heir", "marriage"],
-    "Trade":     ["trade", "commerce", "merchant", "goods", "trade goods", "tradegoods"],
-    "Economy":   ["economy", "economic", "money", "income", "tax", "taxation",
-                  "debt", "finance", "wealth", "treasury", "coin"],
-    "Discover":  ["discover", "discovery", "exploration", "explore", "colony",
-                  "colonise", "colonize", "colonisation", "colonization", "expedition", "ship"],
-    "Treaty":    ["treaty", "peace", "alliance", "agreement", "pact", "royalmarriage"],
-    "Meeting":   ["meeting", "diplomacy", "diplo", "interaction", "council",
-                  "conference", "summit", "negotiation", "talks"],
-    "History":   ["history", "historical", "background", "lore", "narration",
-                  "general", "intro", "introduction", "context"],
-    "Religion":  ["religion", "religious", "faith", "prayer", "worship", "spiritual"],
-    "Catholic":  ["catholic", "christian", "christianity", "catholicism"],
-    "Muslim":    ["muslim", "islam", "islamic", "sunni", "shia", "shiite", "sufi"],
-    "Jewish":    ["jewish", "judaism", "jew", "hebrew"],
-    "Taoism":    ["taoism", "tao", "taoist", "yinyang", "yin yang", "yin-yang",
-                  "confucianism", "confucian"],
-    "Orthodox":  ["orthodox", "orthodoxy", "eastern orthodox"],
-    "Hindu":     ["hindu", "hinduism", "vedic", "vedanta"],
-    "Buddhism":  ["dharma", "dharmic", "buddhism", "buddhist", "zen",
-                  "theravada", "mahayana"],
-    # Civic / Justice
-    "Chaos":        ["chaos", "anarchy", "riot", "revolt", "rebellion",
-                     "unrest", "disorder"],
-    "Judge":        ["judge", "justice", "law", "court", "trial", "verdict",
-                     "ruling", "legal", "judicial", "judgment", "judgement"],
-    # Sport
-    "Duel":         ["duel", "dueling", "duelling", "fencing"],
-    "Joust":        ["joust", "jousting", "tournament", "tourney"],
-    # Geographic / Built
-    "Map":          ["map", "cartography", "atlas", "geography", "survey"],
-    "Architecture": ["architecture", "construction", "monument", "edifice",
-                     "building"],
-    # Placement / awards
-    "First":        ["first", "firstplace", "gold", "victory", "winner",
-                     "champion"],
-    "Second":       ["second", "secondplace", "silver", "runnerup"],
-    "Third":        ["third", "thirdplace", "bronze"],
-    # Arts
-    "Culture":      ["culture", "cultural", "theatre", "theater", "drama",
-                     "performance", "arts"],
-    "Painting":     ["painting", "painter", "paint", "art", "artwork",
-                     "fresco", "mural", "portrait"],
-    "Literature":   ["literature", "book", "books", "novel", "poetry",
-                     "poem", "poet", "writing"],
-    "Text":         ["text", "manuscript", "edict", "document", "decree",
-                     "letter", "correspondence", "charter", "proclamation"],
-    # Knowledge
-    "Secret":       ["secret", "espionage", "spy", "intrigue", "conspiracy",
-                     "covert", "plot"],
-    "Science":      ["science", "scientific", "research", "invention",
-                     "experiment", "scholar"],
-    "Medicine":     ["medicine", "medical", "doctor", "plague", "disease",
-                     "illness", "health", "pandemic", "epidemic", "pestilence"],
-    # Peoples / hazards
-    "Native":       ["native", "indigenous", "aboriginal", "tribal",
-                     "tribes", "tribe"],
-    "Warning":      ["warning", "alert", "danger", "caution", "ultimatum",
-                     "threat"],
-    "Nuclear":      ["nuclear", "nuke", "atomic", "radiation", "fallout"],
-    "Biohazard":    ["biohazard", "bioweapon", "contamination", "hazard",
-                     "contagion"],
-    "Pirate":       ["pirate", "piracy", "raider", "raid", "corsair",
-                     "buccaneer", "privateer"],
-    "Surrender":    ["surrender", "capitulation", "capitulate", "defeat",
-                     "yield", "ceasefire", "armistice"],
-}
+def _load_event_tags_registry():
+    """Load assets/event-tags.json as {canonical: [aliases]}.
+
+    Mirrors sync_events.py's helper of the same intent — keeps both pipelines
+    reading the same source of truth so an alias added in the registry
+    auto-propagates to the local + sync parsers + the viewer + the bracket
+    generator dropdown. Falls back to an empty dict on missing/malformed file
+    so preprocess.py still parses bracket headers, just without fuzzy aliases.
+    """
+    import os as _os
+    here = _os.path.dirname(_os.path.abspath(__file__))
+    path = _os.path.join(_os.path.dirname(here), "assets", "event-tags.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out = {}
+    for canonical, info in (data.get("tags") or {}).items():
+        if not isinstance(info, dict):
+            continue
+        out[canonical] = list(info.get("aliases") or [])
+    return out
+
+
+TAG_ALIASES = _load_event_tags_registry()
 TAG_LOOKUP = {}
 for _canonical, _aliases in TAG_ALIASES.items():
     TAG_LOOKUP[_canonical.lower()] = _canonical

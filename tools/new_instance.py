@@ -94,7 +94,7 @@ cd /d "%~dp0\\.."
 echo Starting local server at http://localhost:8000/
 echo Press Ctrl+C in this window to stop.
 echo.
-start "" http://localhost:8000/__FOLDER__/__EDITOR__.html
+start "" "http://localhost:8000/__EDITOR__.html?campaign=__FOLDER__"
 python -m http.server 8000
 """
 
@@ -237,14 +237,10 @@ def main():
     )
     (folder_path / "init.bat").write_text(init, encoding="utf-8")
 
-    # Editor tools: write the bat fresh per-campaign, copy the html from any
-    # existing campaign that has one (sessions.html / calibrate.html are
-    # game-agnostic, identical across campaigns).
-    template_src = next(
-        (c for c in sorted(repo_root.iterdir())
-         if c.is_dir() and c != folder_path and (c / "sessions.html").exists()),
-        None,
-    )
+    # Editor tools: just the per-campaign bat launcher. The HTMLs themselves
+    # live at the repo root (events.html / sessions.html / calibrate.html) and
+    # are shared across campaigns — the bat passes ?campaign=<folder> in the
+    # URL so the editor loads the right data/ directory.
     for editor in ("sessions", "calibrate", "events"):
         bat = (
             EDITOR_BAT_TEMPLATE
@@ -252,10 +248,6 @@ def main():
             .replace("__EDITOR__", editor)
         )
         (folder_path / f"{editor}.bat").write_text(bat, encoding="utf-8")
-        if template_src and (template_src / f"{editor}.html").exists():
-            shutil.copy(template_src / f"{editor}.html", folder_path / f"{editor}.html")
-    if template_src is None:
-        print("  (no template campaign found — sessions.html / calibrate.html not copied)")
 
     # Append to the hub manifest so the new campaign appears on index.html automatically.
     campaigns_file = repo_root / "campaigns.json"

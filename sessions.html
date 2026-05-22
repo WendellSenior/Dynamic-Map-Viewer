@@ -86,6 +86,15 @@
       status._t = setTimeout(() => { el.hidden = true; }, 4000);
     }
 
+    // Editor runs from the repo root and reads ?campaign=<folder> from the
+    // URL so it loads the right campaign's data/. Set by the per-campaign
+    // .bat launcher; bare 'sessions.html' with no campaign param shows an
+    // error UI further down.
+    const CAMPAIGN = new URLSearchParams(location.search).get('campaign') || '';
+    function dataPath(rel) {
+      return CAMPAIGN ? `${CAMPAIGN}/${rel}` : rel;
+    }
+
     async function fetchJSON(path) {
       const r = await fetch(path);
       if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
@@ -97,12 +106,19 @@
         document.body.innerHTML =
           '<p style="padding:24px;color:#700;font:14px/1.5 system-ui;">' +
           'Open via <code>sessions.bat</code> (or visit ' +
-          '<code>http://localhost:8000/sessions.html</code>). Browsers block ' +
-          '<code>fetch()</code> from <code>file://</code>.</p>';
+          '<code>http://localhost:8000/sessions.html?campaign=&lt;folder&gt;</code>). ' +
+          'Browsers block <code>fetch()</code> from <code>file://</code>.</p>';
+        return;
+      }
+      if (!CAMPAIGN) {
+        document.body.innerHTML =
+          '<p style="padding:24px;color:#700;font:14px/1.5 system-ui;">' +
+          'Missing <code>?campaign=&lt;folder&gt;</code> URL param. Open via ' +
+          'the per-campaign <code>sessions.bat</code> launcher.</p>';
         return;
       }
       try {
-        const data = await fetchJSON('data/sessions.json');
+        const data = await fetchJSON(dataPath('data/sessions.json'));
         state.sessions = (data.sessions || []).map(s => ({ ...s }));
       } catch {
         state.sessions = [];

@@ -34,6 +34,11 @@ on:
         description: 'Diagnostic: fetch a specific message and dump its raw content + regex match info. Paste a full Discord URL (.../channels/.../.../...) or channel_id:message_id. Leave blank for normal runs.'
         required: false
         default: ''
+      backfill_channel_ids:
+        description: 'One-shot: find the channel_id for any event missing one (older events that fell out of the event_meta cache). Walks all known threads + main channel. Commits when finished. No regular sync runs alongside this.'
+        type: boolean
+        required: false
+        default: false
 
 # Serialise runs so the every-10-min burst can't double-fire (e.g. one run
 # overruns its slot, the next slot fires while the first is still going).
@@ -69,7 +74,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Run Discord sync (single pass)
-        if: inputs.chunk_days == ''
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true
         id: sync
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -81,10 +86,28 @@ jobs:
         run: python tools/sync_events.py --campaign darthsunday
 
       - name: Commit and push (single pass)
-        if: inputs.chunk_days == '' && steps.sync.outputs.had_changes == 'true'
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && steps.sync.outputs.had_changes == 'true'
         run: |
           git add darthsunday/data/events.json darthsunday/data/processed_ids.json
           git commit -m "chore: sync Discord events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
+          git push
+
+      # One-shot channel_id backfill — walks the guild's threads + main channel
+      # trying to locate each events.json entry that's missing channel_id (older
+      # events that fell out of the event_meta cache). Pairs with the
+      # "View on Discord" link in the viewer.
+      - name: Backfill channel_ids
+        if: inputs.backfill_channel_ids == true
+        id: backfill
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        run: python tools/backfill_channel_ids.py --campaign darthsunday
+
+      - name: Commit and push (channel_id backfill)
+        if: inputs.backfill_channel_ids == true && steps.backfill.outputs.had_changes == 'true'
+        run: |
+          git add darthsunday/data/events.json
+          git commit -m "chore: backfill channel_ids on older events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
           git push
 
       # Chunked-backfill mode: walk from `since` to today in `chunk_days`
@@ -93,7 +116,7 @@ jobs:
       # usage small enough to avoid global rate-limit churn on large backfills,
       # and lands progress incrementally so a later failure doesn't lose work.
       - name: Run Discord sync (chunked backfill)
-        if: inputs.chunk_days != ''
+        if: inputs.chunk_days != '' && inputs.backfill_channel_ids != true
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SINCE: ${{ inputs.since }}

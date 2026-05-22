@@ -156,61 +156,11 @@
         </label>
         <label>
           Tag
+          <!-- Options populated dynamically from assets/event-tags.json by
+               the script block below. Single source of truth shared with the
+               viewer + both ingest pipelines. -->
           <select id="gen-tag">
             <option value="">(none)</option>
-            <optgroup label="General">
-              <option value="WarDec">🎺 WarDec</option>
-              <option value="Battle">⚔️ Battle</option>
-              <option value="Character">👤 Character</option>
-              <option value="Trade">📦 Trade</option>
-              <option value="Economy">💰 Economy</option>
-              <option value="Discover">🚢 Discover</option>
-              <option value="Treaty">📜 Treaty</option>
-              <option value="Meeting">🤝 Meeting</option>
-              <option value="History">⏳ History</option>
-            </optgroup>
-            <optgroup label="Religion">
-              <option value="Religion">🙏 Religion</option>
-              <option value="Catholic">✝️ Catholic</option>
-              <option value="Orthodox">☦️ Orthodox</option>
-              <option value="Muslim">☪️ Muslim</option>
-              <option value="Jewish">✡️ Jewish</option>
-              <option value="Hindu">🕉️ Hindu</option>
-              <option value="Buddhism">☸️ Buddhism</option>
-              <option value="Taoism">☯️ Taoism</option>
-            </optgroup>
-            <optgroup label="Civic">
-              <option value="Chaos">💥 Chaos</option>
-              <option value="Judge">⚖️ Judge</option>
-              <option value="Surrender">🏳️ Surrender</option>
-            </optgroup>
-            <optgroup label="Sport">
-              <option value="Duel">🤺 Duel</option>
-              <option value="Joust">🏇 Joust</option>
-            </optgroup>
-            <optgroup label="Awards">
-              <option value="First">🥇 First</option>
-              <option value="Second">🥈 Second</option>
-              <option value="Third">🥉 Third</option>
-            </optgroup>
-            <optgroup label="Arts &amp; Knowledge">
-              <option value="Map">🗺️ Map</option>
-              <option value="Architecture">🏛️ Architecture</option>
-              <option value="Culture">🎭 Culture</option>
-              <option value="Painting">🎨 Painting</option>
-              <option value="Literature">📚 Literature</option>
-              <option value="Text">✒️ Text</option>
-              <option value="Science">🔬 Science</option>
-              <option value="Medicine">💊 Medicine</option>
-            </optgroup>
-            <optgroup label="Peoples &amp; Hazards">
-              <option value="Native">🗿 Native</option>
-              <option value="Secret">💼 Secret</option>
-              <option value="Warning">⚠️ Warning</option>
-              <option value="Nuclear">☢️ Nuclear</option>
-              <option value="Biohazard">☣️ Biohazard</option>
-              <option value="Pirate">🏴‍☠️ Pirate</option>
-            </optgroup>
           </select>
         </label>
       </div>
@@ -325,7 +275,7 @@
       }
     })();
 
-    function setupTagGenerator(campaigns, games) {
+    async function setupTagGenerator(campaigns, games) {
       const gameSel = document.getElementById('gen-game');
       const dateEl  = document.getElementById('gen-date');
       const cntEl   = document.getElementById('gen-country');
@@ -334,6 +284,35 @@
       const outEl   = document.getElementById('gen-output');
       const copyBtn = document.getElementById('gen-copy');
       const listEl  = document.getElementById('country-list');
+
+      // Populate the tag <select> from the shared event-tags.json registry.
+      // Groups are emitted in the order specified by `groupOrder` so the
+      // dropdown layout stays stable (General/Religion/Civic/...).
+      try {
+        const reg = await fetch('assets/event-tags.json').then(r => r.json());
+        const tags = reg.tags || {};
+        const order = reg.groupOrder || [];
+        const byGroup = new Map(order.map(g => [g, []]));
+        for (const [canon, info] of Object.entries(tags)) {
+          const g = info.group || 'Other';
+          if (!byGroup.has(g)) byGroup.set(g, []);
+          byGroup.get(g).push({ canon, icon: info.icon || '' });
+        }
+        for (const [groupName, entries] of byGroup) {
+          if (!entries.length) continue;
+          const og = document.createElement('optgroup');
+          og.label = groupName;
+          for (const { canon, icon } of entries) {
+            const opt = document.createElement('option');
+            opt.value = canon;
+            opt.textContent = (icon ? icon + ' ' : '') + canon;
+            og.appendChild(opt);
+          }
+          tagEl.appendChild(og);
+        }
+      } catch (err) {
+        console.warn('Tag generator: failed to load event-tags.json', err);
+      }
 
       const GAME_START_DATES = {
         eu4: '1444-11-11',

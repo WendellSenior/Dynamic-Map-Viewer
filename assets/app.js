@@ -22,56 +22,11 @@ const SLIDER_RES = 1000;
 const MAX_SCALE = 8;
 const MAX_DOTS_UNFILTERED = 200;  // cap when filter === 'all' to keep rendering fast on huge campaigns
 
-const TAG_ICONS = {
-  // General
-  WarDec: '🎺',
-  Battle: '⚔️',
-  Character: '👤',
-  Trade: '📦',
-  Economy: '💰',
-  Discover: '🚢',
-  Treaty: '📜',
-  Meeting: '🤝',
-  History: '⏳',
-  // Religion
-  Religion: '🙏',
-  Catholic: '✝️',
-  Muslim: '☪️',
-  Jewish: '✡️',
-  Taoism: '☯️',
-  Orthodox: '☦️',
-  Hindu: '🕉️',
-  Buddhism: '☸️',
-  // Civic / Justice
-  Chaos: '💥',
-  Judge: '⚖️',
-  // Sport
-  Duel: '🤺',
-  Joust: '🏇',
-  // Geographic / Built
-  Map: '🗺️',
-  Architecture: '🏛️',
-  // Placement / awards
-  First: '🥇',
-  Second: '🥈',
-  Third: '🥉',
-  // Arts
-  Culture: '🎭',
-  Painting: '🎨',
-  Literature: '📚',
-  Text: '✒️',
-  // Knowledge
-  Secret: '💼',
-  Science: '🔬',
-  Medicine: '💊',
-  // Peoples / hazards
-  Native: '🗿',
-  Warning: '⚠️',
-  Nuclear: '☢️',
-  Biohazard: '☣️',
-  Pirate: '🏴‍☠️',
-  Surrender: '🏳️',
-};
+// Tag → emoji map. Populated from `assets/event-tags.json` on init so the
+// canonical list lives in one place. Stays as a const reference, filled by
+// loadEventTags() before render() is called. Falls back to '' for unknown
+// tags so a missing icon never errors.
+const TAG_ICONS = Object.create(null);
 
 async function loadJSON(path) {
   const r = await fetch(path);
@@ -1169,7 +1124,7 @@ function wirePanelToggles() {
 async function init() {
   try {
     const game = window.CAMPAIGN_GAME || 'eu4';
-    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData, tagsData, rawCountriesText, manifestData] = await Promise.all([
+    const [eventsData, snapshotsData, coordsData, provincesData, sessionsData, tagsData, rawCountriesText, manifestData, eventTagsData] = await Promise.all([
       loadJSON('data/events.json'),
       loadJSON('data/snapshots.json'),
       loadJSON('data/coords.json'),
@@ -1178,7 +1133,15 @@ async function init() {
       loadJSON(`../assets/reference/${game}/tags.json`).catch(() => ({})),
       fetch(`../assets/reference/${game}/00_countries.txt`).then(r => r.ok ? r.text() : '').catch(() => ''),
       loadJSON('../campaigns.json').catch(() => null),
+      loadJSON('../assets/event-tags.json').catch(() => null),
     ]);
+
+    // Populate TAG_ICONS from the shared event-tags.json registry.
+    if (eventTagsData && eventTagsData.tags) {
+      for (const [canon, info] of Object.entries(eventTagsData.tags)) {
+        if (info && info.icon) TAG_ICONS[canon] = info.icon;
+      }
+    }
 
     // Find this campaign's entry in the root manifest (matched by folder name
     // derived from the URL — e.g. /darthsunday/view.html → "darthsunday").

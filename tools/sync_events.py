@@ -46,176 +46,36 @@ HEADERS = {
     "Content-Type":  "application/json",
 }
 
-VALID_TAGS = {
-    # General
-    "wardec":         "WarDec",
-    "battle":         "Battle",
-    "character":      "Character",
-    "trade":          "Trade",
-    "economy":        "Economy",
-    "discover":       "Discover",
-    "treaty":         "Treaty",
-    "meeting":        "Meeting",
-    "interaction":    "Meeting",
-    "diplomacy":      "Meeting",
-    "history":        "History",
-    # Religion (base + specific)
-    "religion":       "Religion",
-    "catholic":       "Catholic",
-    "muslim":         "Muslim",
-    "jewish":         "Jewish",
-    "hindu":          "Hindu",
-    "buddhism":       "Buddhism",
-    "orthodox":       "Orthodox",
-    "taoism":         "Taoism",
-    # Civic / Justice
-    "chaos":          "Chaos",
-    "anarchy":        "Chaos",
-    "riot":           "Chaos",
-    "revolt":         "Chaos",
-    "rebellion":      "Chaos",
-    "unrest":         "Chaos",
-    "disorder":       "Chaos",
-    "judge":          "Judge",
-    "justice":        "Judge",
-    "law":            "Judge",
-    "court":          "Judge",
-    "trial":          "Judge",
-    "verdict":        "Judge",
-    "ruling":         "Judge",
-    "legal":          "Judge",
-    "judicial":       "Judge",
-    "judgment":       "Judge",
-    "judgement":      "Judge",
-    # Sport
-    "duel":           "Duel",
-    "dueling":        "Duel",
-    "duelling":       "Duel",
-    "fencing":        "Duel",
-    "joust":          "Joust",
-    "jousting":       "Joust",
-    "tournament":     "Joust",
-    "tourney":        "Joust",
-    # Geographic / Built
-    "map":            "Map",
-    "cartography":    "Map",
-    "atlas":          "Map",
-    "geography":      "Map",
-    "survey":         "Map",
-    "architecture":   "Architecture",
-    "construction":   "Architecture",
-    "monument":       "Architecture",
-    "edifice":        "Architecture",
-    "building":       "Architecture",
-    # Placement / awards
-    "first":          "First",
-    "firstplace":     "First",
-    "gold":           "First",
-    "victory":        "First",
-    "winner":         "First",
-    "champion":       "First",
-    "second":         "Second",
-    "secondplace":    "Second",
-    "silver":         "Second",
-    "runnerup":       "Second",
-    "third":          "Third",
-    "thirdplace":     "Third",
-    "bronze":         "Third",
-    # Arts
-    "culture":        "Culture",
-    "cultural":       "Culture",
-    "theatre":        "Culture",
-    "theater":        "Culture",
-    "drama":          "Culture",
-    "performance":    "Culture",
-    "arts":           "Culture",
-    "painting":       "Painting",
-    "painter":        "Painting",
-    "paint":          "Painting",
-    "art":            "Painting",
-    "artwork":        "Painting",
-    "fresco":         "Painting",
-    "mural":          "Painting",
-    "portrait":       "Painting",
-    "literature":     "Literature",
-    "book":           "Literature",
-    "books":          "Literature",
-    "novel":          "Literature",
-    "poetry":         "Literature",
-    "poem":           "Literature",
-    "poet":           "Literature",
-    "writing":        "Literature",
-    "text":           "Text",
-    "manuscript":     "Text",
-    "edict":          "Text",
-    "document":       "Text",
-    "decree":         "Text",
-    "letter":         "Text",
-    "correspondence": "Text",
-    "charter":        "Text",
-    "proclamation":   "Text",
-    # Knowledge
-    "secret":         "Secret",
-    "espionage":      "Secret",
-    "spy":            "Secret",
-    "intrigue":       "Secret",
-    "conspiracy":     "Secret",
-    "covert":         "Secret",
-    "plot":           "Secret",
-    "science":        "Science",
-    "scientific":     "Science",
-    "research":       "Science",
-    "invention":      "Science",
-    "experiment":     "Science",
-    "scholar":        "Science",
-    "medicine":       "Medicine",
-    "medical":        "Medicine",
-    "doctor":         "Medicine",
-    "plague":         "Medicine",
-    "disease":        "Medicine",
-    "illness":        "Medicine",
-    "health":         "Medicine",
-    "pandemic":       "Medicine",
-    "epidemic":       "Medicine",
-    "pestilence":     "Medicine",
-    # Peoples / hazards
-    "native":         "Native",
-    "indigenous":     "Native",
-    "aboriginal":     "Native",
-    "tribal":         "Native",
-    "tribes":         "Native",
-    "tribe":          "Native",
-    "warning":        "Warning",
-    "alert":          "Warning",
-    "danger":         "Warning",
-    "caution":        "Warning",
-    "ultimatum":      "Warning",
-    "threat":         "Warning",
-    "nuclear":        "Nuclear",
-    "nuke":           "Nuclear",
-    "atomic":         "Nuclear",
-    "radiation":      "Nuclear",
-    "fallout":        "Nuclear",
-    "biohazard":      "Biohazard",
-    "bioweapon":      "Biohazard",
-    "contamination":  "Biohazard",
-    "hazard":         "Biohazard",
-    "contagion":      "Biohazard",
-    "pirate":         "Pirate",
-    "piracy":         "Pirate",
-    "raider":         "Pirate",
-    "raid":           "Pirate",
-    "corsair":        "Pirate",
-    "buccaneer":      "Pirate",
-    "privateer":      "Pirate",
-    "surrender":      "Surrender",
-    "capitulation":   "Surrender",
-    "capitulate":     "Surrender",
-    "defeat":         "Surrender",
-    "yield":          "Surrender",
-    "ceasefire":      "Surrender",
-    "armistice":      "Surrender",
-}
+def _load_event_tags_registry():
+    """Read the shared assets/event-tags.json registry and return a flat
+    alias→canonical map (lowercase keys). Canonical names are also added as
+    their own aliases so case-insensitive matches still resolve.
+
+    Single source of truth for tag definitions across the project — keeps the
+    sync's strict parser in lockstep with the viewer, preprocess.py, and the
+    bracket-generator dropdown."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    registry_path = os.path.join(os.path.dirname(here), "assets", "event-tags.json")
+    try:
+        with open(registry_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out = {}
+    for canonical, info in (data.get("tags") or {}).items():
+        if not isinstance(info, dict):
+            continue
+        out[canonical.lower()] = canonical
+        for alias in (info.get("aliases") or []):
+            if alias:
+                out[alias.lower()] = canonical
+    return out
+
+
+VALID_TAGS = _load_event_tags_registry()
+if not VALID_TAGS:
+    sys.exit("ERROR: failed to load assets/event-tags.json — tag parsing would silently reject every post.")
+
 
 TAG_RE = re.compile(
     r"\[Date:\s*(\d{4}-\d{2}-\d{2})\s*\]"

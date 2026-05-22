@@ -159,6 +159,13 @@
       status._t = setTimeout(() => { el.hidden = true; }, 4000);
     }
 
+    // Editor runs from repo root; ?campaign=<folder> selects which campaign's
+    // data/ to read + write. Set by the per-campaign .bat launcher.
+    const CAMPAIGN = new URLSearchParams(location.search).get('campaign') || '';
+    function dataPath(rel) {
+      return CAMPAIGN ? `${CAMPAIGN}/${rel}` : rel;
+    }
+
     async function fetchJSON(path) {
       const r = await fetch(path);
       if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
@@ -170,32 +177,37 @@
         showError(
           'Opened via file:// — browsers block fetch() from disk.\n\n' +
           'Run calibrate.bat (or `python -m http.server 8000`) from the project root,\n' +
-          'then visit http://localhost:8000/calibrate.html'
+          'then visit http://localhost:8000/calibrate.html?campaign=<folder>'
         );
+        return;
+      }
+      if (!CAMPAIGN) {
+        showError('Missing ?campaign=<folder> URL param. Open via the per-campaign calibrate.bat launcher.');
         return;
       }
 
       let snapshots;
-      try { snapshots = await fetchJSON('data/snapshots.json'); }
-      catch (err) { showError(`Could not load data/snapshots.json: ${err.message}`); return; }
+      try { snapshots = await fetchJSON(dataPath('data/snapshots.json')); }
+      catch (err) { showError(`Could not load ${dataPath('data/snapshots.json')}: ${err.message}`); return; }
 
       const snap = (snapshots.snapshots || [])[0];
-      if (!snap) { showError('No entries in data/snapshots.json.'); return; }
+      if (!snap) { showError(`No entries in ${dataPath('data/snapshots.json')}.`); return; }
 
       const img = document.getElementById('map-image');
-      img.src = snap.image;
+      // Snapshot image paths in snapshots.json are also campaign-relative.
+      img.src = snap.image && !/^https?:|^\//.test(snap.image) ? dataPath(snap.image) : snap.image;
       try { await img.decode(); } catch {}
       img.style.width = img.naturalWidth + 'px';
       img.style.height = img.naturalHeight + 'px';
       document.getElementById('dims').textContent = `${img.naturalWidth} × ${img.naturalHeight}`;
 
-      try { state.currentCoords = await fetchJSON('data/coords.json'); }
+      try { state.currentCoords = await fetchJSON(dataPath('data/coords.json')); }
       catch { state.currentCoords = { countries: {}, provinces: {} }; }
       state.currentCoords.countries ||= {};
       state.currentCoords.provinces ||= {};
 
       try {
-        const data = await fetchJSON('data/events.json');
+        const data = await fetchJSON(dataPath('data/events.json'));
         state.events = data.events || [];
       } catch { state.events = []; }
 

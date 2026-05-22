@@ -170,39 +170,49 @@
       return r.json();
     }
 
+    // Editor runs from repo root; ?campaign=<folder> URL param picks which
+    // campaign's data to load. Per-campaign events.bat passes this.
+    const CAMPAIGN = new URLSearchParams(location.search).get('campaign') || '';
+    function dataPath(rel) {
+      return CAMPAIGN ? `${CAMPAIGN}/${rel}` : rel;
+    }
+
     async function init() {
+      if (location.protocol === 'file:') {
+        document.body.innerHTML = '<p style="padding:24px;color:#700;">Open via the .bat launcher or http://localhost:8000/events.html?campaign=&lt;folder&gt; — fetch() needs HTTP.</p>';
+        return;
+      }
+      if (!CAMPAIGN) {
+        document.body.innerHTML = '<p style="padding:24px;color:#700;">Missing <code>?campaign=&lt;folder&gt;</code> URL param. Open via the per-campaign events.bat launcher.</p>';
+        return;
+      }
+
       // Show the expected save path in the banner.
-      const parts = location.pathname.split('/').filter(Boolean);
-      const campaign = parts.length >= 2 ? parts[parts.length - 2] : '(campaign)';
       const target = document.getElementById('save-target');
-      if (target) target.textContent = `${campaign}/data/overrides.json`;
+      if (target) target.textContent = `${CAMPAIGN}/data/overrides.json`;
 
       // Detect GH-Actions Discord sync — if this campaign has discord_sync.enabled
       // in campaigns.json, edits made here won't apply (sync overwrites events.json).
       try {
-        const r = await fetch('../campaigns.json');
+        const r = await fetch('campaigns.json');
         if (r.ok) {
           const manifest = await r.json();
-          const me = (manifest.campaigns || []).find(c => c.folder === campaign);
+          const me = (manifest.campaigns || []).find(c => c.folder === CAMPAIGN);
           if (me && (me.discord_sync || {}).enabled) {
             document.getElementById('sync-banner').hidden = false;
           }
         }
       } catch {}
 
-      if (location.protocol === 'file:') {
-        document.body.innerHTML = '<p style="padding:24px;color:#700;">Open via the .bat launcher or http://localhost:8000/.../events.html — fetch() needs HTTP.</p>';
-        return;
-      }
       try {
-        const ev = await fetchJSON('data/events.json');
+        const ev = await fetchJSON(dataPath('data/events.json'));
         state.events = ev.events || [];
       } catch { state.events = []; }
       try {
-        state.untagged = await fetchJSON('data/untagged.json');
+        state.untagged = await fetchJSON(dataPath('data/untagged.json'));
       } catch { state.untagged = []; }
       try {
-        state.overrides = await fetchJSON('data/overrides.json');
+        state.overrides = await fetchJSON(dataPath('data/overrides.json'));
       } catch { state.overrides = {}; }
       state.original = JSON.parse(JSON.stringify(state.overrides));
 

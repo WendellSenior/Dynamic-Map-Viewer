@@ -1,0 +1,56 @@
+{
+  "_comment": "Single source of truth for event tag definitions. Used by app.js (TAG_ICONS for map dots + table icons), tools/preprocess.py (TAG_ALIASES for the local pipeline's fuzzy parser), tools/sync_events.py (VALID_TAGS for the GH-Actions sync's strict parser), and index.html (bracket generator dropdown). Add/edit tags here; the consumers all read at load/run time.",
+  "_schema": {
+    "icon":    "Emoji shown on the map pin and events table.",
+    "group":   "Optgroup label in the bracket generator dropdown.",
+    "aliases": "Case-insensitive forms players might write in `[Tag:...]`. The canonical name itself is always also accepted, so don't list it here."
+  },
+  "tags": {
+    "WarDec":       { "icon": "🎺", "group": "General", "aliases": ["war", "warD", "declaration", "wardeclaration", "declare", "declarewar"] },
+    "Battle":       { "icon": "⚔️", "group": "General", "aliases": ["fight", "siege", "combat", "engagement", "war battle"] },
+    "Character":    { "icon": "👤", "group": "General", "aliases": ["person", "leader", "ruler", "monarch", "king", "queen", "death", "birth", "succession", "heir", "marriage"] },
+    "Trade":        { "icon": "📦", "group": "General", "aliases": ["commerce", "merchant", "goods", "trade goods", "tradegoods"] },
+    "Economy":      { "icon": "💰", "group": "General", "aliases": ["economic", "money", "income", "tax", "taxation", "debt", "finance", "wealth", "treasury", "coin"] },
+    "Discover":     { "icon": "🚢", "group": "General", "aliases": ["discovery", "exploration", "explore", "colony", "colonise", "colonize", "colonisation", "colonization", "expedition", "ship"] },
+    "Treaty":       { "icon": "📜", "group": "General", "aliases": ["peace", "alliance", "agreement", "pact", "royalmarriage"] },
+    "Meeting":      { "icon": "🤝", "group": "General", "aliases": ["diplomacy", "diplo", "interaction", "council", "conference", "summit", "negotiation", "talks"] },
+    "History":      { "icon": "⏳", "group": "General", "aliases": ["historical", "background", "lore", "narration", "general", "intro", "introduction", "context"] },
+
+    "Religion":     { "icon": "🙏",  "group": "Religion", "aliases": ["religious", "faith", "prayer", "worship", "spiritual"] },
+    "Catholic":     { "icon": "✝️", "group": "Religion", "aliases": ["christian", "christianity", "catholicism"] },
+    "Orthodox":     { "icon": "☦️", "group": "Religion", "aliases": ["orthodoxy", "eastern orthodox"] },
+    "Muslim":       { "icon": "☪️", "group": "Religion", "aliases": ["islam", "islamic", "sunni", "shia", "shiite", "sufi"] },
+    "Jewish":       { "icon": "✡️", "group": "Religion", "aliases": ["judaism", "jew", "hebrew"] },
+    "Hindu":        { "icon": "🕉️", "group": "Religion", "aliases": ["hinduism", "vedic", "vedanta"] },
+    "Buddhism":     { "icon": "☸️", "group": "Religion", "aliases": ["dharma", "dharmic", "buddhist", "zen", "theravada", "mahayana"] },
+    "Taoism":       { "icon": "☯️", "group": "Religion", "aliases": ["tao", "taoist", "yinyang", "yin yang", "yin-yang", "confucianism", "confucian"] },
+
+    "Chaos":        { "icon": "💥", "group": "Civic",   "aliases": ["anarchy", "riot", "revolt", "rebellion", "unrest", "disorder"] },
+    "Judge":        { "icon": "⚖️", "group": "Civic",   "aliases": ["justice", "law", "court", "trial", "verdict", "ruling", "legal", "judicial", "judgment", "judgement"] },
+    "Surrender":    { "icon": "🏳️", "group": "Civic",   "aliases": ["capitulation", "capitulate", "defeat", "yield", "ceasefire", "armistice"] },
+
+    "Duel":         { "icon": "🤺", "group": "Sport",   "aliases": ["dueling", "duelling", "fencing"] },
+    "Joust":        { "icon": "🏇", "group": "Sport",   "aliases": ["jousting", "tournament", "tourney"] },
+
+    "First":        { "icon": "🥇", "group": "Awards",  "aliases": ["firstplace", "gold", "victory", "winner", "champion"] },
+    "Second":       { "icon": "🥈", "group": "Awards",  "aliases": ["secondplace", "silver", "runnerup"] },
+    "Third":        { "icon": "🥉", "group": "Awards",  "aliases": ["thirdplace", "bronze"] },
+
+    "Map":          { "icon": "🗺️", "group": "Arts & Knowledge", "aliases": ["cartography", "atlas", "geography", "survey"] },
+    "Architecture": { "icon": "🏛️", "group": "Arts & Knowledge", "aliases": ["construction", "monument", "edifice", "building"] },
+    "Culture":      { "icon": "🎭", "group": "Arts & Knowledge", "aliases": ["cultural", "theatre", "theater", "drama", "performance", "arts"] },
+    "Painting":     { "icon": "🎨", "group": "Arts & Knowledge", "aliases": ["painter", "paint", "art", "artwork", "fresco", "mural", "portrait"] },
+    "Literature":   { "icon": "📚", "group": "Arts & Knowledge", "aliases": ["book", "books", "novel", "poetry", "poem", "poet", "writing"] },
+    "Text":         { "icon": "✒️", "group": "Arts & Knowledge", "aliases": ["manuscript", "edict", "document", "decree", "letter", "correspondence", "charter", "proclamation"] },
+    "Science":      { "icon": "🔬", "group": "Arts & Knowledge", "aliases": ["scientific", "research", "invention", "experiment", "scholar"] },
+    "Medicine":     { "icon": "💊", "group": "Arts & Knowledge", "aliases": ["medical", "doctor", "plague", "disease", "illness", "health", "pandemic", "epidemic", "pestilence"] },
+
+    "Native":       { "icon": "🗿",   "group": "Peoples & Hazards", "aliases": ["indigenous", "aboriginal", "tribal", "tribes", "tribe"] },
+    "Secret":       { "icon": "💼",   "group": "Peoples & Hazards", "aliases": ["espionage", "spy", "intrigue", "conspiracy", "covert", "plot"] },
+    "Warning":      { "icon": "⚠️",   "group": "Peoples & Hazards", "aliases": ["alert", "danger", "caution", "ultimatum", "threat"] },
+    "Nuclear":      { "icon": "☢️",   "group": "Peoples & Hazards", "aliases": ["nuke", "atomic", "radiation", "fallout"] },
+    "Biohazard":    { "icon": "☣️",   "group": "Peoples & Hazards", "aliases": ["bioweapon", "contamination", "hazard", "contagion"] },
+    "Pirate":       { "icon": "🏴‍☠️", "group": "Peoples & Hazards", "aliases": ["piracy", "raider", "raid", "corsair", "buccaneer", "privateer"] }
+  },
+  "groupOrder": ["General", "Religion", "Civic", "Sport", "Awards", "Arts & Knowledge", "Peoples & Hazards"]
+}
