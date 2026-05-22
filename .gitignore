@@ -6,6 +6,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Per-machine Claude Code config (settings, permission allowlists, etc.).
+# Dev-tool state, not project source — and contains per-user preferences.
+.claude/
+
 # Local Discord exports — large, contain personal usernames, CDN URLs expire in ~24h.
 # Keep them out of the repo even with --media (the _Files/ siblings can be huge).
 **/data/discord/*
