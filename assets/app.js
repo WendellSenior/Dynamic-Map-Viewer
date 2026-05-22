@@ -425,7 +425,10 @@ function renderTimelineMarks() {
 function showEvent(e) {
   const panel = document.getElementById('event-panel');
   const place = [countryDisplay(e.country, e.countryRaw), e.province].filter(Boolean).join(' / ');
-  panel.innerHTML = '';
+  // Clear panel content but preserve the injected .panel-toggle button.
+  for (const child of [...panel.children]) {
+    if (!child.classList.contains('panel-toggle')) child.remove();
+  }
 
   const header = document.createElement('div');
   header.className = 'event-header';
@@ -649,6 +652,70 @@ function wireTabs() {
   }
 }
 
+// Inject a small button into each collapsible panel and wire toggle behaviour.
+// Persists state across reloads via localStorage so e.g. opening calibrate then
+// returning to the viewer doesn't reset preferred layout.
+function wirePanelToggles() {
+  function makeToggle(panel, key, expandedGlyph, collapsedGlyph, expandedTitle, collapsedTitle) {
+    const btn = document.createElement('button');
+    btn.className = 'panel-toggle';
+    btn.type = 'button';
+    panel.appendChild(btn);
+
+    function apply(collapsed) {
+      panel.classList.toggle('collapsed', collapsed);
+      btn.textContent = collapsed ? collapsedGlyph : expandedGlyph;
+      btn.title = collapsed ? collapsedTitle : expandedTitle;
+      btn.setAttribute('aria-expanded', String(!collapsed));
+    }
+
+    const initial = localStorage.getItem(key) === '1';
+    apply(initial);
+
+    btn.addEventListener('click', () => {
+      const nowCollapsed = !panel.classList.contains('collapsed');
+      localStorage.setItem(key, nowCollapsed ? '1' : '0');
+      apply(nowCollapsed);
+    });
+    return btn;
+  }
+
+  // Right event panel — button lives inside the panel itself (top-right when
+  // expanded, vertically centred in the rail when collapsed — CSS handles both).
+  const eventPanel = document.getElementById('event-panel');
+  if (eventPanel) {
+    makeToggle(eventPanel, 'dmv:eventPanelCollapsed',
+               '›', '‹',
+               'Hide event panel', 'Show event panel');
+  }
+
+  // Bottom browser — button lives in the .tabs strip so it stays visible
+  // even when the tab-panel content is hidden.
+  const browser = document.getElementById('browser');
+  if (browser) {
+    const tabs = browser.querySelector('.tabs');
+    if (tabs) {
+      const btn = document.createElement('button');
+      btn.className = 'panel-toggle';
+      btn.type = 'button';
+      tabs.appendChild(btn);
+
+      function applyBrowser(collapsed) {
+        browser.classList.toggle('collapsed', collapsed);
+        btn.textContent = collapsed ? '▴' : '▾';
+        btn.title = collapsed ? 'Show events list' : 'Hide events list';
+        btn.setAttribute('aria-expanded', String(!collapsed));
+      }
+      applyBrowser(localStorage.getItem('dmv:browserCollapsed') === '1');
+      btn.addEventListener('click', () => {
+        const nowCollapsed = !browser.classList.contains('collapsed');
+        localStorage.setItem('dmv:browserCollapsed', nowCollapsed ? '1' : '0');
+        applyBrowser(nowCollapsed);
+      });
+    }
+  }
+}
+
 async function init() {
   try {
     const game = window.CAMPAIGN_GAME || 'eu4';
@@ -787,6 +854,7 @@ async function init() {
     renderTimelineMarks();
     renderBrowser();
     wireTabs();
+    wirePanelToggles();
     wireMapInteractions();
     preloadSnapshots();
     render();

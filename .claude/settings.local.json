@@ -53,7 +53,8 @@
       "Bash(grep -v \"data/reference/eu5/aliases\\\\|data/reference/eu4/aliases\\\\|/data/reference/\\\\${game}/\")",
       "Bash(ls \"/c/Program Files \\(x86\\)/Steam/steamapps/common/Europa Universalis V/\" 2>/dev/null | head -20; echo \"---\"; find \"/c/Program Files \\(x86\\)/Steam/steamapps/common\" -maxdepth 2 -iname \"*Europa*\" 2>/dev/null | head)",
       "Bash(python tools/parse_eu5_reference.py)",
-      "Bash(python -c \"import ast; ast.parse\\(open\\('tools/parse_eu5_reference.py', encoding='utf-8'\\).read\\(\\)\\); print\\('parser syntax OK'\\)\")"
+      "Bash(python -c \"import ast; ast.parse\\(open\\('tools/parse_eu5_reference.py', encoding='utf-8'\\).read\\(\\)\\); print\\('parser syntax OK'\\)\")",
+      "Bash(node --check assets/app.js)"
     ]
   }
 }

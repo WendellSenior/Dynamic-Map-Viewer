@@ -59,14 +59,46 @@ main {
   display: flex;
   flex-direction: column;
   background: #fff;
+  position: relative;
+  transition: height 0.15s ease;
 }
+#browser.collapsed { height: 32px; }
+#browser.collapsed .tab-panel { display: none; }
 
 .tabs {
   display: flex;
+  align-items: center;
   gap: 2px;
   padding: 6px 10px 0;
   background: #f7f7f7;
   border-bottom: 1px solid #e3e3e3;
+}
+
+/* Hide / show button for the right event panel and bottom events list. */
+.panel-toggle {
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+}
+.panel-toggle:hover { color: #111; border-color: #999; background: #f4f6fb; }
+
+#browser .panel-toggle {
+  margin-left: auto;
+  margin-bottom: 6px;
+  margin-right: 2px;
 }
 .tab {
   background: transparent;
@@ -194,8 +226,27 @@ main {
   width: 320px;
   flex-shrink: 0;
   border-left: 1px solid #e3e3e3;
-  padding: 16px;
+  /* extra top-right padding reserves space for the absolute-positioned .panel-toggle */
+  padding: 16px 38px 16px 16px;
   overflow-y: auto;
+  position: relative;
+  transition: width 0.15s ease, padding 0.15s ease;
+}
+#event-panel.collapsed {
+  width: 28px;
+  padding: 6px 2px;
+  overflow: hidden;
+}
+#event-panel.collapsed > *:not(.panel-toggle) { display: none; }
+
+#event-panel .panel-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+#event-panel.collapsed .panel-toggle {
+  position: static;
+  margin: 0 auto;
 }
 
 #event-panel h2 { margin: 0 0 4px; font-size: 16px; }
