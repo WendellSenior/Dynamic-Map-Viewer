@@ -378,9 +378,18 @@ def _has_plausible_parent(msg_id, channel_id, events_data, event_meta):
 def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta,
                                   *, extra_match=None):
     """Walk new_events (newest first) then events.json (newest first) looking
-    for an event by the same author in the same channel posted within
-    CONTINUATION_WINDOW of `msg`. Optionally also requires `extra_match(ev)`
-    to return True. Returns the matched event dict, or None.
+    for an event by the same author in the same channel posted **before**
+    `msg` and within CONTINUATION_WINDOW of it. Optionally also requires
+    `extra_match(ev)` to return True. Returns the matched event dict, or
+    None.
+
+    Note both bounds: the candidate must satisfy `cutoff <= ev_ts < msg_ts`.
+    The upper bound matters in reconcile/backfill paths where events_data
+    holds events from across all time; without it, a same-author event
+    posted hours/days AFTER the rejected message could spuriously match
+    (since reversed(events_data) walks newest-first). The scan-loop path
+    happened to work without the upper bound because messages are processed
+    chronologically, so future events simply weren't in new_events yet.
 
     Shared by both merge paths: continuation (header-less follow-up) and
     repeat-header (length-split posts where the author re-pasted the brackets
@@ -400,9 +409,11 @@ def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta
         if _event_channel_id(ev, event_meta) != ch_id:
             return False
         try:
-            if snowflake_to_dt(ev["id"]) < cutoff:
-                return False
+            ev_ts = snowflake_to_dt(ev["id"])
         except (ValueError, TypeError):
+            return False
+        # Must be in the [msg_ts - 5 min, msg_ts) window — strict upper bound.
+        if ev_ts >= msg_ts or ev_ts < cutoff:
             return False
         return extra_match(ev) if extra_match else True
 
