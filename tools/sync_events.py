@@ -336,19 +336,30 @@ def _msg_images(msg):
     ]
 
 
-def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
-    """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
-    a recent event from the same author in the same channel, merge its content
-    and images into that event. Returns True if the merge happened.
+def _event_channel_id(ev, event_meta):
+    """Channel id for an event. Prefers the event's own field (added in the
+    channel_id refactor); falls back to event_meta cache for older events
+    backfilled or synced before that."""
+    if ev.get("channel_id"):
+        return ev["channel_id"]
+    meta = event_meta.get(ev.get("id"))
+    return (meta or {}).get("channel_id")
 
-    Search order: this-run's `new_events` first (most recent in-flight), then
-    events.json (older committed). Channel matching uses `event_meta` since
-    events.json itself doesn't carry channel_id.
-    """
+
+def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta,
+                                  *, extra_match=None):
+    """Walk new_events (newest first) then events.json (newest first) looking
+    for an event by the same author in the same channel posted within
+    CONTINUATION_WINDOW of `msg`. Optionally also requires `extra_match(ev)`
+    to return True. Returns the matched event dict, or None.
+
+    Shared by both merge paths: continuation (header-less follow-up) and
+    repeat-header (length-split posts where the author re-pasted the brackets
+    on each chunk)."""
     try:
         msg_ts = snowflake_to_dt(msg["id"])
     except (KeyError, ValueError, TypeError):
-        return False
+        return None
 
     author = msg.get("author") or {}
     author_username = author.get("global_name") or author.get("username", "unknown")
@@ -357,44 +368,95 @@ def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
     def _matches(ev):
         if ev.get("author") != author_username:
             return False
-        meta = event_meta.get(ev["id"])
-        if not meta or meta.get("channel_id") != ch_id:
+        if _event_channel_id(ev, event_meta) != ch_id:
             return False
         try:
-            return snowflake_to_dt(ev["id"]) >= cutoff
+            if snowflake_to_dt(ev["id"]) < cutoff:
+                return False
         except (ValueError, TypeError):
             return False
+        return extra_match(ev) if extra_match else True
 
-    # Search this-run's new events (newest last) backwards.
-    candidate = None
     for ev in reversed(new_events):
         if _matches(ev):
-            candidate = ev
-            break
+            return ev
+    for ev in reversed(events_data.get("events", [])):
+        if _matches(ev):
+            return ev
+    return None
 
-    # Fall back to events.json (also append-ordered, so the tail is most recent).
-    if not candidate:
-        for ev in reversed(events_data.get("events", [])):
-            if _matches(ev):
-                candidate = ev
-                break
 
-    if not candidate:
-        return False
-
-    content = (msg.get("content") or "").strip()
-    images = _msg_images(msg)
+def _merge_into(candidate, content, images):
+    """Append `content` (paragraph-separated) + `images` (extended) into
+    `candidate` and refresh its snippet. Returns True if anything was added."""
     if not content and not images:
-        return False  # nothing useful to merge — let it fall through
-
+        return False
     if content:
         existing = candidate.get("fullText") or ""
         candidate["fullText"] = (existing + "\n\n" + content).strip() if existing else content
         candidate["snippet"] = candidate["fullText"][:150]
     if images:
         candidate["images"] = (candidate.get("images") or []) + images
-
     return True
+
+
+def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
+    """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
+    a recent event from the same author in the same channel, merge its content
+    and images into that event. Returns True if the merge happened.
+
+    Search order: this-run's `new_events` first (most recent in-flight), then
+    events.json (older committed).
+    """
+    candidate = _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta)
+    if not candidate:
+        return False
+    content = (msg.get("content") or "").strip()
+    images = _msg_images(msg)
+    if not content and not images:
+        return False
+    return _merge_into(candidate, content, images)
+
+
+def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_meta):
+    """If `msg` has a bracket header IDENTICAL (date + country + province +
+    tag) to a recent same-author + same-channel event's header, treat it as a
+    continuation rather than a new event. Mirrors player behaviour of
+    repeating the bracket header on every chunk of a length-split post.
+
+    Returns the parent event id when a merge happened, else None.
+
+    Discriminator strength: identical-everything within 5 minutes is an
+    extremely strong "this is the same logical post" signal — two genuinely-
+    separate events with all four metadata fields identical, in the same
+    channel, by the same author, within 5 min, is implausible in practice.
+    The current parser was creating split events at this signature (Dods'
+    Cologne, tintock's Trier, DerNette's Nancy, etc.); this closes the gap.
+    """
+    def _same_metadata(ev):
+        return (
+            ev.get("date")       == parsed["date"]       and
+            ev.get("country")    == parsed["country"]    and
+            (ev.get("countryRaw") or "") == (parsed["countryRaw"] or "") and
+            ev.get("province")   == parsed["province"]   and
+            ev.get("tag")        == parsed["tag"]
+        )
+
+    candidate = _find_recent_event_by_author(
+        msg, ch_id, new_events, events_data, event_meta,
+        extra_match=_same_metadata,
+    )
+    if not candidate:
+        return None
+
+    # Use cleaned body (header stripped) — matches what build_event does.
+    content = (parsed.get("cleaned") or msg.get("content") or "").strip()
+    images = _msg_images(msg)
+    if not _merge_into(candidate, content, images):
+        # Empty follow-up — still record it as a merge so we don't recreate
+        # the bracket-header event on the next run.
+        pass
+    return candidate["id"]
 
 
 def load_json(path, default):
@@ -919,6 +981,23 @@ def main():
 
         parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
+            # Before treating this as a new event, check if it's actually a
+            # repeat-header continuation — same author + channel + identical
+            # (date, country, province, tag) within CONTINUATION_WINDOW of a
+            # recent event. Players who length-split a post often repeat the
+            # bracket header on every chunk, which would otherwise create N
+            # phantom events.
+            repeat_parent = try_repeat_header_merge(
+                msg, parsed, ch_id, new_events, events_data, event_meta,
+            )
+            if repeat_parent:
+                merged_meta[msg_id] = repeat_parent
+                rejected_meta.pop(msg_id, None)
+                merges_found = True
+                log(f"  ~ {msg_id} merged as repeat-header continuation of {repeat_parent} "
+                    f"[{parsed['date']}] {parsed['province']} ({parsed['tag']})")
+                continue
+
             thread_title = thread_names.get(ch_id) if ch_id != CHANNEL_ID else None
             new_events.append(build_event(msg, parsed, thread_title=thread_title, channel_id=ch_id))
             event_meta[msg_id] = {
