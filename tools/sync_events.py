@@ -346,6 +346,35 @@ def _event_channel_id(ev, event_meta):
     return (meta or {}).get("channel_id")
 
 
+def _has_plausible_parent(msg_id, channel_id, events_data, event_meta):
+    """Local-only pre-filter for the reconcile path: does an event exist
+    in the same channel posted within CONTINUATION_WINDOW BEFORE this
+    rejected message? If not, no point fetching from Discord — there's
+    nothing the message could merge into.
+
+    Pure O(events) scan, no API. We don't have the rejected message's
+    author here (would require a fetch), so we can't fully validate the
+    match — just that the temporal+channel candidate exists. The actual
+    fetch + author check happens later for the surviving candidates."""
+    if not channel_id:
+        return False
+    try:
+        msg_ts = snowflake_to_dt(msg_id)
+    except (ValueError, TypeError):
+        return False
+    cutoff = msg_ts - CONTINUATION_WINDOW
+    for ev in events_data.get("events", []):
+        if _event_channel_id(ev, event_meta) != channel_id:
+            continue
+        try:
+            ev_ts = snowflake_to_dt(ev["id"])
+        except (ValueError, TypeError):
+            continue
+        if cutoff <= ev_ts < msg_ts:
+            return True
+    return False
+
+
 def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta,
                                   *, extra_match=None):
     """Walk new_events (newest first) then events.json (newest first) looking
@@ -650,9 +679,27 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
     # apply it to all historical entries in a single workflow run instead of
     # waiting many cron cycles for the rotation to cover them.
     cap = MAX_PROMOTION_CHECK_PER_RUN
-    if os.environ.get("RECONCILE_REJECTIONS") == "true":
+    reconcile_mode = os.environ.get("RECONCILE_REJECTIONS") == "true"
+    if reconcile_mode:
         cap = None
         log("  RECONCILE_REJECTIONS=true — promotion-check cap lifted for this run.")
+
+    # In reconcile mode we pre-filter to only fetch entries that COULD
+    # plausibly merge as a continuation — most rejected messages are random
+    # chatter nowhere near an event, and at 672 entries × Discord rate limits
+    # the workflow runs out of time before getting to the real candidates.
+    # The pre-filter is purely local (no API) and uses (channel + timing) —
+    # if no event exists in the same channel within CONTINUATION_WINDOW
+    # before this rejected message, there's nothing to merge into.
+    if reconcile_mode and events_data is not None:
+        before = len(candidates)
+        candidates = [
+            (mid, m) for mid, m in candidates
+            if _has_plausible_parent(mid, m.get("channel_id"), events_data, event_meta)
+        ]
+        log(f"  Pre-filter: {before} → {len(candidates)} candidate(s) with a "
+            f"plausible same-channel parent within {int(CONTINUATION_WINDOW.total_seconds())}s.")
+
     if cap is not None and len(candidates) > cap:
         log(f"  Rejected_meta has {len(candidates)} candidate(s); capping check at "
             f"{cap} (least-recently-checked first).")
