@@ -39,6 +39,11 @@ on:
         type: boolean
         required: false
         default: false
+      reconcile_rejections:
+        description: 'One-shot: re-evaluate every entry in rejected_meta for missed continuations (no per-run cap). Use after deploying changes to the merge logic to apply them retroactively to the existing backlog of rejected messages. Runs alongside the normal sync; commits when finished.'
+        type: boolean
+        required: false
+        default: false
 
 # Serialise runs so the every-10-min burst can't double-fire (e.g. one run
 # overruns its slot, the next slot fires while the first is still going).
@@ -80,6 +85,10 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SYNC_SINCE: ${{ inputs.since }}
           DEBUG_FETCH: ${{ inputs.debug_fetch }}
+          # Lifts the MAX_PROMOTION_CHECK_PER_RUN cap so a single run can chew
+          # through the whole rejected_meta backlog. Used after deploying new
+          # reconciliation logic to apply it retroactively.
+          RECONCILE_REJECTIONS: ${{ inputs.reconcile_rejections == true && 'true' || '' }}
         # Per-campaign channel id + paths come from campaigns.json (--campaign).
         # To add another synced campaign, add a discord_sync block there and
         # either parameterize this workflow or fan out via matrix strategy.

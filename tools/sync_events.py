@@ -581,7 +581,8 @@ def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=Non
     return updated
 
 
-def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_names=None, skip_ids=None):
+def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_names=None, skip_ids=None,
+                                   events_data=None, merged_meta=None):
     """Re-fetch each rejected message inside the 7-day window; promote any that
     now parse cleanly into events.
 
@@ -643,10 +644,19 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         ((mid, m) for mid, m in rejected_meta.items() if mid not in skip_ids),
         key=_last_checked_key,
     )
-    if MAX_PROMOTION_CHECK_PER_RUN is not None and len(candidates) > MAX_PROMOTION_CHECK_PER_RUN:
+    # RECONCILE_REJECTIONS=true lifts the per-run cap. Used for a one-shot
+    # backfill of the existing rejected-meta backlog after we add new
+    # reconciliation logic (e.g. missed-continuation detection) and want to
+    # apply it to all historical entries in a single workflow run instead of
+    # waiting many cron cycles for the rotation to cover them.
+    cap = MAX_PROMOTION_CHECK_PER_RUN
+    if os.environ.get("RECONCILE_REJECTIONS") == "true":
+        cap = None
+        log("  RECONCILE_REJECTIONS=true — promotion-check cap lifted for this run.")
+    if cap is not None and len(candidates) > cap:
         log(f"  Rejected_meta has {len(candidates)} candidate(s); capping check at "
-            f"{MAX_PROMOTION_CHECK_PER_RUN} (least-recently-checked first).")
-        candidates = candidates[:MAX_PROMOTION_CHECK_PER_RUN]
+            f"{cap} (least-recently-checked first).")
+        candidates = candidates[:cap]
 
     # ── Pass 3: refetch + promote/update edited_timestamp. ───────────────────
     for msg_id, meta in candidates:
@@ -671,12 +681,48 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         any_changes = True
 
         current_edited = msg.get("edited_timestamp")
+        parsed = parse_event_tags(msg.get("content", ""))
+
+        # ── Missed-continuation reconciliation ──────────────────────────────
+        # A rejected message that has NO bracket header MIGHT actually be a
+        # follow-up of a recent same-author + same-channel event. The scan
+        # loop normally catches this via try_continuation_merge, but messages
+        # rejected before that logic existed (or in any other ordering edge
+        # case) end up stuck in rejected_meta. Re-evaluate them here using the
+        # full message we just fetched.
+        #
+        # No extra API cost — we already paid the fetch above.
+        if not parsed and events_data is not None and merged_meta is not None:
+            if try_continuation_merge(msg, channel_id, new_events, events_data, event_meta):
+                # Find which event got the merge — same lookup as the scan
+                # loop uses, against new_events first then events.json.
+                target_author = (msg.get("author") or {}).get("global_name") or \
+                                (msg.get("author") or {}).get("username", "unknown")
+                parent_id = ""
+                for ev in reversed(new_events):
+                    if ev.get("author") == target_author and \
+                       _event_channel_id(ev, event_meta) == channel_id:
+                        parent_id = ev["id"]
+                        break
+                if not parent_id:
+                    for ev in reversed(events_data.get("events", [])):
+                        if ev.get("author") == target_author and \
+                           _event_channel_id(ev, event_meta) == channel_id:
+                            parent_id = ev["id"]
+                            break
+                merged_meta[msg_id] = parent_id
+                to_drop.append(msg_id)
+                log(f"  ~ reconciled rejected {msg_id} as continuation of {parent_id}")
+                continue
+
+        # ── Edit-detection promotion ────────────────────────────────────────
+        # If edited_timestamp hasn't changed since last evaluation, no point
+        # re-parsing — the content is unchanged.
         if current_edited == stored_edited:
-            continue  # No edit since last evaluation; still rejected.
+            continue
 
         log(f"  ~ rejected {msg_id} was edited (was: {stored_edited}, now: {current_edited})")
 
-        parsed = parse_event_tags(msg.get("content", ""))
         if parsed:
             thread_title = thread_names.get(channel_id) if channel_id != CHANNEL_ID else None
             event = build_event(msg, parsed, thread_title=thread_title, channel_id=channel_id)
@@ -1057,15 +1103,21 @@ def main():
     # post had no brackets when first scanned, then was edited later to add
     # them. Without it, those edits would be invisible because the main scan
     # loop only sees messages newer than the cursor.
-    log("Checking recent rejections for late-added tags ...")
+    log("Checking recent rejections for late-added tags + missed continuations ...")
     promoted_events, promotions_found = check_rejected_for_promotions(
-        rejected_meta, event_meta, now_utc, thread_names, skip_ids=seen
+        rejected_meta, event_meta, now_utc, thread_names, skip_ids=seen,
+        events_data=events_data, merged_meta=merged_meta,
     )
     if promoted_events:
         new_events.extend(promoted_events)
         log(f"  Promoted {len(promoted_events)} rejected post(s) to events.")
     elif not promotions_found:
         log("  No rejection changes found.")
+    # merges_found wasn't true at scan-loop time but the reconciliation pass
+    # may have just mutated events_data — set the flag so the cache + events
+    # file gets saved.
+    if promotions_found:
+        merges_found = True
 
     # ── Persist ───────────────────────────────────────────────────────────────
     # `merges_found` covers continuations merged into events.json events — those
