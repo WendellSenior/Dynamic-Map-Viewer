@@ -257,12 +257,29 @@ def parse_event_tags(text):
 # Markdown heading (# / ## / ###) or a bold-only line (**Title** / *** Title ***).
 _HEADING_LINE_RE   = re.compile(r"^\s*#{1,3}\s+\S")
 _BOLD_ONLY_LINE_RE = re.compile(r"^\s*\*{2,3}\s*[^*\n]+?\s*\*{2,3}\s*$")
+# Spoiler-wrap stripper: handles balanced `||...||` and unclosed leading `||`.
+# Players wrap a whole headline in spoiler markers (e.g. `||### A letter from
+# France||`) — we should still recognise it as a natural title.
+_LEADING_SPOILER_RE  = re.compile(r"^(\s*)\|\|(.*)$")
+_TRAILING_SPOILER_RE = re.compile(r"^(.*)\|\|(\s*)$")
+
+
+def _strip_spoiler_wrap(line):
+    lead = _LEADING_SPOILER_RE.match(line)
+    if not lead:
+        return line
+    inner = lead.group(1) + lead.group(2)
+    trail = _TRAILING_SPOILER_RE.match(inner)
+    if trail:
+        inner = trail.group(1) + trail.group(2)
+    return inner
 
 
 def _content_has_natural_title(text):
     """True if any line in `text` would be picked up as a title by the viewer's
-    extractTitle() — markdown heading or bold-only line. Used to decide whether
-    to stamp the thread name onto event['title'].
+    extractTitle() — markdown heading or bold-only line, optionally wrapped
+    in `||...||` spoiler markers. Used to decide whether to stamp the thread
+    name onto event['title'].
 
     Without this check, every post in a named thread inherits the thread name,
     which masks actual post titles like 'La Battaglia di Ferrara' with the
@@ -272,6 +289,12 @@ def _content_has_natural_title(text):
         return False
     for line in text.split("\n"):
         if _HEADING_LINE_RE.match(line) or _BOLD_ONLY_LINE_RE.match(line):
+            return True
+        # Retry after stripping `||...||` spoiler wrap.
+        unwrapped = _strip_spoiler_wrap(line)
+        if unwrapped is not line and (
+            _HEADING_LINE_RE.match(unwrapped) or _BOLD_ONLY_LINE_RE.match(unwrapped)
+        ):
             return True
     return False
 

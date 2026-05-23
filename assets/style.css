@@ -459,6 +459,15 @@ main {
   user-select: text;
   transition-delay: 0s;
 }
+/* Click → permanent reveal. Stays white-on-black even when the cursor leaves;
+   takes precedence over the hover transition's grace-period revert. */
+.spoiler.revealed,
+.spoiler.revealed:hover {
+  color: #fff;
+  user-select: text;
+  cursor: text;
+  transition-delay: 0s;
+}
 .spoiler strong, .spoiler em {
   /* Inherit the colour so nested bold/italic also redacts cleanly. */
   color: inherit;

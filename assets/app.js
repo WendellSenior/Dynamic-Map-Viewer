@@ -960,18 +960,41 @@ function renderMarkdown(text) {
   return frag;
 }
 
+// Strip surrounding Discord spoiler markers from a single line. Handles
+// both balanced `||...||` and an unclosed leading `||` (Discord renders the
+// rest of the line as a spoiler until a newline). Returns the inner text;
+// pure pass-through if no markers.
+function stripSpoilerWrap(line) {
+  let s = line;
+  const lead = s.match(/^(\s*)\|\|(.*)$/);
+  if (lead) {
+    s = lead[1] + lead[2];
+    const trail = s.match(/^(.*)\|\|(\s*)$/);
+    if (trail) s = trail[1] + trail[2];
+  }
+  return s;
+}
+
 function extractTitle(e) {
   let raw = null;
   if (e.title) {
     raw = e.title;
   } else if (e.fullText) {
     for (const line of e.fullText.split('\n')) {
-      // Markdown heading: # / ## / ### Title
-      let m = line.match(/^\s*#{1,3}\s+(.+?)\s*$/);
-      if (m) { raw = m[1]; break; }
-      // Bold-only line: **Title** or *** Title *** (Discord-style title)
-      m = line.match(/^\s*\*{2,3}\s*([^*]+?)\s*\*{2,3}\s*$/);
-      if (m) { raw = m[1].trim(); break; }
+      // Try the line as-is first; if neither pattern matches, try again
+      // after unwrapping `||...||` markers. Players sometimes wrap a whole
+      // headline in spoiler markers (e.g. `||### A letter from France||`)
+      // to hide a story beat — we should still recognise it as a title.
+      const candidates = [line];
+      const unwrapped = stripSpoilerWrap(line);
+      if (unwrapped !== line) candidates.push(unwrapped);
+      for (const cand of candidates) {
+        let m = cand.match(/^\s*#{1,3}\s+(.+?)\s*$/);
+        if (m) { raw = m[1]; break; }
+        m = cand.match(/^\s*\*{2,3}\s*([^*]+?)\s*\*{2,3}\s*$/);
+        if (m) { raw = m[1].trim(); break; }
+      }
+      if (raw) break;
     }
   }
   // cleanTitleText handles custom emojis, residual markdown markers, and
@@ -1056,6 +1079,16 @@ function wireTabs() {
     });
   }
 }
+
+// Click on a spoiler → reveal it permanently (across the rest of the
+// session). Hover-grace still applies for quick peeks. Delegated on body so
+// it works for spoilers rendered later (e.g. when a new event is opened in
+// the side panel). The `.revealed` class is added; CSS keeps revealed
+// spoilers visible regardless of hover state.
+document.addEventListener('click', (ev) => {
+  const sp = ev.target.closest('.spoiler');
+  if (sp) sp.classList.add('revealed');
+});
 
 // Inject a small button into each collapsible panel and wire toggle behaviour.
 // Persists state across reloads via localStorage so e.g. opening calibrate then
