@@ -1,9 +1,15 @@
 {
+  "_comment": "If a session is in-progress and you don't know its end date yet, omit `end` (or set it to null). The viewer treats the missing end as 'tracks the latest known event' (state.allTMax) and labels the dropdown / timeline as '(ongoing)' / 'present'. When the session actually wraps, set the real end here and add the next session.",
   "sessions": [
     {
-      "label": "Pre-Game",
+      "name": "Pre-Game",
       "start": "1066-01-01",
       "end": "1337-04-01"
+    },
+    {
+      "name": "Session 1",
+      "start": "1337-04-02",
+      "end": null
     }
   ]
 }

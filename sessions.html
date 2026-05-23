@@ -221,14 +221,17 @@
     }
 
     async function save() {
-      // Empty names get a chronological default after sorting.
+      // Empty names get a chronological default after sorting. Sessions with
+      // no `end` (open-ended / "in progress") are preserved as `end: null` —
+      // the viewer treats that as "tracks the latest known event date" and
+      // labels the dropdown / timeline as "(ongoing)" / "present".
       const cleaned = state.sessions
-        .filter(s => DATE_RE.test(s.start) && DATE_RE.test(s.end))
-        .sort((a, b) => a.start.localeCompare(b.start))
+        .filter(s => DATE_RE.test(s.start) && (!s.end || DATE_RE.test(s.end)))
+        .sort((a, b) => a.start.localeCompare(b.start || '9999'))
         .map((s, idx) => ({
           name: (s.name || '').trim() || `Session ${idx + 1}`,
           start: s.start,
-          end: s.end,
+          end: DATE_RE.test(s.end) ? s.end : null,
         }));
 
       try {

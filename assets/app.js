@@ -246,12 +246,28 @@ function getActiveSession() {
   return state.sessions[idx] || null;
 }
 
+// A session's `end` may be missing/null/empty → "open-ended", meaning the
+// session is still in progress and its right edge tracks the latest known
+// event/snapshot (state.allTMax, computed once at init from events.json +
+// snapshots.json). Refreshing the page after new events sync widens the range.
+function isSessionOpenEnded(session) {
+  if (!session) return false;
+  const end = session.end;
+  if (end === null || end === undefined || end === '') return true;
+  return !Number.isFinite(parseDate(end));
+}
+
+function sessionEndTime(session) {
+  if (isSessionOpenEnded(session)) return state.allTMax;
+  return parseDate(session.end);
+}
+
 function isEventVisible(e, t) {
   const eT = parseDate(e.date);
   const session = getActiveSession();
   if (session) {
     // Show every event inside the session range — timeline cursor only drives the map snapshot.
-    return eT >= parseDate(session.start) && eT <= parseDate(session.end);
+    return eT >= parseDate(session.start) && eT <= sessionEndTime(session);
   }
   if (state.filter === 'past') return eT <= t;
   return true;
@@ -262,7 +278,7 @@ function applyFilter(newFilter) {
   const session = getActiveSession();
   if (session) {
     state.tMin = parseDate(session.start);
-    state.tMax = parseDate(session.end);
+    state.tMax = sessionEndTime(session);
   } else {
     state.tMin = state.allTMin;
     state.tMax = state.allTMax;
@@ -270,8 +286,11 @@ function applyFilter(newFilter) {
   state.currentTime = Math.min(state.tMax, Math.max(state.tMin, state.currentTime));
   document.getElementById('timeline').value = timeToSlider(state.currentTime);
   const labels = document.getElementById('timeline-labels');
+  // Open-ended sessions show "(ongoing)" so the right label doesn't look like
+  // a hardcoded end date.
+  const openTag = session && isSessionOpenEnded(session) ? ' <em>(ongoing)</em>' : '';
   labels.innerHTML = state.tMax > state.tMin
-    ? `<span>${formatDate(state.tMin)}</span><span>${formatDate(state.tMax)}</span>`
+    ? `<span>${formatDate(state.tMin)}</span><span>${formatDate(state.tMax)}${openTag}</span>`
     : '';
   renderTimelineMarks();
   render();
@@ -1297,8 +1316,18 @@ async function init() {
         opt.value = `session:${idx}`;
         const startYear = (s.start || '').split('-')[0];
         const endYear = (s.end || '').split('-')[0];
-        const yrs = startYear && endYear ? ` (${startYear}–${endYear})` : '';
-        opt.textContent = `${s.name}${yrs}`;
+        // Open-ended sessions (no end date set) get "(YYYY–present)" so the
+        // dropdown communicates that the session is still in progress.
+        let yrs = '';
+        if (startYear && endYear) {
+          yrs = ` (${startYear}–${endYear})`;
+        } else if (startYear && isSessionOpenEnded(s)) {
+          yrs = ` (${startYear}–present)`;
+        }
+        // Editor saves `name`; sessions added by hand sometimes use `label`.
+        // Accept either so neither schema fights the other.
+        const label = s.name || s.label || `Session ${idx + 1}`;
+        opt.textContent = `${label}${yrs}`;
         og.appendChild(opt);
       });
       filterEl.appendChild(og);
