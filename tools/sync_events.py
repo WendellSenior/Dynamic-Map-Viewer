@@ -443,19 +443,29 @@ def _merge_into(candidate, content, images):
 def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
     """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
     a recent event from the same author in the same channel, merge its content
-    and images into that event. Returns True if the merge happened.
+    and images into that event.
+
+    Returns the **merged-into event dict** on success (so callers can record
+    the correct parent id in merged_meta without a separate lookup — the
+    earlier "walk reversed(events_data) and grab the first same-author-same-
+    channel match" approach didn't have a temporal upper bound and stamped
+    the WRONG id when reconciling across long time spans).
+
+    Returns None if no parent found or nothing useful to merge.
 
     Search order: this-run's `new_events` first (most recent in-flight), then
     events.json (older committed).
     """
     candidate = _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta)
     if not candidate:
-        return False
+        return None
     content = (msg.get("content") or "").strip()
     images = _msg_images(msg)
     if not content and not images:
-        return False
-    return _merge_into(candidate, content, images)
+        return None
+    if _merge_into(candidate, content, images):
+        return candidate
+    return None
 
 
 def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_meta):
@@ -751,26 +761,13 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         #
         # No extra API cost — we already paid the fetch above.
         if not parsed and events_data is not None and merged_meta is not None:
-            if try_continuation_merge(msg, channel_id, new_events, events_data, event_meta):
-                # Find which event got the merge — same lookup as the scan
-                # loop uses, against new_events first then events.json.
-                target_author = (msg.get("author") or {}).get("global_name") or \
-                                (msg.get("author") or {}).get("username", "unknown")
-                parent_id = ""
-                for ev in reversed(new_events):
-                    if ev.get("author") == target_author and \
-                       _event_channel_id(ev, event_meta) == channel_id:
-                        parent_id = ev["id"]
-                        break
-                if not parent_id:
-                    for ev in reversed(events_data.get("events", [])):
-                        if ev.get("author") == target_author and \
-                           _event_channel_id(ev, event_meta) == channel_id:
-                            parent_id = ev["id"]
-                            break
-                merged_meta[msg_id] = parent_id
+            merged_parent = try_continuation_merge(msg, channel_id, new_events, events_data, event_meta)
+            if merged_parent is not None:
+                # try_continuation_merge now returns the actual merge-target
+                # event dict, so we record the correct parent id directly.
+                merged_meta[msg_id] = merged_parent["id"]
                 to_drop.append(msg_id)
-                log(f"  ~ reconciled rejected {msg_id} as continuation of {parent_id}")
+                log(f"  ~ reconciled rejected {msg_id} as continuation of {merged_parent['id']}")
                 continue
 
         # ── Edit-detection promotion ────────────────────────────────────────
@@ -1119,29 +1116,12 @@ def main():
             # event in the same channel posted within CONTINUATION_WINDOW. This
             # is how multi-message posts (length splits, image follow-ups, etc.)
             # get glued back into one event.
-            if try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
-                # Find parent id for the merged_meta record. The merge function
-                # already mutated the candidate; we just need to identify it.
-                parent_id = None
-                target_author = (msg.get("author") or {}).get("global_name") or \
-                                (msg.get("author") or {}).get("username", "unknown")
-                # Most-recent-first scan, same as the helper, to find which event
-                # received the merge. (Cheap enough — events are O(few-hundred).)
-                for ev in reversed(new_events):
-                    if ev.get("author") == target_author and \
-                       event_meta.get(ev["id"], {}).get("channel_id") == ch_id:
-                        parent_id = ev["id"]
-                        break
-                if not parent_id:
-                    for ev in reversed(events_data.get("events", [])):
-                        if ev.get("author") == target_author and \
-                           event_meta.get(ev["id"], {}).get("channel_id") == ch_id:
-                            parent_id = ev["id"]
-                            break
-                merged_meta[msg_id] = parent_id or ""
+            merged_parent = try_continuation_merge(msg, ch_id, new_events, events_data, event_meta)
+            if merged_parent is not None:
+                merged_meta[msg_id] = merged_parent["id"]
                 rejected_meta.pop(msg_id, None)  # not rejected — it was absorbed
                 merges_found = True
-                log(f"  ~ {msg_id} merged as continuation of {parent_id} "
+                log(f"  ~ {msg_id} merged as continuation of {merged_parent['id']} "
                     f"({(msg.get('content') or '')[:60]!r})")
             else:
                 rejected_meta[msg_id] = {
