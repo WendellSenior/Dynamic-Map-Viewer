@@ -440,6 +440,168 @@ def _merge_into(candidate, content, images):
     return True
 
 
+def _rebuild_parent_from_followers(parent_event, parent_msg, followers_msgs_in_order):
+    """Rebuild a parent event's fullText + images by concatenating the parent
+    message's cleaned body with each follower's body, in chronological order.
+
+    `parent_msg`             - the freshly-fetched Discord message for the parent
+    `followers_msgs_in_order`- list of (msg, info) pairs, sorted by snowflake
+
+    Used by check_merged_followers_for_edits when a follower has been edited
+    or deleted on Discord — we can't easily diff the old vs new content
+    inside the parent's existing fullText (it's a concatenation), so we
+    rebuild from source of truth."""
+    parsed = parse_event_tags(parent_msg.get("content", ""))
+    if not parsed:
+        return False  # parent no longer has a valid bracket header
+    body = parsed.get("cleaned") or parent_msg.get("content", "")
+    images = _msg_images(parent_msg)
+
+    for f_msg, _info in followers_msgs_in_order:
+        if not f_msg or f_msg is _DELETED:
+            continue  # the deleted follower simply drops out of the rebuild
+        f_content = (f_msg.get("content") or "").strip()
+        f_images = _msg_images(f_msg)
+        if f_content:
+            body = (body + "\n\n" + f_content).strip() if body else f_content
+        if f_images:
+            images.extend(f_images)
+
+    parent_event["fullText"] = body
+    parent_event["snippet"]  = body[:150]
+    parent_event["images"]   = images
+    return True
+
+
+def check_merged_followers_for_edits(merged_meta, event_meta, events_data,
+                                      now_utc, max_per_run=100):
+    """Walk merged_meta entries within the 7-day window. Refetch each
+    follower message; if its edited_timestamp has changed or the message
+    has been deleted, rebuild the parent event by refetching parent + all
+    followers and concatenating their bodies.
+
+    Without this pass, an edit on a continuation message (the 2nd, 3rd, …
+    message of a length-split post) would never propagate into the parent
+    event — only edits on the parent's own bracketed message triggered a
+    refresh (via check_edits_and_deletions). The author would have to edit
+    the parent to force a re-sync, which is a behavioural workaround we
+    explicitly didn't want to require.
+
+    Capped per run (default 100) using the same least-recently-checked
+    rotation as check_rejected_for_promotions; entries gain a `last_checked`
+    timestamp the first time they're refetched.
+    """
+    cutoff = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
+    now_iso = now_utc.isoformat()
+
+    # ── Pass 1: pick candidates (in-window, well-formed, with channel_id). ──
+    candidates = []
+    for fid, info in merged_meta.items():
+        if not isinstance(info, dict):
+            continue  # legacy schema entry — startup migration will fix; skip this run
+        if not info.get("channel_id") or not info.get("parent_id"):
+            continue
+        try:
+            if snowflake_to_dt(fid) < cutoff:
+                continue
+        except (ValueError, TypeError):
+            continue
+        candidates.append((fid, info))
+
+    if not candidates:
+        return False, 0
+
+    candidates.sort(key=lambda kv: (kv[1].get("last_checked") is not None,
+                                    kv[1].get("last_checked") or ""))
+    if max_per_run is not None and len(candidates) > max_per_run:
+        log(f"  merged_meta has {len(candidates)} in-window candidate(s); "
+            f"capping check at {max_per_run} (least-recently-checked first).")
+        candidates = candidates[:max_per_run]
+
+    # ── Pass 2: refetch each candidate, accumulate per-parent change sets. ──
+    # Group fetched messages by parent so we only rebuild each parent once.
+    by_parent = {}                  # parent_id -> list of (msg_or_None, info, follower_id)
+    parents_to_rebuild = set()
+    to_drop = []
+    any_changes = False
+
+    for fid, info in candidates:
+        msg = fetch_message(info["channel_id"], fid)
+        if not msg:
+            continue  # rate-limited; try again next run
+        info["last_checked"] = now_iso
+        any_changes = True
+
+        if msg is _DELETED:
+            log(f"  x merged follower {fid} was deleted — removing from rebuild")
+            parents_to_rebuild.add(info["parent_id"])
+            to_drop.append(fid)
+            continue
+
+        current_edited = msg.get("edited_timestamp")
+        if current_edited == info.get("edited_timestamp"):
+            continue  # no change, nothing to do
+        log(f"  ~ merged follower {fid} edited (was: {info.get('edited_timestamp')}, "
+            f"now: {current_edited}) — parent {info['parent_id']} will rebuild")
+        info["edited_timestamp"] = current_edited
+        parents_to_rebuild.add(info["parent_id"])
+        by_parent.setdefault(info["parent_id"], []).append((msg, info, fid))
+
+    for fid in to_drop:
+        merged_meta.pop(fid, None)
+
+    if not parents_to_rebuild:
+        return any_changes, 0
+
+    # ── Pass 3: for each affected parent, fetch parent + ALL its followers
+    # (in chronological order) and rebuild from scratch. We refetch followers
+    # we just fetched too — keeps the rebuild logic uniform and the API cost
+    # is bounded by how many parents we touch (typically 0–3 per run).
+    rebuilt = 0
+    parent_by_id = {e["id"]: e for e in events_data.get("events", [])}
+    for parent_id in parents_to_rebuild:
+        parent_event = parent_by_id.get(parent_id)
+        if not parent_event:
+            log(f"  parent {parent_id} not in events.json — skipping rebuild")
+            continue
+        parent_channel = parent_event.get("channel_id") or \
+                         (event_meta.get(parent_id) or {}).get("channel_id")
+        if not parent_channel:
+            log(f"  parent {parent_id} has no channel_id — skipping rebuild")
+            continue
+
+        parent_msg = fetch_message(parent_channel, parent_id)
+        if not parent_msg or parent_msg is _DELETED:
+            log(f"  parent {parent_id} unfetchable — skipping rebuild")
+            continue
+
+        # Gather all known followers of this parent.
+        follower_entries = []
+        for fid, info in merged_meta.items():
+            if isinstance(info, dict) and info.get("parent_id") == parent_id and info.get("channel_id"):
+                follower_entries.append((fid, info))
+        follower_entries.sort(key=lambda kv: int(kv[0]))
+
+        followers_msgs = []
+        for fid, info in follower_entries:
+            # Reuse already-fetched messages from the change-detection pass
+            # to avoid duplicate API calls.
+            existing = next((m for m, i, k in by_parent.get(parent_id, []) if k == fid), None)
+            if existing:
+                f_msg = existing
+            else:
+                f_msg = fetch_message(info["channel_id"], fid)
+            followers_msgs.append((f_msg, info))
+
+        if _rebuild_parent_from_followers(parent_event, parent_msg, followers_msgs):
+            rebuilt += 1
+            log(f"    rebuilt parent {parent_id}: "
+                f"{len(parent_event.get('fullText') or '')}c, "
+                f"{len(parent_event.get('images') or [])} images")
+
+    return any_changes, rebuilt
+
+
 def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
     """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
     a recent event from the same author in the same channel, merge its content
@@ -763,9 +925,14 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         if not parsed and events_data is not None and merged_meta is not None:
             merged_parent = try_continuation_merge(msg, channel_id, new_events, events_data, event_meta)
             if merged_parent is not None:
-                # try_continuation_merge now returns the actual merge-target
-                # event dict, so we record the correct parent id directly.
-                merged_meta[msg_id] = merged_parent["id"]
+                # try_continuation_merge returns the merge-target dict.
+                # Store the dict shape so the follower-edit-detection pass
+                # can later refetch this follower.
+                merged_meta[msg_id] = {
+                    "parent_id":        merged_parent["id"],
+                    "channel_id":       channel_id,
+                    "edited_timestamp": current_edited,
+                }
                 to_drop.append(msg_id)
                 log(f"  ~ reconciled rejected {msg_id} as continuation of {merged_parent['id']}")
                 continue
@@ -942,12 +1109,42 @@ def main():
     #                their author edits valid tags in. Both pruned to 7 days.
     event_meta      = cache.get("event_meta", {})
     rejected_meta   = cache.get("rejected_meta", {})
-    # merged_meta:   {follow_up_msg_id: parent_event_id} for messages whose
-    #                content was merged into a same-author event via the
-    #                continuation window. Prevents double-merging on backfills.
+    # merged_meta:   {follow_up_msg_id: {parent_id, channel_id, edited_timestamp}}
+    #                for messages whose content was merged into a same-author
+    #                event via the continuation window. The channel_id +
+    #                edited_timestamp let us re-fetch each follower in
+    #                check_merged_followers_for_edits, so edits or deletions
+    #                of a merged follow-up propagate back into the parent
+    #                event without requiring the author to edit the parent.
     merged_meta     = cache.get("merged_meta", {})
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
+
+    # Schema migration: legacy entries stored only the parent_id string. Pad
+    # them to the dict shape so the new edit-check pass can refetch them. The
+    # follower lives in the same channel as its parent (that's the match
+    # rule), so we lift channel_id off the parent event. edited_timestamp is
+    # unknown for legacy entries — set None; first refetch records the real
+    # value.
+    migrated_meta = 0
+    parent_by_id = {e["id"]: e for e in events_data.get("events", [])}
+    for follow_id, info in list(merged_meta.items()):
+        if isinstance(info, dict) and "parent_id" in info:
+            continue
+        parent_id = info if isinstance(info, str) else ""
+        parent_event = parent_by_id.get(parent_id)
+        channel_id = ""
+        if parent_event:
+            channel_id = parent_event.get("channel_id") or \
+                         (event_meta.get(parent_id) or {}).get("channel_id") or ""
+        merged_meta[follow_id] = {
+            "parent_id":        parent_id,
+            "channel_id":       channel_id,
+            "edited_timestamp": None,
+        }
+        migrated_meta += 1
+    if migrated_meta:
+        log(f"Migrated {migrated_meta} merged_meta entry(ies) to the dict schema.")
 
     # Resolve where to start fetching from. Priority:
     #   1. --since arg / SYNC_SINCE env  → one-shot backfill
@@ -1092,7 +1289,11 @@ def main():
                 msg, parsed, ch_id, new_events, events_data, event_meta,
             )
             if repeat_parent:
-                merged_meta[msg_id] = repeat_parent
+                merged_meta[msg_id] = {
+                    "parent_id":        repeat_parent,
+                    "channel_id":       ch_id,
+                    "edited_timestamp": current_edited,
+                }
                 rejected_meta.pop(msg_id, None)
                 merges_found = True
                 log(f"  ~ {msg_id} merged as repeat-header continuation of {repeat_parent} "
@@ -1118,7 +1319,11 @@ def main():
             # get glued back into one event.
             merged_parent = try_continuation_merge(msg, ch_id, new_events, events_data, event_meta)
             if merged_parent is not None:
-                merged_meta[msg_id] = merged_parent["id"]
+                merged_meta[msg_id] = {
+                    "parent_id":        merged_parent["id"],
+                    "channel_id":       ch_id,
+                    "edited_timestamp": current_edited,
+                }
                 rejected_meta.pop(msg_id, None)  # not rejected — it was absorbed
                 merges_found = True
                 log(f"  ~ {msg_id} merged as continuation of {merged_parent['id']} "
@@ -1135,6 +1340,19 @@ def main():
     edits_found = check_edits_and_deletions(events_data, event_meta, now_utc, thread_names)
     if not edits_found:
         log("  No event changes found.")
+
+    # ── Follower-edit check ──────────────────────────────────────────────────
+    # Detect edits/deletions on continuation messages (length-split follow-ups
+    # that were merged into a parent event). Without this, an edit on chunk 2
+    # of a 3-message post would be invisible.
+    log("Checking merged followers for edits/deletions ...")
+    follower_changes, parents_rebuilt = check_merged_followers_for_edits(
+        merged_meta, event_meta, events_data, now_utc,
+    )
+    if parents_rebuilt:
+        log(f"  Rebuilt {parents_rebuilt} parent event(s) after follower edits.")
+    elif not follower_changes:
+        log("  No follower changes found.")
 
     # ── Promotion check: rejected messages whose edits added valid tags ──────
     # This is the symmetric pass to edit-detection: it covers the case where a
@@ -1160,7 +1378,8 @@ def main():
     # ── Persist ───────────────────────────────────────────────────────────────
     # `merges_found` covers continuations merged into events.json events — those
     # mutations don't show up in new_events but still need a commit.
-    had_changes = bool(new_events) or edits_found or promotions_found or merges_found
+    had_changes = (bool(new_events) or edits_found or promotions_found or
+                   merges_found or follower_changes)
 
     if new_events:
         events_data["events"].extend(new_events)
