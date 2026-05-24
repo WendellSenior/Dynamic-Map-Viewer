@@ -23,5 +23,6 @@
   "SWE": ["Kingdom of Sweden"],
   "NOR": ["Kingdom of Norway", "Norwegian"],
   "MOR": ["Morocco", "Morroco", "Maroc", "Marrakesh", "Marinid", "Marinids"],
-  "TEU": ["Teutonic Order", "Teutonic Knights", "Teutonic", "Teutons", "Deutscher Orden"]
+  "TEU": ["Teutonic Order", "Teutonic Knights", "Teutonic", "Teutons", "Deutscher Orden"],
+  "PAL": ["Palatinate", "Palatinate of the Rhine", "Kurpfalz", "Electoral Palatinate", "Pfalz", "Rhine Palatinate"]
 }
