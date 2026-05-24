@@ -1,0 +1,61 @@
+{
+  "_comment": "Per-event manual overrides applied by tools/sync_events.py after parsing/building events. Use this to correct mis-tagged or otherwise wrong fields on events whose Discord-side authors aren't going to retro-edit the post. Survives Discord edits — the override always wins. Schema: { id: { field: value, ... } } where field is any top-level events.json key (tag, country, countryRaw, province, date, ...). Keys starting with `_` are treated as comments and ignored. Tag values must match a canonical tag in assets/event-tags.json.",
+  "overrides": {
+    "1508145433367806113": { "tag": "History", "_was": "Character", "_note": "Danish fiscal collapse essay" },
+    "1505837117903736895": { "tag": "Trade",   "_was": "Character", "_note": "Hansa kontor in Cologne, trade privileges" },
+    "1507115717613588602": { "tag": "History", "_was": "Character", "_note": "Hafsid dynastic legacy musings" },
+    "1506872033785544787": { "tag": "Meeting", "_was": "Character", "_note": "Diplomatic envoy to N. Italy" },
+    "1506992387644325940": { "tag": "Treaty",  "_was": "Character", "_note": "England-Portugal royal marriage" },
+    "1507433462163046480": { "tag": "Trade",   "_was": "Character", "_note": "Hansa wool sourcing" },
+    "1508094077210726460": { "tag": "History", "_was": "Character", "_note": "Prominent Palatines book — lore meta" },
+    "1508105022632624281": { "tag": "History", "_was": "Character", "_note": "A new page has been written — lore meta" },
+    "1508111965455908904": { "tag": "History", "_was": "Character", "_note": "Story of Ana von Wittelsbach — story header" },
+    "1508178933303087264": { "tag": "Death",   "_was": "Character", "_note": "Baldwin Archbishop of Trier passed" },
+    "1508186558639902890": { "tag": "Death",   "_was": "Character", "_note": "Death of Heir Apparent Guillaume" },
+    "1508187506737152202": { "tag": "Death",   "_was": "Character", "_note": "Death of Count Guillaume III" },
+    "1508189353657241842": { "tag": "Death",   "_was": "Character", "_note": "King Charles of Hungary dies" },
+    "1508192415197040640": { "tag": "Meeting", "_was": "Character", "_note": "Foreign-house invitation to take county seat" },
+
+    "1505384972490637353": { "tag": "History", "_was": "Chaos",     "_note": "Mainz/Trier rivalry essay, no unrest" },
+    "1506466316976914564": { "tag": "History", "_was": "Chaos",     "_note": "Guelph/Ghibelline backgrounder" },
+
+    "1508213647518728272": { "tag": "Medicine","_was": "Death",     "_note": "Plague aftermath in Cologne" },
+
+    "1507115267745124542": { "tag": "Trade",   "_was": "Economy",   "_note": "English wool / Flanders routes" },
+    "1505586082593509516": { "tag": "Trade",   "_was": "Economy",   "_note": "Petershof / Hanseatic Kontor" },
+
+    "1505430217919823952": { "tag": "Culture", "_was": "History",   "_note": "Cairo parade of freaks prose-poem" },
+    "1508184915772965214": { "tag": "Chaos",   "_was": "History",   "_note": "Palace coup, hundreds died" },
+    "1508189460981092574": { "tag": "Death",   "_was": "History",   "_note": "Grand Prince Ivan I died" },
+    "1508207786415099954": { "tag": "Character","_was": "History",  "_note": "Karel's coronation" },
+    "1508215471713947698": { "tag": "Character","_was": "History",  "_note": "Stephan's coronation" },
+    "1508220120009543700": { "tag": "Character","_was": "History",  "_note": "Stephan's Italian coronation" },
+    "1508211329390088282": { "tag": "Death",   "_was": "History",   "_note": "Karel IV's death + succession" },
+    "1508184034822324324": { "tag": "Catholic","_was": "History",   "_note": "Avignon Papacy at an end" },
+
+    "1505761438419914834": { "tag": "History", "_was": "Meeting",   "_note": "Stefan Dušan introspection, no meeting" },
+    "1508172736059543663": { "tag": "Treaty",  "_was": "Meeting",   "_note": "Centule IV setting price/terms" },
+
+    "1508181253071831252": { "tag": "History", "_was": "Battle",    "_note": "Outcome announcement, no battle" },
+    "1508184725603221564": { "tag": "Surrender","_was": "Battle",   "_note": "Fall of Tver + peace ratified" },
+    "1508176536103026780": { "tag": "WarDec",  "_was": "Battle",    "_note": "Preparations / declaration, not battle" },
+
+    "1508167394563063972": { "tag": "WarDec",  "_was": "Treaty",    "_note": "Declaration on August 1st, 1337" },
+    "1507122803831210104": { "tag": "Warning", "_was": "Treaty",    "_note": "Demand for surrender of Gascony — ultimatum" },
+    "1507127655143837726": { "tag": "Warning", "_was": "Treaty",    "_note": "Edward reinstates French throne claim" },
+    "1507158475124244583": { "tag": "Warning", "_was": "Treaty",    "_note": "Edward's claim — act of war and bloodshed" },
+    "1507166041527161002": { "tag": "History", "_was": "Treaty",    "_note": "Cynical Philippe one-liner, flavor text" },
+    "1507214962639241278": { "tag": "Warning", "_was": "Treaty",    "_note": "Philippe tirade at pope, no agreement" },
+    "1507374281938440385": { "tag": "Catholic","_was": "Treaty",    "_note": "Excommunication of Philippe VI" },
+    "1508189437304246293": { "tag": "WarDec",  "_was": "Treaty",    "_note": "Will dec on April 1 of 1342" },
+    "1508197468385312818": { "tag": "Judge",   "_was": "Treaty",    "_note": "Royal seizure of church properties" },
+    "1508197370859622582": { "tag": "WarDec",  "_was": "Treaty",    "_note": "dec 1347-1-1 explicitly" },
+    "1508225444896440330": { "tag": "Catholic","_was": "Treaty",    "_note": "Excommunication lifted" },
+    "1508222253358383175": { "tag": "Character","_was": "Treaty",   "_note": "Valois-Savoié royal marriage" },
+    "1508224055629582366": { "tag": "Meeting", "_was": "Treaty",    "_note": "Holland establishes embassy in Cologne" },
+
+    "1508189535182258246": { "tag": "Economy", "_was": null,        "_note": "Author wrote [Economy:] — parser missed bracket-typo" },
+    "1508196406765027338": { "tag": "WarDec",  "_was": null,        "_note": "Author wrote empty [Tag:] — Sweden invasion of Denmark" },
+    "1508205929118699531": { "tag": "WarDec",  "_was": null,        "_note": "Author wrote empty [Tag:] — Sweden invasion of Denmark" }
+  }
+}

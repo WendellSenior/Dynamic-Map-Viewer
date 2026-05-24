@@ -824,6 +824,80 @@ def resolve_country(raw_name):
     return COUNTRY_LOOKUP.get(raw_name.strip().lower())
 
 
+def apply_event_overrides(events_data, overrides_path):
+    """Apply per-event manual overrides from event_overrides.json.
+
+    This is the escape hatch for fixing posts whose authors aren't going to
+    retro-edit them on Discord — most commonly mis-applied `tag` values.
+    Overrides ALWAYS win, including over the rebuild that fires when a Discord
+    post is edited within the 7-day lookback window, so a single edit on the
+    source post can't accidentally undo a correction.
+
+    File schema:
+        {
+          "overrides": {
+            "<message_id>": { "tag": "Death", "_note": "optional comment", ... },
+            ...
+          }
+        }
+    Keys starting with `_` (including `_comment`, `_was`, `_note`) are ignored.
+    Tag values are validated against assets/event-tags.json's canonical set —
+    invalid tags log a warning and are skipped so a typo can't quietly corrupt
+    events.json.
+
+    Returns True iff at least one event was actually mutated. Missing file is
+    a no-op (returns False). Unknown message IDs log a warning and are skipped
+    rather than failing the run — old overrides for since-deleted events stay
+    harmless."""
+    raw = load_json(overrides_path, None)
+    if not raw:
+        return False
+    overrides = raw.get("overrides") or {}
+    if not overrides:
+        return False
+
+    by_id = {e["id"]: e for e in events_data.get("events", [])}
+    mutated = 0
+    skipped_unknown = 0
+    skipped_invalid_tag = 0
+
+    for ev_id, patch in overrides.items():
+        if not isinstance(patch, dict):
+            continue
+        target = by_id.get(ev_id)
+        if not target:
+            skipped_unknown += 1
+            continue
+        for field, value in patch.items():
+            if field.startswith("_"):
+                continue  # comment/audit fields — never copied to events.json
+            if field == "tag" and value is not None:
+                # VALID_TAGS is an alias→canonical map (lowercase keys). Look
+                # the override value up the same way the parser does so users
+                # can write either the canonical name or any registered alias,
+                # case-insensitively. The CANONICAL form gets stored.
+                canonical = VALID_TAGS.get(str(value).strip().lower())
+                if not canonical:
+                    log(f"  ! override for {ev_id}: tag {value!r} not in canonical "
+                        f"tag list — skipping (fix assets/event-tags.json or "
+                        f"the override).")
+                    skipped_invalid_tag += 1
+                    continue
+                value = canonical
+            if target.get(field) != value:
+                target[field] = value
+                mutated += 1
+
+    if mutated or skipped_unknown or skipped_invalid_tag:
+        msg = f"Overrides: {mutated} field change(s) applied"
+        if skipped_unknown:
+            msg += f", {skipped_unknown} unknown id(s)"
+        if skipped_invalid_tag:
+            msg += f", {skipped_invalid_tag} invalid tag(s)"
+        log(msg + ".")
+    return mutated > 0
+
+
 def check_edits_and_deletions(events_data, event_meta, now_utc, thread_names=None):
     thread_names = thread_names or {}
     cutoff      = now_utc - timedelta(days=EDIT_LOOKBACK_DAYS)
@@ -1122,11 +1196,12 @@ def main():
 
     # Resolve campaign config and populate the module-level path constants.
     cfg = load_campaign_config(args.campaign)
-    global CHANNEL_ID, EVENTS_FILE, CACHE_FILE, REFERENCE_DIR
-    CHANNEL_ID    = cfg["channel_id"]
-    EVENTS_FILE   = f"{cfg['folder']}/data/events.json"
-    CACHE_FILE    = f"{cfg['folder']}/data/processed_ids.json"
-    REFERENCE_DIR = f"assets/reference/{cfg['game']}"
+    global CHANNEL_ID, EVENTS_FILE, CACHE_FILE, REFERENCE_DIR, OVERRIDES_FILE
+    CHANNEL_ID     = cfg["channel_id"]
+    EVENTS_FILE    = f"{cfg['folder']}/data/events.json"
+    CACHE_FILE     = f"{cfg['folder']}/data/processed_ids.json"
+    OVERRIDES_FILE = f"{cfg['folder']}/data/event_overrides.json"
+    REFERENCE_DIR  = f"assets/reference/{cfg['game']}"
     log(f"=== Campaign: {cfg['folder']} (channel={CHANNEL_ID}, game={cfg['game']}) ===")
 
     # ── Debug fetch ───────────────────────────────────────────────────────────
@@ -1463,16 +1538,26 @@ def main():
     # ── Persist ───────────────────────────────────────────────────────────────
     # `merges_found` covers continuations merged into events.json events — those
     # mutations don't show up in new_events but still need a commit.
-    had_changes = (bool(new_events) or edits_found or promotions_found or
-                   merges_found or follower_changes)
-
     if new_events:
         events_data["events"].extend(new_events)
+
+    # Apply manual overrides AFTER new events are merged in so they cover both
+    # freshly-built and pre-existing events in the same pass. They also re-fire
+    # every run, which means if check_edits_and_deletions just rebuilt an
+    # overridden event from a fresh Discord fetch (clobbering the override),
+    # this restores it. Idempotent: returns True only if something actually
+    # changed.
+    log("Applying manual event overrides ...")
+    overrides_changed = apply_event_overrides(events_data, OVERRIDES_FILE)
+
+    had_changes = (bool(new_events) or edits_found or promotions_found or
+                   merges_found or follower_changes or overrides_changed)
 
     if had_changes:
         save_json(EVENTS_FILE, events_data)
         log(f"Saved events.json ({len(new_events)} new, edits={edits_found}, "
-            f"promotions={bool(promoted_events)}, merges={merges_found}).")
+            f"promotions={bool(promoted_events)}, merges={merges_found}, "
+            f"overrides={overrides_changed}).")
     else:
         log("No changes this run.")
 
