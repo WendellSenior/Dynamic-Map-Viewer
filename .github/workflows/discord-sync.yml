@@ -2,20 +2,25 @@ name: Discord Events Sync
 
 on:
   schedule:
-    # Baseline: every hour, on the hour. Catches edits, late posts, and
-    # whatever was missed during quiet hours.
-    - cron: '0 * * * *'
-    # Session burst: every 10 minutes during the weekly Sunday play session
-    # so freshly-posted events land on the live map within minutes instead
-    # of up to an hour later.
+    # Baseline: roughly hourly. Offset to xx:07 (instead of xx:00) because
+    # GitHub Actions cron is best-effort and queues are deepest at the top
+    # of every hour — many repos use '0 * * * *' and runs there can lag
+    # 20–40 min. Shifting a few minutes off the hour dramatically improves
+    # on-time firing without changing the cadence.
+    - cron: '7 * * * *'
+    # Session burst: roughly every 10 minutes during the weekly Sunday play
+    # session so freshly-posted events land on the live map within minutes
+    # instead of up to an hour later. Offset off the *:00/:10/:20 grid
+    # (same reason as above — those slots are the most congested) by using
+    # 5,15,25,35,45,55 instead of */10.
     #
-    # Schedule (UTC):  Sunday 18:00 → 22:59  (5 hours)
+    # Schedule (UTC):  Sunday 18:00 → 22:59  (5 hours, fires at :05/:15/:25/:35/:45/:55)
     # Local (BST):     Sunday 19:00 → 23:59  (matches 4-hour 19:00 session
     #                                          + 1-hour buffer after end)
     #
     # If the session moves or your local timezone shifts (e.g. BST → GMT
     # in late October), edit the hour range below. Cron is always UTC.
-    - cron: '*/10 18-22 * * 0'
+    - cron: '5,15,25,35,45,55 18-22 * * 0'
   workflow_dispatch:
     inputs:
       since:
