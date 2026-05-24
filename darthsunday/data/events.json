@@ -2994,7 +2994,7 @@
     {
       "id": "1508213647518728272",
       "channel_id": "1505545415213449216",
-      "date": "1337-04-01",
+      "date": "1350-07-12",
       "country": null,
       "countryRaw": "Colgone",
       "province": "Cologne",
@@ -3225,6 +3225,53 @@
           "filename": "image.png",
           "width": 803,
           "height": 463
+        }
+      ]
+    },
+    {
+      "id": "1508231327017734206",
+      "channel_id": "1505545415213449216",
+      "date": "1355-08-17",
+      "country": "MAI",
+      "countryRaw": null,
+      "province": "Katzenelnbogen",
+      "tag": "Treaty",
+      "author": "dani178i",
+      "snippet": "Following Solid support to the hounored Palatinate in their conquest of Hohelohe, the Bishoprich of Mainz is given the county lands of Katzenelnbogen ",
+      "fullText": "Following Solid support to the hounored Palatinate in their conquest of Hohelohe, the Bishoprich of Mainz is given the county lands of Katzenelnbogen close to them. History will remember the brave 300 men that died in the name of glory and honour!\n\n<@222439858927435776>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508231327608996000/image.png?ex=6a14c962&is=6a1377e2&hm=b17424b069aac79e5a4e93425729e0d6345e336f8341e5eef79b86f43dd1b9cf&",
+          "filename": "image.png",
+          "width": 1458,
+          "height": 838
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1508235865502122035",
+      "channel_id": "1505545331591610549",
+      "date": "1348-12-11",
+      "country": "BRI",
+      "countryRaw": "Brittany",
+      "province": "Redon",
+      "tag": "Battle",
+      "author": "Redcola",
+      "snippet": "**The Combat of Thirty **\n<@460814348487753730><@1106651545296195655><@696548460094029914> \n<@1417260821674852363>\n\nThe Turn Around of French forces s",
+      "fullText": "**The Combat of Thirty **\n<@460814348487753730><@1106651545296195655><@696548460094029914> \n<@1417260821674852363>\n\nThe Turn Around of French forces sees the Breton war of Succession collapse into a frantic mess of siege, counter siege, roving warbands and mercenary forces from Burgundy and Scotland. To bring order to this chaos in true spirit of the Carolingian cycle Charlez an Blois issues a challenge to the King of France and his Dukes on Campaign, a battle of Thirty Knights, fifteen on either side ever a chivalric romantic. Yet shockingly John De Montfort would accept either out to honour his half brothers memory and wanting to stop the heavy fighting or his own amicability.\n\nAt Guillac knights of both sides including the Black Prince, Charles Blois, John de Montfort, Phillipe Bourgogne among many others would duel. \n\nA Scene that would go on to inspire artwork and song these knights with lance, sword and mace would hack and slash upon each other. The Montfort Royal knights would eventually in the chaotic clash be rallied by the Young Loyalist Bertrand Guesclin to break their rivals formation and force Blois to yield the battle, Bertrand killing a grand total of three knights of Blois including the English commander Hugh Calveley, his black eagle crest bloodied and leading to them declaring this young brutal man the **Black Eagle**\n\nYet despite the french factions victory it would not be without grave cost. Edward the black prince fighting through the melee as the french rallied towards John de Montfort would isolate and duel him while Charles held back the French forces. the dramatic battle would see the black prince slay the leader of the French faction of the civil war, in his last moments declaring\n\n> *\"i was never so loved as i am now\"*\n\nFrance claim victory yet with their leader gone the host would be forced to withdraw, Charles calling **Edward the gift of Ankou**.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508235867913715863/330px-Le_Combat_des_Trente_28185729.png?ex=6a14cd9c&is=6a137c1c&hm=03a4fa5b13f29925f9120dea43316b3e63d82019c09c274f28d2f2ed904eae0f&",
+          "filename": "330px-Le_Combat_des_Trente_28185729.png",
+          "width": 960,
+          "height": 513
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508235868308115597/f8ed10102d1abc396e8dd4c6c76207aa.png?ex=6a14cd9c&is=6a137c1c&hm=2f06d4a2440270b35c8e35c7bcd38455dd3d295b882c5e7a14cc9400f15407db&",
+          "filename": "f8ed10102d1abc396e8dd4c6c76207aa.png",
+          "width": 736,
+          "height": 881
         }
       ]
     }
