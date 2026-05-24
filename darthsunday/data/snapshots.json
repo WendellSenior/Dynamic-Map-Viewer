@@ -18,6 +18,11 @@
       "date": "1350-01-01",
       "image": "data/maps/1350_July_12.png",
       "label": "1350"
+    },
+    {
+      "date": "1356-01-01",
+      "image": "data/maps/1356_January_1356.png",
+      "label": "1356"
     }
   ]
 }
