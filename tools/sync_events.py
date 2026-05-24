@@ -78,7 +78,11 @@ if not VALID_TAGS:
 
 
 TAG_RE = re.compile(
-    r"\[Date:\s*(\d{4}-\d{2}-\d{2})\s*\]"
+    # The Date bracket is captured loosely — the strict ISO-only regex used to
+    # be inline here but rejected perfectly reasonable forms like
+    # `[Date:1 October 1338]`. Validation/parsing happens in _parse_flexible_date
+    # below; the bracket header is only accepted if that returns a valid ISO date.
+    r"\[Date:\s*([^\]]+?)\s*\]"
     r"\s*"
     r"\[Country:\s*([^\]]+?)\s*\]"
     r"\s*"
@@ -87,6 +91,62 @@ TAG_RE = re.compile(
     r"(?:\[Tag:\s*([^\]]+?)\s*\])?",
     re.IGNORECASE,
 )
+
+# Month-name → month-number lookup for the flexible date parser. Mirrors
+# tools/preprocess.py's table so both pipelines accept the same forms.
+_MONTH_NAMES = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+
+def _parse_flexible_date(s):
+    """Accept multiple historical-date forms and return canonical ISO
+    'YYYY-MM-DD', or None if unparseable. Mirrors preprocess.py.parse_date so
+    `[Date:1 October 1338]`, `[Date:1st April 1337]`, `[Date:1338-10-01]`,
+    `[Date:11 Nov 1444]`, etc. all map to the same stored representation."""
+    if not s:
+        return None
+    s = s.strip().lower()
+    # 1338-10-01 / 1338.10.01 / 1338/10/01 (ISO-ish, Y-M-D)
+    m = re.fullmatch(r"(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})", s)
+    if m:
+        y, mo, d = int(m[1]), int(m[2]), int(m[3])
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            return f"{y:04d}-{mo:02d}-{d:02d}"
+        return None
+    # 1 October 1338 / 1st April 1337 / 11 Nov 1444 / 13th December 1513
+    m = re.fullmatch(r"(\d{1,2})(?:st|nd|rd|th)?[_\s./\-]+([a-z]+),?[_\s./\-]+(\d{3,4})", s)
+    if m and m[2] in _MONTH_NAMES:
+        d, y = int(m[1]), int(m[3])
+        if 1 <= d <= 31:
+            return f"{y:04d}-{_MONTH_NAMES[m[2]]:02d}-{d:02d}"
+        return None
+    # October 1, 1338 / Oct 1 1338 / Sept 21st, 1500
+    m = re.fullmatch(r"([a-z]+)[_\s./\-]+(\d{1,2})(?:st|nd|rd|th)?,?[_\s./\-]+(\d{3,4})", s)
+    if m and m[1] in _MONTH_NAMES:
+        d, y = int(m[2]), int(m[3])
+        if 1 <= d <= 31:
+            return f"{y:04d}-{_MONTH_NAMES[m[1]]:02d}-{d:02d}"
+        return None
+    # 1338 May 1 (year-first, name-style)
+    m = re.fullmatch(r"(\d{3,4})[_\s./\-]+([a-z]+)[_\s./\-]+(\d{1,2})", s)
+    if m and m[2] in _MONTH_NAMES:
+        d, y = int(m[3]), int(m[1])
+        if 1 <= d <= 31:
+            return f"{y:04d}-{_MONTH_NAMES[m[2]]:02d}-{d:02d}"
+        return None
+    return None
 
 
 def log(msg):
@@ -219,9 +279,11 @@ def parse_event_tags(text):
 
     raw_date, raw_country, raw_location, raw_tag = match.groups()
 
-    try:
-        datetime.strptime(raw_date, "%Y-%m-%d")
-    except ValueError:
+    # Accept any of YYYY-MM-DD / 1 October 1338 / 1st April 1337 / 11 Nov 1444
+    # / Oct 1, 1338 / 1338 May 1. Normalised to ISO for storage so downstream
+    # code (timeline scrubber, sorting, comparison) stays simple.
+    iso_date = _parse_flexible_date(raw_date)
+    if not iso_date:
         return None
 
     country_stripped = raw_country.strip()
@@ -244,7 +306,7 @@ def parse_event_tags(text):
     cleaned = (text[:match.start()] + text[match.end():]).strip()
 
     return {
-        "date":       raw_date,
+        "date":       iso_date,
         "country":    country,
         "countryRaw": country_raw,
         "province":   raw_location.strip(),
