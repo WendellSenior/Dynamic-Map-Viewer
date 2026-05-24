@@ -8,7 +8,8 @@
   "tags": {
     "WarDec":       { "icon": "🎺", "group": "General", "aliases": ["war", "warD", "declaration", "wardeclaration", "declare", "declarewar"] },
     "Battle":       { "icon": "⚔️", "group": "General", "aliases": ["fight", "siege", "combat", "engagement", "war battle"] },
-    "Character":    { "icon": "👤", "group": "General", "aliases": ["person", "leader", "ruler", "monarch", "king", "queen", "death", "birth", "succession", "heir", "marriage"] },
+    "Character":    { "icon": "👤", "group": "General", "aliases": ["person", "leader", "ruler", "monarch", "king", "queen", "birth", "succession", "heir", "marriage"] },
+    "Death":        { "icon": "💀", "group": "General", "aliases": ["died", "die", "demise", "passing", "decease", "deceased", "funeral", "obituary"] },
     "Trade":        { "icon": "📦", "group": "General", "aliases": ["commerce", "merchant", "goods", "trade goods", "tradegoods"] },
     "Economy":      { "icon": "💰", "group": "General", "aliases": ["economic", "money", "income", "tax", "taxation", "debt", "finance", "wealth", "treasury", "coin"] },
     "Discover":     { "icon": "🚢", "group": "General", "aliases": ["discovery", "exploration", "explore", "colony", "colonise", "colonize", "colonisation", "colonization", "expedition", "ship"] },
