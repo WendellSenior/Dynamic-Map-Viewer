@@ -1345,11 +1345,11 @@
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
-      "province": "Nancy",
+      "province": "Trier",
       "tag": "Treaty",
       "author": "DerNette",
       "snippet": "# **A Cleric delivers a sealed letter to the court of Baldwin of Luxembourg.**\n\nTo the Most Reverend and Noble Prince, Baldwin of Luxembourg, by the G",
-      "fullText": "# **A Cleric delivers a sealed letter to the court of Baldwin of Luxembourg.**\n\nTo the Most Reverend and Noble Prince, Baldwin of Luxembourg, by the Grace of God Archbishop of Trier and Prince-Elector of the Holy Roman Empire, We extend our greetings and highest esteem.\n\nAs Your Grace well knows, my house has long maintained a cooperative and respectful relationship with both Your Archbishopric and the people and lands of Trier. Such ties were upheld in the days of my late father, [Ferry IV of Lorraine](https://en.wikipedia.org/wiki/Frederick_IV,_Duke_of_Lorraine), and further strengthened through the shared political circumstances of the Moselle region, particularly during the conflicts surrounding Metz and the events commonly remembered as the [War of Metz](https://en.wikipedia.org/wiki/War_of_Metz), in which the lords of our lands and your Archbishopric found themselves aligned in common cause.\n\nYour Archbishopric and our Duchy are bound not only by commerce along the Moselle, but also by noble ties and long-standing relations between our lands. Yet it is my belief that our realms may be bound even closer still.\nThus, I would humbly propose the consideration of an alliance between us, that we may lend one another support in the pursuit of mutual interests and, where fitting, continue endeavours left unfinished by past generations.\nIn the near future, it would be of great interest to me to arrange an audience within your esteemed city of Trier, that we might further discuss the future of the Moselle region and the prosperity of our neighbouring lands.\nMay God preserve Your Grace and guide the peace of your lands.\n\nWritten at Nancy, under our seal, in the Year of Our Lord 1337.\n\nRaoul, by the Grace of God Duke of Lorraine\n<@137101075411894272>\n\n[Date:1337-04-01][Country:Lorraine][Location:Nancy][Tag:Treaty]\n# **A nobleman from Lorraine arrives at the court of Savoy bearing a sealed letter.**\n\nTo the Most Noble Lord, Count of Savoy, We send our sincere greetings and our wishes for prosperity and honor.\nIt would be a great honor to Us should the relations between our respective domains flourish in friendship and mutual goodwill.\nWe would be open to more regular contact between our courts, founded upon mutual respect and the desire for peaceful understanding between neighboring lords.\nIt is Our hope that such relations may serve the stability and benefit of both our lands.\nMay God grant Your Lordship good health, wisdom, and continued fortune.\n\nWritten at Nancy, under our seal, in the Year of Our Lord 1337.\nRaoul, by the Grace of God Duke of Lorraine\n<@564196329132261376>",
+      "fullText": "# **A Cleric delivers a sealed letter to the court of Baldwin of Luxembourg.**\n\nTo the Most Reverend and Noble Prince, Baldwin of Luxembourg, by the Grace of God Archbishop of Trier and Prince-Elector of the Holy Roman Empire, We extend our greetings and highest esteem.\n\nAs Your Grace well knows, my house has long maintained a cooperative and respectful relationship with both Your Archbishopric and the people and lands of Trier. Such ties were upheld in the days of my late father, [Ferry IV of Lorraine](https://en.wikipedia.org/wiki/Frederick_IV,_Duke_of_Lorraine), and further strengthened through the shared political circumstances of the Moselle region, particularly during the conflicts surrounding Metz and the events commonly remembered as the [War of Metz](https://en.wikipedia.org/wiki/War_of_Metz), in which the lords of our lands and your Archbishopric found themselves aligned in common cause.\n\nYour Archbishopric and our Duchy are bound not only by commerce along the Moselle, but also by noble ties and long-standing relations between our lands. Yet it is my belief that our realms may be bound even closer still.\nThus, I would humbly propose the consideration of an alliance between us, that we may lend one another support in the pursuit of mutual interests and, where fitting, continue endeavours left unfinished by past generations.\nIn the near future, it would be of great interest to me to arrange an audience within your esteemed city of Trier, that we might further discuss the future of the Moselle region and the prosperity of our neighbouring lands.\nMay God preserve Your Grace and guide the peace of your lands.\n\nWritten at Nancy, under our seal, in the Year of Our Lord 1337.\n\nRaoul, by the Grace of God Duke of Lorraine\n<@137101075411894272>\n\n[Date:1337-04-01][Country:Lorraine][Location:Chambery][Tag:Treaty]\n# **A nobleman from Lorraine arrives at the court of Savoy bearing a sealed letter.**\n\nTo the Most Noble Lord, Count of Savoy, We send our sincere greetings and our wishes for prosperity and honor.\nIt would be a great honor to Us should the relations between our respective domains flourish in friendship and mutual goodwill.\nWe would be open to more regular contact between our courts, founded upon mutual respect and the desire for peaceful understanding between neighboring lords.\nIt is Our hope that such relations may serve the stability and benefit of both our lands.\nMay God grant Your Lordship good health, wisdom, and continued fortune.\n\nWritten at Nancy, under our seal, in the Year of Our Lord 1337.\nRaoul, by the Grace of God Duke of Lorraine\n<@564196329132261376>",
       "images": []
     },
     {
@@ -1358,7 +1358,7 @@
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
-      "province": "Nancy",
+      "province": "Paris",
       "tag": "Treaty",
       "author": "DerNette",
       "snippet": "# **A noble envoy delivers a sealed letter from Raoul d’Alsace, Duke of Lorraine, to the French court.**\n\nTo the Most High and Most Christian Prince, ",
@@ -1601,7 +1601,7 @@
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
-      "province": "Nancy",
+      "province": "Trier",
       "tag": "Treaty",
       "author": "DerNette",
       "snippet": "My blessed friend,\n\nThank you for your open and most kind message, especially during such a difficult time. We greatly value your friendship and remai",
@@ -1615,7 +1615,7 @@
       "date": "1337-04-01",
       "country": "LOR",
       "countryRaw": "Lorraine",
-      "province": "Nancy",
+      "province": "Paris",
       "tag": "Treaty",
       "author": "DerNette",
       "snippet": "Once again, a nobleman sent from Nancy arrives at the court of Paris bearing a sealed letter.\n\nGreetings of the highest respect and esteem to King Phi",
@@ -1695,6 +1695,19 @@
           "height": 176
         }
       ]
+    },
+    {
+      "id": "1508050946419064832",
+      "channel_id": "1505545415213449216",
+      "date": "1337-04-01",
+      "country": "LOR",
+      "countryRaw": "Lorraine",
+      "province": "München",
+      "tag": "Treaty",
+      "author": "DerNette",
+      "snippet": "A noble envoy from Lorraine arrives at the Imperial court bearing a sealed letter from Duke Raoul d’Alsace.\n\n**To the Noble and Mighty Prince, Ludwig ",
+      "fullText": "A noble envoy from Lorraine arrives at the Imperial court bearing a sealed letter from Duke Raoul d’Alsace.\n\n**To the Noble and Mighty Prince, Ludwig IV, by the Grace of God Holy Roman Emperor, King of the Romans, We extend Our greetings and highest respect.**\n\nWe wish Your Majesty a glorious and prosperous reign and honour Your Imperial dignity with the respect owed to so great an authority.\n\nAs a young Duke, We wish to assure You of Our loyalty and commitment to the Empire. Though the people of Lorraine share long-standing customs and ties with neighbouring realms, Our Duchy remains devoted to the prosperity, order, and strength of the Empire.\nWe strive to govern Lorraine in such a manner that it may continue to contribute to the welfare and prosperity of the Imperial lands.\n\nLorraine shall remain steadfast in its duties within the Empire.\nMay God preserve Your Majesty in health, wisdom, and strength for many years to come.\n\nWritten at Nancy, under our seal, in the Year of Our Lord 1337.\nRaoul d’Alsace, by the Grace of God Duke of Lorraine\n<@763652399784919080>",
+      "images": []
     }
   ]
 }
