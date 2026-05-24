@@ -8,6 +8,16 @@
       "date": "1337-01-01",
       "image": "data/maps/1337_April_01.png",
       "label": "1337"
+    },
+    {
+      "date": "1346-01-01",
+      "image": "data/maps/1346_October_01.png",
+      "label": "1346"
+    },
+    {
+      "date": "1350-01-01",
+      "image": "data/maps/1350_July_12.png",
+      "label": "1350"
     }
   ]
 }
