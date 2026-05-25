@@ -560,11 +560,13 @@ footer {
   border-top: 1px solid #e3e3e3;
 }
 
-.timeline-track { position: relative; padding-top: 16px; }
+.timeline-track { position: relative; padding-top: 30px; }
 #timeline-marks {
   position: absolute;
   left: 8px; right: 8px; top: 0;
-  height: 14px;
+  /* Tall enough to hold a year-stamp band above the snapshot tick band:
+     14px label row on top + 14px tick row below. */
+  height: 28px;
   pointer-events: none;
 }
 .tl-mark {
@@ -575,7 +577,9 @@ footer {
 .tl-mark.snapshot {
   width: 2px;
   height: 14px;
-  top: 0;
+  /* Sit in the bottom half of the marks container; the year stamp drawn by
+     ::before sits in the top half. */
+  top: 14px;
   background: #2563eb;
   cursor: pointer;
 }
@@ -584,10 +588,29 @@ footer {
   position: absolute;
   inset: -4px -3px;
 }
+/* Year stamp above each snapshot tick. Content comes from the data-label
+   attribute set in renderTimelineMarks (the campaign-defined snapshot label,
+   typically a 4-char year). Inherits clickability from the parent .tl-mark
+   so clicking the stamp seeks the timeline same as the tick itself. */
+.tl-mark.snapshot::before {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1px;
+  font-size: 10px;
+  line-height: 1;
+  color: #2563eb;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 .tl-mark.event {
   width: 1px;
   height: 6px;
-  top: 8px;
+  /* Kept the same 8px offset from the snapshot tick line as before
+     (was top:8 against a top:0 snapshot; now top:22 against a top:14 one). */
+  top: 22px;
   background: #aaa;
 }
 #timeline { width: 100%; }

@@ -691,6 +691,11 @@ function renderTimelineMarks() {
     m.className = 'tl-mark snapshot';
     m.style.left = `${pct}%`;
     m.title = `${formatEventDate(s.date)}${s.label ? ' — ' + s.label : ''}`;
+    // Year stamp shown above the blue tick by the .tl-mark.snapshot::before
+    // rule in style.css. Prefer the campaign-defined label (usually a year
+    // like "1337"); fall back to the year extracted from the ISO date so the
+    // stamp is never empty.
+    m.dataset.label = s.label || s.date.slice(0, 4);
     m.addEventListener('click', () => {
       state.currentTime = sT;
       document.getElementById('timeline').value = timeToSlider(state.currentTime);
