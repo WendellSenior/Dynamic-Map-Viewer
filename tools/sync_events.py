@@ -401,16 +401,7 @@ def build_event(msg, parsed, thread_title=None, channel_id=None):
     # parent channel use different ids, so the wrong value would break the
     # Discord URL even for a valid message.
     ch_id = channel_id or msg.get("channel_id") or ""
-    images = [
-        {
-            "url":      att["url"],
-            "filename": att["filename"],
-            "width":    att.get("width"),
-            "height":   att.get("height"),
-        }
-        for att in msg.get("attachments", [])
-        if (att.get("content_type") or "").startswith("image/")
-    ]
+    images = _msg_images(msg)
     event = {
         "id":         msg["id"],
         # channel_id lets the viewer build a `https://discord.com/channels/.../...`
@@ -444,10 +435,137 @@ def _msg_images(msg):
             "filename": att["filename"],
             "width":    att.get("width"),
             "height":   att.get("height"),
+            # Discord attachment id (snowflake) — globally unique. Used as a
+            # filename prefix when we mirror the attachment locally so two
+            # uploads with the same filename across different events can't
+            # collide on disk.
+            "att_id":   att.get("id"),
         }
         for att in msg.get("attachments", [])
         if (att.get("content_type") or "").startswith("image/")
     ]
+
+
+# ── Attachment mirroring ─────────────────────────────────────────────────────
+# Discord signs every attachment URL with a `?ex=<hex_ts>` expiration param,
+# typically ~24h. Once the signature rotates, the URL 404s permanently — there
+# is no way to recover the exact same URL. To make the AAR viewer's image
+# rendering durable, we download attachments to <campaign>/data/attachments/
+# on first sight and stamp a `local` field on each event's images[] entry.
+# The viewer prefers `local` over `url` so once mirrored, images survive
+# Discord's CDN rotation forever.
+
+# Where to put mirrored attachments. Set by main() per-campaign. Empty when
+# mirroring is disabled (e.g. tests / unconfigured campaigns).
+ATTACHMENTS_DIR = ""
+
+_SAFE_FILENAME_RE = re.compile(r"[^A-Za-z0-9._-]")
+
+
+def _safe_filename(name):
+    """Sanitise a Discord filename for use as a local filename. Replaces any
+    char outside [A-Za-z0-9._-] with `_`. Truncates very long names to keep
+    filesystem path lengths reasonable on Windows (260 char default limit)."""
+    name = _SAFE_FILENAME_RE.sub("_", name or "file")
+    if len(name) > 80:
+        # Preserve the extension so the image type is still inferable.
+        stem, dot, ext = name.rpartition(".")
+        if dot and len(ext) <= 8:
+            name = stem[:80 - len(ext) - 1] + "." + ext
+        else:
+            name = name[:80]
+    return name
+
+
+def _local_attachment_path(img):
+    """Relative path (campaign-rooted) where an image SHOULD live locally.
+    Returns None if we can't build a stable name (missing att_id and url)."""
+    att_id = img.get("att_id")
+    if not att_id and img.get("url"):
+        # Fallback: pull the attachment id from the URL — the path component
+        # between /attachments/<channel>/ and /<filename>. Older events
+        # serialized before att_id was added go through this branch.
+        m = re.search(r"/attachments/\d+/(\d+)/", img["url"])
+        if m:
+            att_id = m.group(1)
+    if not att_id:
+        return None
+    fname = _safe_filename(img.get("filename") or "file")
+    return f"data/attachments/{att_id}_{fname}"
+
+
+def _download_attachment(url, dest_abs, timeout=30):
+    """Stream a Discord attachment URL to dest_abs. Returns True on success,
+    False on any HTTP error / network error / 0-byte response. Caller decides
+    what to do on False (skip mirroring, log, retry next run, etc.)."""
+    try:
+        # Discord attachment CDN serves the file without auth — the signature
+        # is in the URL itself, so use a bare requests.get (not api_get).
+        r = requests.get(url, timeout=timeout, stream=True)
+        if r.status_code != 200:
+            return False
+        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+        # Write to a .tmp and rename so a partial download doesn't leave a
+        # half-file at the real path (would fool the next "already mirrored?"
+        # check into skipping a re-download).
+        tmp = dest_abs + ".tmp"
+        size = 0
+        with open(tmp, "wb") as fh:
+            for chunk in r.iter_content(chunk_size=65536):
+                if chunk:
+                    fh.write(chunk)
+                    size += len(chunk)
+        if size == 0:
+            os.remove(tmp)
+            return False
+        os.replace(tmp, dest_abs)
+        return True
+    except (requests.RequestException, OSError):
+        try:
+            if os.path.exists(dest_abs + ".tmp"):
+                os.remove(dest_abs + ".tmp")
+        except OSError:
+            pass
+        return False
+
+
+def mirror_event_images(event):
+    """Walk event["images"], downloading any that aren't already mirrored and
+    stamping a `local` field on each successful one. Idempotent — existing
+    local files are kept, and an entry that already has `local` pointing at
+    an existing file is skipped. Returns True iff anything changed."""
+    if not ATTACHMENTS_DIR:
+        return False
+    images = event.get("images") or []
+    if not images:
+        return False
+
+    changed = False
+    for img in images:
+        local_rel = img.get("local") or _local_attachment_path(img)
+        if not local_rel:
+            continue  # can't build a stable path — leave URL-only
+        # ATTACHMENTS_DIR is the campaign root (.../data/attachments stripped
+        # off because local_rel already starts with "data/attachments/").
+        dest_abs = os.path.join(ATTACHMENTS_DIR, local_rel)
+        if os.path.exists(dest_abs):
+            # Already mirrored. Just make sure the JSON entry knows about it.
+            if img.get("local") != local_rel:
+                img["local"] = local_rel
+                changed = True
+            continue
+        if not img.get("url"):
+            continue
+        if _download_attachment(img["url"], dest_abs):
+            img["local"] = local_rel
+            changed = True
+            log(f"    ↓ mirrored {os.path.basename(dest_abs)} ({os.path.getsize(dest_abs)//1024} KB)")
+        else:
+            # URL is dead or download failed — leave the entry untouched. A
+            # later refetch of the message (next edit, or backfill_attachments
+            # workflow run) will get a fresh URL and try again.
+            log(f"    x failed to mirror {img.get('filename')!r} from {img.get('url','')[:60]!r}")
+    return changed
 
 
 def _event_channel_id(ev, event_meta):
@@ -1225,12 +1343,16 @@ def main():
 
     # Resolve campaign config and populate the module-level path constants.
     cfg = load_campaign_config(args.campaign)
-    global CHANNEL_ID, EVENTS_FILE, CACHE_FILE, REFERENCE_DIR, OVERRIDES_FILE
-    CHANNEL_ID     = cfg["channel_id"]
-    EVENTS_FILE    = f"{cfg['folder']}/data/events.json"
-    CACHE_FILE     = f"{cfg['folder']}/data/processed_ids.json"
-    OVERRIDES_FILE = f"{cfg['folder']}/data/event_overrides.json"
-    REFERENCE_DIR  = f"assets/reference/{cfg['game']}"
+    global CHANNEL_ID, EVENTS_FILE, CACHE_FILE, REFERENCE_DIR, OVERRIDES_FILE, ATTACHMENTS_DIR
+    CHANNEL_ID      = cfg["channel_id"]
+    EVENTS_FILE     = f"{cfg['folder']}/data/events.json"
+    CACHE_FILE      = f"{cfg['folder']}/data/processed_ids.json"
+    OVERRIDES_FILE  = f"{cfg['folder']}/data/event_overrides.json"
+    # Campaign root that mirror_event_images joins with the `data/attachments/...`
+    # entries it writes. Discord CDN URLs expire ~24h after being signed, so
+    # we mirror every image we see locally and the viewer prefers those.
+    ATTACHMENTS_DIR = cfg["folder"]
+    REFERENCE_DIR   = f"assets/reference/{cfg['game']}"
     log(f"=== Campaign: {cfg['folder']} (channel={CHANNEL_ID}, game={cfg['game']}) ===")
 
     # ── Debug fetch ───────────────────────────────────────────────────────────
@@ -1570,6 +1692,20 @@ def main():
     if new_events:
         events_data["events"].extend(new_events)
 
+    # Mirror attachments locally so the viewer doesn't depend on Discord's
+    # short-lived signed CDN URLs. We do this for EVERY event in the data
+    # set, not just the new ones — the function is idempotent (skips images
+    # whose `local` path already exists on disk) so the cost on repeat runs
+    # is just an os.path.exists() per image. New events on this run carry
+    # fresh URLs so they'll download cleanly; old events with already-expired
+    # URLs are skipped silently and picked up by the backfill_attachments
+    # workflow run (which refetches the message first to get fresh URLs).
+    log("Mirroring image attachments ...")
+    mirror_changed = False
+    for ev in events_data["events"]:
+        if mirror_event_images(ev):
+            mirror_changed = True
+
     # Apply manual overrides AFTER new events are merged in so they cover both
     # freshly-built and pre-existing events in the same pass. They also re-fire
     # every run, which means if check_edits_and_deletions just rebuilt an
@@ -1580,13 +1716,14 @@ def main():
     overrides_changed = apply_event_overrides(events_data, OVERRIDES_FILE)
 
     had_changes = (bool(new_events) or edits_found or promotions_found or
-                   merges_found or follower_changes or overrides_changed)
+                   merges_found or follower_changes or overrides_changed or
+                   mirror_changed)
 
     if had_changes:
         save_json(EVENTS_FILE, events_data)
         log(f"Saved events.json ({len(new_events)} new, edits={edits_found}, "
             f"promotions={bool(promoted_events)}, merges={merges_found}, "
-            f"overrides={overrides_changed}).")
+            f"overrides={overrides_changed}, mirrored={mirror_changed}).")
     else:
         log("No changes this run.")
 

@@ -812,12 +812,18 @@ function showEvent(e) {
     const wrap = document.createElement('div');
     wrap.className = 'event-images';
     for (const img of e.images) {
+      // Prefer the local mirror in <campaign>/data/attachments/ over the
+      // Discord CDN URL — the CDN URL carries a ~24h-rotating signature so
+      // anything older than that 404s. The mirror is populated by
+      // sync_events.py / backfill_attachments.py. `url` only survives as a
+      // fallback for entries the backfill hasn't reached yet.
+      const src = img.local || img.url;
       const a = document.createElement('a');
-      a.href = img.url;
+      a.href = src;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       const imgEl = document.createElement('img');
-      imgEl.src = img.url;
+      imgEl.src = src;
       imgEl.alt = img.filename || '';
       imgEl.loading = 'lazy';
       imgEl.referrerPolicy = 'no-referrer';

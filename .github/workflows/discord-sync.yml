@@ -49,6 +49,11 @@ on:
         type: boolean
         required: false
         default: false
+      backfill_attachments:
+        description: 'One-shot: walk every event whose images[] lack a `local` field, refetch the Discord message (gets freshly-signed CDN URLs), and download the attachments to data/attachments/. Use to repair the backlog after Discord CDN URL rotation has nuked older URLs. Commits when finished. No regular sync runs alongside this.'
+        type: boolean
+        required: false
+        default: false
 
 # Serialise runs so the every-10-min burst can't double-fire (e.g. one run
 # overruns its slot, the next slot fires while the first is still going).
@@ -84,7 +89,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Run Discord sync (single pass)
-        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true
         id: sync
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -100,9 +105,14 @@ jobs:
         run: python tools/sync_events.py --campaign darthsunday
 
       - name: Commit and push (single pass)
-        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && steps.sync.outputs.had_changes == 'true'
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true && steps.sync.outputs.had_changes == 'true'
         run: |
-          git add darthsunday/data/events.json darthsunday/data/processed_ids.json
+          # data/attachments/ pulled in because sync_events.py mirrors new
+          # image attachments locally — see the "Mirroring image attachments"
+          # log line. Files there are part of the commit so the viewer's
+          # local-path-preferred image rendering survives Discord CDN
+          # signature rotation.
+          git add darthsunday/data/events.json darthsunday/data/processed_ids.json darthsunday/data/attachments
           git commit -m "chore: sync Discord events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
           git push
 
@@ -124,13 +134,33 @@ jobs:
           git commit -m "chore: backfill channel_ids on older events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
           git push
 
+      # One-shot attachment backfill — refetches every event that still has
+      # un-mirrored images (no `local` field, or local file missing), gets
+      # freshly-signed Discord CDN URLs from the refetch, and downloads them
+      # to darthsunday/data/attachments/. Run this once after deploying the
+      # mirror feature to repair the existing backlog of expired-URL images;
+      # the normal cron sync handles new attachments going forward.
+      - name: Backfill attachments
+        if: inputs.backfill_attachments == true
+        id: backfill_attach
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        run: python tools/backfill_attachments.py --campaign darthsunday
+
+      - name: Commit and push (attachment backfill)
+        if: inputs.backfill_attachments == true && steps.backfill_attach.outputs.had_changes == 'true'
+        run: |
+          git add darthsunday/data/events.json darthsunday/data/attachments
+          git commit -m "chore: backfill mirrored Discord attachments $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
+          git push
+
       # Chunked-backfill mode: walk from `since` to today in `chunk_days`
       # increments, calling the sync once per chunk with --since/--until and
       # committing+pushing between chunks. This keeps each chunk's Discord API
       # usage small enough to avoid global rate-limit churn on large backfills,
       # and lands progress incrementally so a later failure doesn't lose work.
       - name: Run Discord sync (chunked backfill)
-        if: inputs.chunk_days != '' && inputs.backfill_channel_ids != true
+        if: inputs.chunk_days != '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SINCE: ${{ inputs.since }}
