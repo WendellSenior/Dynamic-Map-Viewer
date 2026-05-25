@@ -7,22 +7,26 @@
     {
       "date": "1337-01-01",
       "image": "data/maps/1337_April_01.png",
-      "label": "1337"
+      "label": "1337",
+      "image_lowres": "data/maps/lowres/1337_April_01.webp"
     },
     {
       "date": "1346-01-01",
       "image": "data/maps/1346_October_01.png",
-      "label": "1346"
+      "label": "1346",
+      "image_lowres": "data/maps/lowres/1346_October_01.webp"
     },
     {
       "date": "1350-01-01",
       "image": "data/maps/1350_July_12.png",
-      "label": "1350"
+      "label": "1350",
+      "image_lowres": "data/maps/lowres/1350_July_12.webp"
     },
     {
       "date": "1356-01-01",
-      "image": "data/maps/1356_January_1356.png",
-      "label": "1356"
+      "image": "data/maps/1356_January_05.png",
+      "label": "1356",
+      "image_lowres": "data/maps/lowres/1356_January_05.webp"
     }
   ]
 }
