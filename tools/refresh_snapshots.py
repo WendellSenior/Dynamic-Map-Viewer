@@ -14,7 +14,29 @@ from pathlib import Path
 
 
 DATE_RE = re.compile(r"(?<!\d)(\d{3,4})[_\-](\d{1,2})[_\-](\d{1,2})(?!\d)")
+# YYYY_MonthName_DD (e.g. 1356_January_05) and DD_MonthName_YYYY (e.g.
+# 5_January_1356). Lets players name their map exports with the in-game month
+# spelled out instead of the numeric month — common when exporting from
+# Paradox tooling that defaults to month-name labels.
+DATE_NAME_Y_FIRST_RE = re.compile(r"(?<!\d)(\d{3,4})[_\-]([A-Za-z]+)[_\-](\d{1,2})(?!\d)")
+DATE_NAME_D_FIRST_RE = re.compile(r"(?<!\d)(\d{1,2})[_\-]([A-Za-z]+)[_\-](\d{3,4})(?!\d)")
 YEAR_RE = re.compile(r"(?<!\d)(\d{3,4})(?!\d)")
+
+# Month-name → number. Kept in sync with tools/sync_events.py._MONTH_NAMES.
+_MONTH_NAMES = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
 
 # Tuple, not set — the snapshot lookup walks these in order to pick the lowres
 # companion when multiple formats exist for the same stem. Webp first because
@@ -37,11 +59,29 @@ LOWRES_QUALITY = 80
 
 
 def derive_date(stem):
+    # 1. Fully numeric YYYY_MM_DD.
     m = DATE_RE.search(stem)
     if m:
         y, mo, d = m.groups()
         if 1 <= int(mo) <= 12 and 1 <= int(d) <= 31:
             return f"{int(y):04d}-{int(mo):02d}-{int(d):02d}"
+
+    # 2. Month-name variants: YYYY_MonthName_DD or DD_MonthName_YYYY.
+    for re_obj, y_idx, mo_idx, d_idx in (
+        (DATE_NAME_Y_FIRST_RE, 1, 2, 3),
+        (DATE_NAME_D_FIRST_RE, 3, 2, 1),
+    ):
+        m = re_obj.search(stem)
+        if not m:
+            continue
+        mo_name = m[mo_idx].lower()
+        if mo_name not in _MONTH_NAMES:
+            continue
+        y, d = int(m[y_idx]), int(m[d_idx])
+        if 1 <= d <= 31:
+            return f"{y:04d}-{_MONTH_NAMES[mo_name]:02d}-{d:02d}"
+
+    # 3. Bare year — last-resort fallback, activates Jan 1.
     m = YEAR_RE.search(stem)
     if m:
         y = int(m.group(1))

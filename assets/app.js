@@ -1324,8 +1324,13 @@ async function init() {
       scheduleRender();
     });
 
-    // Persisted resolution toggle, only meaningful when any snapshot has a lowres variant.
-    const savedRes = localStorage.getItem('mapResolution');
+    // Persisted resolution toggle, only meaningful when any snapshot has a
+    // lowres variant. Storage key is versioned: when we change the first-
+    // visit default (here, from 'full' to 'lowres'), bump the suffix so prior
+    // users' cached choice doesn't override the new default. They'll get the
+    // new default once, and any subsequent toggle persists under the new key.
+    const RESOLUTION_STORAGE_KEY = 'mapResolution_v2';
+    const savedRes = localStorage.getItem(RESOLUTION_STORAGE_KEY);
     if (savedRes === 'full' || savedRes === 'lowres') state.resolution = savedRes;
     const resWrap = document.getElementById('resolution-toggle-wrap');
     const resEl = document.getElementById('resolution-toggle');
@@ -1335,7 +1340,7 @@ async function init() {
       resEl.value = state.resolution;
       resEl.addEventListener('change', () => {
         state.resolution = resEl.value;
-        localStorage.setItem('mapResolution', state.resolution);
+        localStorage.setItem(RESOLUTION_STORAGE_KEY, state.resolution);
         preloadSnapshots();
         render();
       });
