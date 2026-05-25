@@ -44,13 +44,14 @@
     "Literature":   { "icon": "📚", "group": "Arts & Knowledge", "aliases": ["book", "books", "novel", "poetry", "poem", "poet", "writing"] },
     "Text":         { "icon": "✒️", "group": "Arts & Knowledge", "aliases": ["manuscript", "edict", "document", "decree", "letter", "correspondence", "charter", "proclamation"] },
     "Science":      { "icon": "🔬", "group": "Arts & Knowledge", "aliases": ["scientific", "research", "invention", "experiment", "scholar"] },
-    "Medicine":     { "icon": "💊", "group": "Arts & Knowledge", "aliases": ["medical", "doctor", "plague", "disease", "illness", "health", "pandemic", "epidemic", "pestilence"] },
+    "Medicine":     { "icon": "💊", "group": "Arts & Knowledge", "aliases": ["medical", "doctor", "health", "treatment", "remedy", "physician", "apothecary", "surgery"] },
 
+    "Disease":      { "icon": "🦠",   "group": "Peoples & Hazards", "aliases": ["plague", "illness", "sickness", "pandemic", "epidemic", "pestilence", "outbreak", "contagion", "infection", "fever", "blackdeath", "black death"] },
     "Native":       { "icon": "🗿",   "group": "Peoples & Hazards", "aliases": ["indigenous", "aboriginal", "tribal", "tribes", "tribe"] },
     "Secret":       { "icon": "💼",   "group": "Peoples & Hazards", "aliases": ["espionage", "spy", "intrigue", "conspiracy", "covert", "plot"] },
     "Warning":      { "icon": "⚠️",   "group": "Peoples & Hazards", "aliases": ["alert", "danger", "caution", "ultimatum", "threat"] },
     "Nuclear":      { "icon": "☢️",   "group": "Peoples & Hazards", "aliases": ["nuke", "atomic", "radiation", "fallout"] },
-    "Biohazard":    { "icon": "☣️",   "group": "Peoples & Hazards", "aliases": ["bioweapon", "contamination", "hazard", "contagion"] },
+    "Biohazard":    { "icon": "☣️",   "group": "Peoples & Hazards", "aliases": ["bioweapon", "contamination", "hazard"] },
     "Pirate":       { "icon": "🏴‍☠️", "group": "Peoples & Hazards", "aliases": ["piracy", "raider", "raid", "corsair", "buccaneer", "privateer"] }
   },
   "groupOrder": ["General", "Religion", "Civic", "Sport", "Awards", "Arts & Knowledge", "Peoples & Hazards"]

@@ -19,7 +19,8 @@
     "1505384972490637353": { "tag": "History", "_was": "Chaos",     "_note": "Mainz/Trier rivalry essay, no unrest" },
     "1506466316976914564": { "tag": "History", "_was": "Chaos",     "_note": "Guelph/Ghibelline backgrounder" },
 
-    "1508213647518728272": { "tag": "Medicine","_was": "Death",     "_note": "Plague aftermath in Cologne" },
+    "1508213647518728272": { "tag": "Disease", "_was": "Death",     "_note": "Plague aftermath in Cologne — first Medicine, retagged Disease after the Disease tag was introduced" },
+    "1508180177727918110": { "tag": "Disease", "_was": "Medicine",  "_note": "Mamluk SICKNESS INCARNATE plague post — retagged Disease after the Disease tag was introduced" },
 
     "1507115267745124542": { "tag": "Trade",   "_was": "Economy",   "_note": "English wool / Flanders routes" },
     "1505586082593509516": { "tag": "Trade",   "_was": "Economy",   "_note": "Petershof / Hanseatic Kontor" },
