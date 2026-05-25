@@ -683,10 +683,27 @@ function renderTimelineMarks() {
     container.appendChild(m);
   }
 
+  // The snapshot that's active at the start of the current range (latest one
+  // with date <= tMin). We still render it even though its date predates the
+  // range — pinned to the left edge — because it IS the map shown for events
+  // at the start of the range. Without this, sessions whose first map was
+  // taken just before they began would have no left-edge tick at all (e.g.
+  // darthsunday's 1337-04-01 map vs Session 1 starting 1337-04-02).
+  let activeAtStart = null;
   for (const s of state.snapshots) {
     const sT = parseDate(s.date);
-    if (sT < state.tMin || sT > state.tMax) continue;
-    const pct = ((sT - state.tMin) / range) * 100;
+    if (sT <= state.tMin && (!activeAtStart || parseDate(activeAtStart.date) < sT)) {
+      activeAtStart = s;
+    }
+  }
+
+  for (const s of state.snapshots) {
+    const sT = parseDate(s.date);
+    if (sT > state.tMax) continue;
+    // Skip past snapshots that have been superseded by activeAtStart — only
+    // the one actually showing at range start gets the pinned-left treatment.
+    if (sT < state.tMin && s !== activeAtStart) continue;
+    const pct = sT < state.tMin ? 0 : ((sT - state.tMin) / range) * 100;
     const m = document.createElement('div');
     m.className = 'tl-mark snapshot';
     m.style.left = `${pct}%`;
@@ -697,7 +714,9 @@ function renderTimelineMarks() {
     // stamp is never empty.
     m.dataset.label = s.label || s.date.slice(0, 4);
     m.addEventListener('click', () => {
-      state.currentTime = sT;
+      // Clamp to tMin so clicking the pinned-left tick of a pre-range snapshot
+      // seeks to the start of the active window instead of outside it.
+      state.currentTime = Math.max(state.tMin, sT);
       document.getElementById('timeline').value = timeToSlider(state.currentTime);
       render();
       updateBrowserVisibility();
