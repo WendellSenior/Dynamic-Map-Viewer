@@ -13,7 +13,12 @@ const state = {
   allTMax: 0,
   view: { x: 0, y: 0, scale: 1, minScale: 1 },
   preloadedImages: [],
-  resolution: 'full',
+  // First-visit default for the quality toggle. localStorage wins for returning
+  // users so anyone who switched to 'full' keeps it. Only meaningful when at
+  // least one snapshot in snapshots.json has an image_lowres companion — if
+  // none do, the toggle stays hidden and this default silently falls through
+  // to the full image via imageUrl().
+  resolution: 'lowres',
   countryNames: {},
   selectedEventId: null,
 };
@@ -1275,16 +1280,45 @@ async function init() {
     if (allTimes.length > 0) {
       state.allTMin = Math.min(...allTimes);
       state.allTMax = Math.max(...allTimes);
+    }
+
+    // Default the filter to the most recent session (last entry after the
+    // start-date sort that sessions.html enforces). Auto-adapts as new
+    // sessions are added so the page always opens on the current one.
+    // Sessions also clamp the timeline range, so this has to land BEFORE the
+    // tMin/tMax / currentTime block below.
+    if (state.sessions.length > 0) {
+      state.filter = `session:${state.sessions.length - 1}`;
+    }
+
+    // Resolve the active timeline range from whatever filter is currently
+    // active — session bounds when a session is selected, otherwise the full
+    // event+snapshot span.
+    const activeSession = getActiveSession();
+    if (activeSession) {
+      state.tMin = parseDate(activeSession.start);
+      state.tMax = sessionEndTime(activeSession);
+    } else {
       state.tMin = state.allTMin;
       state.tMax = state.allTMax;
+    }
+
+    // Default the timeline cursor to the most recently uploaded map snapshot,
+    // clamped to the active range. snapshots are sorted ascending by date in
+    // loadJSON above, so the last entry is the latest. Falls back to tMin if
+    // there are no snapshots at all (events-only campaign).
+    if (state.snapshots.length > 0) {
+      state.currentTime = parseDate(state.snapshots[state.snapshots.length - 1].date);
+    } else {
       state.currentTime = state.tMin;
     }
+    state.currentTime = Math.min(state.tMax, Math.max(state.tMin, state.currentTime));
 
     const slider = document.getElementById('timeline');
     slider.min = 0;
     slider.max = SLIDER_RES;
     slider.step = 1;
-    slider.value = 0;
+    slider.value = timeToSlider(state.currentTime);
     slider.addEventListener('input', () => {
       state.currentTime = sliderToTime(parseInt(slider.value, 10));
       scheduleRender();
@@ -1337,9 +1371,13 @@ async function init() {
 
     const labels = document.getElementById('timeline-labels');
     if (state.tMax > state.tMin) {
+      // Match applyFilter's "(ongoing)" decoration so the initial render of
+      // an open-ended session doesn't look like it has a hard end date.
+      const openTag = activeSession && isSessionOpenEnded(activeSession)
+        ? ' <em>(ongoing)</em>' : '';
       labels.innerHTML =
         `<span>${formatDate(state.tMin)}</span>` +
-        `<span>${formatDate(state.tMax)}</span>`;
+        `<span>${formatDate(state.tMax)}${openTag}</span>`;
     }
 
     renderTimelineMarks();
