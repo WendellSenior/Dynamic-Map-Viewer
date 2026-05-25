@@ -88,7 +88,17 @@ TAG_RE = re.compile(
     r"\s*"
     r"\[Location:\s*([^\]]+?)\s*\]"
     r"\s*"
-    r"(?:\[Tag:\s*([^\]]+?)\s*\])?",
+    # Trailing Tag bracket. Liberal on purpose — keyword and value captured
+    # separately so parse_event_tags can disambiguate:
+    #   [Tag:Battle]    → keyword="Tag"     value="Battle"   → use value
+    #   [Tag:]          → keyword="Tag"     value=""         → null (left blank)
+    #   [Battle:]       → keyword="Battle"  value=""         → wrong-syntax, use keyword
+    #   [siege:]        → keyword="siege"   value=""         → wrong-syntax + alias → Battle
+    #   [Foo:]          → keyword="Foo"     value=""         → unrecognised → null
+    # The keyword pattern is `letter + word-chars` (covers WarDec, Catholic,
+    # etc.) and the value is allowed to be empty so the unclosed-bracket forms
+    # capture too.
+    r"(?:\[([A-Za-z]\w*?):\s*([^\]]*?)\s*\])?",
     re.IGNORECASE,
 )
 
@@ -277,7 +287,7 @@ def parse_event_tags(text):
     if not match:
         return None
 
-    raw_date, raw_country, raw_location, raw_tag = match.groups()
+    raw_date, raw_country, raw_location, raw_tag_kw, raw_tag_val = match.groups()
 
     # Accept any of YYYY-MM-DD / 1 October 1338 / 1st April 1337 / 11 Nov 1444
     # / Oct 1, 1338 / 1338 May 1. Normalised to ISO for storage so downstream
@@ -297,9 +307,28 @@ def parse_event_tags(text):
         country     = resolved
         country_raw = country_stripped
 
+    # Tag resolution — see TAG_RE comment for the syntax forms we accept.
+    # The two distinct intents:
+    #   "Tag" keyword  → standard form. Value carries the tag; empty value
+    #                    means "I intentionally left it blank" → stays null.
+    #   any other kw   → wrong-syntax shorthand like [Economy:] or [siege:].
+    #                    Treat the keyword as the tag name (alias-resolved).
+    #                    If the keyword doesn't match a known tag/alias, the
+    #                    bracket isn't actually a tag — return null and let
+    #                    the body strip remove it.
     tag = None
-    if raw_tag:
-        tag = VALID_TAGS.get(raw_tag.strip().lower())
+    if raw_tag_kw is not None:
+        kw  = raw_tag_kw.strip().lower()
+        val = (raw_tag_val or "").strip().lower()
+        if kw == "tag":
+            if val:
+                tag = VALID_TAGS.get(val)
+            # else: empty [Tag:] — preserve the "blank on purpose" signal.
+        else:
+            # Wrong-syntax form. Prefer value if it happens to resolve (e.g.
+            # someone wrote `[Death:Battle]` — odd, but trust the value),
+            # else fall back to the keyword.
+            tag = VALID_TAGS.get(val) or VALID_TAGS.get(kw)
 
     # Strip the matched bracket header so it doesn't appear in the snippet/body.
     # Snippets are user-facing; the bracket noise hides the actual title.
