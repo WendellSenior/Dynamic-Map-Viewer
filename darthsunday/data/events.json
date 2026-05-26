@@ -2407,7 +2407,7 @@
     {
       "id": "1508189437304246293",
       "channel_id": "1505545331591610549",
-      "date": "1343-01-04",
+      "date": "1343-04-01",
       "country": null,
       "countryRaw": "Paris",
       "province": "Avignon",
@@ -3260,6 +3260,91 @@
       "fullText": "Komi fleeing north from the Plague\n\nThe Black Plague has struck Perm hard and in its midst many have chosen to flee to the edges of Great Realm in an attempt to escape this sickness. Wether these people have succeeded in evading the plague is unclear, but Komi settlement on the Upper Mozyn may nonetheless prove beneficial to Great Perm in the future.",
       "images": [],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1508212358517096498",
+      "channel_id": "1505545492736639056",
+      "date": "1349-06-01",
+      "country": "PRM",
+      "countryRaw": "Perm",
+      "province": "Nema",
+      "tag": "Meeting",
+      "author": "Hosumaija",
+      "snippet": "Disloyal tribes\n\nA group constituting the majority of Mari and Chikyalik chieftains in Nema and Kasevo have ended their relationship with Perm, offici",
+      "fullText": "Disloyal tribes\n\nA group constituting the majority of Mari and Chikyalik chieftains in Nema and Kasevo have ended their relationship with Perm, officially seceeding after a period of civil war among the Udmurts. While troubling and certainly surprising to the rest of the region, no action is immediately taken in retaliation against these southern peoples.\n\nEmissaries from Cherdyn are quick to arrive to the region, but it is clear that these people have no intention to rejoin with Great Perm as during the strife in Udmurtia - they say - Perm did not do enough to secure their people and they suffered greatly from this conflict. Prince Yövgin' summons the chieftains and elders to Cherdyn, furious and raging, but he does not recieve their approval to march south with warriors in towe.\nThe reason is simple: the tribes are not yet ready, for after battling with the Ushkuyniks and attempting to reestablish order in Udmurtia - and then with the coming of the Great Plague the chieftains are unwilling in the slightest to lend their voice to such an action.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1508212358558777586/image.png?ex=6a160937&is=6a14b7b7&hm=1a7fd97f1066b09bb9387fd15ec23c2380b6fe3540bd758ff70327452464a8d3&",
+          "filename": "image.png",
+          "width": 372,
+          "height": 222,
+          "att_id": "1508212358558777586",
+          "local": "data/attachments/1508212358558777586_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1508202392888541265",
+      "channel_id": "1505545331591610549",
+      "date": "1345-06-21",
+      "country": null,
+      "countryRaw": "Dauphine",
+      "province": "Grenoble",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "**The Dauphine of Viennois has been bought, and is now ruled by the de Valois.** <@564196329132261376> <@1319169075091476501>",
+      "fullText": "**The Dauphine of Viennois has been bought, and is now ruled by the de Valois.** <@564196329132261376> <@1319169075091476501>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508202393437868102/image.png?ex=6a15ffef&is=6a14ae6f&hm=9c398a735062f33a4bf886a4820e684e3b2c73c3b41ce39e9e8a1a5f2f3c3d14&",
+          "filename": "image.png",
+          "width": 544,
+          "height": 232,
+          "att_id": "1508202393437868102",
+          "local": "data/attachments/1508202393437868102_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1508209937078157433",
+      "channel_id": "1505545331591610549",
+      "date": "1347-01-01",
+      "country": "FRA",
+      "countryRaw": "France",
+      "province": "Rennes",
+      "tag": "Battle",
+      "author": "Cloud",
+      "snippet": "**The campaign for Brittany has been failed** <@1106651545296195655> <@255439449448644608> <@696548460094029914> \nThe Campaign to bring Brittany back ",
+      "fullText": "**The campaign for Brittany has been failed** <@1106651545296195655> <@255439449448644608> <@696548460094029914> \nThe Campaign to bring Brittany back into the fold has been lost at devastating costs. Many nobles and levies lay dead upon the impenetrable fortress of Rannes. The Black Ddeath only grows the casualties further as thousands lay dead.\n\n**The Maid Draft**\nOur nobles must have theiur servents afterall!\n\n**What silly Gascon accusations**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508209938009296989/image.png?ex=6a1606f6&is=6a14b576&hm=8bd5a878b1f98c2a327c9f4c36cf7a38cb40e2fb9edec31858218b219bdd9ba4&",
+          "filename": "image.png",
+          "width": 1144,
+          "height": 851,
+          "att_id": "1508209938009296989",
+          "local": "data/attachments/1508209938009296989_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508210215735263413/image.png?ex=6a160738&is=6a14b5b8&hm=65e6af2ceea9b819c18d8a770424bcfe878f3479a8131cc986394d9049b879d5&",
+          "filename": "image.png",
+          "width": 603,
+          "height": 618,
+          "att_id": "1508210215735263413",
+          "local": "data/attachments/1508210215735263413_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508210651418333246/image.png?ex=6a1607a0&is=6a14b620&hm=7d42e7b36194b8b568c977a1c718b9cfd50ab4a0d4f3f011bbd7245f025af9e9&",
+          "filename": "image.png",
+          "width": 586,
+          "height": 674,
+          "att_id": "1508210651418333246",
+          "local": "data/attachments/1508210651418333246_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
     }
   ]
 }
