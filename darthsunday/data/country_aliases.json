@@ -1,0 +1,4 @@
+{
+  "_comment": "Per-campaign country-tag aliases. Same shape as assets/reference/<game>/country_aliases.json but loaded AFTER it, so entries here win for this campaign only. Use this for shorthand conventions specific to your campaign that would conflict with another EU5 game (e.g. MUS shorthand for Muscovy clashes with the legitimate Anatolian Mus beylik elsewhere — fine here because darthsunday doesn't track that nation).",
+  "MOS": ["MUS", "Muscovy-Vladimir"]
+}

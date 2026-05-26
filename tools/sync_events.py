@@ -297,14 +297,27 @@ def parse_event_tags(text):
         return None
 
     country_stripped = raw_country.strip()
-    if re.fullmatch(r"[A-Z]{2,3}", country_stripped):
-        # Already a tag — trust it as-is.
+    # Run lookup in BOTH branches so player shorthand like "KYI" (typo for the
+    # canonical KIE) or "MUS" (informal for MOS/Muscovy) gets rescued by the
+    # alias tables in tags.json + country_aliases.json + the per-campaign
+    # country_aliases.json overlay. The lookup is normalised to lowercase
+    # internally, so case doesn't matter.
+    resolved = resolve_country(country_stripped)
+    if resolved:
+        country     = resolved
+        country_raw = None
+    elif re.fullmatch(r"[A-Z]{2,3}", country_stripped):
+        # Unknown 2-3 letter code that isn't in any alias table. Trust it as
+        # a tag anyway — the reference data may just be incomplete; the viewer
+        # will grey it out if the tag is genuinely unknown. Preserves the old
+        # "bare tag form passes through" semantic for legitimate-but-unmapped
+        # codes.
         country     = country_stripped
         country_raw = None
     else:
-        # Free-form name. Try the lookup; fall back to countryRaw-only if unknown.
-        resolved    = resolve_country(country_stripped)
-        country     = resolved
+        # Free-form name we couldn't resolve. Keep the raw text so the viewer
+        # has something to display even though the canonical lookup failed.
+        country     = None
         country_raw = country_stripped
 
     # Tag resolution — see TAG_RE comment for the syntax forms we accept.
@@ -917,13 +930,22 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def load_country_lookup(reference_dir):
+def load_country_lookup(reference_dir, campaign_dir=None):
     """Build {name|alias|tag (lowercase) -> TAG} from tags.json + country_aliases.json.
 
     Lets us resolve `[Country:Muscovy]` to the canonical tag `MOS` so the
     viewer doesn't grey out the country cell. Non-interactive: unknown names
     just stay unresolved (countryRaw only). Missing reference files are
     tolerated — returns whatever was loaded so the sync still runs.
+
+    Three layers, applied in this order (later wins):
+      1. assets/reference/<game>/tags.json — canonical names + aliases
+      2. assets/reference/<game>/country_aliases.json — game-wide hand-edits
+      3. <campaign>/data/country_aliases.json — per-campaign overrides
+
+    Layer 3 lets one campaign say "in OUR storyline, MUS is shorthand for
+    Muscovy" without breaking another campaign where MUS is the legitimate
+    Anatolian beylik tag. Same per-campaign pattern as coords.json.
 
     Mirrors the resolution chain in tools/preprocess.py (build_country_lookup)
     minus the interactive fuzzy-match prompts."""
@@ -948,19 +970,40 @@ def load_country_lookup(reference_dir):
                 lookup[alias.lower()] = tag
         lookup[tag.lower()] = tag
 
-    # country_aliases.json is the source-of-truth that gets baked into tags.json
-    # by parse_eu5_reference.py, but layering it again here means hand-edits to
-    # country_aliases.json take effect on the next sync run without rebuilding.
+    # Layer 2: game-wide country_aliases.json overrides. Source of truth for
+    # tags.json (baked in by parse_eu5_reference.py); layering it again here
+    # means hand-edits take effect on the next sync without a rebuild.
     extras_path = os.path.join(reference_dir, "country_aliases.json")
     extras = load_json(extras_path, {})
+    extras_count = 0
     for tag, aliases in extras.items():
         if tag.startswith("_"):  # skip "_comment"
             continue
         for alias in (aliases or []):
             if alias:
                 lookup[alias.lower()] = tag
+                extras_count += 1
 
-    log(f"  Country lookup: {len(lookup)} name/alias entries loaded.")
+    # Layer 3: per-campaign overlay. Same shape as the game-wide file. Lets one
+    # campaign assert its own shorthand resolutions (e.g. MUS -> MOS in
+    # darthsunday) without breaking other campaigns that share the EU5
+    # reference data.
+    camp_count = 0
+    if campaign_dir:
+        camp_path = os.path.join(campaign_dir, "data", "country_aliases.json")
+        camp_extras = load_json(camp_path, {})
+        for tag, aliases in camp_extras.items():
+            if tag.startswith("_"):
+                continue
+            for alias in (aliases or []):
+                if alias:
+                    lookup[alias.lower()] = tag
+                    camp_count += 1
+        if camp_count:
+            log(f"  Per-campaign overlay: {camp_count} alias(es) from {camp_path}.")
+
+    log(f"  Country lookup: {len(lookup)} name/alias entries loaded "
+        f"(game-wide aliases: {extras_count}, per-campaign: {camp_count}).")
     return lookup
 
 
@@ -1410,7 +1453,7 @@ def main():
     # Load the country-name -> tag lookup once. Failure is non-fatal: the sync
     # then falls back to strict tag-or-raw (countryRaw only for free-form names).
     global COUNTRY_LOOKUP
-    COUNTRY_LOOKUP = load_country_lookup(REFERENCE_DIR)
+    COUNTRY_LOOKUP = load_country_lookup(REFERENCE_DIR, campaign_dir=cfg["folder"])
 
     cache           = load_json(CACHE_FILE, {})
     # event_meta:    {msg_id: {channel_id, edited_timestamp}} for messages that

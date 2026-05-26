@@ -5,13 +5,13 @@
   "BYZ": ["Byzantium", "Byzantine", "Byzantine Empire", "Eastern Roman Empire", "Greek Empire"],
   "TUR": ["Turkey", "Türkiye", "Sublime Porte"],
   "POL": ["Poland", "Polish Kingdom", "Kingdom of Poland"],
-  "FRA": ["French Kingdom", "Kingdom of France"],
+  "FRA": ["French Kingdom", "Kingdom of France", "Paris", "Dauphine", "Dauphiné"],
   "ENG": ["Kingdom of England", "English Kingdom"],
   "CAS": ["Castile", "Crown of Castile"],
   "ARA": ["Crown of Aragon"],
   "POR": ["Kingdom of Portugal"],
   "VEN": ["Venetian Republic", "Republic of Venice", "Most Serene Republic"],
-  "GEN": ["Genoa", "Republic of Genoa", "Genoese"],
+  "GEN": ["Genoa", "Republic of Genoa", "Genoese", "Superb Republic of Genoa", "Superb Republic"],
   "MIL": ["Milan", "Duchy of Milan", "Milanese"],
   "PAP": ["Papacy", "Papal States", "Vatican", "Holy See"],
   "HSA": ["Hanse", "Hanseatic League", "Hanseatic"],
@@ -24,5 +24,7 @@
   "NOR": ["Kingdom of Norway", "Norwegian"],
   "MOR": ["Morocco", "Morroco", "Maroc", "Marrakesh", "Marinid", "Marinids"],
   "TEU": ["Teutonic Order", "Teutonic Knights", "Teutonic", "Teutons", "Deutscher Orden"],
-  "PAL": ["Palatinate", "Palatinate of the Rhine", "Kurpfalz", "Electoral Palatinate", "Pfalz", "Rhine Palatinate"]
+  "PAL": ["Palatinate", "Palatinate of the Rhine", "Kurpfalz", "Electoral Palatinate", "Pfalz", "Rhine Palatinate"],
+  "KOL": ["Cologne", "Köln", "Koeln", "Koln", "Colgone", "Archdiocese of Cologne"],
+  "KIE": ["Kyiv", "Kiev", "KYI", "Kievan Rus", "Kyivan Rus"]
 }

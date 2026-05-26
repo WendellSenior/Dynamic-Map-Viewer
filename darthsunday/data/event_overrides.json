@@ -19,7 +19,7 @@
     "1505384972490637353": { "tag": "History", "_was": "Chaos",     "_note": "Mainz/Trier rivalry essay, no unrest" },
     "1506466316976914564": { "tag": "History", "_was": "Chaos",     "_note": "Guelph/Ghibelline backgrounder" },
 
-    "1508213647518728272": { "tag": "Disease", "_was": "Death",     "_note": "Plague aftermath in Cologne — first Medicine, retagged Disease after the Disease tag was introduced" },
+    "1508213647518728272": { "tag": "Disease", "country": "KOL", "_was": "Death",     "_note": "Plague aftermath in Cologne — retagged Disease, also fixed countryRaw=Colgone typo to KOL" },
     "1508180177727918110": { "tag": "Disease", "_was": "Medicine",  "_note": "Mamluk SICKNESS INCARNATE plague post — retagged Disease after the Disease tag was introduced" },
 
     "1507115267745124542": { "tag": "Trade",   "_was": "Economy",   "_note": "English wool / Flanders routes" },
@@ -39,7 +39,7 @@
 
     "1508181253071831252": { "tag": "History", "_was": "Battle",    "_note": "Outcome announcement, no battle" },
     "1508184725603221564": { "tag": "Surrender","_was": "Battle",   "_note": "Fall of Tver + peace ratified" },
-    "1508176536103026780": { "tag": "WarDec",  "_was": "Battle",    "_note": "Preparations / declaration, not battle" },
+    "1508176536103026780": { "tag": "WarDec",  "country": "MOS", "_was": "Battle",    "_note": "Preparations / declaration, not battle. Also fixes country MUS->MOS (player wrote MUS but Muscovy is MOS; MUS is the Anatolian beylik tag)." },
 
     "1508167394563063972": { "tag": "WarDec",  "_was": "Treaty",    "_note": "Declaration on August 1st, 1337" },
     "1507122803831210104": { "tag": "Warning", "_was": "Treaty",    "_note": "Demand for surrender of Gascony — ultimatum" },
@@ -48,7 +48,7 @@
     "1507166041527161002": { "tag": "History", "_was": "Treaty",    "_note": "Cynical Philippe one-liner, flavor text" },
     "1507214962639241278": { "tag": "Warning", "_was": "Treaty",    "_note": "Philippe tirade at pope, no agreement" },
     "1507374281938440385": { "tag": "Catholic","_was": "Treaty",    "_note": "Excommunication of Philippe VI" },
-    "1508189437304246293": { "tag": "WarDec",  "_was": "Treaty",    "_note": "Will dec on April 1 of 1342" },
+    "1508189437304246293": { "tag": "WarDec",  "country": "FRA", "_was": "Treaty",    "_note": "Will dec on April 1 of 1342. Also fixes countryRaw=Paris -> FRA." },
     "1508197468385312818": { "tag": "Judge",   "_was": "Treaty",    "_note": "Royal seizure of church properties" },
     "1508197370859622582": { "tag": "WarDec",  "_was": "Treaty",    "_note": "dec 1347-1-1 explicitly" },
     "1508225444896440330": { "tag": "Catholic","_was": "Treaty",    "_note": "Excommunication lifted" },
@@ -57,6 +57,11 @@
 
     "1508189535182258246": { "tag": "Economy", "_was": null,        "_note": "Author wrote [Economy:] — parser missed bracket-typo" },
     "1508196406765027338": { "tag": "WarDec",  "_was": null,        "_note": "Author wrote empty [Tag:] — Sweden invasion of Denmark" },
-    "1508205929118699531": { "tag": "WarDec",  "_was": null,        "_note": "Author wrote empty [Tag:] — Sweden invasion of Denmark" }
+    "1508205929118699531": { "tag": "WarDec",  "_was": null,        "_note": "Author wrote empty [Tag:] — Sweden invasion of Denmark" },
+
+    "1508183396441133188": { "country": "GEN", "_was_raw": "Superb Republic of Genoa", "_note": "Spinola ascendancy — countryRaw 'Superb Republic of Genoa' now also resolved by the global alias going forward" },
+    "1508202392888541265": { "country": "FRA", "_was_raw": "Dauphine",                 "_note": "Dauphine of Viennois bought by de Valois — countryRaw 'Dauphine' now also resolved by the global alias going forward" },
+    "1508176067251409027": { "country": "KIE", "_was": "KYI",                          "_note": "Kyiv merchants — player wrote tag KYI (not a real EU5 tag); canonical Kyiv tag is KIE" },
+    "1508188847434109059": { "country": "DAN", "_was_raw": "Poznan",                   "_note": "Rishi's Treaty-of-Poznan post — written from Denmark's perspective; the treaty is between Poland and Denmark and the player is roleplaying Denmark" }
   }
 }
