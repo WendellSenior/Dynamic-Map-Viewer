@@ -2,6 +2,7 @@
   "_comment": "Per-campaign coord overrides. `provinces` keys are matched case-insensitively against the player-typed [Location:...] value; the array is [x, y] in map pixels. These win over assets/reference/<game>/provinces.json, so use them to disambiguate location-name collisions (e.g. EU5 has both Moroccan 'Fez' [alias: 'Fas' with a macron] and 'Fas Papua' in PNG — players typing plain ASCII 'Fas' hit PNG by accident).",
   "countries": {},
   "provinces": {
-    "Fas": [7466, 2916]
+    "Fas": [7466, 2916],
+    "Nema": [9994, 1382]
   }
 }
