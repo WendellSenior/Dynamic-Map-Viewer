@@ -3657,6 +3657,50 @@
           "local": "data/attachments/1509100271957970984_12431-1359-1369-Crusaders-Cyprus-Peter-I-Silver-Gros-EF-Obv-Web.jpg"
         }
       ]
+    },
+    {
+      "id": "1508184110072598761",
+      "channel_id": "1505545331591610549",
+      "date": "1340-03-01",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "**Outcome of the seizure of the Gascony.**",
+      "fullText": "**Outcome of the seizure of the Gascony.**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508184110303281222/image.png?ex=6a17e928&is=6a1697a8&hm=48bef272184d91433117694eab251ca7348a3b17ee3cc3f4f02549f2b6d4d45f&",
+          "filename": "image.png",
+          "width": 1146,
+          "height": 842,
+          "att_id": "1508184110303281222",
+          "local": "data/attachments/1508184110303281222_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1508184552164688064",
+      "channel_id": "1505545331591610549",
+      "date": "1340-04-01",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Dijon",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "**Burgundy nobles granted privileges for their loyalty in  King Philipe VI seizure of Gascony, and for defeating King Edward III in Saint-Omer. <@6965",
+      "fullText": "**Burgundy nobles granted privileges for their loyalty in  King Philipe VI seizure of Gascony, and for defeating King Edward III in Saint-Omer. <@696548460094029914>**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1508184552869335040/image.png?ex=6a17e992&is=6a169812&hm=cf8e92cdcc8aef4fade9dc02e7fe00e921e378ebe7431e8ecae274041d456c59&",
+          "filename": "image.png",
+          "width": 582,
+          "height": 638,
+          "att_id": "1508184552869335040",
+          "local": "data/attachments/1508184552869335040_image.png"
+        }
+      ]
     }
   ]
 }
