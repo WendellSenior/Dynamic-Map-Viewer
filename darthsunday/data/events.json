@@ -3879,6 +3879,28 @@
           "local": "data/attachments/1509290683410940145_b0bfa16268f32e7e08bb7ca58318071d.png"
         }
       ]
+    },
+    {
+      "id": "1509329483033874443",
+      "channel_id": "1505545492736639056",
+      "date": "1346-07-06",
+      "country": "LIT",
+      "countryRaw": null,
+      "province": "Gardinas",
+      "tag": "Battle",
+      "author": "HK je Srbija",
+      "snippet": "**Polish-Lithuanian War**\n\nThe papal mediated talks between the Teutonic Order and the Kingdom of Poland resulted in a most unusual conclusion - that ",
+      "fullText": "**Polish-Lithuanian War**\n\nThe papal mediated talks between the Teutonic Order and the Kingdom of Poland resulted in a most unusual conclusion - that the Papacy recognise King Casimir III of Poland as the Grand Duke of Lithuania in exchange for relinquishing claims to Pomeralia and other territories. The Polish King would be slow to enforce this claim as Polish-Lithuanian ties remained deep - but the power of the clergy and calls for a firmer anti-Teutonic stance persuaded him to launch war in 1444. \n\nThe Polish-Lithuanian War would last three years, with Polish forces moving through the southern Brest region into Lithuania proper. The greatest engagement came at the Battle of Grodno where a Polish Army defeated their Lithuanian counterparts, enabling them to march on Vilnius itself and sack the city. \n\nA peace treaty was signed wherein Poland seized Brest, Sudovia, Dainava, Vilnius and Samogitia with the Grand Duchy pushed back to Aukštaitija north of the Neman. The new Polish administration gave broad autonomy to the Lithunian nobility provided they convert to Catholicism which in practice has meant a steady trickle of Polish nobles and administrators taking control of the region. But as the Polish forces came home they took with them another ailment...",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1509329483046588627/Subdue_of_Ruthenia_in_1366.png?ex=6a18c81e&is=6a17769e&hm=6ae834b12df49b974c9bbb4670e82a9d16dfab7ef2d6acceec5fc078a670a1e2&",
+          "filename": "Subdue_of_Ruthenia_in_1366.png",
+          "width": 800,
+          "height": 586,
+          "att_id": "1509329483046588627",
+          "local": "data/attachments/1509329483046588627_Subdue_of_Ruthenia_in_1366.png"
+        }
+      ]
     }
   ]
 }
