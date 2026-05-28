@@ -4037,6 +4037,44 @@
         }
       ],
       "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1509053560514674818",
+      "channel_id": "1505545415213449216",
+      "date": "1351-01-30",
+      "country": "NAP",
+      "countryRaw": null,
+      "province": "Naples",
+      "tag": "Character",
+      "author": "JarlFrosty",
+      "snippet": "# A Question of Legitimacy \n\nWhen Queen Giovanna agreed to marry the Count of Finale, Carl del Carretto in a matrilineal marriage, there was no knowle",
+      "fullText": "# A Question of Legitimacy \n\nWhen Queen Giovanna agreed to marry the Count of Finale, Carl del Carretto in a matrilineal marriage, there was no knowledge of the Count having any children. However, within two to three years of the couple being married, a \"son\" of the Count appeared, Settimio \"del Carretto\". The boy was born out of wedlock when the Count was 16, with no record of a mother. Some suspected the Count impregnated a brothel wench but it didn't matter, had the Queen known of the child before the marriage, she would've never married the Count. Regardless of her anger, the Count was the father of her children and his titles should be inherited his legitimate sons. \n\nBefore reaching out to Rome over this matter, the Queen consulted the Cardinal of Naples to question the legitimacy based on the facts. Because of the legitimacy of Settimio can not be proven, Cardinal Andrea Esposito can not confirm the legitimacy of the child. \n\nWith this, the letter has been sent to the Pope to request the Vicar of Christ's judgement; \n\n|| Holy Father, \n\nThe Queen of Naples has brought to my attention the possibility of her husband, Count Carl del Carretto, of having a child born out of wedlock, around the age of 16, a few years prior to marrying her. The child in question is Settimio del Carretto, who is apparently the firstborn child of Carl. However, upon questioning the child and various family members, there seems to be know knowledge or record of the mother. In addition, there is no record that shows Carl has been previously married.  \n\nI call upon your judgement as Vicar of Christ to investigate this matter and to delegitimize Settimio del Carretto, stripping him of being heir to the Count of Finale, instead bestowing the inheritance upon the Crown Prince of Naples, Giorgio de Anjou. \n\nGod Bless, \nCardinal Anrea Esposito ||\n\n<@150411715757080576>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1509053559910436894/image.png?ex=6a19c165&is=6a186fe5&hm=4a81f38b5b2dd002fc5baab65a0f51e7623493ddabfc526e67d96459df58fb29&",
+          "filename": "image.png",
+          "width": 812,
+          "height": 895,
+          "att_id": "1509053559910436894",
+          "local": "data/attachments/1509053559910436894_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1509053560271409252/image.png?ex=6a19c165&is=6a186fe5&hm=fd4553ea4eeec9f68d05fc0d42d8c42b57167a1b5d8637f68f65602a7a80c4d8&",
+          "filename": "image.png",
+          "width": 544,
+          "height": 708,
+          "att_id": "1509053560271409252",
+          "local": "data/attachments/1509053560271409252_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1509054080104796455/image.png?ex=6a19c1e1&is=6a187061&hm=a2ed1a526df4358d2d1363c6aabebb505ebf92f55eba53fc52abc6fc316632ca&",
+          "filename": "image.png",
+          "width": 552,
+          "height": 558,
+          "att_id": "1509054080104796455",
+          "local": "data/attachments/1509054080104796455_image.png"
+        }
+      ]
     }
   ]
 }
