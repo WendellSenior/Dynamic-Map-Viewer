@@ -6,6 +6,7 @@ import re
 import json
 import time
 import sys
+import urllib.parse
 from datetime import datetime, timedelta, timezone
 
 import requests
@@ -243,6 +244,50 @@ def fetch_message(channel_id, message_id):
             return None
         time.sleep(1)
     return None
+
+
+# Discord :map: shortcode → 🗺️ (U+1F5FA + U+FE0F variation selector). The bot
+# reacts with this on every message it successfully turns into a plotted map
+# event, giving players an at-a-glance "confirmed + on the map" signal in the
+# channel itself.
+MAP_EMOJI = "\U0001F5FA️"
+
+
+def add_reaction(channel_id, message_id, emoji=MAP_EMOJI, retries=5):
+    """Add a reaction to a message as the bot
+    (PUT /channels/{ch}/messages/{msg}/reactions/{emoji}/@me).
+
+    Returns True if the reaction is present afterward (204 success, or it was
+    already there — Discord treats re-adding as an idempotent no-op), False on
+    a permanent failure (missing Add Reactions / Read Message History perms,
+    message or channel gone, or retries exhausted).
+
+    The reaction routes are rate-limited tightly (~1 request per 250ms per
+    channel), so bulk callers must pace themselves; the 429 handling here is a
+    backstop, not a substitute for pacing."""
+    encoded = urllib.parse.quote(emoji)
+    url = f"{BASE}/channels/{channel_id}/messages/{message_id}/reactions/{encoded}/@me"
+    for _ in range(retries):
+        resp = requests.put(url, headers=HEADERS)
+        if resp.status_code in (200, 204):
+            return True
+        if resp.status_code == 429:
+            try:
+                retry_after = float(resp.json().get("retry_after", 1))
+            except (ValueError, TypeError):
+                retry_after = 1.0
+            log(f"  Rate limited on reaction. Waiting {retry_after:.1f}s ...")
+            time.sleep(retry_after + 0.1)
+            continue
+        if resp.status_code == 403:
+            log(f"  403 reacting to {message_id} (missing Add Reactions perm?) — skipping.")
+            return False
+        if resp.status_code == 404:
+            log(f"  404 reacting to {message_id} (message/channel gone) — skipping.")
+            return False
+        log(f"  Unexpected {resp.status_code} reacting to {message_id}: {resp.text[:160]}")
+        time.sleep(1)
+    return False
 
 
 def fetch_active_threads(guild_id):
@@ -1471,6 +1516,13 @@ def main():
     #                of a merged follow-up propagate back into the parent
     #                event without requiring the author to edit the parent.
     merged_meta     = cache.get("merged_meta", {})
+    # reacted_ids:   message ids the bot has already 🗺️-reacted to, so we don't
+    #                re-PUT the reaction every run. Shared with the retroactive
+    #                tools/react_events.py sweep. Grows for the life of the
+    #                campaign (one snowflake string per event) — never pruned,
+    #                because a pruned id would get re-reacted (idempotent but a
+    #                wasted API call).
+    reacted_ids     = set(cache.get("reacted_ids", []))
     events_data     = load_json(EVENTS_FILE, {"events": []})
     existing_ids    = {e["id"] for e in events_data.get("events", [])}
 
@@ -1735,6 +1787,27 @@ def main():
     if new_events:
         events_data["events"].extend(new_events)
 
+    # React 🗺️ on each freshly-plotted event so players get an in-channel
+    # "confirmed + on the map" signal from the bot. Only new events this run —
+    # the existing backlog is handled by tools/react_events.py. Paced lightly
+    # to stay under the reaction-route rate limit (429s are also handled inside
+    # add_reaction as a backstop). reacted_ids guards against re-PUTting if the
+    # same id somehow comes back through (shouldn't, given dedup).
+    if new_events:
+        reacted_now = 0
+        for ev in new_events:
+            if ev["id"] in reacted_ids:
+                continue
+            ch = ev.get("channel_id")
+            if not ch:
+                continue
+            if add_reaction(ch, ev["id"]):
+                reacted_ids.add(ev["id"])
+                reacted_now += 1
+            time.sleep(0.3)  # ~under Discord's per-channel reaction limit
+        if reacted_now:
+            log(f"  🗺️ reacted to {reacted_now} new event(s).")
+
     # Mirror attachments locally so the viewer doesn't depend on Discord's
     # short-lived signed CDN URLs. We do this for EVERY event in the data
     # set, not just the new ones — the function is idempotent (skips images
@@ -1791,12 +1864,14 @@ def main():
     cache["event_meta"]    = event_meta
     cache["rejected_meta"] = rejected_meta
     cache["merged_meta"]   = merged_meta
+    cache["reacted_ids"]   = sorted(reacted_ids)
 
     # Keep only the canonical top-level keys so the cache file doesn't drift in
     # shape over time as we add or rename internal state.
     cache = {
         k: v for k, v in cache.items()
-        if k in ("event_meta", "rejected_meta", "merged_meta", "last_snowflake")
+        if k in ("event_meta", "rejected_meta", "merged_meta", "last_snowflake",
+                 "reacted_ids")
     }
     save_json(CACHE_FILE, cache)
 

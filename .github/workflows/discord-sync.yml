@@ -54,6 +54,11 @@ on:
         type: boolean
         required: false
         default: false
+      react_events:
+        description: 'One-shot: add the 🗺️ (:map:) reaction to every event in events.json that the bot has not reacted to yet, confirming in-channel that the post was plotted. Paced to dodge reaction rate limits; tracks reacted_ids so re-runs resume. Commits the updated cache when finished. No regular sync runs alongside this.'
+        type: boolean
+        required: false
+        default: false
 
 # Serialise runs so the every-10-min burst can't double-fire (e.g. one run
 # overruns its slot, the next slot fires while the first is still going).
@@ -89,7 +94,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Run Discord sync (single pass)
-        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true && inputs.react_events != true
         id: sync
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -105,7 +110,7 @@ jobs:
         run: python tools/sync_events.py --campaign darthsunday
 
       - name: Commit and push (single pass)
-        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true && steps.sync.outputs.had_changes == 'true'
+        if: inputs.chunk_days == '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true && inputs.react_events != true && steps.sync.outputs.had_changes == 'true'
         run: |
           # data/attachments/ pulled in because sync_events.py mirrors new
           # image attachments locally — see the "Mirroring image attachments"
@@ -154,13 +159,32 @@ jobs:
           git commit -m "chore: backfill mirrored Discord attachments $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
           git push
 
+      # One-shot reaction sweep — adds the 🗺️ (:map:) reaction to every event
+      # that the bot hasn't reacted to yet, confirming in-channel that the post
+      # was parsed + plotted. Paced under Discord's reaction rate limit; tracks
+      # reacted_ids in processed_ids.json so re-runs resume. The normal cron
+      # sync reacts to NEW events as they're ingested — this is the backlog.
+      - name: React to events
+        if: inputs.react_events == true
+        id: react
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        run: python tools/react_events.py --campaign darthsunday
+
+      - name: Commit and push (reaction sweep)
+        if: inputs.react_events == true && steps.react.outputs.had_changes == 'true'
+        run: |
+          git add darthsunday/data/processed_ids.json
+          git commit -m "chore: record 🗺️ reactions on plotted events $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
+          git push
+
       # Chunked-backfill mode: walk from `since` to today in `chunk_days`
       # increments, calling the sync once per chunk with --since/--until and
       # committing+pushing between chunks. This keeps each chunk's Discord API
       # usage small enough to avoid global rate-limit churn on large backfills,
       # and lands progress incrementally so a later failure doesn't lose work.
       - name: Run Discord sync (chunked backfill)
-        if: inputs.chunk_days != '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true
+        if: inputs.chunk_days != '' && inputs.backfill_channel_ids != true && inputs.backfill_attachments != true && inputs.react_events != true
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SINCE: ${{ inputs.since }}
