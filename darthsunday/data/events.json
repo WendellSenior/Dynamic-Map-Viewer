@@ -3402,7 +3402,20 @@
       "tag": "History",
       "author": "DerNette",
       "snippet": "# **Reconciliation and Reconstruction**\n\nWith the integration of Metz, stability gradually returns to the Moselle region after many years of uncertain",
-      "fullText": "# **Reconciliation and Reconstruction**\n\nWith the integration of Metz, stability gradually returns to the Moselle region after many years of uncertainty and unrest. Lorraine seeks not division, but reconciliation, and views this new chapter as an opportunity to restore peace and prosperity to the lands surrounding the Moselle.\n\nAs a sign of goodwill toward the city and its people, investments shall be made into the rebuilding and strengthening of Metz, as far as the hardships left behind by recent years and the plague allow. Efforts shall be taken to restore confidence, protect merchants and travellers, and encourage renewed prosperity for the remaining population.\n\nTogether with our allies in Trier, closer cooperation throughout the Moselle region shall help foster stability, commerce, and mutual prosperity. Through peace and careful governance, Lorraine hopes to contribute to a flourishing future for the region and its people.\n\n**Written in the Year of Our Lord 1356**\n**Raoul d’Alsace, Duke of Lorraine**\n\n# **Rebuilding Prosperity in the Moselle Region**\n\nAs part of Lorraine’s continued reconstruction efforts, the establishment of a market in Metz is now being planned as one of the first major investments into the region.\n\nThe hardships and consequences brought by the plague have shown us that dependence on large and distant markets may lead to shortages and uncertainty in times of crisis. Through its already established position and trade routes between the Kingdom of France and the Holy Roman Empire, Metz stands as an excellent location for renewed commerce and regional exchange.\n\nThe aim of this endeavour is to strengthen local security of supply, attract merchants back to the region after long years of hardship, and encourage the gradual resettlement and recovery of the city and its surrounding lands. Through careful investment and renewed stability, Lorraine hopes to restore prosperity to Metz and help it flourish once more.\n\nAs a secure and well-established city at the heart of the Moselle lands, Metz is well suited to serve as an economic centre for the region. Neighbouring rulers and regional authorities may be granted market privileges should they wish to participate and establish closer commercial ties.\n\n**Written in the Year of Our Lord 1356**\n**Raoul d’Alsace, Duke of Lorraine**",
+      "fullText": "# **Reconciliation and Reconstruction**\n\nWith the integration of Metz, stability gradually returns to the Moselle region after many years of uncertainty and unrest. Lorraine seeks not division, but reconciliation, and views this new chapter as an opportunity to restore peace and prosperity to the lands surrounding the Moselle.\n\nAs a sign of goodwill toward the city and its people, investments shall be made into the rebuilding and strengthening of Metz, as far as the hardships left behind by recent years and the plague allow. Efforts shall be taken to restore confidence, protect merchants and travellers, and encourage renewed prosperity for the remaining population.\n\nTogether with our allies in Trier, closer cooperation throughout the Moselle region shall help foster stability, commerce, and mutual prosperity. Through peace and careful governance, Lorraine hopes to contribute to a flourishing future for the region and its people.\n\n**Written in the Year of Our Lord 1356**\n**Raoul d’Alsace, Duke of Lorraine**",
+      "images": []
+    },
+    {
+      "id": "1508724420938567781",
+      "channel_id": "1505545415213449216",
+      "date": "1356-01-05",
+      "country": "LOR",
+      "countryRaw": "Lorraine",
+      "province": "Metz",
+      "tag": "History",
+      "author": "DerNette",
+      "snippet": "# **Rebuilding Prosperity in the Moselle Region**\n\nAs part of Lorraine’s continued reconstruction efforts, the establishment of a market in Metz is no",
+      "fullText": "# **Rebuilding Prosperity in the Moselle Region**\n\nAs part of Lorraine’s continued reconstruction efforts, the establishment of a market in Metz is now being planned as one of the first major investments into the region.\n\nThe hardships and consequences brought by the plague have shown us that dependence on large and distant markets may lead to shortages and uncertainty in times of crisis. Through its already established position and trade routes between the Kingdom of France and the Holy Roman Empire, Metz stands as an excellent location for renewed commerce and regional exchange.\n\nThe aim of this endeavour is to strengthen local security of supply, attract merchants back to the region after long years of hardship, and encourage the gradual resettlement and recovery of the city and its surrounding lands. Through careful investment and renewed stability, Lorraine hopes to restore prosperity to Metz and help it flourish once more.\n\nAs a secure and well-established city at the heart of the Moselle lands, Metz is well suited to serve as an economic centre for the region. Neighbouring rulers and regional authorities may be granted market privileges should they wish to participate and establish closer commercial ties.\n\n**Written in the Year of Our Lord 1356**\n**Raoul d’Alsace, Duke of Lorraine**",
       "images": []
     },
     {
@@ -3993,8 +4006,8 @@
       "province": "Sinsheim",
       "tag": "History",
       "author": "GMB",
-      "snippet": "[Date:1356-01-01][Country:Palatinate of the Rhine][Location:Sinsheim][Tag:History]\n\n[Date:1356-01-01][Country:Palatinate of the Rhine][Location:Sinshe",
-      "fullText": "[Date:1356-01-01][Country:Palatinate of the Rhine][Location:Sinsheim][Tag:History]\n\n[Date:1356-01-01][Country:Palatinate of the Rhine][Location:Sinsheim][Tag:History]",
+      "snippet": "",
+      "fullText": "",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1509588183963275285/image.png?ex=6a19b90d&is=6a18678d&hm=7232c399bed85d1d4ea3cc8f22192f1b0904c6c2c75fa949cb4bdf529a5f9a83&",
@@ -4003,7 +4016,22 @@
           "height": 632,
           "att_id": "1509588183963275285",
           "local": "data/attachments/1509588183963275285_image.png"
-        },
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1509588270986563644",
+      "channel_id": "1505545415213449216",
+      "date": "1356-01-01",
+      "country": "PAL",
+      "countryRaw": null,
+      "province": "Sinsheim",
+      "tag": "History",
+      "author": "GMB",
+      "snippet": "",
+      "fullText": "",
+      "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1509588270621655152/image.png?ex=6a19b922&is=6a1867a2&hm=532c1bd9d16190fb674308e5e341ae9818a8519f6b2c865c5f2c1c81fec6b4f4&",
           "filename": "image.png",

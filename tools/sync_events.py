@@ -18,7 +18,14 @@ EDIT_LOOKBACK_DAYS = 7
 # event's body + images. Mirrors `preprocess.py`'s CONTINUATION_WINDOW so a
 # Discord post split into 3-4 chat messages (because of length limits, image
 # uploads, or thinking pauses) shows up as one coherent event in the viewer.
-CONTINUATION_WINDOW = timedelta(minutes=5)
+#
+# The window is SLIDING: it's measured from the most recent chunk already in
+# the chain (parent OR any merged follower), not from the parent's timestamp.
+# So a slow-typed post whose chunks are each <window apart merges fully even
+# if the whole thing spans much longer than one window. 8 min (up from 5)
+# accommodates the real-world gaps we saw players leave between paragraphs +
+# image uploads (e.g. Olokun's de Barcelona post had a 6m19s gap mid-chain).
+CONTINUATION_WINDOW = timedelta(minutes=8)
 
 # Per-campaign config is loaded from campaigns.json at run time (--campaign arg
 # selects which entry). These are filled in by load_campaign_config().
@@ -450,8 +457,12 @@ def _content_has_natural_title(text):
 
 def build_event(msg, parsed, thread_title=None, channel_id=None):
     # Use cleaned content (bracket header removed) for snippet/fullText so the
-    # tags don't show up as title-fallback text in the viewer.
-    content  = parsed.get("cleaned") or msg.get("content", "")
+    # tags don't show up as title-fallback text in the viewer. Distinguish a
+    # MISSING cleaned key (fall back to raw content) from an EMPTY one — an
+    # image-only post whose entire body was just the bracket header cleans to
+    # "" and must stay empty, NOT fall back to the raw "[Date:...]" text.
+    cleaned  = parsed.get("cleaned")
+    content  = cleaned if cleaned is not None else msg.get("content", "")
     author   = msg.get("author", {})
     username = author.get("global_name") or author.get("username", "unknown")
     # Prefer the caller-supplied ch_id (ground truth from the scan loop /
@@ -636,23 +647,31 @@ def _event_channel_id(ev, event_meta):
     return (meta or {}).get("channel_id")
 
 
-def _has_plausible_parent(msg_id, channel_id, events_data, event_meta):
-    """Local-only pre-filter for the reconcile path: does an event exist
-    in the same channel posted within CONTINUATION_WINDOW BEFORE this
-    rejected message? If not, no point fetching from Discord — there's
-    nothing the message could merge into.
+def _has_plausible_parent(msg_id, channel_id, events_data, event_meta,
+                          merged_meta=None):
+    """Local-only pre-filter for the reconcile path: is there anything in the
+    same channel — an event OR an already-merged follower — close enough in
+    time before this rejected message that it could plausibly be the head of a
+    continuation chain it belongs to? If not, no point fetching from Discord.
 
-    Pure O(events) scan, no API. We don't have the rejected message's
-    author here (would require a fetch), so we can't fully validate the
-    match — just that the temporal+channel candidate exists. The actual
-    fetch + author check happens later for the surviving candidates."""
+    Deliberately GENEROUS: it uses 2× CONTINUATION_WINDOW and counts merged
+    followers as anchors, because it only decides whether to spend an API call.
+    The real, precise merge decision (exact sliding window + same-author check)
+    happens later in try_continuation_merge for the surviving candidates. A
+    loose pre-filter just fetches a few extra messages; a too-tight one would
+    permanently strand chain-tail orphans (e.g. a 4th message ~10 min after the
+    parent that should chain off the 3rd) by never fetching them.
+
+    Pure O(events + merged_meta) scan, no API. We don't have the rejected
+    message's author here (would require a fetch), so we can't fully validate
+    the match — just that a temporal+channel candidate exists."""
     if not channel_id:
         return False
     try:
         msg_ts = snowflake_to_dt(msg_id)
     except (ValueError, TypeError):
         return False
-    cutoff = msg_ts - CONTINUATION_WINDOW
+    cutoff = msg_ts - 2 * CONTINUATION_WINDOW
     for ev in events_data.get("events", []):
         if _event_channel_id(ev, event_meta) != channel_id:
             continue
@@ -662,24 +681,61 @@ def _has_plausible_parent(msg_id, channel_id, events_data, event_meta):
             continue
         if cutoff <= ev_ts < msg_ts:
             return True
+    # Also treat already-merged followers in the channel as plausible anchors,
+    # so a chain tail whose only nearby neighbour is a prior chunk (not the
+    # parent event itself) still gets fetched.
+    for fid, info in (merged_meta or {}).items():
+        if not isinstance(info, dict) or info.get("channel_id") != channel_id:
+            continue
+        try:
+            f_ts = snowflake_to_dt(fid)
+        except (ValueError, TypeError):
+            continue
+        if cutoff <= f_ts < msg_ts:
+            return True
     return False
 
 
-def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta,
-                                  *, extra_match=None):
-    """Walk new_events (newest first) then events.json (newest first) looking
-    for an event by the same author in the same channel posted **before**
-    `msg` and within CONTINUATION_WINDOW of it. Optionally also requires
-    `extra_match(ev)` to return True. Returns the matched event dict, or
-    None.
+def _chain_latest_ts(event_id, base_ts, merged_meta):
+    """The most-recent activity timestamp in an event's continuation chain:
+    the later of the event's own timestamp and the timestamps of every merged
+    follower whose parent_id points at it. Read live from merged_meta so chains
+    that grow DURING a reconcile run (orphan A merges, then orphan B chains off
+    A) extend correctly on the next lookup."""
+    latest = base_ts
+    if not merged_meta:
+        return latest
+    for fid, info in merged_meta.items():
+        if not isinstance(info, dict) or info.get("parent_id") != event_id:
+            continue
+        try:
+            f_ts = snowflake_to_dt(fid)
+        except (ValueError, TypeError):
+            continue
+        if f_ts > latest:
+            latest = f_ts
+    return latest
 
-    Note both bounds: the candidate must satisfy `cutoff <= ev_ts < msg_ts`.
-    The upper bound matters in reconcile/backfill paths where events_data
-    holds events from across all time; without it, a same-author event
-    posted hours/days AFTER the rejected message could spuriously match
-    (since reversed(events_data) walks newest-first). The scan-loop path
-    happened to work without the upper bound because messages are processed
-    chronologically, so future events simply weren't in new_events yet.
+
+def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta,
+                                  *, extra_match=None, merged_meta=None):
+    """Walk new_events (newest first) then events.json (newest first) looking
+    for an event by the same author in the same channel whose continuation
+    chain's most-recent chunk is **before** `msg` and within
+    CONTINUATION_WINDOW of it. Optionally also requires `extra_match(ev)` to
+    return True. Returns the matched event dict, or None.
+
+    SLIDING WINDOW: the window is measured against the chain's latest chunk
+    (parent event OR its latest merged follower, via _chain_latest_ts), not the
+    parent's own timestamp. This is what lets a long multi-message post whose
+    chunks are individually <window apart merge fully even when the whole post
+    spans longer than one window.
+
+    Both bounds still apply: the chain-latest must satisfy
+    `cutoff <= latest_ts < msg_ts`. The upper bound matters in reconcile/
+    backfill paths where events_data holds events from across all time;
+    without it, a same-author event posted AFTER the rejected message could
+    spuriously match (reversed() walks newest-first).
 
     Shared by both merge paths: continuation (header-less follow-up) and
     repeat-header (length-split posts where the author re-pasted the brackets
@@ -702,8 +758,10 @@ def _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta
             ev_ts = snowflake_to_dt(ev["id"])
         except (ValueError, TypeError):
             return False
-        # Must be in the [msg_ts - 5 min, msg_ts) window — strict upper bound.
-        if ev_ts >= msg_ts or ev_ts < cutoff:
+        # Slide the window to the chain's most-recent chunk so multi-message
+        # posts that span >1 window (but with each gap <window) still match.
+        latest_ts = _chain_latest_ts(ev["id"], ev_ts, merged_meta)
+        if latest_ts >= msg_ts or latest_ts < cutoff:
             return False
         return extra_match(ev) if extra_match else True
 
@@ -892,7 +950,8 @@ def check_merged_followers_for_edits(merged_meta, event_meta, events_data,
     return any_changes, rebuilt
 
 
-def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
+def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta,
+                           merged_meta=None):
     """If `msg` is a no-header follow-up posted within CONTINUATION_WINDOW of
     a recent event from the same author in the same channel, merge its content
     and images into that event.
@@ -908,7 +967,8 @@ def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
     Search order: this-run's `new_events` first (most recent in-flight), then
     events.json (older committed).
     """
-    candidate = _find_recent_event_by_author(msg, ch_id, new_events, events_data, event_meta)
+    candidate = _find_recent_event_by_author(
+        msg, ch_id, new_events, events_data, event_meta, merged_meta=merged_meta)
     if not candidate:
         return None
     content = (msg.get("content") or "").strip()
@@ -920,7 +980,8 @@ def try_continuation_merge(msg, ch_id, new_events, events_data, event_meta):
     return None
 
 
-def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_meta):
+def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_meta,
+                            merged_meta=None):
     """If `msg` has a bracket header IDENTICAL (date + country + province +
     tag) to a recent same-author + same-channel event's header, treat it as a
     continuation rather than a new event. Mirrors player behaviour of
@@ -928,12 +989,16 @@ def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_m
 
     Returns the parent event id when a merge happened, else None.
 
-    Discriminator strength: identical-everything within 5 minutes is an
-    extremely strong "this is the same logical post" signal — two genuinely-
-    separate events with all four metadata fields identical, in the same
-    channel, by the same author, within 5 min, is implausible in practice.
-    The current parser was creating split events at this signature (Dods'
-    Cologne, tintock's Trier, DerNette's Nancy, etc.); this closes the gap.
+    Discriminator strength: identical-everything within the window is a strong
+    "same logical post" signal — BUT two genuinely-separate posts can share an
+    identical header (e.g. a player who reuses a bracket template for several
+    same-day announcements from the same seat). To avoid gluing those, we
+    DON'T merge when the follower carries its OWN title (a `#`/`##`/`###`
+    heading or a bold-only line): a length-split chunk continues the prose, it
+    doesn't restate a fresh headline. This is what keeps Lorraine's two
+    separately-titled Metz announcements ("Reconciliation and Reconstruction"
+    vs "Rebuilding Prosperity in the Moselle Region") as two events while still
+    merging genuine header-repeated continuations.
     """
     def _same_metadata(ev):
         return (
@@ -944,15 +1009,24 @@ def try_repeat_header_merge(msg, parsed, ch_id, new_events, events_data, event_m
             ev.get("tag")        == parsed["tag"]
         )
 
+    # Use cleaned body (header stripped) — matches what build_event does. Treat
+    # a missing key as raw fallback, but an empty string (header-only post) as
+    # genuinely empty rather than falling back to the raw bracket text.
+    cleaned = parsed.get("cleaned")
+    content = (cleaned if cleaned is not None else (msg.get("content") or "")).strip()
+
+    # A follower that introduces its own headline is a distinct post, not a
+    # continuation — don't merge it even though the bracket header matches.
+    if _content_has_natural_title(content):
+        return None
+
     candidate = _find_recent_event_by_author(
         msg, ch_id, new_events, events_data, event_meta,
-        extra_match=_same_metadata,
+        extra_match=_same_metadata, merged_meta=merged_meta,
     )
     if not candidate:
         return None
 
-    # Use cleaned body (header stripped) — matches what build_event does.
-    content = (parsed.get("cleaned") or msg.get("content") or "").strip()
     images = _msg_images(msg)
     if not _merge_into(candidate, content, images):
         # Empty follow-up — still record it as a merge so we don't recreate
@@ -1272,10 +1346,16 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         before = len(candidates)
         candidates = [
             (mid, m) for mid, m in candidates
-            if _has_plausible_parent(mid, m.get("channel_id"), events_data, event_meta)
+            if _has_plausible_parent(mid, m.get("channel_id"), events_data, event_meta,
+                                     merged_meta=merged_meta)
         ]
         log(f"  Pre-filter: {before} → {len(candidates)} candidate(s) with a "
-            f"plausible same-channel parent within {int(CONTINUATION_WINDOW.total_seconds())}s.")
+            f"plausible same-channel parent within {int(2 * CONTINUATION_WINDOW.total_seconds())}s.")
+        # Process chronologically so continuation chains build in order: a
+        # tail chunk that should chain off an earlier orphan can only do so
+        # once that earlier orphan has itself been merged (and recorded in
+        # merged_meta) THIS run. last_checked ordering would scramble that.
+        candidates.sort(key=lambda kv: int(kv[0]))
 
     if cap is not None and len(candidates) > cap:
         log(f"  Rejected_meta has {len(candidates)} candidate(s); capping check at "
@@ -1317,7 +1397,8 @@ def check_rejected_for_promotions(rejected_meta, event_meta, now_utc, thread_nam
         #
         # No extra API cost — we already paid the fetch above.
         if not parsed and events_data is not None and merged_meta is not None:
-            merged_parent = try_continuation_merge(msg, channel_id, new_events, events_data, event_meta)
+            merged_parent = try_continuation_merge(msg, channel_id, new_events, events_data, event_meta,
+                                                   merged_meta=merged_meta)
             if merged_parent is not None:
                 # try_continuation_merge returns the merge-target dict.
                 # Store the dict shape so the follower-edit-detection pass
@@ -1693,6 +1774,7 @@ def main():
             # phantom events.
             repeat_parent = try_repeat_header_merge(
                 msg, parsed, ch_id, new_events, events_data, event_meta,
+                merged_meta=merged_meta,
             )
             if repeat_parent:
                 merged_meta[msg_id] = {
@@ -1723,7 +1805,8 @@ def main():
             # event in the same channel posted within CONTINUATION_WINDOW. This
             # is how multi-message posts (length splits, image follow-ups, etc.)
             # get glued back into one event.
-            merged_parent = try_continuation_merge(msg, ch_id, new_events, events_data, event_meta)
+            merged_parent = try_continuation_merge(msg, ch_id, new_events, events_data, event_meta,
+                                                    merged_meta=merged_meta)
             if merged_parent is not None:
                 merged_meta[msg_id] = {
                     "parent_id":        merged_parent["id"],
