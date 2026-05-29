@@ -1431,8 +1431,8 @@
       "province": "Heidelberg",
       "tag": "History",
       "author": "GMB",
-      "snippet": "# A NEW PAGE HAS BEEN WRITTEN! #",
-      "fullText": "# A NEW PAGE HAS BEEN WRITTEN! #",
+      "snippet": "# A NEW PAGE HAS BEEN WRITTEN! #\n\n||**A messanger is quickly sent with two letters to Munich... He rides in secrecy**\n\n<@763652399784919080> ||\n\n*The ",
+      "fullText": "# A NEW PAGE HAS BEEN WRITTEN! #\n\n||**A messanger is quickly sent with two letters to Munich... He rides in secrecy**\n\n<@763652399784919080> ||\n\n*The letter is taken into Keep at Heidelberg, presumably to be analyzed by the Palatine himself...*",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508105022930554900/image.png?ex=6a15a540&is=6a1453c0&hm=5f0d639cf4edf0444e726566bd1b8831efe911a479fc23588ff3ee8c99b7ea01&",
@@ -1449,6 +1449,30 @@
           "height": 658,
           "att_id": "1508105023282745394",
           "local": "data/attachments/1508105023282745394_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508106383659106445/SPOILER_image.png?ex=6a1a43c5&is=6a18f245&hm=e977e7b0b4f8d4ba6919287470a39abfecd9f194e9b1eeba6800b71136a6fc97&",
+          "filename": "SPOILER_image.png",
+          "width": 909,
+          "height": 665,
+          "att_id": "1508106383659106445",
+          "local": "data/attachments/1508106383659106445_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508107395379761272/SPOILER_image.png?ex=6a1a44b6&is=6a18f336&hm=2d06bdc38e33f63a688e226a2cc90a8943f12b8a85283d7ca437d5a7a0c4f057&",
+          "filename": "SPOILER_image.png",
+          "width": 912,
+          "height": 659,
+          "att_id": "1508107395379761272",
+          "local": "data/attachments/1508107395379761272_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508107395803648040/SPOILER_image.png?ex=6a1a44b6&is=6a18f336&hm=496e9d7e8f5491db222eeff53c1e4bd87a65c25922f5f1249a58b9c560e3012f&",
+          "filename": "SPOILER_image.png",
+          "width": 616,
+          "height": 726,
+          "att_id": "1508107395803648040",
+          "local": "data/attachments/1508107395803648040_SPOILER_image.png"
         }
       ]
     },
@@ -2078,8 +2102,8 @@
       "province": "Munich",
       "tag": "Treaty",
       "author": "GMB",
-      "snippet": "# THE TREATY OF MUNICH OF 1337 IS SIGNED! # \n\n**Signatories:**\n<@261290667106369536> \n<@763652399784919080> \n<@222439858927435776>",
-      "fullText": "# THE TREATY OF MUNICH OF 1337 IS SIGNED! # \n\n**Signatories:**\n<@261290667106369536> \n<@763652399784919080> \n<@222439858927435776>",
+      "snippet": "# THE TREATY OF MUNICH OF 1337 IS SIGNED! # \n\n**Signatories:**\n<@261290667106369536> \n<@763652399784919080> \n<@222439858927435776>\n\n<@5641963291322613",
+      "fullText": "# THE TREATY OF MUNICH OF 1337 IS SIGNED! # \n\n**Signatories:**\n<@261290667106369536> \n<@763652399784919080> \n<@222439858927435776>\n\n<@564196329132261376>",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508180900545040525/image.png?ex=6a15ebeb&is=6a149a6b&hm=22b8081088e754b2ca7f24679a3a3a85468973e37556bd856b01f9afee2d0de9&",
@@ -2088,6 +2112,14 @@
           "height": 654,
           "att_id": "1508180900545040525",
           "local": "data/attachments/1508180900545040525_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508182249374220338/SPOILER_image.png?ex=6a1a8a6c&is=6a1938ec&hm=83dca5f9d237dd7934e70411f123460855f6080bf12accc19c588a0b00aede2c&",
+          "filename": "SPOILER_image.png",
+          "width": 908,
+          "height": 665,
+          "att_id": "1508182249374220338",
+          "local": "data/attachments/1508182249374220338_SPOILER_image.png"
         }
       ]
     },
@@ -2667,7 +2699,7 @@
       "tag": "WarDec",
       "author": "Marcus",
       "snippet": "The looming war\n\n[Tag:]\n\nWith the Army almost ready for invasion and the deal with to hire the Hanseatic navy almost agreed to, Sweden prepares to inv",
-      "fullText": "The looming war\n\n[Tag:]\n\nWith the Army almost ready for invasion and the deal with to hire the Hanseatic navy almost agreed to, Sweden prepares to invade Denmark to remove the ruling dynasty of Estridsen from power.\n\n<@210779670663135232>",
+      "fullText": "The looming war\n\n[Tag:]\n\nWith the Army almost ready for invasion and the deal with to hire the Hanseatic navy almost agreed to, Sweden prepares to invade Denmark to remove the ruling dynasty of Estridsen from power.\n\n<@210779670663135232>\n\nThe time has come to march south and do away with the disgraced Danish King! The army will gather in Lund and march south on Kopenhagen! God be with us! \n\nwar dec(1348 August)\n\n<@150411715757080576> <@210779670663135232>",
       "images": [],
       "title": "Central Europe and North Africa Diplo"
     },
@@ -2854,7 +2886,7 @@
       "tag": null,
       "author": "Murlock",
       "snippet": "**Stephan's Coronation Illegitimate**\n\nYou are asked instead to come to Rome where you will be crowned Emperor of the Romans by the Pope. The Fake Cor",
-      "fullText": "**Stephan's Coronation Illegitimate**\n\nYou are asked instead to come to Rome where you will be crowned Emperor of the Romans by the Pope. The Fake Coronation in Milan is seen as an INSULT to the Pope and will not be tolerated.\n\nSignore Axxo Vicounti is **excommunicated** for actions against the Holy Mother Church.\n\nOrsini Mission <:rose:865579087883272192> \n\nThe Orsini is putting a 2000 gold hit on **Signore Axxo Vicounti** and for Milan to be cut down to size (And to Return The Iron Crown)\n\nMilan is crowning Popes without Papal Authority. No Archbishop in the Empire approves of the actions, nor does the pope.",
+      "fullText": "**Stephan's Coronation Illegitimate**\n\nYou are asked instead to come to Rome where you will be crowned Emperor of the Romans by the Pope. The Fake Coronation in Milan is seen as an INSULT to the Pope and will not be tolerated.\n\nSignore Axxo Vicounti is **excommunicated** for actions against the Holy Mother Church.\n\nOrsini Mission <:rose:865579087883272192> \n\nThe Orsini is putting a 2000 gold hit on **Signore Axxo Vicounti** and for Milan to be cut down to size (And to Return The Iron Crown)\n\nMilan is crowning Popes without Papal Authority. No Archbishop in the Empire approves of the actions, nor does the pope.\n\nYou will revoke this, or your payments will end.",
       "images": []
     },
     {
@@ -3450,7 +3482,7 @@
       "tag": "History",
       "author": "GMB",
       "snippet": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.co",
-      "fullText": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.com/channels/507915886477312023/1505545415213449216/1508226388522434660||",
+      "fullText": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.com/channels/507915886477312023/1505545415213449216/1508226388522434660||\n\n||<@288410456526422016> ||\n\n||<@763652399784919080> ||",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508846318863515718/image.png?ex=6a170623&is=6a15b4a3&hm=b8b3687cff081074af37a3045ee1782f71a81a7ef3cf1cf103f68d06d1955c8f&",
@@ -3515,6 +3547,30 @@
           "height": 641,
           "att_id": "1508847480836587740",
           "local": "data/attachments/1508847480836587740_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508848781687394375/SPOILER_image.png?ex=6a1a542e&is=6a1902ae&hm=190250b74549f8e7e9d5d037b9810c53662036bbba4369b819f9d3d429abd36d&",
+          "filename": "SPOILER_image.png",
+          "width": 874,
+          "height": 643,
+          "att_id": "1508848781687394375",
+          "local": "data/attachments/1508848781687394375_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508850710492741662/SPOILER_image.png?ex=6a1a55fa&is=6a19047a&hm=71ccaaa2e793c067c08ab1df804df5f4cdb46e78cce85f49d6cdbd1838d6f8ed&",
+          "filename": "SPOILER_image.png",
+          "width": 876,
+          "height": 639,
+          "att_id": "1508850710492741662",
+          "local": "data/attachments/1508850710492741662_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508850710794469538/SPOILER_image.png?ex=6a1a55fa&is=6a19047a&hm=c186321c7bd71e6ba15f19e697b6fc7fcb7ac8e5c8436d71109101d4cab96e86&",
+          "filename": "SPOILER_image.png",
+          "width": 879,
+          "height": 637,
+          "att_id": "1508850710794469538",
+          "local": "data/attachments/1508850710794469538_SPOILER_image.png"
         }
       ]
     },
@@ -3528,7 +3584,7 @@
       "tag": "History",
       "author": "Olokun",
       "snippet": "# The Wrath of House de Barcelona#\n\nFor generations, Sicily had stood beneath the banner of House de Barcelona. The bond between the Crown of Aragon a",
-      "fullText": "# The Wrath of House de Barcelona#\n\nFor generations, Sicily had stood beneath the banner of House de Barcelona. The bond between the Crown of Aragon and the island had not been forged through simple conquest, but through blood, struggle, and popular revolt. In the days of the Sicilian Vespers, the Sicilian people had risen against Angevin domination and called upon King Peter III de Barcelona of Aragon to defend their liberties and claims. House de Barcelona answered that call, driving out foreign oppression and establishing a dynasty that would rule Sicily for decades thereafter.\nSince that time, Sicily had become a realm intrinsically tied to the prestige and legitimacy of the de Barcelona dynasty itself. To attack Sicily was to attack the blood and honor of the House de Barcelona.",
+      "fullText": "# The Wrath of House de Barcelona#\n\nFor generations, Sicily had stood beneath the banner of House de Barcelona. The bond between the Crown of Aragon and the island had not been forged through simple conquest, but through blood, struggle, and popular revolt. In the days of the Sicilian Vespers, the Sicilian people had risen against Angevin domination and called upon King Peter III de Barcelona of Aragon to defend their liberties and claims. House de Barcelona answered that call, driving out foreign oppression and establishing a dynasty that would rule Sicily for decades thereafter.\nSince that time, Sicily had become a realm intrinsically tied to the prestige and legitimacy of the de Barcelona dynasty itself. To attack Sicily was to attack the blood and honor of the House de Barcelona.\n\nBut amidst the smoke of victory, fate turned unexpectedly.\n\nSultan Uthmar Abu Hafs Hafsid II of Tunisia, observing the conflict between the Christian powers, moved with extraordinary speed and cunning. While the great fleets clashed in the Strait and the attention of both Aragonese and Neapolitans remained fixed upon the sea, Hafsid forces landed upon Sicily itself. Under cover of darkness, Messina fell before many even realized Tunisian banners had reached the shore. By dawn, the island had slipped entirely from Sicilian control.\n\nThe court of Aragon was left stunned.\n\nThough the Sultan permitted the de Barcelona family and loyal Sicilian nobility to flee the island unharmed, returning to Aragon embittered and dispossessed, the wound inflicted upon the Crown was profound. Sentiment toward Tunisia became conflicted within the halls of Barcelona and Saragossa alike. The Hafsids had shown restraint and even a measure of respect toward the dynasty, sparing the family and avoiding needless slaughter. Quietly, some admitted that Tunis had acted with more honor than Naples, Genoa, or even Rome itself.\n\nYet none could deny the truth: Sicily, ancient realm of the House of Barcelona, now rested beneath foreign rule.\n\nThe exiled Sicilian nobles carried with them stories of betrayal and abandonment. Across the Crown of Aragon, distrust toward the Italian states deepened into something darker and far more permanent. \n### Naples was condemned as the architect of the catastrophe. Genoa was reviled as a profiteering republic willing to strike at Sardinia while Christian blood was already being spilled. Ferrara was denounced for aiding an unjust dynastic war. Even the Papacy found itself increasingly distrusted, for Rome had abandoned Sicily despite solemn guarantees and shared faith. ###\n\nFrom this calamity emerged a new consensus within the Crown: \n### The Italian powers could no longer be trusted to preserve either justice or stability within the Mediterranean ###\n\nRather than weakening Aragon, the loss of Sicily hardened it. The humiliation of the de Barcelona dynasty united nobles, merchants, and sailors alike behind calls for vengeance and recompense. Particular fury was directed toward Genoa, whose opportunism in Sardinia was now viewed as unforgivable. Throughout the Crown, demands grew louder: \n### Genoese possessions upon Sardinia be seized as rightful reparations for their aggression against House de Barcelona ###\n\nIn the royal court, whispers spread that this conflict had not ended with the fall of Sicily. Rather, it had only begun a new era of Mediterranean rivalry—one born from betrayal, dynastic humiliation, and the burning memory of a stolen kingdom.\n\nAnd though Sicily had fallen, the House de Barcelona had not.\n\nThe dynasty endured.\nThe fleets endured.\nAnd so too shall the bitterness of every peasant under the Crown of Aragon!\n\n<@925830977291440210> <@170593650584059904> <@297185126947880960> <@315868897012219904> <@150411715757080576>",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508874237912420362/Screenshot_2026-05-26_110937.png?ex=6a172023&is=6a15cea3&hm=2dc16b33153e948b898a15573ad1ec3fe292b7d98653ad89bcb1571118029e2c&",
@@ -3537,6 +3593,14 @@
           "height": 548,
           "att_id": "1508874237912420362",
           "local": "data/attachments/1508874237912420362_Screenshot_2026-05-26_110937.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508876783842230442/Screenshot_2026-05-26_110957.png?ex=6a1a6e42&is=6a191cc2&hm=5155380645336c68a71c02fd578d0ff31bec1727dae8c7c7008820e5205df4e3&",
+          "filename": "Screenshot_2026-05-26_110957.png",
+          "width": 1408,
+          "height": 550,
+          "att_id": "1508876783842230442",
+          "local": "data/attachments/1508876783842230442_Screenshot_2026-05-26_110957.png"
         }
       ]
     },
