@@ -3482,7 +3482,7 @@
       "tag": "History",
       "author": "GMB",
       "snippet": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.co",
-      "fullText": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.com/channels/507915886477312023/1505545415213449216/1508226388522434660||\n\n||<@288410456526422016> ||\n\n||<@763652399784919080> ||",
+      "fullText": "# THE PROMINENT PALATINES VOLUME II # \n\n<@564196329132261376> <@306458253674545153>\n\n||<@150411715757080576> \n\nProof of infidelity: https://discord.com/channels/507915886477312023/1505545415213449216/1508226388522434660||\n\n||<@288410456526422016> ||\n\n||<@763652399784919080> ||\n\n||<@190640828954181632>||",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508846318863515718/image.png?ex=6a170623&is=6a15b4a3&hm=b8b3687cff081074af37a3045ee1782f71a81a7ef3cf1cf103f68d06d1955c8f&",
@@ -3571,6 +3571,14 @@
           "height": 637,
           "att_id": "1508850710794469538",
           "local": "data/attachments/1508850710794469538_SPOILER_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1508852039302643722/SPOILER_image.png?ex=6a1ba8b7&is=6a1a5737&hm=4d43fb42fb824350638d5d2a7dcc0d9721a2eb81231d1de51dfee99067b05c44&",
+          "filename": "SPOILER_image.png",
+          "width": 879,
+          "height": 636,
+          "att_id": "1508852039302643722",
+          "local": "data/attachments/1508852039302643722_SPOILER_image.png"
         }
       ]
     },
@@ -4316,6 +4324,29 @@
           "local": "data/attachments/1510049538142900375_Rectangle-12-3.png"
         }
       ]
+    },
+    {
+      "id": "1510075425198702632",
+      "channel_id": "1505545492736639056",
+      "date": "1356-01-03",
+      "country": "SWE",
+      "countryRaw": null,
+      "province": "Viborg",
+      "tag": "Treaty",
+      "author": "Marcus",
+      "snippet": "The devastation of the 5 year war against Denmark combined with The Great Mortality coming to our lands has turned our palms sweaty and purses empty. ",
+      "fullText": "The devastation of the 5 year war against Denmark combined with The Great Mortality coming to our lands has turned our palms sweaty and purses empty. The regent and the council supporting them are now considering to sell the lands in Karelia to Novgorod. The Nobles holding the Karelian lands there have not long ago launched campaigns against Stockholm in [rebellion](https://discord.com/channels/507915886477312023/1505545415213449216/1508199129162055721) and have caused many headaches. With the nobles defeated, it has since then become even more difficult to control and extract wealth from these lands.\n\nArne Gregersson will travel to Novgorod to negotiate with the representatives of the Grand Prince.\n\n<@160455024994942976> <@307587752860581888>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1510075424925810748/image.png?ex=6a1b7ed5&is=6a1a2d55&hm=ed222dc0b4f5e7463f201c1b1d96d6b517ff7dd5e9f365a20664563621b86b9d&",
+          "filename": "image.png",
+          "width": 1278,
+          "height": 681,
+          "att_id": "1510075424925810748",
+          "local": "data/attachments/1510075424925810748_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
     }
   ]
 }
