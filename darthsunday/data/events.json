@@ -4347,6 +4347,50 @@
         }
       ],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1510252118055977130",
+      "channel_id": "1505545415213449216",
+      "date": "1356-01-01",
+      "country": "PAL",
+      "countryRaw": null,
+      "province": "Heidelberg",
+      "tag": "Treaty",
+      "author": "GMB",
+      "snippet": "# THE SECOND TREATY OF PAVIA OF 1356 # \n\n**Signatories:**\n<@222439858927435776> \n<@763652399784919080>",
+      "fullText": "# THE SECOND TREATY OF PAVIA OF 1356 # \n\n**Signatories:**\n<@222439858927435776> \n<@763652399784919080>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510252117682819295/image.png?ex=6a1c2363&is=6a1ad1e3&hm=f15d96cc36bd9181a545dd37a44660cf1df7a1504a168cfc794a8842d90c3a42&",
+          "filename": "image.png",
+          "width": 881,
+          "height": 646,
+          "att_id": "1510252117682819295",
+          "local": "data/attachments/1510252117682819295_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1510254515771936850",
+      "channel_id": "1505545415213449216",
+      "date": "1356-01-01",
+      "country": "PAL",
+      "countryRaw": null,
+      "province": "Heidelberg",
+      "tag": "History",
+      "author": "GMB",
+      "snippet": "# ANNA VON WITTELSBACH \"THE PRIZE\" HAS MADE HER DECISION: A NEW HUSBAND HAS BEEN CHOSEN AND THE MARRIAGE CEREMONY BEGINS! # \n\nOpen to the public, righ",
+      "fullText": "# ANNA VON WITTELSBACH \"THE PRIZE\" HAS MADE HER DECISION: A NEW HUSBAND HAS BEEN CHOSEN AND THE MARRIAGE CEREMONY BEGINS! # \n\nOpen to the public, right at the heart of Heidelberg inside of its temple: The marriage of the new Heir of the Palatinate of the Rhine was announced and celebrated. \n\nAnna von Wittelsbach \"the Prize\" is officially married to Prince Count of Bavaria-Chiemgau  Albrecht von Wittelsbach, son of the late Kaiser Ludwig IV and brother to the current Emperor of the Holy Roman Empire.\n\nThe celebrations were made and the whole of the City cheered on to see that the House of Wittelsbach was truly united, now with two abled members of the dynasty set to succeed in the future.\n\nThe unity of the House became ever more apparent with the second treaty of Pavia. With the Wittelsbachs united, the question now remained of the future. But reports do show us that this new Marriage will likely be a happy one, Lady Anna has been seen having her cheeks brush with her new tall and capable husband. \n\nFor Prince Albrecht, he also seems happy, for this union certainly secures him yet another title to rule.\n\n<@763652399784919080>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510254515444514948/image.png?ex=6a1c259f&is=6a1ad41f&hm=0c4af79b7c77016450040d3bde0593ca81c24079d7f215cd7b95ddb4cab6b9d3&",
+          "filename": "image.png",
+          "width": 749,
+          "height": 177,
+          "att_id": "1510254515444514948",
+          "local": "data/attachments/1510254515444514948_image.png"
+        }
+      ]
     }
   ]
 }
