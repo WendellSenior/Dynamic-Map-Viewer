@@ -62,6 +62,10 @@
     "1508183396441133188": { "country": "GEN", "_was_raw": "Superb Republic of Genoa", "_note": "Spinola ascendancy — countryRaw 'Superb Republic of Genoa' now also resolved by the global alias going forward" },
     "1508202392888541265": { "country": "FRA", "_was_raw": "Dauphine",                 "_note": "Dauphine of Viennois bought by de Valois — countryRaw 'Dauphine' now also resolved by the global alias going forward" },
     "1508176067251409027": { "country": "KIE", "_was": "KYI",                          "_note": "Kyiv merchants — player wrote tag KYI (not a real EU5 tag); canonical Kyiv tag is KIE" },
-    "1508188847434109059": { "country": "DAN", "_was_raw": "Poznan",                   "_note": "Rishi's Treaty-of-Poznan post — written from Denmark's perspective; the treaty is between Poland and Denmark and the player is roleplaying Denmark" }
+    "1508188847434109059": { "country": "DAN", "_was_raw": "Poznan",                   "_note": "Rishi's Treaty-of-Poznan post — written from Denmark's perspective; the treaty is between Poland and Denmark and the player is roleplaying Denmark" },
+
+    "1510719691935449149": { "date": "1359-08-01", "_was": "1559-08-01", "_note": "Atlantic Diplo — typo'd century (15xx→13xx); slots between 1359/1357 posts" },
+    "1510723734003126302": { "date": "1361-07-03", "_was": "1561-07-03", "_note": "Atlantic Diplo — typo'd century (15xx→13xx); slots between 1357/1360 posts" },
+    "1510729418195075112": { "date": "1362-07-01", "_was": "1562-07-01", "_note": "Atlantic Diplo — typo'd century (15xx→13xx); slots next to 1362-08-06 post" }
   }
 }
