@@ -8,19 +8,14 @@ on:
     # 20–40 min. Shifting a few minutes off the hour dramatically improves
     # on-time firing without changing the cadence.
     - cron: '7 * * * *'
-    # Session burst: roughly every 10 minutes during the weekly Sunday play
-    # session so freshly-posted events land on the live map within minutes
-    # instead of up to an hour later. Offset off the *:00/:10/:20 grid
-    # (same reason as above — those slots are the most congested) by using
-    # 5,15,25,35,45,55 instead of */10.
-    #
-    # Schedule (UTC):  Sunday 18:00 → 22:59  (5 hours, fires at :05/:15/:25/:35/:45/:55)
-    # Local (BST):     Sunday 19:00 → 23:59  (matches 4-hour 19:00 session
-    #                                          + 1-hour buffer after end)
-    #
-    # If the session moves or your local timezone shifts (e.g. BST → GMT
-    # in late October), edit the hour range below. Cron is always UTC.
-    - cron: '5,15,25,35,45,55 18-22 * * 0'
+    # NOTE: the weekly Sunday play session used to have an every-10-min "burst"
+    # cron here (`5,15,25,35,45,55 18-22 * * 0`). It was REMOVED because GitHub's
+    # hosted scheduler drops sub-hourly schedules under load — in practice it
+    # only ever delivered ~hourly runs, so the live map still lagged the session.
+    # The session is now covered by .github/workflows/discord-session-heartbeat.yml,
+    # which fires ONCE near session start and self-loops every 10 min internally
+    # (GitHub reliably keeps a started job running). Adjust the session window /
+    # timezone there, not here.
   workflow_dispatch:
     inputs:
       since:

@@ -1,0 +1,133 @@
+name: Discord Session Heartbeat
+
+# WHY THIS EXISTS
+# GitHub's hosted cron scheduler does not honour sub-hourly schedules
+# reliably — it heavily delays/drops frequent `schedule` triggers under load.
+# In practice the old every-10-min "session burst" cron in discord-sync.yml
+# (`5,15,25,35,45,55 18-22 * * 0`) only ever delivered ~hourly runs, so the
+# live map lagged the play session by up to an hour.
+#
+# FIX: instead of asking GitHub to fire 24+ separate runs during the session,
+# we ask it to fire ONE run near the start of the session, then that single
+# job self-loops internally — sync, sleep 10 min, repeat — for the whole
+# window. GitHub reliably runs a job once it has started, so the 10-minute
+# cadence no longer depends on the flaky scheduler. A single weekly trigger is
+# also far more likely to actually fire than an every-10-min one.
+
+on:
+  schedule:
+    # ~Sunday 18:03 UTC (BST 19:03) — start of the weekly session. Offset off
+    # :00 to dodge top-of-hour scheduler congestion. If GitHub starts it late,
+    # the loop still runs RUN_MINUTES from its real start, so coverage holds.
+    - cron: '3 18 * * 0'
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: 'Total minutes to run the heartbeat loop (default 300 = 5h).'
+        required: false
+        default: '300'
+      interval_seconds:
+        description: 'Seconds between syncs (default 600 = 10 min).'
+        required: false
+        default: '600'
+
+# Share the concurrency group with discord-sync.yml so the regular hourly sync
+# can't push at the same time as a heartbeat iteration (avoids push races).
+# While the heartbeat holds the slot for the session, any hourly run that fires
+# queues behind it (only the latest is kept) and runs after — harmless, since
+# the heartbeat is already syncing every 10 min.
+concurrency:
+  group: discord-sync
+  cancel-in-progress: false
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    # Loop runs up to RUN_MINUTES (default 300). Cap the job above that but
+    # under GitHub's 360-min hard ceiling, leaving room for setup.
+    timeout-minutes: 330
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Full history so the defensive `git pull --rebase` before each push
+          # has a proper base (no shallow-clone rebase edge cases).
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure git
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Session heartbeat loop
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          RUN_MINUTES: ${{ inputs.minutes || '300' }}
+          INTERVAL_SECONDS: ${{ inputs.interval_seconds || '600' }}
+        run: |
+          set -uo pipefail
+          interval="${INTERVAL_SECONDS:-600}"
+          run_minutes="${RUN_MINUTES:-300}"
+          start_epoch=$(date -u +%s)
+          end_epoch=$(( start_epoch + run_minutes * 60 ))
+          echo "Heartbeat: sync every ${interval}s until $(date -u -d "@${end_epoch}" '+%H:%M:%S') UTC (${run_minutes} min)."
+
+          iter=0
+          while :; do
+            iter=$((iter + 1))
+            echo ""
+            echo "──── iteration ${iter}  $(date -u '+%Y-%m-%d %H:%M:%S') UTC ────"
+
+            # Gate commits on the script's own had_changes signal (written to
+            # GITHUB_OUTPUT), exactly like the cron path. processed_ids.json is
+            # rewritten every run for cache pruning, so a raw git-status check
+            # would commit empty churn — had_changes is the authoritative "new
+            # events" flag.
+            out="$(mktemp)"
+            if GITHUB_OUTPUT="$out" python tools/sync_events.py --campaign darthsunday; then
+              if grep -q '^had_changes=true' "$out"; then
+                git add darthsunday/data/events.json \
+                        darthsunday/data/processed_ids.json \
+                        darthsunday/data/attachments
+                git commit -m "chore: sync Discord events (session heartbeat) $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
+                # Defensive rebase+push: during the session the heartbeat holds
+                # the concurrency slot so this is usually a no-op, but rebase
+                # anyway in case anything else landed, with one retry.
+                git pull --rebase --autostash origin main || true
+                if ! git push; then
+                  echo "push failed; rebasing and retrying once"
+                  git pull --rebase --autostash origin main || true
+                  git push || echo "push still failing; will retry next iteration"
+                fi
+              else
+                echo "no new events this iteration"
+              fi
+            else
+              echo "sync_events.py failed this iteration; continuing loop"
+            fi
+            rm -f "$out"
+
+            now=$(date -u +%s)
+            if [ "${now}" -ge "${end_epoch}" ]; then
+              echo "session window closed; exiting after ${iter} iteration(s)"
+              break
+            fi
+            remaining=$(( end_epoch - now ))
+            nap="${interval}"
+            [ "${remaining}" -lt "${nap}" ] && nap="${remaining}"
+            echo "sleeping ${nap}s …"
+            sleep "${nap}"
+          done
+          echo "Heartbeat complete."
