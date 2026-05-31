@@ -5423,9 +5423,9 @@
       "id": "1510756184276209725",
       "channel_id": "1505545492736639056",
       "date": "1370-08-13",
-      "country": null,
-      "countryRaw": "Muscovy-Perm",
-      "province": "Muscovy",
+      "country": "PRM",
+      "countryRaw": null,
+      "province": "Cherdyn",
       "tag": "Treaty",
       "author": "Hosumaija",
       "snippet": "The Yasak of Perm\n\nIn 1370 an agreement would be reached between Prince Ivan II of Muscovy and the Council of Clan Elders of Great Perm, headed by new",
@@ -6112,6 +6112,74 @@
         }
       ],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1510763775404544090",
+      "channel_id": "1505545415213449216",
+      "date": "1371-12-01",
+      "country": "DAN",
+      "countryRaw": null,
+      "province": "Copenhagen",
+      "tag": "Treaty",
+      "author": "Rishi",
+      "snippet": "**Bethrotal Between Denmark and Meissen**\n\nTo the esteemed Elector Friedrich III of Meissen,\n\nI write to you with an offer of marriage between my youn",
+      "fullText": "**Bethrotal Between Denmark and Meissen**\n\nTo the esteemed Elector Friedrich III of Meissen,\n\nI write to you with an offer of marriage between my youngest daughter and your chivalrous heir. Young Helen is well educated in matters of administration and ladyhood being raised in the Holy Roman Court at Munich. She is well acquainted with the politics and life of the Holy Roman Empire, living there for 17 years alongside her brother, the Commander of the Kaiser Guard. If this arrangement is suitable, we shall both travel to Munich to bring her from the court of the Holy Roman Emperor.\n\nRegards,\nKing Valdemar of Denmark\n\n<@215639063502258176>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510763774276141196/image.png?ex=6a1dffe8&is=6a1cae68&hm=e8ccef0ad92803a4764711dd963a60e661225b32fc0f290f425d3a3ca6877f35&",
+          "filename": "image.png",
+          "width": 850,
+          "height": 733,
+          "att_id": "1510763774276141196",
+          "local": "data/attachments/1510763774276141196_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1510764088756535428",
+      "channel_id": "1505545415213449216",
+      "date": "1368-09-05",
+      "country": "CAS",
+      "countryRaw": null,
+      "province": "Alba De Tormes",
+      "tag": "Battle",
+      "author": "Bas1leus",
+      "snippet": "** The Battle of Alba De Tormes **\n\n<@298192682554228738> The Portugese King foolishly attacked Castile and attempted to enforce his claim on Galicia.",
+      "fullText": "** The Battle of Alba De Tormes **\n\n<@298192682554228738> The Portugese King foolishly attacked Castile and attempted to enforce his claim on Galicia. The result was predictable. The Portugese army was put to rout at Alba de Tormes, and Castilian armies marched all the way to the gates of Lisbon. A lesson was taught: Minor monetary reparations, a concession of defeat, and the dismantling of a border fort in Elvas were demanded. Nothing serious. However, the Portugese nobility's reaction to their King's failure was so severe, and the King's forces so depleted, that he was deposed and usurped! An admittedly hilarious fall from grace considering everything that has happened in the last 20 years. That being said, this could prove an interesting situation, we may smell opportunity here. However, there are some domestic issues to resolve first...",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510764086437351484/Screenshot_2026-05-31_151215.png?ex=6a1e0032&is=6a1caeb2&hm=0ce043f51ce5fa3eecfb1b676f619916a2ba54f29175e172a9121b16e9ff62d4&",
+          "filename": "Screenshot_2026-05-31_151215.png",
+          "width": 868,
+          "height": 973,
+          "att_id": "1510764086437351484",
+          "local": "data/attachments/1510764086437351484_Screenshot_2026-05-31_151215.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510764087036870748/Screenshot_2026-05-31_151200.png?ex=6a1e0032&is=6a1caeb2&hm=04710e5f6d93ca9a37af681d5ebb3a4e60664b28f98a3fd0957906115a4e3824&",
+          "filename": "Screenshot_2026-05-31_151200.png",
+          "width": 774,
+          "height": 592,
+          "att_id": "1510764087036870748",
+          "local": "data/attachments/1510764087036870748_Screenshot_2026-05-31_151200.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510764087993176074/Screenshot_2026-05-31_150852.png?ex=6a1e0033&is=6a1caeb3&hm=8c15bef7cacdd613f71b5518af7b02f9511e7b45f8c3f99b625bd45b42a9af02&",
+          "filename": "Screenshot_2026-05-31_150852.png",
+          "width": 747,
+          "height": 1332,
+          "att_id": "1510764087993176074",
+          "local": "data/attachments/1510764087993176074_Screenshot_2026-05-31_150852.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510764088513527809/Screenshot_2026-05-31_150847.png?ex=6a1e0033&is=6a1caeb3&hm=f082034e3787436e7b0652dcec33cc9d7001647fc12114aa98bbbd2274253a3d&",
+          "filename": "Screenshot_2026-05-31_150847.png",
+          "width": 628,
+          "height": 426,
+          "att_id": "1510764088513527809",
+          "local": "data/attachments/1510764088513527809_Screenshot_2026-05-31_150847.png"
+        }
+      ]
     }
   ]
 }
