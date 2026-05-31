@@ -5796,8 +5796,17 @@
       "tag": "Battle",
       "author": "surr",
       "snippet": "## BATTLE OF BIRKENFELD\n\nA disastrous battle has wiped from the face of the Earth the *entirety* of the Meissner army, leaving only 250 of 5000 alive.",
-      "fullText": "## BATTLE OF BIRKENFELD\n\nA disastrous battle has wiped from the face of the Earth the *entirety* of the Meissner army, leaving only 250 of 5000 alive.\n\nWe must excuse ourselves from this conflict and attempt to recover from this disastrous loss.\n\n<@460814348487753730> <@261290667106369536> <@763652399784919080> <@190640828954181632>\n\nThe Emperor is dead! Long live the Emperor!",
-      "images": []
+      "fullText": "## BATTLE OF BIRKENFELD\n\nA disastrous battle has wiped from the face of the Earth the *entirety* of the Meissner army, leaving only 250 of 5000 alive.\n\nWe must excuse ourselves from this conflict and attempt to recover from this disastrous loss.\n\n<@460814348487753730> <@261290667106369536> <@763652399784919080> <@190640828954181632>\n\nThe Emperor is dead! Long live the Emperor!\n\n*A war that rages across all of Christendom*\n\nWe did it! We saved the Empire!",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510759825930191139/image.png?ex=6a1dfc3b&is=6a1caabb&hm=eb7d87b35ec46af25a2f362a849566ee32a4cb0248341f5dc9a027e3ab74d8d5&",
+          "filename": "image.png",
+          "width": 746,
+          "height": 496,
+          "att_id": "1510759825930191139",
+          "local": "data/attachments/1510759825930191139_image.png"
+        }
+      ]
     },
     {
       "id": "1510757655470280795",
@@ -6036,6 +6045,73 @@
           "local": "data/attachments/1510364408159797358_e9e6d4e3dbf97b3a28773ca0ad0e0400.png"
         }
       ]
+    },
+    {
+      "id": "1510759517560766534",
+      "channel_id": "1505545492736639056",
+      "date": "1371-05-20",
+      "country": "PRM",
+      "countryRaw": null,
+      "province": "Perm",
+      "tag": "History",
+      "author": "Hosumaija",
+      "snippet": "**Tribal Politics!**\n\nThe decision of the Grand Elder Council of Perm to pay yasak to Russia was not a unanimous one, and the opponents of it were *ve",
+      "fullText": "**Tribal Politics!**\n\nThe decision of the Grand Elder Council of Perm to pay yasak to Russia was not a unanimous one, and the opponents of it were *very* opposed indeed. A group of conspirators soon gathered and began plotting to reverse the treaty and rebel against Muscovite overlordship. The planned church in Perm is a point of particular grievance, and even among the general population scepticism and hostility alike is plenty abound.\n\nAfter nearly two years of infighting in the council, several duels to the death and chieftains fleeing from justice with their tribes, the conspirators were put down, but the blood spilt will surely not be forgotten soon among their kith and kin.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1510759517133082855/image.png?ex=6a1dfbf1&is=6a1caa71&hm=483d73ad5deafe0663bf8e4a61a7728726221b159801f69faa9f8dd462881f1e&",
+          "filename": "image.png",
+          "width": 757,
+          "height": 577,
+          "att_id": "1510759517133082855",
+          "local": "data/attachments/1510759517133082855_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1510762836735955055",
+      "channel_id": "1505545415213449216",
+      "date": "1371-02-07",
+      "country": "PAL",
+      "countryRaw": null,
+      "province": "Wasserburg",
+      "tag": "History",
+      "author": "GMB",
+      "snippet": "# PRINCE PALATINE ALBRECHT HAS BEEN CROWNED AS COUNT PALATINATE OF THE PALATINATE OF THE RHINE AFTER THE DEATH OF ANNA # \n\nWith the execution of his W",
+      "fullText": "# PRINCE PALATINE ALBRECHT HAS BEEN CROWNED AS COUNT PALATINATE OF THE PALATINATE OF THE RHINE AFTER THE DEATH OF ANNA # \n\nWith the execution of his Wife, the Nobles of the Palatinate rallied behind Prince Albrecht, the husband of his Wife Anna. He would manage to sneak his children out of the Castle of Heidelberg, but not Anna in time. \n\nHe loved her with his whole heart. And she was just executed, even though Heidelberg surrendered, the French King still did not care. \n\nWith a strong support from his own Nobles in Bavaria-Chiemgau and the remaining exiled Lords of the Palatinate, Albrecht was asked to take the Crown of the Palatinate. With a clear mandate he rose to the occasion. Not for glory, or prestige: \n\n**BUT FOR VENGENCE**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1510762836396085509/image.png?ex=6a1dff08&is=6a1cad88&hm=c2d003af0ac7a622b91189a879d8ca9f10cc03faa34ce986718754410bc84d10&",
+          "filename": "image.png",
+          "width": 625,
+          "height": 493,
+          "att_id": "1510762836396085509",
+          "local": "data/attachments/1510762836396085509_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1510761037396447282",
+      "channel_id": "1505545331591610549",
+      "date": "1371-07-17",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "Peace  with the HRE has been made\n-# Peace talks will be made in interweek <@261290667106369536> <@763652399784919080>",
+      "fullText": "Peace  with the HRE has been made\n-# Peace talks will be made in interweek <@261290667106369536> <@763652399784919080>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1510761037081608302/208E591.JPG?ex=6a1dfd5b&is=6a1cabdb&hm=a1adc31870fbf3fad994745af08bfac99d778a8e2436ae3f63b6d170705cf01d&",
+          "filename": "208E591.JPG",
+          "width": 1920,
+          "height": 1080,
+          "att_id": "1510761037081608302",
+          "local": "data/attachments/1510761037081608302_208E591.JPG"
+        }
+      ],
+      "title": "Atlantic Diplo"
     }
   ]
 }
