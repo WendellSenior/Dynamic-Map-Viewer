@@ -7757,6 +7757,29 @@
           "local": "data/attachments/1512156592001388759_Traite_Paris_1259.jpg"
         }
       ]
+    },
+    {
+      "id": "1511626796095897770",
+      "channel_id": "1505545415213449216",
+      "date": "1371-12-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Hamburg",
+      "tag": "History",
+      "author": "Onnirio",
+      "snippet": "**The End of Times** 🔔 <:unrest:1162434338525290569> \n\nA millenarist cult has been spreading throughout northern Germany. Despite being in a peaceful ",
+      "fullText": "**The End of Times** 🔔 <:unrest:1162434338525290569> \n\nA millenarist cult has been spreading throughout northern Germany. Despite being in a peaceful situation compared to the rest of Christendom, some priests and common people have become alarmed by the constant war after the Black Death: “Have you not seen the Pale Horse ride through Christendom? Have you not seen the Four in our lands, in our homes?” The movement has been spreading like wildfire, no doubt helped by the web of trade in the Baltic and below. \n\nThe Shepherds of the Church are two, both waging war at each other and causing untold deaths in Italy. The greedy King in France, some say the Beast incarnated to bring doom to Earth, has beaten the armies of the Holy Roman Empire and is due to beat the ones of England. Only the rumour of a rebellion brings hope, but few think good can triumph against evil, for the rebel is but the uncle of the Beast. Meanwhile, the fake Empire has allied to muslims and stopped a Crusade for the Holy Land, perhaps the only hope for Salvation. Will Christ even find us when he comes? Is there hope for us?\n\nThe End of Times is near. Repent for your sins.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1511626795529797712/image.png?ex=6a231de8&is=6a21cc68&hm=f5248abed89726caaf94589028cd660df2e8644687fb92b7f492658e8fe4448c&",
+          "filename": "image.png",
+          "width": 886,
+          "height": 561,
+          "att_id": "1511626795529797712",
+          "local": "data/attachments/1511626795529797712_image.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
     }
   ]
 }
