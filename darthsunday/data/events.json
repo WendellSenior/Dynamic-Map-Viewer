@@ -8894,6 +8894,50 @@
           "local": "data/attachments/1513277616537341982_image.png"
         }
       ]
+    },
+    {
+      "id": "1513282163364331681",
+      "channel_id": "1505545492736639056",
+      "date": "1381-09-13",
+      "country": "HAL",
+      "countryRaw": null,
+      "province": "Kamianets",
+      "tag": "History",
+      "author": "Cod In A Pod",
+      "snippet": "**Foundation of the Town of Kamianets**\n\nIn the year of our Lord 1381, the Halych-Volhynian King has granted the rights of independence from noble rul",
+      "fullText": "**Foundation of the Town of Kamianets**\n\nIn the year of our Lord 1381, the Halych-Volhynian King has granted the rights of independence from noble rule to the Town of Kamianets. The town, for centuries, has set in the strategically advantageous position, occupying the hills and cliffs, surrounded by a fairly wide canyon with a river running through it. Despite this, the local fort and small palisade have proven to be as much investment, as one was willing to make. Yet, with the growth of the Kingdom of Halych-Volhynia, the town has started gaining some relevance. Mongol period has proven devastating and utterly destructive, but also crucial in finally realising the potential of the location.\n\nNevertheless, it has still taken over a century and a half to finally bring meaningful change - the Town of Kamianets has finally become, by the decree of the true Architect-King Trojden. The plan for the town is expalsive - occupying the rest of the plato it is situated on, it also has a plan to expand the town significantly into a local centre of trade and a walled city. Yet, the true masterpiece is the castle - occupying the nearby hill, it runs as one of the few gates leading into the town, having a controlling view of most of the approaches and absolutely dominating the valley formed by the river.\n\nYet, that is all far into the future. The town, for now, will simply grow and expand into the regional capital, as the East of the Kingdom has much lacked in local artisanry. Trade security will also increase, as the routes from East and South will now find a well-defended town with all the necessary services to keep any caravaneer happy.\n\nMay the town prosper and grow and may Trojden's vision hold true.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1513282163133386973/Kamyanets-Citadel-Design.jpg?ex=6a272957&is=6a25d7d7&hm=bbb19ad9ba524064ebdb485a7425408fc1c2fdbea2639503f3dc3e96532aa0bd&",
+          "filename": "Kamyanets-Citadel-Design.jpg",
+          "width": 1088,
+          "height": 1920,
+          "att_id": "1513282163133386973",
+          "local": "data/attachments/1513282163133386973_Kamyanets-Citadel-Design.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1513280858864226464",
+      "channel_id": "1505545415213449216",
+      "date": "1381-06-03",
+      "country": "PAP",
+      "countryRaw": null,
+      "province": "Rome",
+      "tag": "History",
+      "author": "Murlock",
+      "snippet": "**Monetary Papal Salary Reform<:prestige:587042877356376103> <:rosary:898776109246726154> **\n\nIn years past, members of the Curia were often granted t",
+      "fullText": "**Monetary Papal Salary Reform<:prestige:587042877356376103> <:rosary:898776109246726154> **\n\nIn years past, members of the Curia were often granted the same salary regardless of rank, or subject to inconsistent increases and reductions based upon age, influence, or repeated requests for funds to expand estates and privileges. Such practices have created confusion and unfairness within the Holy Mother Church <:MotherOfGod:1082040844237946930> .\n\n**These matters must be resolved <:eu4_gold:839128116436664370> **\n\nThus, in the Year of Our Lord 1381, His Holiness Pope Urbanus has enacted a number of monetary reforms, seeking to end the unfair and often confusing salaries granted to bishops and members of the Church. Through these reforms, compensation shall be made more orderly, just, and fitting to one’s office and responsibilities within Christendom.\n\nThe salaries shall henceforth be as follows:\n\n**His Holiness the Pope**\n250 Florins per month\n\n**Cardinals of the Curia**\n100 Florins per month\n\n**Archbishops**\n70 Florins per month\n\n**Bishops**\n45 Florins per month\n\n**Abbots and Abbesses**\n30 Florins per month\n\n**Priests of Great Cathedrals**\n18 Florins per month\n\n**Parish Priests and Vicars**\n10 Florins per month\n\n**Monks and Friars**\n4 Florins per month\n\n**Scribes, Church Scholars, and Administrators**\n8 Florins per month\n\nThese are to be paid from the Rome, if you need your payment for being a Cardinal, please @ me and i will give you your salary in Florins.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513280858524745998/Silver7.2FI-672x540.png?ex=6a272820&is=6a25d6a0&hm=201e0b48349fb705e634ae9b80de743316c0dfe4ac6a106661dfdc05bb620a4f&",
+          "filename": "Silver7.2FI-672x540.png",
+          "width": 672,
+          "height": 540,
+          "att_id": "1513280858524745998",
+          "local": "data/attachments/1513280858524745998_Silver7.2FI-672x540.png"
+        }
+      ]
     }
   ]
 }
