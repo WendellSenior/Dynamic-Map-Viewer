@@ -8848,8 +8848,52 @@
       "tag": "Battle",
       "author": "Moro",
       "snippet": "# Venice resists the Genoan aggression! - Miracle in the Otranto!\nDespite suffering a terrible defeat in the Adriatic as the Venetian navy was taken o",
-      "fullText": "# Venice resists the Genoan aggression! - Miracle in the Otranto!\nDespite suffering a terrible defeat in the Adriatic as the Venetian navy was taken off guard by this vile aggression against the Republic in such tumultous times in the Mediterrenan, as the Guild War against Byzantium intensifies, the Republic contracted a mercenary fleet to hunt down and destroy the Genoan fleet in the strait of Otranto, forcing a Genoan withdrawal.\n\nOn paper, this conflict has ended under an ambiguous white peace, despite the rather brutal conflict partaken in the Adriatic and Aegean, as the Republic of Venice, already busy with the war against Byzantium, has been unable to mount a proper response against the Republic of Genoa. Inner circles of the Republic cite the so called *agreement* cited specifically to collaborate against any significant threat on the East, explicitly broken by the proposing Genoese. This is likely to cross off any chances at reconciliations between the two Merchant Republics for the foreseeable future.\n-# <@170593650584059904> <@423689694258397195> <@315868897012219904> <@545657694489542666>",
+      "fullText": "# Venice resists the Genoan aggression! - Miracle in the Otranto!\nDespite suffering a terrible defeat in the Adriatic as the Venetian navy was taken off guard by this vile aggression against the Republic in such tumultous times in the Mediterrenan, as the Guild War against Byzantium intensifies, the Republic contracted a mercenary fleet to hunt down and destroy the Genoan fleet in the strait of Otranto, forcing a Genoan withdrawal.\n\nOn paper, this conflict has ended under an ambiguous white peace, despite the rather brutal conflict partaken in the Adriatic and Aegean, as the Republic of Venice, already busy with the war against Byzantium, has been unable to mount a proper response against the Republic of Genoa. Inner circles of the Republic cite the so called *agreement* cited specifically to collaborate against any significant threat on the East, explicitly broken by the proposing Genoese. This is likely to cross off any chances at reconciliations between the two Merchant Republics for the foreseeable future.\n-# <@170593650584059904> <@423689694258397195> <@315868897012219904> <@545657694489542666>\n\n-# Venice was unfortunately involved in two important conflicts. This is purely accidental.",
       "images": []
+    },
+    {
+      "id": "1513276261798121543",
+      "channel_id": "1505545415213449216",
+      "date": "1380-07-03",
+      "country": "BRA",
+      "countryRaw": null,
+      "province": "Heidelberg",
+      "tag": "Meeting",
+      "author": "Redcola",
+      "snippet": "**Bradenburg Turns inwards to their Dynasty**\n<@222439858927435776><@385875387608989714><@763652399784919080>\n\nThe Margrave of Bradenburg Karl Ludwig ",
+      "fullText": "**Bradenburg Turns inwards to their Dynasty**\n<@222439858927435776><@385875387608989714><@763652399784919080>\n\nThe Margrave of Bradenburg Karl Ludwig young and an energetic political intellectual has spent his early years lobbying his marcher lords and officers to not only loyalty to the Wittlesbach dynasty but a shift of wider imperial focus, seeking to undermine Bohemian and Habsburg control over his relatives in the Palatine and Bavaria, seeing the path to his own branch of the family power being in a support network and a vision of a powerful dynasty dominating the empire and even beyond.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513276261441736935/f0f2f1e3a086b727b9e641ca1e1c48eb.png?ex=6a2723d8&is=6a25d258&hm=22bac92f50ba29a1e87f25a09b084e66b9289fa513f05a372fd4d2bcfba0ad9e&",
+          "filename": "f0f2f1e3a086b727b9e641ca1e1c48eb.png",
+          "width": 500,
+          "height": 486,
+          "att_id": "1513276261441736935",
+          "local": "data/attachments/1513276261441736935_f0f2f1e3a086b727b9e641ca1e1c48eb.png"
+        }
+      ]
+    },
+    {
+      "id": "1513277616801714296",
+      "channel_id": "1505545415213449216",
+      "date": "1380-07-05",
+      "country": "DAN",
+      "countryRaw": null,
+      "province": "Copenhagen",
+      "tag": "History",
+      "author": "Rishi",
+      "snippet": "**Guns and Cannons**\nDenmark seems to have developed into an early adopter and manufacturer of firearms. Despite having recovered from the century of ",
+      "fullText": "**Guns and Cannons**\nDenmark seems to have developed into an early adopter and manufacturer of firearms. Despite having recovered from the century of mismanagement, the state finds itself still considerably behind the other major nations of Europe. Seeking to ammeliorate this, King Valdemar has taken a gamble on weapons. Seeking to become the creator of the finest artisan guns, he developed industry surrounding their manufacturing and sale. \n\nToday, Denmark is one of the largest exporters of Guns in Europe, occupying markets from England, to France, to Barcelona.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513277616537341982/image.png?ex=6a27251b&is=6a25d39b&hm=5f028f543d51dbe6845a6692f7d0dc57addccf248913a73778233eeb69b6d3d2&",
+          "filename": "image.png",
+          "width": 978,
+          "height": 790,
+          "att_id": "1513277616537341982",
+          "local": "data/attachments/1513277616537341982_image.png"
+        }
+      ]
     }
   ]
 }
