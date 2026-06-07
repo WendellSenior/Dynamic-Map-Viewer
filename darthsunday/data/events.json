@@ -9127,6 +9127,81 @@
           "local": "data/attachments/1513291303474036847_image.png"
         }
       ]
+    },
+    {
+      "id": "1513293339217363045",
+      "channel_id": "1505545415213449216",
+      "date": "1381-07-08",
+      "country": "BRA",
+      "countryRaw": null,
+      "province": "Brandenburg",
+      "tag": "Trade",
+      "author": "Redcola",
+      "snippet": "**The Great Vellum Brandenburger Guilds**\n<@763652399784919080><@222439858927435776><@385875387608989714><@288410456526422016> \n\nBrandenburg is in ter",
+      "fullText": "**The Great Vellum Brandenburger Guilds**\n<@763652399784919080><@222439858927435776><@385875387608989714><@288410456526422016> \n\nBrandenburg is in terms of mercantilism an akward one, rural but not one of vast farmlands and having the need to still support the growing urban populations and infrastructure in the lands around, while having no grand cities of commerce nor industry. Leaving the land poor and politically only relevant in terms of its electorship.  \n\nIn turn seeing a certain level of creativty on display from the Hanseatic and local born merchants, creating a market of various ancillary and supporting goods that are otherwise too monopolised elswhere or too expensive to bother with. With the political crisis of the dynastic feud of the Luxembourgs and Wittlesbachs deepening along with the growing obsessiveness of the Margrave Ludwig he has commissioned and worked with his local Landtag to create a noble back guild, not one centered on a single city but as part of the wider territory on the creation of paper of all things. Outwardly grasping upon a resource that can be readily produced in the region but inwardly also attempting to give himself and the wider Wittlesbach Imperial faction control and ability to produce works, records and other documents far more easily, logistically a boon to the wider political feud... though such a tool could as well be used by others as well.\n\n**The Imperial Law Must Stand!**\n\nIn a fiery speech (in VC) Ludwig of Brandenburg calls upon the entire weight of the imperial legal system and political apparatus to resist such a blatant attempt to qaush the electors rights who so clearly oppose the emperors interests, attempting to push away from this being a dynastic issue to instead a political one, drawing parreles to the recent civil war in France and the evil Dragon King Phillipe.\n\n> *\"THE LAW MUST STAND NONE MAY SAY A MANS NAME OR TITLE IS WITHOUT MEANING BUT OF THEIR BAD HUMOURS ALONE! IF THIS DIET DOES DECLARE ME WITHOUT BRANDENBURG I SHALL ACCEPT AND NOT A MOMENT BEFORE!\"*\n\nJoining with both his relatives and other noble lords Ludwig propositions if the emperor will not stand to negotiations as has been offered then a leauge of noble imperial interests must be met before a second France takes place",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513293337170415707/image.png?ex=6a2733bf&is=6a25e23f&hm=f70b5d8985b1d1dad6a60e66ecaeddbbc2a80b552bae5e831810decceb6a965e&",
+          "filename": "image.png",
+          "width": 739,
+          "height": 611,
+          "att_id": "1513293337170415707",
+          "local": "data/attachments/1513293337170415707_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513293337686442126/image.png?ex=6a2733bf&is=6a25e23f&hm=cfc63e39a1442ab3fa5c29b621f2bac31e893f4756343e77ee3715f486bd0915&",
+          "filename": "image.png",
+          "width": 580,
+          "height": 550,
+          "att_id": "1513293337686442126",
+          "local": "data/attachments/1513293337686442126_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513293338009276536/image.png?ex=6a2733bf&is=6a25e23f&hm=05ba6a39eedf778e744e829e59b3206c844d5218b72238016a70702c521063e3&",
+          "filename": "image.png",
+          "width": 592,
+          "height": 596,
+          "att_id": "1513293338009276536",
+          "local": "data/attachments/1513293338009276536_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513293338424639678/1c9a7cfeaa2515891c0db1ef70eb1d4d.png?ex=6a2733bf&is=6a25e23f&hm=66724397c2e6ece8704c8a908b072a307b93a7e3e4fe3d8b48e5a0fd12ecc26a&",
+          "filename": "1c9a7cfeaa2515891c0db1ef70eb1d4d.png",
+          "width": 1192,
+          "height": 862,
+          "att_id": "1513293338424639678",
+          "local": "data/attachments/1513293338424639678_1c9a7cfeaa2515891c0db1ef70eb1d4d.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513293338898469067/armoria_2026-06-07-22-12-24.png?ex=6a2733bf&is=6a25e23f&hm=1122665d78c7df0e7709d1dbb9a049d3bb1e6ad300cc3e2c767a7b39fbf1c1d3&",
+          "filename": "armoria_2026-06-07-22-12-24.png",
+          "width": 1834,
+          "height": 2162,
+          "att_id": "1513293338898469067",
+          "local": "data/attachments/1513293338898469067_armoria_2026-06-07-22-12-24.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513295085343867144/7b94a06d380910ff9af0c15c2c90b8ab.png?ex=6a273560&is=6a25e3e0&hm=0769e73b6d4b221a9cc40d134512ebc80f113110d2dce2a089f3d919f047eb8a&",
+          "filename": "7b94a06d380910ff9af0c15c2c90b8ab.png",
+          "width": 320,
+          "height": 474,
+          "att_id": "1513295085343867144",
+          "local": "data/attachments/1513295085343867144_7b94a06d380910ff9af0c15c2c90b8ab.png"
+        }
+      ]
+    },
+    {
+      "id": "1513293487146008617",
+      "channel_id": "1505545415213449216",
+      "date": "1381-06-08",
+      "country": "KOL",
+      "countryRaw": null,
+      "province": "Praha",
+      "tag": "Character",
+      "author": "Dods",
+      "snippet": "# The absent Arch-Bishop\n\nAfter news of the Bohemian ambitions, fueled by self interest and greed, Andreas has decided to leave the unified court as n",
+      "fullText": "# The absent Arch-Bishop\n\nAfter news of the Bohemian ambitions, fueled by self interest and greed, Andreas has decided to leave the unified court as no ideals of unity can come from the seizing of an elector. The elector-prince returns to his home declaring the emporer has forgotten his role as a unifier and become a tyrant. His return home shall be the return to the old order of his state.\n\n<@261290667106369536> <@137101075411894272> <@222439858927435776> <@190640828954181632> <@215639063502258176> <@255439449448644608> <@306458253674545153>",
+      "images": []
     }
   ]
 }
