@@ -8603,7 +8603,7 @@
       "tag": null,
       "author": "Murlock",
       "snippet": "**Pope Phelix Dies of a Heart Attack <:mary3:1126382749612249108> **\n\nPope Phelix has died after yelling at <@423689694258397195> for actions without ",
-      "fullText": "**Pope Phelix Dies of a Heart Attack <:mary3:1126382749612249108> **\n\nPope Phelix has died after yelling at <@423689694258397195> for actions without his permission. His death means a chance to elect a new pope, one with the French Curia <@460814348487753730> where they are in Zurich debating on who should be elected.",
+      "fullText": "**Pope Phelix Dies of a Heart Attack <:mary3:1126382749612249108> **\n\nPope Phelix has died after yelling at <@423689694258397195> for actions without his permission. His death means a chance to elect a new pope, one with the French Curia <@460814348487753730> where they are in Zurich debating on who should be elected.\n\nWill you be enforcing the use of the Jacobus Bible?",
       "images": []
     },
     {
@@ -8674,6 +8674,77 @@
         }
       ],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1513267162826018906",
+      "channel_id": "1505545415213449216",
+      "date": "1378-01-01",
+      "country": "PAL",
+      "countryRaw": null,
+      "province": "Cologne",
+      "tag": "Treaty",
+      "author": "GMB",
+      "snippet": "# THE TREATY OF COLOGNE # \n\n**Signatories:**\n<@222439858927435776> \n<@112960565344804864>\n\n**Prince Albrecht congratulates the Kaiser on his confirmat",
+      "fullText": "# THE TREATY OF COLOGNE # \n\n**Signatories:**\n<@222439858927435776> \n<@112960565344804864>\n\n**Prince Albrecht congratulates the Kaiser on his confirmation! **\n\n-# He hopes this silly rivalry somehow ends",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513267162519965796/image.png?ex=6a271b5e&is=6a25c9de&hm=43bce0cbef4229a21cd0a7bb60e03c2b3b746b1e5c68067e61a1b3fcb8508cd4&",
+          "filename": "image.png",
+          "width": 875,
+          "height": 637,
+          "att_id": "1513267162519965796",
+          "local": "data/attachments/1513267162519965796_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1513267293407154338",
+      "channel_id": "1505545415213449216",
+      "date": "1378-03-01",
+      "country": "CAS",
+      "countryRaw": null,
+      "province": "Lisbon",
+      "tag": "Battle",
+      "author": "Bas1leus",
+      "snippet": "The Siege of Lisbon\n\nEnrique de Trastamara, the young Castilian monarch, decided to take decisive action to bring the Kingdom of Portugal back into th",
+      "fullText": "The Siege of Lisbon\n\nEnrique de Trastamara, the young Castilian monarch, decided to take decisive action to bring the Kingdom of Portugal back into the fold. He claims to be the King of Portugal, through direct succession from his father. As such, the Castilian army swiftly marched across the border and straight to Lisbon, meeting minimal resistance along the way.\n\nA small Swedish expeditionary force, claiming the throne through right of marriage and supported by the Danes, was decisively turned away from the City of Lisbon, and the Swedish King, who personally lead the force and his retinue were allowed safe passage to return to Scandinavia. And with this, along with the acquisition of Gibraltar, the entirety of Western Iberia has come under Castilian control.\n\n<@298192682554228738> <@326414282851876875> <@210779670663135232>",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1513268877264421105",
+      "channel_id": "1505545415213449216",
+      "date": "1378-01-01",
+      "country": "MIL",
+      "countryRaw": null,
+      "province": "Milan",
+      "tag": null,
+      "author": "Hoang",
+      "snippet": "# War of the Merchant Princes\n\nAs Imperial Vicar of Italy, Baranda Visconti has decreed that no army on the opposing sides can cross into Imperial Ita",
+      "fullText": "# War of the Merchant Princes\n\nAs Imperial Vicar of Italy, Baranda Visconti has decreed that no army on the opposing sides can cross into Imperial Italy. \n\nThe conflict should be fought outside of it\n\n<@550686589043343360> <@170593650584059904> <@423689694258397195> <@261290667106369536>",
+      "images": []
+    },
+    {
+      "id": "1513267234389364857",
+      "channel_id": "1505545331591610549",
+      "date": "1377-12-01",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "Treaty",
+      "author": "Cloud",
+      "snippet": "## The War of the Griffin and the Dragon has concluded with the death of Duke Jehan II the Griffin of Normandy\nWith his brother dead, and no standing ",
+      "fullText": "## The War of the Griffin and the Dragon has concluded with the death of Duke Jehan II the Griffin of Normandy\nWith his brother dead, and no standing army to siege Normandy, a compromise was made. Not one the  King wanted, but one he has to make. \n- The Law of the Griffin is partially employed over France\n- Normandy, and all its supporters, will return to being beneath King Philippe VII as vassals with all given a pardon.\n- Normandy itself, while once an Appanage, will not return with such privileges. It too will be a regular vassal.\n\n||King Philippe VII appreciates the gift and gesture.||",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1513267234116599988/image.png?ex=6a271b6f&is=6a25c9ef&hm=4b7b4fd2ed1cb23647d66459c47f88b2f8e537c7a2d1884204e2be8e01d840df&",
+          "filename": "image.png",
+          "width": 1153,
+          "height": 852,
+          "att_id": "1513267234116599988",
+          "local": "data/attachments/1513267234116599988_image.png"
+        }
+      ]
     }
   ]
 }
