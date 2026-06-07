@@ -9012,6 +9012,63 @@
           "local": "data/attachments/1513283028372164708_image.png"
         }
       ]
+    },
+    {
+      "id": "1513288408209031310",
+      "channel_id": "1505545492736639056",
+      "date": "1384-01-01",
+      "country": "PRM",
+      "countryRaw": null,
+      "province": "Nizhny Tagil",
+      "tag": "Discover",
+      "author": "Hosumaija",
+      "snippet": "**Tagil Prospers!**\n\nThe Komi settlement at Tagil has  ushered in a new era of growth in Perm, with the gold extracted and refined there allowing for ",
+      "fullText": "**Tagil Prospers!**\n\nThe Komi settlement at Tagil has  ushered in a new era of growth in Perm, with the gold extracted and refined there allowing for vast sums of money to flow into Komi hands. Prince Opoch has allowed the total and free export of gold and other minerals, and the trade with lands to the west flourish.",
+      "images": []
+    },
+    {
+      "id": "1513286234565251162",
+      "channel_id": "1505545415213449216",
+      "date": "1383-05-11",
+      "country": "DAN",
+      "countryRaw": null,
+      "province": "Copenhagen",
+      "tag": "Character",
+      "author": "Rishi",
+      "snippet": "**The Birth of the Heir of the North**\nErik and Catherine have been married for nearly 10 years and only now do they welcome their first child. For th",
+      "fullText": "**The Birth of the Heir of the North**\nErik and Catherine have been married for nearly 10 years and only now do they welcome their first child. For that long decade there were consistent whispers of a barren princess and a homosexual prince but now these whispers are a thing of the past. Ingrid represents the future, one of Estridsen dominion over all of the North!",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513286234292617306/image.png?ex=6a272d21&is=6a25dba1&hm=2725dfaf578e531f1e6106687436101de570d12feeb4b2e053da92d3edbf765b&",
+          "filename": "image.png",
+          "width": 853,
+          "height": 484,
+          "att_id": "1513286234292617306",
+          "local": "data/attachments/1513286234292617306_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1513287502813855774",
+      "channel_id": "1505545415213449216",
+      "date": "1384-07-13",
+      "country": "DAN",
+      "countryRaw": null,
+      "province": "Rome",
+      "tag": "Character",
+      "author": "Rishi",
+      "snippet": "**Danish-Papal Relations**\nConditions have changed dramatically since the Orsini invasion of Denmark. Today marks a pivotal moment in Papal-Danish rel",
+      "fullText": "**Danish-Papal Relations**\nConditions have changed dramatically since the Orsini invasion of Denmark. Today marks a pivotal moment in Papal-Danish relations as the old King Valdemar who not so long ago fought off an Orsini claim on his throne is declared a saint. Te Deum Laudamus, Saint Valdemar!\n\n<@150411715757080576>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513287502448955433/image.png?ex=6a272e50&is=6a25dcd0&hm=18f9c02e2ee1058836413c698b9b5a56cb6d3d1b44b25090e39bd8409df2e07c&",
+          "filename": "image.png",
+          "width": 897,
+          "height": 786,
+          "att_id": "1513287502448955433",
+          "local": "data/attachments/1513287502448955433_image.png"
+        }
+      ]
     }
   ]
 }
