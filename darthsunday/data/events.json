@@ -8938,6 +8938,80 @@
           "local": "data/attachments/1513280858524745998_Silver7.2FI-672x540.png"
         }
       ]
+    },
+    {
+      "id": "1513284465097441283",
+      "channel_id": "1505545415213449216",
+      "date": "1383-05-11",
+      "country": "DAN",
+      "countryRaw": null,
+      "province": "Copenhagen",
+      "tag": "Character",
+      "author": "Rishi",
+      "snippet": "**A New King**\nAt the age of 62 King Valdemar was succeeded by his son, King Erik VII. Erik, much like his father, comes from a military background, l",
+      "fullText": "**A New King**\nAt the age of 62 King Valdemar was succeeded by his son, King Erik VII. Erik, much like his father, comes from a military background, long serving as general of the Holy Roman Armies. Unlike his father, he lacks a penchant for administration. His warlike nature and zeal for battle will no doubt lead him to seek conquests abroad. May he lead Denmark to Glory!",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513284464812490832/image.png?ex=6a272b7b&is=6a25d9fb&hm=69c7acc3dbc72a8680d564f847da4d5b889bf19215666d3f7636df8f879d1273&",
+          "filename": "image.png",
+          "width": 824,
+          "height": 348,
+          "att_id": "1513284464812490832",
+          "local": "data/attachments/1513284464812490832_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1513284571763052754",
+      "channel_id": "1505545415213449216",
+      "date": "1383-05-11",
+      "country": "HAB",
+      "countryRaw": null,
+      "province": "Rottenman",
+      "tag": "Battle",
+      "author": "Cayde",
+      "snippet": "# Robber Barons\n\nAs Friedrich had once discussed with the Emperor himself in a correspondence years ago, the foreseen and feared threat has arisen. Ro",
+      "fullText": "# Robber Barons\n\nAs Friedrich had once discussed with the Emperor himself in a correspondence years ago, the foreseen and feared threat has arisen. Robber Barons have entrenched themselves in the mountains of the Alps, levying heavy taxes on the valuable silver flowing through these routes, and growing fat with the riches of their plunder. Friedrich, for the first time in nearly a decade, is preparing himself to ride out for war, to crush these Robber barons and remind all those who question the authority of the Archduke, most especially the nobility who paint themselves as anything more than their birthrights.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513284571389628536/image.png?ex=6a272b95&is=6a25da15&hm=c5a6788d25f7bb49a7adf13aa0656f78098851d9406a0033c21e5c2d41ab4ec4&",
+          "filename": "image.png",
+          "width": 628,
+          "height": 660,
+          "att_id": "1513284571389628536",
+          "local": "data/attachments/1513284571389628536_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1513283028707971312",
+      "channel_id": "1505545331591610549",
+      "date": "1383-02-25",
+      "country": "GUY",
+      "countryRaw": null,
+      "province": "Tarbes",
+      "tag": "Character",
+      "author": "Bear",
+      "snippet": "## The Death of the Lame Count\n\n\nJoan II, the Hunchback, d'Armagnac dies from a sudden onset illness. The council has awaited this day since his birth",
+      "fullText": "## The Death of the Lame Count\n\n\nJoan II, the Hunchback, d'Armagnac dies from a sudden onset illness. The council has awaited this day since his birth, due to his lameness. His son, Carles d'Armagnac has taken the throne. A prosperous future awaits the duchy.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1513283028082884668/image.png?ex=6a272a25&is=6a25d8a5&hm=fa5d3b45ba1246a205f54bc14e28d97a3ef0f8eae9e95c1b5a3f9af3de44eb5a&",
+          "filename": "image.png",
+          "width": 779,
+          "height": 523,
+          "att_id": "1513283028082884668",
+          "local": "data/attachments/1513283028082884668_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1513283028372164708/image.png?ex=6a272a25&is=6a25d8a5&hm=8e6af0a3b1307645bdf0aeb0b1ffe189a7735d380924f29159e892bd16e31c85&",
+          "filename": "image.png",
+          "width": 776,
+          "height": 644,
+          "att_id": "1513283028372164708",
+          "local": "data/attachments/1513283028372164708_image.png"
+        }
+      ]
     }
   ]
 }
