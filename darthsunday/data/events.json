@@ -9069,6 +9069,64 @@
           "local": "data/attachments/1513287502448955433_image.png"
         }
       ]
+    },
+    {
+      "id": "1513290570292789539",
+      "channel_id": "1505545415213449216",
+      "date": "1384-07-18",
+      "country": null,
+      "countryRaw": "Victual Brothers",
+      "province": "Visby",
+      "tag": "Treaty",
+      "author": "Marcus",
+      "snippet": "Klaas Stortebeker with his heavy purse and devilish smile approached the Court of Denmark, he sought passage and safe port...maybe an acquisition of l",
+      "fullText": "Klaas Stortebeker with his heavy purse and devilish smile approached the Court of Denmark, he sought passage and safe port...maybe an acquisition of land, but what he was offered he could simply not refuse. The protection of being a vassal of the Danish crown, no longer just a rich captain, but a count.\n\nWith a deal struck, and the Danish kings greed fulfilled he now returns victorious to Gotland, sanctioned to raid or more cunningly put, privateer, the seven seas and beyond. And once the minds of the Danish crown turn against us, we shall see how worthwhile is it to please them or not....\n\n<@210779670663135232> <@288410456526422016> <@160455024994942976>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513290570028683495/European_School_-_Klaus_Stuertebeker_colour_litho_-_MeisterDrucke-1585423.png?ex=6a27312b&is=6a25dfab&hm=8694b091ddc40bfe70c973d1487941e574d85a637a4dca3e78dcac187b19531e&",
+          "filename": "European_School_-_Klaus_Stuertebeker_colour_litho_-_MeisterDrucke-1585423.png",
+          "width": 258,
+          "height": 300,
+          "att_id": "1513290570028683495",
+          "local": "data/attachments/1513290570028683495_European_School_-_Klaus_Stuertebeker_colour_litho_-_MeisterDrucke-1585423.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1513291679052857504",
+      "channel_id": "1505545415213449216",
+      "date": "1383-01-12",
+      "country": "KOL",
+      "countryRaw": null,
+      "province": "Cologne",
+      "tag": "History",
+      "author": "Dods",
+      "snippet": "# The regrowth of Koln\nAfter the failures in Flanders and occupied nature of the coffers aimed towards war, the city of Koln face an era of stagnancy.",
+      "fullText": "# The regrowth of Koln\nAfter the failures in Flanders and occupied nature of the coffers aimed towards war, the city of Koln face an era of stagnancy.\n\nAs the municipal council has taken over the treasuries usage, the city has experienced far greater growth of it's industry while clerical investments have started to dwindle, for those looking to trade a plethora of trade goods are on the market whilst the state of minor churches has started to disappoint pilgrims visiting places outside the cathedral. This resurgance has benefited the city greatly for it's people and \n\nMore so, laws have shifted in the favour of the municipal council rather than the Domkapitel, the reduction clerical administration is noticable both within the city and outside the city. Tradition falls in the shadow of innovation, the dominance of the Clergy is starting to fade.\n\nSuch shifts in power with the absence of the Prince-Bishop could leave the state of Cologne ever so closer moving further away from the theocratic nature of law.\n\n<@306458253674545153> <@137101075411894272> <@150411715757080576> <@792904515795550218> <@420614608399761419>",
+      "images": []
+    },
+    {
+      "id": "1513291232539967618",
+      "channel_id": "1505545331591610549",
+      "date": "1384-02-03",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "Abbeville",
+      "tag": "Treaty",
+      "author": "jeudlvie",
+      "snippet": "## Peace of Abbeville \n\nYoung King William III had scarcely made the journey from his holdings in Wales to the palace in London, being quickly sworn i",
+      "fullText": "## Peace of Abbeville \n\nYoung King William III had scarcely made the journey from his holdings in Wales to the palace in London, being quickly sworn in by the Archbishop of Canterbury following news of Edward's death in Brittany, when he was told the English Army had barely made it home. \n\nThe country wept. The nobility rejoiced, in a bittersweet manner.\n\nEdward was dead. \n\nIn parliament, chaos ensued. Nobles shouted, shoved, and pushed eachother over what this could mean.\n\nAt the advice of his mother, Edward III signed the Peace of Abbeville with the King of France, Phillipe VII, conceding the last holdings on the continent and forever renouncing the Plantagenet claim to the throne of France. \n\nPeace at last, the Lords say. \nPeace at last. \n\n<@460814348487753730> <@1417260821674852363> <@1123821809704374313>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1513291303474036847/image.png?ex=6a2731da&is=6a25e05a&hm=bbca44474f368ac1e8814372d62072bab66a8207024c0a5e6aea2d973defeca9&",
+          "filename": "image.png",
+          "width": 447,
+          "height": 567,
+          "att_id": "1513291303474036847",
+          "local": "data/attachments/1513291303474036847_image.png"
+        }
+      ]
     }
   ]
 }
