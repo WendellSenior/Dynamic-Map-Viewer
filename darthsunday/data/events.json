@@ -8374,8 +8374,8 @@
       "province": "Rouen",
       "tag": "Battle",
       "author": "Cloud",
-      "snippet": "### The Battle of Rouen\n\nWith one army destroyed by the Griffin, a second must take its place! King Philippe VII desperately raises more knights and p",
-      "fullText": "### The Battle of Rouen\n\nWith one army destroyed by the Griffin, a second must take its place! King Philippe VII desperately raises more knights and peasant levies!",
+      "snippet": "### The Battle of Rouen\n\n[Date:1373-12-01][Country:France][Location:Rouen][Tag:Battle]\nWith one army destroyed by the Griffin, a second must take its ",
+      "fullText": "### The Battle of Rouen\n\n[Date:1373-12-01][Country:France][Location:Rouen][Tag:Battle]\nWith one army destroyed by the Griffin, a second must take its place! King Philippe VII desperately raises more knights and peasant levies!",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1513254083085996056/image.png?ex=6a270f30&is=6a25bdb0&hm=6d42a4a0963a943e04c3e542c4a48a8e28e53594b2e76c30e53b7f6850c5103d&",
@@ -9228,7 +9228,7 @@
     {
       "id": "1513296047051636836",
       "channel_id": "1505545415213449216",
-      "date": "1387-09-20",
+      "date": "1386-09-20",
       "country": "VEN",
       "countryRaw": null,
       "province": "Euboea",
