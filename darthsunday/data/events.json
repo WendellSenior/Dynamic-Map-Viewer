@@ -9237,6 +9237,28 @@
       "snippet": "# Venetian Campaign of Euboea\nWith the war against Byzantium over and the rights of Venetian control over the County of Negroponte restored, the Repub",
       "fullText": "# Venetian Campaign of Euboea\nWith the war against Byzantium over and the rights of Venetian control over the County of Negroponte restored, the Republic has seen fit to mobilize and seize the island of Euboea back into the Republican fold after the withdrawal of the Byzantines from the region. The goal of the republic is the **abolishment of the County of Negroponte in favor of the establishment of the Republic of Euboea**, unifying the County's territories and the newly acquired land of Karystos.\n-# <@302128861209165824> (Pinged due to relevancy)",
       "images": []
+    },
+    {
+      "id": "1513287510745288855",
+      "channel_id": "1505545492736639056",
+      "date": "1384-07-18",
+      "country": "TEU",
+      "countryRaw": null,
+      "province": "Marienburg",
+      "tag": "WarDec",
+      "author": "brainamoeba",
+      "snippet": "**The Votian Crusade!**\n\nYears ago, the disaster at Lake Peipus occured. The forces of Prince Nevsky defeated the Teutonic force of Dorpat. With this ",
+      "fullText": "**The Votian Crusade!**\n\nYears ago, the disaster at Lake Peipus occured. The forces of Prince Nevsky defeated the Teutonic force of Dorpat. With this defeat, any attempt at further crusading efforts east of the Livonian lands were halted. This marked a heavy stain upon the tapestry of the Livonian Order's efforts.\n\nNow, with Papal approval, Teutonic forces shall once more march east! The Grandmaster himself shall lead the army of Prussia; and with the support of Europe's Christian kings, shall see that the Rus see the true light of Christianity!\n\n(Dec Novgorod, in 4 months. November 1384)\n\n**Deus Vult!**\n\n<@210779670663135232> <@252560004069064705> <@160455024994942976> <@307587752860581888> <@326414282851876875>  ( to all who might be of interest)\n\n( denmark only, cb on pskov )",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1513287593251438602/History-of-the-Teutonic-Order.png?ex=6a272e65&is=6a25dce5&hm=2469335a044a66c4fc2c8268273985dccbca85339dc2bc7f2d52cc786960234a&",
+          "filename": "History-of-the-Teutonic-Order.png",
+          "width": 1280,
+          "height": 859,
+          "att_id": "1513287593251438602",
+          "local": "data/attachments/1513287593251438602_History-of-the-Teutonic-Order.png"
+        }
+      ]
     }
   ]
 }
