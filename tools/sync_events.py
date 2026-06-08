@@ -91,11 +91,16 @@ TAG_RE = re.compile(
     # `[Date:1 October 1338]`. Validation/parsing happens in _parse_flexible_date
     # below; the bracket header is only accepted if that returns a valid ISO date.
     r"\[Date:\s*([^\]]+?)\s*\]"
-    r"\s*"
+    # Inter-field separators allow stray closing brackets, not just whitespace,
+    # so a fat-fingered double bracket like `[Date:1 June 1359]][Country:...]`
+    # doesn't blow up the whole sequence match (which would reject the post
+    # outright). `[^\]]` value captures still stop at the first `]`, so the
+    # extra bracket is absorbed here rather than swallowed into a field.
+    r"[\s\]]*"
     r"\[Country:\s*([^\]]+?)\s*\]"
-    r"\s*"
+    r"[\s\]]*"
     r"\[Location:\s*([^\]]+?)\s*\]"
-    r"\s*"
+    r"[\s\]]*"
     # Trailing Tag bracket. Liberal on purpose — keyword and value captured
     # separately so parse_event_tags can disambiguate:
     #   [Tag:Battle]    → keyword="Tag"     value="Battle"   → use value
@@ -140,6 +145,17 @@ def _parse_flexible_date(s):
     m = re.fullmatch(r"(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})", s)
     if m:
         y, mo, d = int(m[1]), int(m[2]), int(m[3])
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            return f"{y:04d}-{mo:02d}-{d:02d}"
+        return None
+    # 01-03-1363 / 1.3.1363 / 01/03/1363 (numeric, YEAR LAST). Interpreted as
+    # DAY-month-year — this group writes dates day-first (European convention),
+    # so `01-03-1363` means 1 March 1363, not 3 January. ISO (year-first) is
+    # tried above and always wins, so this only fires when the year is trailing.
+    # A first field > 12 is unambiguously the day either way.
+    m = re.fullmatch(r"(\d{1,2})[./\-](\d{1,2})[./\-](\d{3,4})", s)
+    if m:
+        d, mo, y = int(m[1]), int(m[2]), int(m[3])
         if 1 <= mo <= 12 and 1 <= d <= 31:
             return f"{y:04d}-{mo:02d}-{d:02d}"
         return None
