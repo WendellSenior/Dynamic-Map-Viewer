@@ -9690,7 +9690,7 @@
       "tag": "Trade",
       "author": "Onnirio",
       "snippet": "A kontor will be built in Seville and Burgos per the agreement with King Enrique II, allowing german traders access to the markets of the iberian peni",
-      "fullText": "A kontor will be built in Seville and Burgos per the agreement with King Enrique II, allowing german traders access to the markets of the iberian peninsula  for the first time (more or less). Soon, this move will prove to be one of profit and opportunity, no doubt abnout it! <@422498641425596418>\n\nGiven the already existing trade relationships in the island, the Hansa is open to it, and Türing asks for some germans from the dutch kontors to start looking to establish themselves in scottish lands and foster trade opportunities. The Hansa will act as intermediaries between the english and scots in this way. Maybe in the future the common trade will lead to a better relationship between both crowns...",
+      "fullText": "A kontor will be built in Seville and Burgos per the agreement with King Enrique II, allowing german traders access to the markets of the iberian peninsula  for the first time (more or less). Soon, this move will prove to be one of profit and opportunity, no doubt abnout it! <@422498641425596418>\n\n[Date:1380-12-01][Country:Hansa][Location:Edinburgh][Tag:Trade]\n\nGiven the already existing trade relationships in the island, the Hansa is open to it, and Türing asks for some germans from the dutch kontors to start looking to establish themselves in scottish lands and foster trade opportunities. The Hansa will act as intermediaries between the english and scots in this way. Maybe in the future the common trade will lead to a better relationship between both crowns...",
       "images": [],
       "title": "Atlantic Diplo"
     },
@@ -10038,6 +10038,28 @@
           "height": 799,
           "att_id": "1513791324275478568",
           "local": "data/attachments/1513791324275478568_BishopofWings.png"
+        }
+      ]
+    },
+    {
+      "id": "1513897078651355246",
+      "channel_id": "1505545415213449216",
+      "date": "1386-12-01",
+      "country": null,
+      "countryRaw": "Victual Brothers",
+      "province": "Visby",
+      "tag": null,
+      "author": "Marcus",
+      "snippet": "[Treaty]\n\n## Victual Brothers presence in the Mediterranean\n\nAll good things must end, so will our presence around the eastern Mediterranean, for a fe",
+      "fullText": "[Treaty]\n\n## Victual Brothers presence in the Mediterranean\n\nAll good things must end, so will our presence around the eastern Mediterranean, for a few years we have secured ports to resupply in from Genoa, but as time passes so does their favor. It seems the Doge of Genoa found his backbone and decided to repeal our previous agreements. But our sailors and captains have for years now enjoyed the rich seas and they petition us, after all, if the Genoese wont allow us into port, their enemies might?\n\nThere are a few promising business partners we could approach, among them the Signore of Ferrara, a man known for his talent of procuring *personal finances* to then partake in the *spirits* of the Good Lord. He surely wouldn't turn away such a profitable business opportunity...\n\n<@315868897012219904>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1513897078328135740/ddy6cyh-e3268543-4d52-4d9f-adf4-a4b9e539a5a7.png?ex=6a296606&is=6a281486&hm=47e4e930a541b3e76056d426ff0266fa23491bbdd10d2dd04c60d8194d37cf52&",
+          "filename": "ddy6cyh-e3268543-4d52-4d9f-adf4-a4b9e539a5a7.png",
+          "width": 1000,
+          "height": 530,
+          "att_id": "1513897078328135740",
+          "local": "data/attachments/1513897078328135740_ddy6cyh-e3268543-4d52-4d9f-adf4-a4b9e539a5a7.png"
         }
       ]
     }
