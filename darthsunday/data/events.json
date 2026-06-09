@@ -10097,6 +10097,28 @@
         }
       ],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1514042892010918019",
+      "channel_id": "1505545492736639056",
+      "date": "1386-08-30",
+      "country": "HAL",
+      "countryRaw": null,
+      "province": "Lviv",
+      "tag": "History",
+      "author": "Cod In A Pod",
+      "snippet": "**Foundation of the Cathedral of Saint George (Yuriy)**\n\nIn the last days of summer, King Trojden, with the approval and funding from several noble an",
+      "fullText": "**Foundation of the Cathedral of Saint George (Yuriy)**\n\nIn the last days of summer, King Trojden, with the approval and funding from several noble and merchant families, has announced a reconstruction of an old, burnt-down church of Saint George into a cathedral - a cathedral commemorating not only his 40th year on the throne, but mark the heights the Kingdom has reached in these difficult decades.\n\nThe Cathedral, itself an Orthodox temple, has been fully designed by a Byzantine architect. While heavily strapped for space, the drawings completed by the architect look promising, making up for the lack of space with a somewhat irregular shape of the temple, making it slightly elongated compared to the more typical Byzantine Cathedrals.\n\nDespite the size and wealth, however, the project promises to take several additional years - way longer than the fortieth year since the coronation of King Trojden. Yet, this has made little impact on the plans - glory of the city of the Lion may not be bound by a life of one man, however great or capable. Yet, his mark will remain - as much as it will carry the name of the Saint, the cathedral will also carry the name of the founder ages beyond his natural time.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1514042891675111426/Byzantine_and_Romanesque_architecture_1913_14595684550.jpg?ex=6a29edd2&is=6a289c52&hm=bf04438f1fd6cb15b1b65895d08b8b3742700d7763613b045225683f9d313dc6&",
+          "filename": "Byzantine_and_Romanesque_architecture_1913_14595684550.jpg",
+          "width": 1280,
+          "height": 821,
+          "att_id": "1514042891675111426",
+          "local": "data/attachments/1514042891675111426_Byzantine_and_Romanesque_architecture_1913_14595684550.jpg"
+        }
+      ]
     }
   ]
 }
