@@ -10485,6 +10485,85 @@
           "local": "data/attachments/1514280367673311252_cortbattlezama.jpg"
         }
       ]
+    },
+    {
+      "id": "1514376837462102118",
+      "channel_id": "1514376832353308732",
+      "date": "1386-12-01",
+      "country": "TUN",
+      "countryRaw": null,
+      "province": "Lyon",
+      "tag": "Treaty",
+      "author": "JPThunda",
+      "snippet": "**French Outreach**\n\n\nA Sicilian Catholic Archbishop, one **Franciscus Riguerii**, has come to France on behalf of the catholic laity and clergy on th",
+      "fullText": "**French Outreach**\n\n\nA Sicilian Catholic Archbishop, one **Franciscus Riguerii**, has come to France on behalf of the catholic laity and clergy on the island.  A staunch and steadfast supporter of the French Cardinals and Pope Gregory XII, he was the appointed successor to Archbishop Guilelmus Monstrius, a pro-French figure as well.  He wishes to speak to Pope Gregory on the topic of the Roman Antipope's call to a Crusade, and the implications for his Sicilian flock. \n\n<@460814348487753730>",
+      "images": []
+    },
+    {
+      "id": "1514369796420927628",
+      "channel_id": "1514369793371934730",
+      "date": "1386-11-17",
+      "country": "CYP",
+      "countryRaw": null,
+      "province": "Wien",
+      "tag": "Meeting",
+      "author": "ST Peter",
+      "snippet": "# Vienna: Home of the King's brother\n\nAfter visiting both Ancona and Venice, the Lusignan King Peter I and his entourage traveled north to Vienna, a p",
+      "fullText": "# Vienna: Home of the King's brother\n\nAfter visiting both Ancona and Venice, the Lusignan King Peter I and his entourage traveled north to Vienna, a prospering German city and bastion of the Habsburg family, a family which had recently married into the Lusignan Royal dynasty. Choosing to visit here first, seat of an Archduke, instead of the capital of the Kingdom of Hungary or Bohemia to meet with the Holy Roman Emperor, was a deliberate act by Peter I. After all, not only were the Habsburgs powerful on their own right, but Vienna was also the home of the King's younger brother, Louis. Though the Lusignan brother's had no remarkable fondness between them, it would still be improper for Peter I to ignore this reunion for too long. Besides, this familial connection between Peter I's brother and Archduke Friedrich II's daughter should almost guarantee that the Lusignan King will find the visit here worthwhile, if not in aid to his Kingdom...then at least a Royal welcome and feast. A luxury that Peter I was probably not to find in many other capitals in Europe...\n\n...but that would be up to the Archduke himself as Peter I de Lusignan, King of Cyprus, King of Jerusalem, and King of Cilicia arrived in Vienna at the head of his entourage...\n\n(This is where you can either ignore Peter I's request and thus refuse to meet with him, or you can accept him! Additionally, the amount of respect shown to the Lusignan King is up to you!)\n\n<@190640828954181632>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1514369793371934730/1514369851341279403/vienna_map.jpg?ex=6a2b1e54&is=6a29ccd4&hm=ec918c1253a81d56cd97fb2aa11b5084c8f7fb899c63caf775b1c7ea65c0755c&",
+          "filename": "vienna_map.jpg",
+          "width": 780,
+          "height": 536,
+          "att_id": "1514369851341279403",
+          "local": "data/attachments/1514369851341279403_vienna_map.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1514369447916208188",
+      "channel_id": "1514369444925935658",
+      "date": "1386-11-14",
+      "country": "CYP",
+      "countryRaw": null,
+      "province": "Venexia",
+      "tag": "Meeting",
+      "author": "ST Peter",
+      "snippet": "# Venice: Rival of Cyprus' overlords\n\nTo go further north into the Holy Roman Empire, one has to go through Venice. The great city built in a lagoon, ",
+      "fullText": "# Venice: Rival of Cyprus' overlords\n\nTo go further north into the Holy Roman Empire, one has to go through Venice. The great city built in a lagoon, it's people masters of all things seaworthy. After the chaos which engulfed Peter I's early reign, Venice's primary maritime rival, Genoa, seized much control over Cyprus, enforcing harsh terms on the Lusignan King which included the expulsion of Venetian merchants from the island Kingdom. Yet, since then over the past fifteen years things have slowly gotten better for Venetian prospects in King Peter I's realm. He has been careful to grant more concessions to the Venetians, but they have come, and their peoples are no longer completely banned from Cyprus, even if Genoese economic control over the island remains to this day.\n\nBut now Peter I has come to Venice itself, docking his small fleet in the harbor and requesting an audience with the Doge, Bernardo de' Rossi, himself. Perhaps this a chance to mend relations between the other premier Mediterranean naval power, to conspire against the Genoese monopoly on Cypriot trade, but that can only be realized if the Doge is willing to meet him who was in reality just a Genoese puppet King...\n\n(This is where you can either ignore Peter I's request and thus refuse to meet with him, or you can accept him! Additionally, the amount of respect shown to the Lusignan King is up to you!)\n\n<@550686589043343360>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1514369444925935658/1514369503050334300/venice_map.jpg?ex=6a2b1e01&is=6a29cc81&hm=2dcd531f6450ceaefc5458988a5d52e62d86d9c2fc87a67e9bd0f4a5a5dcbd04&",
+          "filename": "venice_map.jpg",
+          "width": 1280,
+          "height": 782,
+          "att_id": "1514369503050334300",
+          "local": "data/attachments/1514369503050334300_venice_map.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1514369184887345283",
+      "channel_id": "1514369181720772829",
+      "date": "1386-11-13",
+      "country": "CYP",
+      "countryRaw": null,
+      "province": "Ancona",
+      "tag": "Meeting",
+      "author": "ST Peter",
+      "snippet": "# Ancona: Seat of the Knights Hospitaller\n\nWhen King Peter I de Lusignan set out from Cyprus, his first stop was Rhodes, to both gather more supplies ",
+      "fullText": "# Ancona: Seat of the Knights Hospitaller\n\nWhen King Peter I de Lusignan set out from Cyprus, his first stop was Rhodes, to both gather more supplies and meet with the local Knights chapter on the small Greek island. Yet Peter did not partake in any negotiations there, instead wanting to meet with the Grandmaster of the Order himself, who of course now stayed in Ancona. It caused some worry in the Lusignan Kingdoms when the Knights Hospitaller gained more and more land in Italy, thus possibly causing the order to view the Catholic east with less importance because of their new seat of power. Once Peter I's fleet docked in Ancona, he was horrified to see that the city is quite a sight to behold indeed. Perhaps every man would prefer the quiet serenity of Italy to the violence of the east. Perhaps Ancona was a bigger prize to the Knightly Order than Jerusalem itself...\n\n...but that would remain to be seen, as Peter I de Lusignan, King of Cyprus, King of Jerusalem, and King of Cilicia requested audience with Grandmaster John Dubois of the Knights Hospitaller.\n\n(This is where you can either ignore Peter I's request and thus refuse to meet with him, or you can accept him! Additionally, the amount of respect shown to the Lusignan King is up to you!)\n\n<@200833745606017024>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1514369181720772829/1514369236804440205/ancona.jpg?ex=6a2b1dc1&is=6a29cc41&hm=8b08bdab905e3afd7aa764f23a140de1e9d1e38c3dcfdd3691ad4bb3ff0cdfbc&",
+          "filename": "ancona.jpg",
+          "width": 750,
+          "height": 577,
+          "att_id": "1514369236804440205",
+          "local": "data/attachments/1514369236804440205_ancona.jpg"
+        }
+      ]
     }
   ]
 }
