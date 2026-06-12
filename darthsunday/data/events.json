@@ -10923,7 +10923,7 @@
       "country": "ENG",
       "countryRaw": null,
       "province": "Montgomery",
-      "tag": "Character",
+      "tag": "Battle",
       "author": "jeudlvie",
       "snippet": "## Les Gallois, ils Attaquent!\n\nThe quick wit of Sir John likely saved Eleanor Plantagenet from certain death or capture. His warning gave the retaine",
       "fullText": "## Les Gallois, ils Attaquent!\n\nThe quick wit of Sir John likely saved Eleanor Plantagenet from certain death or capture. His warning gave the retainers of the Lady Plantagenet enough time to assemble into a formidable rear-guard. Not one soul was lost, because the whole party was mounted. The rear guard, after fending off the Cymraic ruffians, fled to join the rest of the party and protect their Lady. \n\n The path along the coast, to Carnarvon, had been blocked by the party of Richard de Neville, so the Lady Plantagenet was forced deeper into the Welsh hinterlands to escape their pursuers.\n\nThis did not go according to plan. Her pursuers were native sons of Cymru, and in fact were lead by a man from Machynlleth. Despite the Plantagenet camp being entirely mounted, they were still constantly hounded by the mercenaries, with constant skirmishes ensuing at every stop for water, or every turn-around. \n\nThe party grew tired. It had been nearly evening when they were ambushed. Now, it was morning. None had slept. Worse still, there was a distinct feeling among the party that they were being herded - the only path clear seemed to resolve in the mountains of the Berwyn range. They would almost certainly be unable to cross, or at least slowed to the point of capture. \n\nBy noon, the party arrived at the monastery of Strata Marcella, and asked to be let inside to rest. The monks agreed, as they could see no good reason to allow a Lady to be killed by ruffians. \n\nThe leader of the bandits stood outside the front gates of the compound soon enough, and **demanded the surrender of Eleanor Plantagenet.** This was denied, of course, as the right of refuge is something no man can infringe upon, lest he be judged by Christ.",
@@ -10936,20 +10936,11 @@
       "country": "ENG",
       "countryRaw": null,
       "province": "Montgomery",
-      "tag": "Character",
+      "tag": "Battle",
       "author": "jeudlvie",
       "snippet": "## The Assault on Strata Marcella\n\nThese mercenaries were undoubtedly Christian, but not particularly *good* ones. The payout that de Neville had prom",
       "fullText": "## The Assault on Strata Marcella\n\nThese mercenaries were undoubtedly Christian, but not particularly *good* ones. The payout that de Neville had promised them was massive, at least compared to whatever fear of God laid in their hearts. \n\nBy nightfall, they attacked. \n\nThe monks declared that they themselves could do no fighting - but that the party of the Lady Plantagenet were free to defend the walls as they saw fit. \n\nSir John FitzAlan rallied the defenders, and they - being well armored, well trained, and on the defensive, easily repelled what felt like thousands of Welshmen, who piled branches along the walls in an attempt to climb over into the monastery. \n\nEleanor, not content to stand back, was helping to bring timber and nails to reinforce the gate-door. When she was turning to head back inside for more supplies, she, out of the corner of her eye, spied a dark shape with a shining shortsword running towards her at full speed. She ran, but the man was faster. She ducked through an archway into the courtyard, hoping to lose the man in the dark, but the rim of her dress was caught! She tripped, fell, and the man was nearly upon her!\n\nIf only she had a weapon. That thought burned through her as if it was branded upon her very soul. \n\nAs if he could hear this thought, a voice from the shadows - not her assailant - answered out. \n\n**\"A weapon, one fit for a King! Use it well, and you may live!\"**\n\nThe hilt of a sword was then dropped into her hands, just as the attacker lunged.\n\nWithout consciously moving a muscle, **the sword in Eleanor's hands seemed to impale itself inside the brigand's heart. **\n\nThe blood splattered all over her travel cloak. Without time to consider the course of events that had just occurred, she leapt to her feet. \n\n*Alors!*, she cried out into the night.\n\nJoining her, the Knights of the Lady Plantagenet routed the Welsh bandits, sending them scurrying away.",
-      "images": [
-        {
-          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1514937746844553236/ca534303fb1ca9ef3e99f23d3f8da5a7.png?ex=6a2d2f39&is=6a2bddb9&hm=3bd3549e66faff03491e3d40d89b85d06b781d2d0b28f274f73bf30e41e57ed2&",
-          "filename": "ca534303fb1ca9ef3e99f23d3f8da5a7.png",
-          "width": 1588,
-          "height": 1228,
-          "att_id": "1514937746844553236",
-          "local": "data/attachments/1514937746844553236_ca534303fb1ca9ef3e99f23d3f8da5a7.png"
-        }
-      ]
+      "images": []
     },
     {
       "id": "1514943663388491908",
@@ -10975,6 +10966,32 @@
       "author": "jeudlvie",
       "snippet": "## Like Wildfire \n\nAcross the land of Cymru, the story spread, almost faster than any messenger could manage.\n\nFirst, the story simply said what had h",
       "fullText": "## Like Wildfire \n\nAcross the land of Cymru, the story spread, almost faster than any messenger could manage.\n\nFirst, the story simply said what had happened - with healthy skepticism. \n\nShortly after, the story told of Eleanor fighting off three assailants, men three times her size, expertly wielding the blade of Arthur. \n\nBy the time Eleanor had left Wales, to journey to Lancaster, the story frequently was told as her single-handedly vanquishing a whole army (who, by now, were probably Scottish... or Norwegian) with the power of the Sword in the Stone. \n\nNobles who previously knew nothing of Eleanor, or even who had outright rejected her in Swansea, were stumbling over themselves to be the first to send pledges of fealty to this *clearly* **divinely ordained Lady Plantagenet. **\n\nRichard de Neville, riding back north, loudly uttered curses that no good Christian should utter. Few of his men judged him, however, as it is hard to imagine a worse setback than this. He needed an army. Fast.",
+      "images": []
+    },
+    {
+      "id": "1514990103296999515",
+      "channel_id": "1505545492736639056",
+      "date": "1386-09-27",
+      "country": "MOS",
+      "countryRaw": null,
+      "province": "Moscow",
+      "tag": "History",
+      "author": "darthpenance",
+      "snippet": "**The Principalities of Russia**\n\nMoskva has grown much ever since it has become the seat of the Grand Principality of Muscovy-Vladimir. What was once",
+      "fullText": "**The Principalities of Russia**\n\nMoskva has grown much ever since it has become the seat of the Grand Principality of Muscovy-Vladimir. What was once a small fort and town has grown to surpass Novgorod itself, as the center of political and economic authority within Russia.\n\nRussia itself is not a land filled with people and towns like western Europe, it is a harsh land, scarcely populated and barren in many resources such as metals and arable land. Its endless plains until the dense forests of the north serving for wheat and rye farming, as well as lumber working and fur trapping.\n\nRussia stands as a country filled with pastures and farms and small semi-isolated towns, this is how it has been governed for most of its existance.\n\nYet, with the dissolution of the Golden Horde and the campaigns against the Tartars by Muscovy and the Cossacks, a sense of tranquility and growth have reached the large countryside.\n\nGrand Prince Ivan II has left matters of trade and economy to his cabinet, not focusing too much on it himself. He saw the growth of Moskva, propelled by the sheep farms turned into cloth using fur, which has increased greatly the economy of the growing city.\n\nIn a sense, this growing security has allowed a great economic growth, while still very rural focused, a few urban centers like Moskva, Ryazan, Tver and Vladimir have started gaining proeminence, with the burghers, influenced by Novgorod, gaining more proeminence, though still vastly overshadowed by the nobility.\n\n**Eastern Gold**\n\nWhile matters of wars have taken the focus of Grand Prince Ivan II, even he is aware of the great value that gold has. Moskva has had to import Czech gold and silver for most of its existence to mint the Ruble, yet now, Perm, which has been a subject of Novgorod, has [claimed a vast gold mine](https://discord.com/channels/507915886477312023/1505545492736639056/1513178041260445877) in the Ural mountains, something that catched Ivan II's interest.\n\nNot an economist, he knows how hard it is to travel through the Urals back to Russia itself, and the caravans have to contend with tribals and possible raids. Yet that will not stop them from harnessing this wealth compared to the barren lands of Russia.\n\nThe Ruble shall be made of pure Ural gold, and in order to secure its movement, they shall secure a proper path, securing the tribal land eastward until they reach that plentiful mine, and in the meantime, Russian miners shall be sent to help the settlement to harness the gold.\n\n*Muscovy shall be focused on securing a direct road to the Urals' gold*\n\n<@420161433523847169>",
+      "images": []
+    },
+    {
+      "id": "1514951913903493131",
+      "channel_id": "1505545331591610549",
+      "date": "1386-09-12",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "Kettering",
+      "tag": "Character",
+      "author": "jeudlvie",
+      "snippet": "## Eleanor Rides South!\n\nAfter the business in Wales, Lady Plantagenet had travelled in turn to Lancaster, then York. \n\nCountess Joan Lancaster had de",
+      "fullText": "## Eleanor Rides South!\n\nAfter the business in Wales, Lady Plantagenet had travelled in turn to Lancaster, then York. \n\nCountess Joan Lancaster had denied any involvement, and seemed to, almost instantly, agree that Eleanor should rule England instead of William. \n\nIn York, the reception was much the same. Perciard allies, and nobles who had heard of the Welsh business ahead of the arrival, all lined up to give Eleanor their support. \n\nWith some nobles even joining the retinue, and Eleanor receiving word that everything was lining up, she rode South to reach London before William - who by now had certainly heard what happened in Wales - could assemble an adequate response. \n\nNear the village of Kettering, Richard de Neville made his final attempt to thwart this plot. He marched, his army nearly twelve-hundred strong, in an attempt to cut off the approach of Eleanor. \n\nEleanor's party evaded east,  swinging past Cambridge, but ultimately would have been caught if not for one of de Neville's scouts being killed by  (allegedly) a wild boar, somewhere around Bedford.\n\nIn a few day's time from Kettering, Eleanor would arrive in London. \n\n**This was the endgame.**",
       "images": []
     }
   ]
