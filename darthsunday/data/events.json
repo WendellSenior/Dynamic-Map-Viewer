@@ -12820,6 +12820,81 @@
           "local": "data/attachments/1515826100717092995_image.png"
         }
       ]
+    },
+    {
+      "id": "1515829514691805245",
+      "channel_id": "1505545492736639056",
+      "date": "1403-05-29",
+      "country": "PRM",
+      "countryRaw": null,
+      "province": "Perm",
+      "tag": "Character",
+      "author": "Hosumaija",
+      "snippet": "Odoka, the young heir-presumptive to Perm, has died of a cold at merel 10 years of age. With Mitruk and his wife aging, it is unlikely they are to bri",
+      "fullText": "Odoka, the young heir-presumptive to Perm, has died of a cold at merel 10 years of age. With Mitruk and his wife aging, it is unlikely they are to bring forth another child. Who will succeed him as prince is unclear...\n\n<@307587752860581888> <@160455024994942976>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1515829514733621289/image.png?ex=6a306dbf&is=6a2f1c3f&hm=64327b8b0051c68a9621a5415fd20831785d5e06d5f3b2e25498820880f2f501&",
+          "filename": "image.png",
+          "width": 105,
+          "height": 132,
+          "att_id": "1515829514733621289",
+          "local": "data/attachments/1515829514733621289_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1515827591968460953",
+      "channel_id": "1505545415213449216",
+      "date": "1402-04-01",
+      "country": "HUN",
+      "countryRaw": null,
+      "province": "Buda",
+      "tag": "Character",
+      "author": "DinoHunter65100",
+      "snippet": "# Crown Princess Johanna de Anjou Proclaimed Heir of Hungary #\n\nFollowing heated debates on the succession in the Kingdom of Hungary, the elderly King",
+      "fullText": "# Crown Princess Johanna de Anjou Proclaimed Heir of Hungary #\n\nFollowing heated debates on the succession in the Kingdom of Hungary, the elderly King Charles II issued a proclamation stating the change of Hungarian succession laws would be undertaken to steer away from Salic laws of succession. Furthermore, he would declare that his heir would be second daughter, Crown Princess Johanna de Anjou. With the death of Crown Prince Robert and Crown Princess Hedvig de Anjou missing and presumed dead, King Charles II has seen that Johanna is the next in succession and has seen fit to proclaim her his heir infront of the court and take vows of allegiance and support.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515827591095783474/image.png?ex=6a306bf4&is=6a2f1a74&hm=b51a2ab0e5c295790940be80ec4ac5af0cecde4e9c44b558e8eda73349590f82&",
+          "filename": "image.png",
+          "width": 442,
+          "height": 619,
+          "att_id": "1515827591095783474",
+          "local": "data/attachments/1515827591095783474_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515827591754420244/image.png?ex=6a306bf4&is=6a2f1a74&hm=42757a399ca40577b2912201b3aa83d4c07e4a621a072da348dbecb45fe83983&",
+          "filename": "image.png",
+          "width": 558,
+          "height": 591,
+          "att_id": "1515827591754420244",
+          "local": "data/attachments/1515827591754420244_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1515827747019161872",
+      "channel_id": "1505545331591610549",
+      "date": "1402-04-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Cardiff",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "### Quelle Tragédie!\n\nHugh le Despenser, sole male heir of Lord William le Despenser of Glamorgan, has tragically **died** in an incident at the age o",
+      "fullText": "### Quelle Tragédie!\n\nHugh le Despenser, sole male heir of Lord William le Despenser of Glamorgan, has tragically **died** in an incident at the age of 14. The Despenser family may attempt to pass their long held southern Welsh lands to their daughters but by law they have little natural rights by customary practice after marriage. Justiciar Jean de Joinville, Baron Cardigan, is activly seeking to make sure these valuable lands continue to benefit the crown ||and his fickle family's fortunes||.\n\n*Little save an intervention by the Queen herself <@1106651545296195655> is likely to cleanly secure the inheritances of the Despenser daughters.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1515827746750857468/image.png?ex=6a306c19&is=6a2f1a99&hm=b78cd51ed141a3456b9454720caeeb7d1b890d7f6160f925d2940fbc00795f60&",
+          "filename": "image.png",
+          "width": 1206,
+          "height": 646,
+          "att_id": "1515827746750857468",
+          "local": "data/attachments/1515827746750857468_image.png"
+        }
+      ]
     }
   ]
 }
