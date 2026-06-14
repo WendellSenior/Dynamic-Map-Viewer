@@ -11376,6 +11376,41 @@
           "local": "data/attachments/1515651061031895180_Flag_HUN_anjou_quarterly.png"
         }
       ]
+    },
+    {
+      "id": "1515659012329308302",
+      "channel_id": "1505545415213449216",
+      "date": "1386-12-01",
+      "country": "BOH",
+      "countryRaw": null,
+      "province": "Praha",
+      "tag": null,
+      "author": "Reehaw",
+      "snippet": "## *Pro Iustitia Imperii*\n\nIoannes de Luxemburgo, by the Grace of God, elected Roman Emperor, King of Bohemia, Duke of Wroclaw, Margrave of Moravia, e",
+      "fullText": "## *Pro Iustitia Imperii*\n\nIoannes de Luxemburgo, by the Grace of God, elected Roman Emperor, King of Bohemia, Duke of Wroclaw, Margrave of Moravia, etc., by Imperial Right, in full confidence of abilities and prerogative of imperial laws, hereby decrees from the Roman Throne,\n\nThe consortium of princes, arrayed in rebellion against the Emperor and his court, regardless of the descriptors they are veiled beneath, are declared in **disobedience** of the ***Golden Bull of 1350***, forbidding those leagues which, made among persons, cities, or persons and cities, establish between them conspiracy and guile for power, or otherwise to the detriment of imperial law, who are **not** established therefore in pursuit of peace and order in their lands, and so be it that the princes who make their alignment with the “Golden Bull League” known shall henceforth know **this**: the confederated array of such princes is **illegal**, and held in contempt for its pursuit against the sanctity of the imperial peace, by the dispense of rumors and creation of conspiracy against His Majesty, the Roman Emperor, shall be considered criminal and rebellious should they not publicly forswear the league and its conspiracy. \n\nWith the sanctity bestowed upon Kings by the King of Kings Himself, the majesty inferred in the Frankfurt Election of 1371, and the August capabilities which have followed His Majesty in the past as they do now, it is declared from the foot of the Roman Throne that all members of this “Golden Bull League,” so much as they claim allegiance to it in **four months time**, shall be judged by and dispensed with the righteous authority of His Majesty Ioannes, Roman Emperor. \n\n[ Four Months after session start, the Emperor will declare a war against the members of the Golden Bull League for the primary aim of deposing the **Wittelsbach** Elector of Brandenburg, so that the Emperor may place a separate dynasty upon the throne and bestow them the electoral dignity. As GMB will be absent, no lands or vassals shall be taken from the Palatinate, nor any treaty option related to them taken. As disclosed in a prior post, Bohemian levies may **only** be raised for defensive actions on Bohemian soil, and will not be used outside of the Kingdom and its vassals. ]\n\n<@255439449448644608> <@385875387608989714> <@112960565344804864> <@306458253674545153> <@763652399784919080> <@137101075411894272> <@288410456526422016>",
+      "images": []
+    },
+    {
+      "id": "1515680667898482699",
+      "channel_id": "1505545415213449216",
+      "date": "1375-02-12",
+      "country": "VEN",
+      "countryRaw": null,
+      "province": "Zara",
+      "tag": "History",
+      "author": "Moro",
+      "snippet": "# The Dalmatian Settlement - The Treaty of Zara\nThe Dalmatian Settlement marked a significant turning point in relations between the Republic of Venic",
+      "fullText": "# The Dalmatian Settlement - The Treaty of Zara\nThe Dalmatian Settlement marked a significant turning point in relations between the Republic of Venice and the Crown of Hungary-Croatia during the years leading to the Guild War against the Byzantines. After decades of rivalry over influence along the eastern Adriatic coast, both the royal court of Buda and the Parliament of Venice increasingly came to view continued confrontation as less beneficial than a negotiated understanding, as both states stood in-between common rivals between the consolidating Byzantine Empire in the east and the Holy Roman Empire in the west, whom both sought to clash with the Republic and Kingdom in multiple theaters across Europe. \n\nFor the Venetian Republic, Dalmatia had long held strategic importance. The coastal cities of the region such as Zara and Ragusa occupied key positions along the maritime routes linking the lagoon to the wider Mediterranean. For the Hungarian Crown, the region represented an important extension of royal authority toward the sea and a symbol of Angevin influence in the Adriatic over their Croatian subjects. Rather than allowing these competing interests to spill into open conflict, Venetian and Hungarian diplomats pursued a series of negotiations that became collectively known as the *Dalmatian Settlement* amidst the lower circles, while on paper being formally referred to as the **Treaty of Zara**. The agreement sought to normalize relations between the two powers and establish a more stable political framework for the Adriatic.\n\nThe settlement did not eliminate the underlying rivalry between Venice and Hungary. Neither side abandoned its long-term interests in the region. Instead, it established a mutual recognition that commerce and political stability required a degree of cooperation. The likelihood of immediate conflict had been reduced and paved the way for a strong friendship to be born.\n\n-# <@315868897012219904> <@423689694258397195> <@200833745606017024> <@1229810819794206822> (Idk who else may be relevant to this)",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515680667717861396/Dalmatian_Settlement.png?ex=6a2fe31f&is=6a2e919f&hm=95fe3ac235ca6f92d0d0578b387a766d4e75c1c3bd6a5862b0fb940b0f4dd606&",
+          "filename": "Dalmatian_Settlement.png",
+          "width": 1183,
+          "height": 999,
+          "att_id": "1515680667717861396",
+          "local": "data/attachments/1515680667717861396_Dalmatian_Settlement.png"
+        }
+      ]
     }
   ]
 }
