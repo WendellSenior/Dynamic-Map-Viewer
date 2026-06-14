@@ -12947,6 +12947,52 @@
           "local": "data/attachments/1515830688161468586_image.png"
         }
       ]
+    },
+    {
+      "id": "1515835038888099941",
+      "channel_id": "1505545415213449216",
+      "date": "1404-01-01",
+      "country": "HAB",
+      "countryRaw": null,
+      "province": "Wien",
+      "tag": "Character",
+      "author": "Cayde",
+      "snippet": "# The Dubious Faith of Archduke Siegmund\n\nArchduke Siegmund von Habsburg of Austria rules his country with a loose grip. He holds both the titles of B",
+      "fullText": "# The Dubious Faith of Archduke Siegmund\n\nArchduke Siegmund von Habsburg of Austria rules his country with a loose grip. He holds both the titles of Brabant and Holland, and commands a great and vast realm, built upon the pragmatism of his father.  The clergy name him a sinner whose conduct has turned the religious establishment against him, yet none in his line is a more devoted theologian, a tireless student of the faith who has pursued the acrument of many religious artifacts, some heretical, some pious.\n\nWhen his cabinet uncoveredd an underground workshop of forbidden artists and seize three works marked for destruction under the censorship statutes, Siegmund overrules his clergy and orders the pieces kept for the crown. In the same season a dispute breaks out over the veneration of the Virgin Mary, as radical theologians question the doctrine of her intercession. Siegmund declines to condemn them. He holds that she is a woman of singular grace and no more, a stance that many expect to bring the ire of the Papal See in Rome <@150411715757080576> . The same forbearance he holds for the prior mentions of heresy extends to the heresies taking root within his lands. In Steyr the Waldensians now number far greater than one in eight souls, and to the north the Hussite contagion spreads across the Bohemian marches and presses toward his border. The clergy demand fire and inquisition at once, in the same manner as his father's rule. But Siegmund offers neither fire, nor any iron crackdown. He lets the dissenters keep their conventicles and their plain preaching so long as they keep his peace and pay their taxes.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515835037520625664/image.png?ex=6a3072e3&is=6a2f2163&hm=3c202590880ce2806787239214b62f093d5fb21652c6d4876af5a0e49f419144&",
+          "filename": "image.png",
+          "width": 815,
+          "height": 695,
+          "att_id": "1515835037520625664",
+          "local": "data/attachments/1515835037520625664_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515835037889855579/image.png?ex=6a3072e3&is=6a2f2163&hm=449b33811ab57e1ddc395b6f4eba55db7d69a73cc7a8de9455c6c63b4755e89f&",
+          "filename": "image.png",
+          "width": 837,
+          "height": 691,
+          "att_id": "1515835037889855579",
+          "local": "data/attachments/1515835037889855579_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515835038183194794/image.png?ex=6a3072e3&is=6a2f2163&hm=949816fcc1977d9fa3182f35796dd4fbf96ac9bf89a192071091f1bed021e162&",
+          "filename": "image.png",
+          "width": 639,
+          "height": 682,
+          "att_id": "1515835038183194794",
+          "local": "data/attachments/1515835038183194794_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515835038502096946/image.png?ex=6a3072e4&is=6a2f2164&hm=f11d1a46a29b2bc844169db60d8abc0523c644fc59fbececc8ef5abf2978abd1&",
+          "filename": "image.png",
+          "width": 685,
+          "height": 549,
+          "att_id": "1515835038502096946",
+          "local": "data/attachments/1515835038502096946_image.png"
+        }
+      ]
     }
   ]
 }
