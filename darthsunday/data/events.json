@@ -12312,7 +12312,7 @@
       "tag": "Battle",
       "author": "Ceb",
       "snippet": "### The Flight of Owain Glyndŵr\n\nThe hastily seized castle at Pembroke stood in burning light as an army of Marchers stood outside waiting for his men",
-      "fullText": "### The Flight of Owain Glyndŵr\n\nThe hastily seized castle at Pembroke stood in burning light as an army of Marchers stood outside waiting for his men to die. The people of north had failed to rise up, the town had turned against him, and now his army was gone. Even calm Owain could not help but shed a small tear as his small vessel crossed the bay to Fishguard and an inglorious retreat from his homeland.\n\nOwain Glyndŵr Aberffraw, his wife Lady Matilda Audley, and their three young children come ashore first in Cornwall and meet with some local sympathizers. They then land in Breton Brest and appeal for sanctuary with whomever was in charge.\n\n*This infamous Welsh rebel seeks the Kings <@460814348487753730> support to liberate his homeland. Will he find safe refuge and allies in France?*",
+      "fullText": "### The Flight of Owain Glyndŵr\n\nThe hastily seized castle at Pembroke stood in burning light as an army of Marchers stood outside waiting for his men to die. The people of north had failed to rise up, the town had turned against him, and now his army was gone. Even calm Owain could not help but shed a small tear as his small vessel crossed the bay to Fishguard and an inglorious retreat from his homeland.\n\nOwain Glyndŵr Mathrafal, his wife Lady Matilda Audley, and their three young children come ashore first in Cornwall and meet with some local sympathizers. They then land in Breton Brest and appeal for sanctuary with whomever was in charge.\n\n*This infamous Welsh rebel seeks the Kings <@460814348487753730> support to liberate his homeland. Will he find safe refuge and allies in France?*",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1515805513579757659/image.png?ex=6a305764&is=6a2f05e4&hm=755bd4400336ef85fb117413ca43c3a777fadb5e3d6303d5f57bd729a209ab52&",
@@ -13029,6 +13029,36 @@
           "height": 1043,
           "att_id": "1515837404609646643",
           "local": "data/attachments/1515837404609646643_f978433ab3b3b2796e50770c502f847b.png"
+        }
+      ]
+    },
+    {
+      "id": "1515841418587934851",
+      "channel_id": "1505545415213449216",
+      "date": "1403-05-22",
+      "country": "CAS",
+      "countryRaw": null,
+      "province": "Bayonne",
+      "tag": "Battle",
+      "author": "Bas1leus",
+      "snippet": "**The Twin Battles of Bayonne**\n\nAlthough not on the main front of the war, the Castilian Crown put Bordeaux in its sights, not as a target of conques",
+      "fullText": "**The Twin Battles of Bayonne**\n\nAlthough not on the main front of the war, the Castilian Crown put Bordeaux in its sights, not as a target of conquest, but simply merely to force the French to pay for their continued insults and incessant plotting towards Enrique and his holdings in Iberia.\n\nCastilian armies gathered in Navarre, after which they planned to march into south-eastern France, directly towards the regional capital of Bordeaux. However, they needed first to take the crucial stronghold in Bayonne, which could not be bypassed due to its strong fortifications.\n\nHowever, as our armies awaited reinforcements from Granada, something strange occurred. We had been sure to keep our armies away from the prying eyes of the French, and yet, the Savoyards and Gascons seemed to respond to our every move, posturing perfectly as to prevent a surprise flanking maneuver. It seems that our ranks are comprimised, or perhaps, something more sinister...\n\nRegardless, the only option by this point was a dangerous frontal assault from Burgos. The town of Bayonne was guarded by 15 thousand Gascon soldiers and a small French contingent. Against the 60 thousand strong combined Iberian armies, they stood no chance. However, most of the Navarran and Granadan forces were held in reserve, allowing only 30 thousand troops to take on the 16 thousand Franco-Gascon forces.\n\nGonzalo de Avellaneda, the brilliant general in charge of the armies besieging Bayonne, knew that with his limited intelligence, he could not afford to commit his full forces immediately. He was proven right nearly immediately. Our forces had barely even set up camp around the fortification's walls than a Savoyard-Gascon relief force arrived. 20 thousand of the reserve troops were sent to the front, and the French forces were once again put to rout decisively.\n\nThe route to Bordeaux was wide open. Sadly, the situation in Italy was beyond repair, and France gained control of the papacy.\n\nWe will have to accept this new reality, and despite our coalition's failure to defend the Pope in Rome, we have acquitted ourselves masterfully. Our statement has been made. And for his efforts, Gonzalo de Avellaneda was ennobled Noble and made the Count of Vitoria, taking the name Barillas.\n\n<@259426601865838592> <@564196329132261376> <@460814348487753730>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515841417724035232/Screenshot_2026-06-14_172516.png?ex=6a3078d4&is=6a2f2754&hm=0a61bf873d76f85b852c30b1370cfe8a2a6bd179e711351d3360b7e26920f90a&",
+          "filename": "Screenshot_2026-06-14_172516.png",
+          "width": 1581,
+          "height": 951,
+          "att_id": "1515841417724035232",
+          "local": "data/attachments/1515841417724035232_Screenshot_2026-06-14_172516.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515841418080292915/Screenshot_2026-06-14_181048.png?ex=6a3078d5&is=6a2f2755&hm=567468c5609c403525eefc8b77c6d4a297898510440061219fb9fe2ffb344813&",
+          "filename": "Screenshot_2026-06-14_181048.png",
+          "width": 739,
+          "height": 754,
+          "att_id": "1515841418080292915",
+          "local": "data/attachments/1515841418080292915_Screenshot_2026-06-14_181048.png"
         }
       ]
     }
