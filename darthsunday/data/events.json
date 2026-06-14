@@ -12644,7 +12644,7 @@
       "tag": null,
       "author": "Redcola",
       "snippet": "**Intellectual Expeditions**\n<@763652399784919080> \n\nAs the politcal struggle begins to deepen in Bavaria Karl Ludwig von Wittlesbach, Margrave of Bra",
-      "fullText": "**Intellectual Expeditions**\n<@763652399784919080> \n\nAs the politcal struggle begins to deepen in Bavaria Karl Ludwig von Wittlesbach, Margrave of Brandenburg looks to find any edge he can get, many despise him as an incompetent two faced liar, one who lacks for friends skill or prestige, so it is he looks for soft power over hard. \n\nWith the creation of this new university that is securely driven in Italy the claimant to Bavaria seizes upon this to gain legitimacy. For years the lands of Lusatia, shrouded in dense forests and marshes have held truly ancient fortresses, for most a simple oddity or hiding place for a passing bandit lord yet in Munich as the Renaissance spreads notions of historical study and linkages arises, Kings and Lords draw parallels between themselves and the ancient Greeks or Romans, so to could Ludwig with the right evidence. \n\nSo he formally write to the Duke of Milan offering support for his fine institution and officially speaking attempting to showcase himself as a patron of the arts, offering coin and art ~~(pillaged from Poland and Brandenburg)~~. However discretely he offers a dynastic alliance in exchange for the Milanese Scholars heading up an expedtion into the Spreewald,  the implication being to find historic ties that could be used to grant prestige to the Margrave. Ofcourse he leaves out ever so two facedly that his lands and those of the Lusatia especially are filled with all manner of robber knight and bandit lord, such an expedition will be not an easy feat....\n\n**(Will Begin Midweek event chain to Carry out Expedition in Lusatia for ancient fortresses)**",
+      "fullText": "**Intellectual Expeditions**\n<@763652399784919080> \n\nAs the politcal struggle begins to deepen in Bavaria Karl Ludwig von Wittlesbach, Margrave of Brandenburg looks to find any edge he can get, many despise him as an incompetent two faced liar, one who lacks for friends skill or prestige, so it is he looks for soft power over hard. \n\nWith the creation of this new university that is securely driven in Italy the claimant to Bavaria seizes upon this to gain legitimacy. For years the lands of Lusatia, shrouded in dense forests and marshes have held truly ancient fortresses, for most a simple oddity or hiding place for a passing bandit lord yet in Munich as the Renaissance spreads notions of historical study and linkages arises, Kings and Lords draw parallels between themselves and the ancient Greeks or Romans, so to could Ludwig with the right evidence. \n\nSo he formally write to the Duke of Milan offering support for his fine institution and officially speaking attempting to showcase himself as a patron of the arts, offering coin and art ~~(pillaged from Poland and Brandenburg)~~. However discretely he offers a dynastic alliance in exchange for the Milanese Scholars heading up an expedtion into the Spreewald,  the implication being to find historic ties that could be used to grant prestige to the Margrave. Ofcourse he leaves out ever so two facedly that his lands and those of the Lusatia especially are filled with all manner of robber knight and bandit lord, such an expedition will be not an easy feat....\n\n**(Will Begin Midweek event chain to Carry out Expedition in Lusatia for ancient fortresses)**\n\nIn a show of complete ~~pridefulness~~ thanks the Margrave of Brandenburg sends his own heir Leopold to study in the Italian city, at length bragging as such to those in the court of Munich",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515819340149166242/30e6c70fc39142dacd6daa4e988b9f6d.png?ex=6a306445&is=6a2f12c5&hm=5f12a940a026595a939bd66fb5d01f50583eacec4485025b45b13ad4a3b866dd&",
@@ -12653,6 +12653,22 @@
           "height": 581,
           "att_id": "1515819340149166242",
           "local": "data/attachments/1515819340149166242_30e6c70fc39142dacd6daa4e988b9f6d.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515821095528431656/image.png?ex=6a3065e7&is=6a2f1467&hm=46c21077fd290f2a02cbf9c385014d57689d0655991b5fa7ccbdad9bfc704ec7&",
+          "filename": "image.png",
+          "width": 620,
+          "height": 441,
+          "att_id": "1515821095528431656",
+          "local": "data/attachments/1515821095528431656_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515821096635465748/images.png?ex=6a3065e8&is=6a2f1468&hm=55053469f8295f47db91f1764fa7e987fca0e0070fad43a3f735f21e5f66ba5a&",
+          "filename": "images.png",
+          "width": 739,
+          "height": 415,
+          "att_id": "1515821096635465748",
+          "local": "data/attachments/1515821096635465748_images.png"
         }
       ]
     },
@@ -12675,6 +12691,50 @@
           "height": 729,
           "att_id": "1515816910594244608",
           "local": "data/attachments/1515816910594244608_Pembroke-rekonstrukcja-13.png"
+        }
+      ]
+    },
+    {
+      "id": "1515820158269001738",
+      "channel_id": "1505545415213449216",
+      "date": "1400-01-01",
+      "country": "MIL",
+      "countryRaw": null,
+      "province": "Bresca",
+      "tag": null,
+      "author": "Hoang",
+      "snippet": "# The building of the Karl Ludwig University of Bresca\n\nWith funding from Prince Elector Karl Ludwig of Brandenburg, a new university is being built i",
+      "fullText": "# The building of the Karl Ludwig University of Bresca\n\nWith funding from Prince Elector Karl Ludwig of Brandenburg, a new university is being built in Bresca!\n\nThe university will be named after Karl Ludwig.\n\n<@255439449448644608>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515820157916938440/250px-Meeting_of_doctors_at_the_university_of_Paris.png?ex=6a306508&is=6a2f1388&hm=7886178f39866e5e9910996ec84b36cf81b2103182d137b280310c0e28eb4d8d&",
+          "filename": "250px-Meeting_of_doctors_at_the_university_of_Paris.png",
+          "width": 250,
+          "height": 394,
+          "att_id": "1515820157916938440",
+          "local": "data/attachments/1515820157916938440_250px-Meeting_of_doctors_at_the_university_of_Paris.png"
+        }
+      ]
+    },
+    {
+      "id": "1515822091981688995",
+      "channel_id": "1505545331591610549",
+      "date": "1400-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "### City Tensions\n\nPerceived interference by the sitting Justiciar of Wales - Iorwerth Mathrafal and his Welsh heritage, has led to the revolt of the ",
+      "fullText": "### City Tensions\n\nPerceived interference by the sitting Justiciar of Wales - Iorwerth Mathrafal and his Welsh heritage, has led to the revolt of the only recently elevated Pembroke. They appeal to loyalty to Queen Eleanor <@1106651545296195655> but cite the northern Welsh administration's meddling in their rights and privildges for his own detriment.\n\n*The revolt is expected to be short lived and without blood, but it's setting and claimants are likely to reach the highest echelons of English law in London.*\n\nJean de Joinville, son of the late Justiciar, is put at the head of an army aimed to subdue the revolt via intimidation.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1515822092027695256/image.png?ex=6a3066d5&is=6a2f1555&hm=5439635f13b3193d0854fda6846db22e42111c5fee662be2cf44fa939dd83ee6&",
+          "filename": "image.png",
+          "width": 1454,
+          "height": 857,
+          "att_id": "1515822092027695256",
+          "local": "data/attachments/1515822092027695256_image.png"
         }
       ]
     }
