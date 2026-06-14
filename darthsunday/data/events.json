@@ -12993,6 +12993,44 @@
           "local": "data/attachments/1515835038502096946_image.png"
         }
       ]
+    },
+    {
+      "id": "1515837404903375038",
+      "channel_id": "1505545415213449216",
+      "date": "1403-11-08",
+      "country": "BRA",
+      "countryRaw": null,
+      "province": "Brandenburg",
+      "tag": "History",
+      "author": "Redcola",
+      "snippet": "**The Brandenburg Desolation**\n<@763652399784919080> <@261290667106369536> <@222439858927435776> <@252560004069064705> \n\nYears of mismanagement, years",
+      "fullText": "**The Brandenburg Desolation**\n<@763652399784919080> <@261290667106369536> <@222439858927435776> <@252560004069064705> \n\nYears of mismanagement, years of banditry, years of death, years of hate and all the world to see God so silent, Brandenburg is hollow. Though a certain stability was found in the post war of the golden bull as a collection of robber knights had become unofficially supported and allied with the Margraves own government such a system was fundamentally short term in focus, even the once loyalist robber knights now grow more desperate as coin and food dry up. \n\nOutside the major towns of Brandenburg and Berlin, forming a small beacon of stability and peace castles of robber knights are raided and besieged all the while the aging Ludwig grows focused on gaining control of Bavaria, leaving behind his abused realm. \n\nIn the south the Lusatian league expands out forming for the first time a council in the style of a polish Sejm .  Voting to form a Sorbian unified army, the All Cities Companies (Všechny městské společnosti). Though making no direct announcement in practical terms Upper Lusatia will be in revolt, hunting down any robber knights with extreme prejudice, the Bohemian crown already more than busy to deal with such matters may see such things spread even more...\n\nAll the while Ludwig remains unbothered, having concerned himself with other matters in Bavaria, leaving Brandenburg in the whims of who shall have the ambition to take control.\n\n**(Lusatia Revolts, Brandenburg is close to collapse of warlordism)**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515837403493957712/image.png?ex=6a307517&is=6a2f2397&hm=86f11b10c2d0c2bf5cd46c53e5fe650b9a9978947c2b67e5c98bfad5ead7bc66&",
+          "filename": "image.png",
+          "width": 674,
+          "height": 725,
+          "att_id": "1515837403493957712",
+          "local": "data/attachments/1515837403493957712_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515837404064252045/1c2930c76e8c04916739a5e690454826.png?ex=6a307518&is=6a2f2398&hm=d5a3d9dfc925a3dd89723fa537883fc7bf6ea977f11ed8c3c47eb53d2cf47a93&",
+          "filename": "1c2930c76e8c04916739a5e690454826.png",
+          "width": 828,
+          "height": 1033,
+          "att_id": "1515837404064252045",
+          "local": "data/attachments/1515837404064252045_1c2930c76e8c04916739a5e690454826.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515837404609646643/f978433ab3b3b2796e50770c502f847b.png?ex=6a307518&is=6a2f2398&hm=8c12b9f7ba157769e9e0513af893340106fbee868e5e3c10154377f39372dbc6&",
+          "filename": "f978433ab3b3b2796e50770c502f847b.png",
+          "width": 829,
+          "height": 1043,
+          "att_id": "1515837404609646643",
+          "local": "data/attachments/1515837404609646643_f978433ab3b3b2796e50770c502f847b.png"
+        }
+      ]
     }
   ]
 }
