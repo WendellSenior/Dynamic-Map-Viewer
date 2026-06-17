@@ -13533,6 +13533,28 @@
           "local": "data/attachments/1516331404634361966_image.png"
         }
       ]
+    },
+    {
+      "id": "1516865494064431165",
+      "channel_id": "1505545331591610549",
+      "date": "1404-01-01",
+      "country": null,
+      "countryRaw": "Victual Brothers",
+      "province": "Öland",
+      "tag": "History",
+      "author": "Marcus",
+      "snippet": "## One Realm's Trash is another's Treasure\n\nExile has long been among the most common punishments throughout Christendom. For many crimes, banishment ",
+      "fullText": "## One Realm's Trash is another's Treasure\n\nExile has long been among the most common punishments throughout Christendom. For many crimes, banishment is preferred over the gallows, sparing the condemned while relieving towns and villages of thieves, vagabonds, debtors, and other troublesome souls. Imprisonment is costly, and few rulers are willing to feed men who have broken the peace. Better instead to cast them beyond the borders and forbid their return.\n\nYet even such men have their uses, provided they can be controlled. These *free souls*, are naturally drawn to places like Gotland, where few care for their past transgressions against the laws of men, or even of *God*, so long as they can prove their worth. Their talents are seldom in demand among respectable folk, but aboard privateering vessels, within mercenary companies, or among the more discreet guilds of smugglers and cutthroats, they are welcomed with open arms.\n\nIt would be a shame not to make use of such a steady supply of willing hands. On this, both the Brotherhood and the judges of Gotland find rare agreement. Yet neither wishes these *uninitiated murderous sheep* to wander unchecked through the harbors and streets of Visby. A place must therefore be found where such men may be gathered and put to useful labor. What better place than the recently seized island of Öland? Sparsely populated and neglected under its former lords, it requires little investment to transform into an open port, where all are *welcome*.\n\nTo truly benefit from this we require the word of Öland to spread far and wide amongst the realms of Europe, and a perfect opportunity presents itself... With the fall of Rome and Victory of the True Pope, we may expect *punishment* to befall the men on the *wrong* side of the Schism, we shall offer the service of ridding Realms of troublesome men...\n\n<@460814348487753730> <@210779670663135232> <@1106651545296195655>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1516865493686948001/Jules20Achille20Noel20-20A20Convict20in20the20Toulon20Penal20Colony20engraved20by20De20Moraine20c18452020-20MeisterDrucke-90830.png?ex=6a343293&is=6a32e113&hm=2e9cf8e017f5a90e7c648d5cce97b380b5a208b9dec605d8b6f611e816a42890&",
+          "filename": "Jules20Achille20Noel20-20A20Convict20in20the20Toulon20Penal20Colony20engraved20by20De20Moraine20c18452020-20MeisterDrucke-90830.png",
+          "width": 671,
+          "height": 1000,
+          "att_id": "1516865493686948001",
+          "local": "data/attachments/1516865493686948001_Jules20Achille20Noel20-20A20Convict20in20the20Toulon20Penal20Colony20engrave.png"
+        }
+      ]
     }
   ]
 }
