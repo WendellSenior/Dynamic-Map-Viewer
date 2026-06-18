@@ -13647,6 +13647,54 @@
         }
       ],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1516986393732317184",
+      "channel_id": "1505545415213449216",
+      "date": "1404-01-03",
+      "country": "CTH",
+      "countryRaw": null,
+      "province": "Carthage",
+      "tag": "Economy",
+      "author": "JPThunda",
+      "snippet": "**The Power of the Purse**\n\n\nTense negotiations saw the Kingdom of Aragon bend to Carthaginian demands on the matter of Sardinian silver.  For the mom",
+      "fullText": "**The Power of the Purse**\n\n\nTense negotiations saw the Kingdom of Aragon bend to Carthaginian demands on the matter of Sardinian silver.  For the moment the silver remained under the control of Carthaginian merchants, however the influence of the successor to the ruined Papal States was sure to grow.  Unless more drastic measures were undertaken to secure the resources on Sardinia, the problem would only fester.\n\nWhat’s more, the Burghers knew precisely the power and influence they held.  During the Carthaginian Civil War it was their influence that kept every major urban center squarely under the crown’s control, and it was their coin which fed the realm’s coffers.  They had been party to the construction of a massive fleet, the mightiest in the world, and now they clamored for its use.\n\nThis was not a call that the Sultan could restrain indefinitely…nor was he inclined to.\n\n||Based on rolls, Sultan Bahir Hafsid is swayed by the Burghers to favor military intervention in Sardinia.||",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1516986393321017394/images.png?ex=6a34a32c&is=6a3351ac&hm=644976d0c56dde734d72f5a3ec2fbff4acdf10136d7f8ba698c62884de906f00&",
+          "filename": "images.png",
+          "width": 225,
+          "height": 225,
+          "att_id": "1516986393321017394",
+          "local": "data/attachments/1516986393321017394_images.png"
+        }
+      ]
+    },
+    {
+      "id": "1516993634279620610",
+      "channel_id": "1505545415213449216",
+      "date": "1404-01-03",
+      "country": "CTH",
+      "countryRaw": null,
+      "province": "Palermo",
+      "tag": "Religion",
+      "author": "JPThunda",
+      "snippet": "**Sicilian Clergy Celebrate Rome’s Defeat**\n\n\nThe defeat of the Roman Apostate by the French Catholics was received as cause for celebration in Sicily",
+      "fullText": "**Sicilian Clergy Celebrate Rome’s Defeat**\n\n\nThe defeat of the Roman Apostate by the French Catholics was received as cause for celebration in Sicily.  For too long had the decrees of mainland despots sought to steer the fates of those on the island, but no longer!  With the Pope returned to France, perhaps finally Sicily could be free of the Papist machinations which had plagued it for over a century.  At least, that is what was hoped.",
+      "images": []
+    },
+    {
+      "id": "1516928970103197696",
+      "channel_id": "1505545415213449216",
+      "date": "1403-05-12",
+      "country": "TRI",
+      "countryRaw": null,
+      "province": "Trier",
+      "tag": "History",
+      "author": "tintock",
+      "snippet": "## By Decree of the Archbishop, the expulsion of the Habsburgs\n\nA herald makes his way to the Cathedral square within Trier. Taking a stand at the pod",
+      "fullText": "## By Decree of the Archbishop, the expulsion of the Habsburgs\n\nA herald makes his way to the Cathedral square within Trier. Taking a stand at the podium, flanked by Noble guards of French origin he makes the following proclamation.\n\n*By decree of the Archbishop, Prince-Elector of the Holy Roman Empire, Monseigneur Tinti d'Alsce\n\nPrince-Bishop Leopold von Habsburg in death is condemned a heretic as he made no confession nor paid no indulgences for his four children born to his mistress. \n\nIn light of this heresy his son Franz Frederich von Habsburg is exiled from the Bishopric of Trier and all its diocese. Nor shall Franz Frederich be permitted to hold ecclesiastical office in Trier nor its Diocese.\n\nNor shall Leopolds nephew Matthias Habsburg be permitted to hold ecclesiastical office in Trier nor shall he hold one within Triers Diocese. Due to the offenses of Mathias blood relation he is also exiled from Trier.\n\nArchbishop Tinti reminds the populace of the land that all Sins may be forgiven via confession and by the purchase of indulgences*\n\n<@190640828954181632>",
+      "images": []
     }
   ]
 }
