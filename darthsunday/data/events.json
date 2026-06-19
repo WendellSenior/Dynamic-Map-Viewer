@@ -13903,6 +13903,45 @@
           "local": "data/attachments/1517623203265249300_Screenshot_4040.png"
         }
       ]
+    },
+    {
+      "id": "1515990524568277002",
+      "channel_id": "1505545415213449216",
+      "date": "1398-12-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Lübeck",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "**HANSETAG** <:hansaseal:1505589926673256659> \nWalbeck’s first presiding Hansetag has been called. It is gloomier; unlike his successor, he has failur",
+      "fullText": "**HANSETAG** <:hansaseal:1505589926673256659> \nWalbeck’s first presiding Hansetag has been called. It is gloomier; unlike his successor, he has failures to show: the sinking of the hanseatic fleet, which has to be rebuilt and made larger, at least to double its previous number, reaching 40 or so ships. However, not all are bad news, for thanks to several good investments a South Germanic town in Austria has joined the League, as well as several towns in central Germany.\n\nThe profitability of the League is no longer a concern, given that the money flowing to the coffers of Hamburg equals to the money flowing to the Holy Roman Emperor, which is an achievement in itself. The most profitable markets are hard to expand on, and investments have become stale for a while. The only venue Walbeck sees is in exerting political power now (though not in the Baltic, given the recent defeat… <@326414282851876875>), expanding Hanseatic membership southwards and westwards through bribes and wielding the *Dispensatio*.\n\nA more pressing concern, voiced by many cities, is the current situation of the Church. Some Burgermeister already spouse ideas incompatible with usual catholic doctrine. Though the Hansetag ought to be for trade affairs, heresies mean some refuse to trade with others on that alone. These are organized, structured breaks from the Pope, not your run of the mill religious differences.\n\nThis is in some ways not new, for communities in kontors sometimes partially convert, or mix their rites with local ones. But the siege of Rome and the temporal dominance of France over the Church have brought this to light in the Diet.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515990523620622358/image.png?ex=6a36f272&is=6a35a0f2&hm=1c793ac2992a5083aece2eb1002056e6e8a3a789af2338add97af8cae39eb669&",
+          "filename": "image.png",
+          "width": 762,
+          "height": 452,
+          "att_id": "1515990523620622358",
+          "local": "data/attachments/1515990523620622358_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515990523918286918/image.png?ex=6a36f272&is=6a35a0f2&hm=99bb67c48657750c32ff3aab225c7fdf3dda214fce494dbf0c74d5ad075a7c26&",
+          "filename": "image.png",
+          "width": 762,
+          "height": 452,
+          "att_id": "1515990523918286918",
+          "local": "data/attachments/1515990523918286918_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1515990524232728586/image.png?ex=6a36f272&is=6a35a0f2&hm=a78d6c2c0ff9b7cd94f5767447f2a0fa73286e7e856f2a8d7007a8ba61ae9934&",
+          "filename": "image.png",
+          "width": 763,
+          "height": 452,
+          "att_id": "1515990524232728586",
+          "local": "data/attachments/1515990524232728586_image.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
     }
   ]
 }
