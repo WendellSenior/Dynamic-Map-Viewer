@@ -13811,6 +13811,36 @@
       "fullText": "With the new Hansyhorod founded in Halych, droves of german traders are establishing themselves there. Among them are some heretics, who perhaps wrongly believe they will find religious protection in the town. And though they may find more tolerance, there are some heretic thoughts both orthodox and catholics condemn equally. There are also talks among Jewish people near Halych to establish themselves in Hansyhorod. A town dually governed by a King and a trade league, with some religious tolerance, is certainly better than the situation currently experienced by many jews. \n\nHowever, they may find a surprise, for the Wendish people are not the best neighbours of Jewish people… <@1432820281000333392>",
       "images": [],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1517583287743283421",
+      "channel_id": "1505545331591610549",
+      "date": "1404-01-03",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### Broken Faith - Camweddau\n\n“They said we were fine, eh.” *The older man scoffs, leaning on his cane.*\n\n“And now what? we haven’t done anything…” *t",
+      "fullText": "### Broken Faith - Camweddau\n\n“They said we were fine, eh.” *The older man scoffs, leaning on his cane.*\n\n“And now what? we haven’t done anything…” *the man’s son waveringly asked as he looked at the Norman Castle in the distance.*\n\n“They’re taking it all!” *as he shook his head in what was probably best described as disappointment mixed with regret.*\n\n> In accordance with her Majesty, Queen Eleanor of the House Plantagenet, lawful dictates - via her Marcher lords, the following feudal dependencies of the Principality of Wales:\n> - Pembroke, Narberth, De Llawhaden, Haverford, and Walwyn’s Castle,\n> \n> Are to be **cleared** of any person or persons incapable of speaking the French or English tongues forwarded by her majesty’s government. The environs of the holy St.Davids Cathedral shall remain open, but remain under guard until such decision as can be made by her representatives to secure its continued safety.\n> \n> Peoples living in these areas incapable of fulfilling such lawful requirements must appeal to their local lord or to the Justiciar’s household in Carnarvon for special exception. Men at arms and sworn knights of the Principality of Wales shall enforce these measures if not followed through voluntarily by offending individuals.\n\nThe old man could not understand the pronouncement, for naturally it was posted in English and French at the village. However his typically calm manner was visibly disrupted when its contents were read out to him at the Cantref’s Uchelwr. Turning to his son he said the simple damning line:\n\n“Gwell gennym pe bawn i wedi dy adael i ymuno â Glyndŵr.”\n\n*In unrelated news, a number of prime and proven farming and grazing lands have opened up in Pembrokeshire for any willing to make the journey to Wales. Justiciar Jean Cardigan’s efforts have focused on Dutch <@420614608399761419>, Flemish <@99704182809853952>, Norman <@460814348487753730>, and of course English settlement <@1106651545296195655> to the already heavily colonized area. ‘Little England beyond Wales’ will prosper despite its location, Godwilling.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1517583287302750248/Manorbeer_Castle_Pembrokeshire_June_15_1830_1131808.jpg?ex=6a36cf13&is=6a357d93&hm=59b3609b88ca09e0f7770ea366d1d532432e41a43b4a237b889f86b0afedb671&",
+          "filename": "Manorbeer_Castle_Pembrokeshire_June_15_1830_1131808.jpg",
+          "width": 1313,
+          "height": 867,
+          "att_id": "1517583287302750248",
+          "local": "data/attachments/1517583287302750248_Manorbeer_Castle_Pembrokeshire_June_15_1830_1131808.jpg"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1517583387357876426/Pembrokeshire_coastline.jpg?ex=6a36cf2a&is=6a357daa&hm=d9e5ec1d834b1e3f42989adaaa1665cede98f6eeb5e36f78c22f788cbdbdc316&",
+          "filename": "Pembrokeshire_coastline.jpg",
+          "width": 1600,
+          "height": 1165,
+          "att_id": "1517583387357876426",
+          "local": "data/attachments/1517583387357876426_Pembrokeshire_coastline.jpg"
+        }
+      ]
     }
   ]
 }
