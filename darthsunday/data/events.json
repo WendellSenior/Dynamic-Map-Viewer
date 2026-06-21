@@ -15113,8 +15113,8 @@
       "province": "Praha",
       "tag": "Death",
       "author": "Reehaw",
-      "snippet": "## Karel II has died!\n\nAfter some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jindř",
-      "fullText": "## Karel II has died!\n\nAfter some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jindřich II** comes from a culturally rich and historically profound education with his Visconti relatives, and brings his adoration for the **Renaissance** with him.\n<@545657694489542666>",
+      "snippet": "## Karel II has died!\n\n~~After some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jin",
+      "fullText": "## Karel II has died!\n\n~~After some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jindřich II** comes from a culturally rich and historically profound education with his Visconti relatives, and brings his adoration for the **Renaissance** with him.~~\n\nRETCONNED FOR NOW\n<@545657694489542666>",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1518374370786021507/Screenshot_4059.png?ex=6a39afd4&is=6a385e54&hm=fa140db93d4778e045db3e6768082f43e7a56bd89cce048a751ed7405249d9e2&",
@@ -15123,6 +15123,28 @@
           "height": 683,
           "att_id": "1518374370786021507",
           "local": "data/attachments/1518374370786021507_Screenshot_4059.png"
+        }
+      ]
+    },
+    {
+      "id": "1518374667830952116",
+      "channel_id": "1505545331591610549",
+      "date": "0145-02-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Conway",
+      "tag": "Economy",
+      "author": "Ceb",
+      "snippet": "### The Conway River Dearth\n\nThe River Conway is the source of a consistent flow of high quality pearls to London. This was much of the early foundati",
+      "fullText": "### The Conway River Dearth\n\nThe River Conway is the source of a consistent flow of high quality pearls to London. This was much of the early foundation of the Principalities wealth and has continued to be a revenue stream in the decades following. As this resource became more and more well-known it became increasingly exploited as well. This began as an encouraged effort, and has now become a curse.\n\n**Overharvesting** of the local freshwater Mussels has caused a sharp decline in their availability. Local Earls are for the first time stepping in to ensure that only their own collectors ||or those that pay them|| can harvest the Conway River. Hopefully with time this can restore the region's Mussels and their profit.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518374667482693653/botw313.png?ex=6a39b01a&is=6a385e9a&hm=c985e4d1f807ee839706ae757acfdc0047f937fd72cc979bafb27bfb59faecd0&",
+          "filename": "botw313.png",
+          "width": 2552,
+          "height": 2152,
+          "att_id": "1518374667482693653",
+          "local": "data/attachments/1518374667482693653_botw313.png"
         }
       ]
     }
