@@ -15032,7 +15032,7 @@
       "tag": "Character",
       "author": "Ceb",
       "snippet": "### End of the Northern Mathrafals\n\nThe dynasty has been a prominent part of Welsh politics since the time of the Norman invasion. After the extinctio",
-      "fullText": "### End of the Northern Mathrafals\n\nThe dynasty has been a prominent part of Welsh politics since the time of the Norman invasion. After the extinction of the formal Princly Houses they assumed the remnants of legitimacy and both cooperated with, and violently resisted English overlordship.\n\nThe Princess of Powys - Morfydd Mathrafal, is the last of her line. She is of the Northern Mathrafal line, those who stayed loyal to the English crown during Owain's rebellion. Her descends are of the distant Northern Italian Ceva line, themselves a vassal of the Savoyards.\n\n*The last of the loyalist Mathrafal line is **ending**. The last remnants of independent Wales now lives in France with the line of Owain, and now his son Ithel <@460814348487753730>.*",
+      "fullText": "### End of the Northern Mathrafals\n\nThe dynasty has been a prominent part of Welsh politics since the time of the Norman invasion. After the extinction of the formal Princly Houses they assumed the remnants of legitimacy and both cooperated with, and violently resisted English overlordship.\n\nThe Princess of Powys - Morfydd Mathrafal, is the last of her line. She is of the Northern Mathrafal line, those who stayed loyal to the English crown during Owain's rebellion. Her descends are of the distant Northern Italian Ceva line, themselves a vassal of the Savoyards.\n\n*The last of the loyalist Mathrafal line is **ending**. The last remnants of independent Wales now lives in France with the line of Owain, and now his son Ithel <@460814348487753730>.*\n\n*Baron Jean de Cardigan, former ||disgraced|| Justiciar of Wales and son of Michael de Cardigan, attends the joust.*",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518367860269908098/image.png?ex=6a39a9c3&is=6a385843&hm=192a78faff17fef359d36a27f1548c660b7dd3e87d23c768fdccc6df79a0c6d6&",
@@ -15049,6 +15049,58 @@
           "height": 679,
           "att_id": "1518367860873761039",
           "local": "data/attachments/1518367860873761039_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518368965754228776/image.png?ex=6a39aacb&is=6a38594b&hm=edc29be57c27e09c9743d38aab687c8bcd3a2796794169c3399f486be6ad3249&",
+          "filename": "image.png",
+          "width": 513,
+          "height": 543,
+          "att_id": "1518368965754228776",
+          "local": "data/attachments/1518368965754228776_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1518370242726723714",
+      "channel_id": "1505545331591610549",
+      "date": "1423-05-15",
+      "country": "GUY",
+      "countryRaw": null,
+      "province": "Tarbes",
+      "tag": null,
+      "author": "Bear",
+      "snippet": "### Land Disputes with Aquitaine\n\n\nAfter repeated claims and insults from the English swine leftover from decades old rule of Aquitaine, the duchy of ",
+      "fullText": "### Land Disputes with Aquitaine\n\n\nAfter repeated claims and insults from the English swine leftover from decades old rule of Aquitaine, the duchy of Gascony makes declarations of claims and insults against the English swine. As part of the fabled joust, Carles challenges Duke Alain d'Albert, in the noble tournament,  to the country of the following counties:\n\n- Auch\n- Labrit\n- Mimizan\n- Mont-de-Marsan\n- Belin\n\nCarles also challenges the Duke for the control of the Bordeaux market. The outcome of each set of jousts per demand will be decided on the noble fairgrounds.\n\n<@460814348487753730> <@1106651545296195655>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518370242454098080/image.png?ex=6a39abfb&is=6a385a7b&hm=061dbda7bb659bd1d966d4aad43c82daa66419d385a7bd3e59d39284c26d991e&",
+          "filename": "image.png",
+          "width": 781,
+          "height": 593,
+          "att_id": "1518370242454098080",
+          "local": "data/attachments/1518370242454098080_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1518371143139069982",
+      "channel_id": "1505545331591610549",
+      "date": "1423-09-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Cardiff",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### The Southern Compact\n\nCardiff, once a rural backwater along the southern coast of Wales, is the second location in Wales to receive official **tow",
+      "fullText": "### The Southern Compact\n\nCardiff, once a rural backwater along the southern coast of Wales, is the second location in Wales to receive official **town rights**. The nearby capital of Pembroke is already the premier manufacturing hub for cloth and jewelry products in the country, and now Cardiff is the hub for metal and grain based goods.\n\nThis walled town is a visible addition to the continued English settlement and pacification of the south. For centuries this has been done exclusivly with forts and adventerous men-at-arms. Now it is done with economics and preferential migration from the rest of England. A policy only decided in the wake of these last decades of rebellion <@1106651545296195655>.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518371142744674455/northwestviewofcardiffcastle.png?ex=6a39acd2&is=6a385b52&hm=6adc3e7a2f7c42c51fb07abcd79c4f8165eadfac29a090efeef5db634279eef9&",
+          "filename": "northwestviewofcardiffcastle.png",
+          "width": 1000,
+          "height": 539,
+          "att_id": "1518371142744674455",
+          "local": "data/attachments/1518371142744674455_northwestviewofcardiffcastle.png"
         }
       ]
     }
