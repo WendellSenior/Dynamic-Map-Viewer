@@ -14872,6 +14872,50 @@
           "local": "data/attachments/1518344675822407830_image.png"
         }
       ]
+    },
+    {
+      "id": "1518352850776752189",
+      "channel_id": "1505545415213449216",
+      "date": "1415-05-17",
+      "country": "SOR",
+      "countryRaw": null,
+      "province": "Milan",
+      "tag": "Meeting",
+      "author": "Redcola",
+      "snippet": "**Recognition of Lusatia**\n<@545657694489542666> \n\nThe period of uncertainty to its state in the HRE for Sorbia would end with the return of imperial ",
+      "fullText": "**Recognition of Lusatia**\n<@545657694489542666> \n\nThe period of uncertainty to its state in the HRE for Sorbia would end with the return of imperial ambassadors to Milan, agreeing the articles of Lubben. The memorandum outlining the promise to keep the borders secure as the old Margravedom had done, to counter and fight banditry in the north <@326414282851876875> , to ensure a strong Lower Lusatia to avoid the past issues of Brandenburg, make trade flow and back Imperial interests in the Diet. \n\nThough some issues would cause tension the overall consensus would be a good one many newer nobles looking to Konstantin as a possible permanent prince due to his foreign successes and ease within the Holy Roman Imperial system.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1518352850802053170/ac5b82bc38594dc4fb80fcc83c760bea.png?ex=6a399bc9&is=6a384a49&hm=d245b74ab8b6bc83031789ba92069a0eab12b82fd0754bb12ea96baf192da4f0&",
+          "filename": "ac5b82bc38594dc4fb80fcc83c760bea.png",
+          "width": 511,
+          "height": 288,
+          "att_id": "1518352850802053170",
+          "local": "data/attachments/1518352850802053170_ac5b82bc38594dc4fb80fcc83c760bea.png"
+        }
+      ]
+    },
+    {
+      "id": "1518351975635353640",
+      "channel_id": "1505545331591610549",
+      "date": "1416-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Carnarvon",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### The Governance Debate\n\nContestation in the north, Lordships in the south, and Fedual domains in the middle. Given these conditions it is near impo",
+      "fullText": "### The Governance Debate\n\nContestation in the north, Lordships in the south, and Fedual domains in the middle. Given these conditions it is near impossible to govern as London directs and difficult to even discuss basic reforms not performed at the end of a sword. By sheer weight of tradition the fortified castle of Carnarvron has remained the dejure seat of the Principality of Wale's governance. This is despite the rapidly growing economic weight of southern formally confirmed towns like Pembroke and Cardiff.\n\n- Many have suggested **Pembroke** as a new capital of Wales\n- A number of northern lords continue to fight for **Carnarvon** as the government seat, despite the region's harshness\n- Some southern lords desire newly elevated **Cardiff** as a capital given its flat and productive terrain\n- A minority have attempted to push the silver mines of **Aberystwyth** as a very profitable middle ground\n\n*Advice is asked from the King-Regent Albert Piast on what to do about the matter <@1106651545296195655>.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518351974980915446/image.png?ex=6a399af8&is=6a384978&hm=5a912be5d854f1995f478b489a46c1024a3fc987d9383236b82d05f0bdb60005&",
+          "filename": "image.png",
+          "width": 752,
+          "height": 678,
+          "att_id": "1518351974980915446",
+          "local": "data/attachments/1518351974980915446_image.png"
+        }
+      ]
     }
   ]
 }
