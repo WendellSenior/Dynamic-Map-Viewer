@@ -14951,6 +14951,52 @@
           "local": "data/attachments/1518354870627991592_image.png"
         }
       ]
+    },
+    {
+      "id": "1518358336071008346",
+      "channel_id": "1505545331591610549",
+      "date": "0147-11-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### Southern Shift\n\n\"You would abandon the King's own fortifications here!\" *The room rang quiet with the accustion.*\n\n\"No. I would move the seat of g",
+      "fullText": "### Southern Shift\n\n\"You would abandon the King's own fortifications here!\" *The room rang quiet with the accustion.*\n\n\"No. I would move the seat of governance to a city that has **twice** defended itself from enemies external and internal!\" *defended Sir Gilbert - Justiciar of Wales.*\n\n\"And fallen just as many times.\" *quickly shot back Sir Jean de Cardigan.*\n\nThere seemed no answer to the question. Various reforms and squabbles diffused power until finally word arrived back from London. The former Regent had sided with Sir Gilbert, saying that **Pembroke** was the preferred capital of the Principality of Wales.\n\n*Both remain formidable bastions. Moving the capital south has lessened the control of mining and pearls in exchange for productive towns and more fertile fields. Time will only tell if this southern shift is indeed a productive one.*\n\n-# *Caernarfon Castle; Pembroke castle*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358335248662698/image.png?ex=6a39a0e4&is=6a384f64&hm=ff45d1ad405c901f871dc06dcdfc7cb3879c4f5fb33ffb2687bb19e0780c42bb&",
+          "filename": "image.png",
+          "width": 1544,
+          "height": 916,
+          "att_id": "1518358335248662698",
+          "local": "data/attachments/1518358335248662698_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358335638868168/image.png?ex=6a39a0e4&is=6a384f64&hm=5eab74babe6eb62dab9720852250defdaa062671bee6176a4b95e07f2f47d921&",
+          "filename": "image.png",
+          "width": 610,
+          "height": 386,
+          "att_id": "1518358335638868168",
+          "local": "data/attachments/1518358335638868168_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358440886538280/Varley20-20Caernarfon20Castle20-20B2001.2.1321.png?ex=6a39a0fe&is=6a384f7e&hm=5251e4c5b6d2d889ee4885756c31575ddaa16d8be9318fd803b8459c7a84cac9&",
+          "filename": "Varley20-20Caernarfon20Castle20-20B2001.2.1321.png",
+          "width": 1033,
+          "height": 700,
+          "att_id": "1518358440886538280",
+          "local": "data/attachments/1518358440886538280_Varley20-20Caernarfon20Castle20-20B2001.2.1321.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358441276473545/themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png?ex=6a39a0fe&is=6a384f7e&hm=bbb31e880095baef2d826ce710c9e17bf124aca8366c5f38f65d70b4275b6208&",
+          "filename": "themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png",
+          "width": 1352,
+          "height": 1093,
+          "att_id": "1518358441276473545",
+          "local": "data/attachments/1518358441276473545_themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png"
+        }
+      ]
     }
   ]
 }
