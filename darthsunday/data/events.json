@@ -15019,8 +15019,38 @@
       "tag": null,
       "author": "Bear",
       "snippet": "## The Great Gascon Joust\n\n\nAs a celebration of Carles d'Armagnac's prosperous rule, the Duke of Gascony invites all of his neighboring countries and ",
-      "fullText": "## The Great Gascon Joust\n\n\nAs a celebration of Carles d'Armagnac's prosperous rule, the Duke of Gascony invites all of his neighboring countries and nobles to a grand quarter century joust. Hosted in the port city of Bayonne, Carles intends the joust to be one of influence and general diplomacy.\n\nThe Duke constructs the fairgrounds to a grandeous scale, decorating the grounds with his family's crest. He will host lavish feasts and hunting parties to each attendee's heart's content. Come one, come all, to the great quarter century joust!\n\nDuke Carles pens the following invitation to each guest:\n> Dear Noble Guest,\n> \n> Come join me in my lands for the greatest jousting tournament the Pyreenes have seen in decades! At the main stage, jousts will occur for honor and riches. Along with jousting, we will host archery contests, sword fighting duels, and a prize for the biggest game hunted during one of our many hunting parties!\n> \n> Our feasts will be numerous and engorging, filled with quail, deer, cow, and rabbit. Luxuries from the deep will also be available due to our prosperous fishing companies.\n> \n> Come one, come all. Celebrate the prosperities our of kingdoms and lands this century!\n\n<@460814348487753730> <@564196329132261376> <@1123821809704374313> <@1106651545296195655> <@298192682554228738> <@422498641425596418> <@1007414347347271730>",
+      "fullText": "## The Great Gascon Joust\n\n\nAs a celebration of Carles d'Armagnac's prosperous rule, the Duke of Gascony invites all of his neighboring countries and nobles to a grand quarter century joust. Hosted in the port city of Bayonne, Carles intends the joust to be one of influence and general diplomacy.\n\nThe Duke constructs the fairgrounds to a grandeous scale, decorating the grounds with his family's crest. He will host lavish feasts and hunting parties to each attendee's heart's content. Come one, come all, to the great quarter century joust!\n\nDuke Carles pens the following invitation to each guest:\n> Dear Noble Guest,\n> \n> Come join me in my lands for the greatest jousting tournament the Pyreenes have seen in decades! At the main stage, jousts will occur for honor and riches. Along with jousting, we will host archery contests, sword fighting duels, and a prize for the biggest game hunted during one of our many hunting parties!\n> \n> Our feasts will be numerous and engorging, filled with quail, deer, cow, and rabbit. Luxuries from the deep will also be available due to our prosperous fishing companies.\n> \n> Come one, come all. Celebrate the prosperities our of kingdoms and lands this century!\n\n<@460814348487753730> <@564196329132261376> <@1123821809704374313> <@1106651545296195655> <@298192682554228738> <@422498641425596418> <@1007414347347271730> <@1094722105855189062>",
       "images": []
+    },
+    {
+      "id": "1518367861171818507",
+      "channel_id": "1505545331591610549",
+      "date": "1421-09-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Machynlleth",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "### End of the Northern Mathrafals\n\nThe dynasty has been a prominent part of Welsh politics since the time of the Norman invasion. After the extinctio",
+      "fullText": "### End of the Northern Mathrafals\n\nThe dynasty has been a prominent part of Welsh politics since the time of the Norman invasion. After the extinction of the formal Princly Houses they assumed the remnants of legitimacy and both cooperated with, and violently resisted English overlordship.\n\nThe Princess of Powys - Morfydd Mathrafal, is the last of her line. She is of the Northern Mathrafal line, those who stayed loyal to the English crown during Owain's rebellion. Her descends are of the distant Northern Italian Ceva line, themselves a vassal of the Savoyards.\n\n*The last of the loyalist Mathrafal line is **ending**. The last remnants of independent Wales now lives in France with the line of Owain, and now his son Ithel <@460814348487753730>.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518367860269908098/image.png?ex=6a39a9c3&is=6a385843&hm=192a78faff17fef359d36a27f1548c660b7dd3e87d23c768fdccc6df79a0c6d6&",
+          "filename": "image.png",
+          "width": 1402,
+          "height": 821,
+          "att_id": "1518367860269908098",
+          "local": "data/attachments/1518367860269908098_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518367860873761039/image.png?ex=6a39a9c3&is=6a385843&hm=a36c62ec7dd9a4334d670809593e89ba5e3f179e83f7afbc8b68f1e4cc85e555&",
+          "filename": "image.png",
+          "width": 829,
+          "height": 679,
+          "att_id": "1518367860873761039",
+          "local": "data/attachments/1518367860873761039_image.png"
+        }
+      ]
     }
   ]
 }
