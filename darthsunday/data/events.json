@@ -14095,6 +14095,28 @@
           "local": "data/attachments/1517979450250100826_7a229078-dfd8-4c4d-a9f8-ce7500dd92ed.png"
         }
       ]
+    },
+    {
+      "id": "1516168293889867868",
+      "channel_id": "1505545415213449216",
+      "date": "1404-01-03",
+      "country": "MAI",
+      "countryRaw": null,
+      "province": "Wurzburg",
+      "tag": "Religion",
+      "author": "dani178i",
+      "snippet": "# Council of Wurzburg.\n\n**Rome has fallen.**\n\nThis is public knowledge to all and it is well known, that with the fall of the gates to Rome and the de",
+      "fullText": "# Council of Wurzburg.\n\n**Rome has fallen.**\n\nThis is public knowledge to all and it is well known, that with the fall of the gates to Rome and the death of many thousands of innocents that the great western schism at last drags to an end. \n\nBut what is the end state? A pope wrapped in chains? The apostolic palace being left to rot and decay before at last being thrust into the hands of corrupt nobles? A single victorious pope in Lyon, hated by half the christian world?\n\nAnd all the while the catholic world decays, heresies sprout up like weeds in the garden to the disgrace of all. \n\nThis is not a proper conclusion. In a world beset by moral rot and weakening of faith, the church needs to be loved and accepted, not feared and loathed. Though CHRIST our LORD teaches us to forgive so, the average man often falls to sin and holds grudges. Peace must be struck and christendom must be united in the face of new threats. \n\n**SO LET THE WORD RING OUT!**\n\nALL YE BISHOPS AND MEN OF FAITH, COME TO WURZBURG TO CONGREGATE IN THE NEWEST ECUMENICAL COUNCIL, RAISED BY ARCHBISHOP AND PRIMAS GERMINAE ANJOU LÁSZLÓ, ON THE AUTHORITY VESTED UPON HIM BY POPE SÍXTUS V IN ABSENTIA.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1516168293767975123/image.png?ex=6a3840c2&is=6a36ef42&hm=39a876dfc561288586f80a927c8f7cf1d3c770d8b8a5dd7b2098fa02bdbd21db&",
+          "filename": "image.png",
+          "width": 1033,
+          "height": 761,
+          "att_id": "1516168293767975123",
+          "local": "data/attachments/1516168293767975123_image.png"
+        }
+      ]
     }
   ]
 }
