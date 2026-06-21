@@ -15103,6 +15103,28 @@
           "local": "data/attachments/1518371142744674455_northwestviewofcardiffcastle.png"
         }
       ]
+    },
+    {
+      "id": "1518374370949730325",
+      "channel_id": "1505545415213449216",
+      "date": "1425-01-31",
+      "country": "BOH",
+      "countryRaw": null,
+      "province": "Praha",
+      "tag": "Death",
+      "author": "Reehaw",
+      "snippet": "## Karel II has died!\n\nAfter some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jindř",
+      "fullText": "## Karel II has died!\n\nAfter some weeks spent in the Bohemian Landtag, Karel II’s son returns from Milan to take his elected crown in Bohemia. **Jindřich II** comes from a culturally rich and historically profound education with his Visconti relatives, and brings his adoration for the **Renaissance** with him.\n<@545657694489542666>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1518374370786021507/Screenshot_4059.png?ex=6a39afd4&is=6a385e54&hm=fa140db93d4778e045db3e6768082f43e7a56bd89cce048a751ed7405249d9e2&",
+          "filename": "Screenshot_4059.png",
+          "width": 456,
+          "height": 683,
+          "att_id": "1518374370786021507",
+          "local": "data/attachments/1518374370786021507_Screenshot_4059.png"
+        }
+      ]
     }
   ]
 }
