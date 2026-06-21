@@ -14955,14 +14955,14 @@
     {
       "id": "1518358336071008346",
       "channel_id": "1505545331591610549",
-      "date": "0147-11-01",
+      "date": "1417-11-01",
       "country": "WLS",
       "countryRaw": null,
       "province": "Pembroke",
       "tag": "History",
       "author": "Ceb",
       "snippet": "### Southern Shift\n\n\"You would abandon the King's own fortifications here!\" *The room rang quiet with the accustion.*\n\n\"No. I would move the seat of g",
-      "fullText": "### Southern Shift\n\n\"You would abandon the King's own fortifications here!\" *The room rang quiet with the accustion.*\n\n\"No. I would move the seat of governance to a city that has **twice** defended itself from enemies external and internal!\" *defended Sir Gilbert - Justiciar of Wales.*\n\n\"And fallen just as many times.\" *quickly shot back Sir Jean de Cardigan.*\n\nThere seemed no answer to the question. Various reforms and squabbles diffused power until finally word arrived back from London. The former Regent had sided with Sir Gilbert, saying that **Pembroke** was the preferred capital of the Principality of Wales.\n\n*Both remain formidable bastions. Moving the capital south has lessened the control of mining and pearls in exchange for productive towns and more fertile fields. Time will only tell if this southern shift is indeed a productive one.*\n\n-# *Caernarfon Castle; Pembroke castle*",
+      "fullText": "### Southern Shift\n\n\"You would abandon the King's own fortifications here!\" *The room rang quiet with the accustion.*\n\n\"No. I would move the seat of governance to a city that has **twice** defended itself from enemies external and internal!\" *defended Sir Gilbert - Justiciar of Wales.*\n\n\"And fallen just as many times.\" *quickly shot back Sir Jean de Cardigan.*",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358335248662698/image.png?ex=6a39a0e4&is=6a384f64&hm=ff45d1ad405c901f871dc06dcdfc7cb3879c4f5fb33ffb2687bb19e0780c42bb&",
@@ -14979,22 +14979,6 @@
           "height": 386,
           "att_id": "1518358335638868168",
           "local": "data/attachments/1518358335638868168_image.png"
-        },
-        {
-          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358440886538280/Varley20-20Caernarfon20Castle20-20B2001.2.1321.png?ex=6a39a0fe&is=6a384f7e&hm=5251e4c5b6d2d889ee4885756c31575ddaa16d8be9318fd803b8459c7a84cac9&",
-          "filename": "Varley20-20Caernarfon20Castle20-20B2001.2.1321.png",
-          "width": 1033,
-          "height": 700,
-          "att_id": "1518358440886538280",
-          "local": "data/attachments/1518358440886538280_Varley20-20Caernarfon20Castle20-20B2001.2.1321.png"
-        },
-        {
-          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518358441276473545/themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png?ex=6a39a0fe&is=6a384f7e&hm=bbb31e880095baef2d826ce710c9e17bf124aca8366c5f38f65d70b4275b6208&",
-          "filename": "themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png",
-          "width": 1352,
-          "height": 1093,
-          "att_id": "1518358441276473545",
-          "local": "data/attachments/1518358441276473545_themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png"
         }
       ]
     },
@@ -15024,6 +15008,19 @@
       "fullText": "In the light of minor german nobles from the County of Brünningen being set to inherit the important Valentinois and with no other members of House Poitiers able to take charge of the lands, the Duke of Savoy, Felepo has seen himself forced to step in and put the lands under the immediacy of Vienne, sending out ducal constables to begin an establishment of order. Naturally all priviliges of the local Valentinois nobility shall be respected and they will not be disadvantaged within the Duchy.\n\nGod protect the House of Savoie.",
       "images": [],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1518364997242327162",
+      "channel_id": "1505545331591610549",
+      "date": "1420-06-24",
+      "country": "GUY",
+      "countryRaw": null,
+      "province": "Bayonne",
+      "tag": null,
+      "author": "Bear",
+      "snippet": "## The Great Gascon Joust\n\n\nAs a celebration of Carles d'Armagnac's prosperous rule, the Duke of Gascony invites all of his neighboring countries and ",
+      "fullText": "## The Great Gascon Joust\n\n\nAs a celebration of Carles d'Armagnac's prosperous rule, the Duke of Gascony invites all of his neighboring countries and nobles to a grand quarter century joust. Hosted in the port city of Bayonne, Carles intends the joust to be one of influence and general diplomacy.\n\nThe Duke constructs the fairgrounds to a grandeous scale, decorating the grounds with his family's crest. He will host lavish feasts and hunting parties to each attendee's heart's content. Come one, come all, to the great quarter century joust!\n\nDuke Carles pens the following invitation to each guest:\n> Dear Noble Guest,\n> \n> Come join me in my lands for the greatest jousting tournament the Pyreenes have seen in decades! At the main stage, jousts will occur for honor and riches. Along with jousting, we will host archery contests, sword fighting duels, and a prize for the biggest game hunted during one of our many hunting parties!\n> \n> Our feasts will be numerous and engorging, filled with quail, deer, cow, and rabbit. Luxuries from the deep will also be available due to our prosperous fishing companies.\n> \n> Come one, come all. Celebrate the prosperities our of kingdoms and lands this century!\n\n<@460814348487753730> <@564196329132261376> <@1123821809704374313> <@1106651545296195655> <@298192682554228738> <@422498641425596418> <@1007414347347271730>",
+      "images": []
     }
   ]
 }
