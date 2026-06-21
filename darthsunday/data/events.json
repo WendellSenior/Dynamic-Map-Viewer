@@ -14997,6 +14997,33 @@
           "local": "data/attachments/1518358441276473545_themaphouse-thomas-dugdale-wales-pembroke-castle-1840-c..png"
         }
       ]
+    },
+    {
+      "id": "1518361721188778005",
+      "channel_id": "1505545415213449216",
+      "date": "1420-05-05",
+      "country": "SAV",
+      "countryRaw": null,
+      "province": "Milano",
+      "tag": "Treaty",
+      "author": "Matchasachi",
+      "snippet": "### A most prestigious and noble match\n\nIn an agreement between Emperor Giovanni Maria Visconti and Duke Felepo de Savoie, a betrothal has been arrang",
+      "fullText": "### A most prestigious and noble match\n\nIn an agreement between Emperor Giovanni Maria Visconti and Duke Felepo de Savoie, a betrothal has been arranged between the heir of Savoy, Louis de Savoie and the youngest daughter of the Emperor Caterina Visconti, as a sign of reapproachment between the estranged Arpitan estates and the new Italian Emperor.\n<@545657694489542666> <@460814348487753730>",
+      "images": []
+    },
+    {
+      "id": "1518359600024260738",
+      "channel_id": "1505545331591610549",
+      "date": "1416-03-05",
+      "country": "VLN",
+      "countryRaw": null,
+      "province": "Valence",
+      "tag": "History",
+      "author": "Matchasachi",
+      "snippet": "In the light of minor german nobles from the County of Brünningen being set to inherit the important Valentinois and with no other members of House Po",
+      "fullText": "In the light of minor german nobles from the County of Brünningen being set to inherit the important Valentinois and with no other members of House Poitiers able to take charge of the lands, the Duke of Savoy, Felepo has seen himself forced to step in and put the lands under the immediacy of Vienne, sending out ducal constables to begin an establishment of order. Naturally all priviliges of the local Valentinois nobility shall be respected and they will not be disadvantaged within the Duchy.\n\nGod protect the House of Savoie.",
+      "images": [],
+      "title": "Atlantic Diplo"
     }
   ]
 }
