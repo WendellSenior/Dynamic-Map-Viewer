@@ -14883,7 +14883,7 @@
       "tag": "Meeting",
       "author": "Redcola",
       "snippet": "**Recognition of Lusatia**\n<@545657694489542666> \n\nThe period of uncertainty to its state in the HRE for Sorbia would end with the return of imperial ",
-      "fullText": "**Recognition of Lusatia**\n<@545657694489542666> \n\nThe period of uncertainty to its state in the HRE for Sorbia would end with the return of imperial ambassadors to Milan, agreeing the articles of Lubben. The memorandum outlining the promise to keep the borders secure as the old Margravedom had done, to counter and fight banditry in the north <@326414282851876875> , to ensure a strong Lower Lusatia to avoid the past issues of Brandenburg, make trade flow and back Imperial interests in the Diet. \n\nThough some issues would cause tension the overall consensus would be a good one many newer nobles looking to Konstantin as a possible permanent prince due to his foreign successes and ease within the Holy Roman Imperial system.",
+      "fullText": "**Recognition of Lusatia**\n<@545657694489542666> \n\nThe period of uncertainty to its state in the HRE for Sorbia would end with the return of imperial ambassadors to Milan, agreeing the articles of Lubben. The memorandum outlining the promise to keep the borders secure as the old Margravedom had done, to counter and fight banditry in the north <@326414282851876875> , to ensure a strong Lower Lusatia to avoid the past issues of Brandenburg, make trade flow and back Imperial interests in the Diet. \n\nThough some issues would cause tension the overall consensus would be a good one many newer nobles looking to Konstantin as a possible permanent prince due to his foreign successes and ease within the Holy Roman Imperial system.\n\n```ansi\n\u001b[2;30m+ German Influence \u001b[0m\n```",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1518352850802053170/ac5b82bc38594dc4fb80fcc83c760bea.png?ex=6a399bc9&is=6a384a49&hm=d245b74ab8b6bc83031789ba92069a0eab12b82fd0754bb12ea96baf192da4f0&",
@@ -14914,6 +14914,41 @@
           "height": 678,
           "att_id": "1518351974980915446",
           "local": "data/attachments/1518351974980915446_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1518353760252854374",
+      "channel_id": "1505545415213449216",
+      "date": "1413-05-20",
+      "country": "BOH",
+      "countryRaw": null,
+      "province": "Praha",
+      "tag": null,
+      "author": "Reehaw",
+      "snippet": "***De Ecclesia***\n\n**Dr. Jan Hus**, Rector of the University of Praha, has written his piece *De Ecclesia*, which gathers the epitome of Wycliffe’s wo",
+      "fullText": "***De Ecclesia***\n\n**Dr. Jan Hus**, Rector of the University of Praha, has written his piece *De Ecclesia*, which gathers the epitome of Wycliffe’s work and constructs his own perspectives and establishments in comparison, and built upon them. \n\nIn the wake of the **Decree of Kutná Hora**, the situation in Praha has, to some degree, grown both more and less tense. His adversaries within the University left for the hospitality of Germany, leaving his supporters with the educational field in the Bohemian capital. \n\nHis, and Wycliffe’s teachings, are preached in the Czech vernacular in the Bethlehem Chapel, and by others across Bohemia. In his most pervasive arguments, he lists four views:\n\n***On Indulgences…***\n“The absolution of Jesus Christ ought to precede that of the priest; or, in other words, the priest who absolves and condemns ought to be certain that the case in question is one which Jesus Christ Himself has already absolved or condemned.”\n\n***On the Authority of the Pope…***\n“If the Pope uses his power according to God’s commands, he cannot be resisted without resisting God Himself; but if he abuses his power by enjoining what is contrary to the Divine Law, then it is duty to resist him as should be done to the pale horse of the Apocalypse, to the dragon, to the beast, and to the Leviathan.”\n\n***On the Disbandment of the Clergy’s Secular Power…***\n“As the secular body, to whom the temporal sword alone is suitable, cannot undertake to handle the spiritual one, in like manner the ecclesiastics ought to be content with the spiritual sword, and not make use of the temporal.”\n\n***On the Corruption of the Church…***\n“They are profuse towards the saints in glory, who want nothing; they array bones of the latter with silk and gold and silver, and lodge them magnificently; but they refuse clothing and hospitality to the poor members of Jesus Christ who are amongst us, at whose expense they feed to repletion, and drink till they are intoxicated.”\n\n<@460814348487753730> <@306458253674545153> <@112960565344804864> <@137101075411894272>",
+      "images": []
+    },
+    {
+      "id": "1518354871064068186",
+      "channel_id": "1505545331591610549",
+      "date": "1416-06-06",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "Egremont",
+      "tag": "Character",
+      "author": "jeudlvie",
+      "snippet": "## A Marriage to... Save England?\n\nThe **Nevilles** have  long been detractors of the Eleanor reign, and this naturally extends to her slow daughter. ",
+      "fullText": "## A Marriage to... Save England?\n\nThe **Nevilles** have  long been detractors of the Eleanor reign, and this naturally extends to her slow daughter. Regent Albert Piast did the best he could do, and arranged a marriage to the second son of Richard Neville and the young Judith Piast. \n\nThis is by no means popular, as the Nevilles are, among Nobility, of somewhat low bearing.  \n\nHowever, their coalition in the North is quite powerful, and might serve as a base of support in these turbulent times. \n\nAfter all, would nobles really march against their new King and Queen?",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1518354870627991592/image.png?ex=6a399daa&is=6a384c2a&hm=3f43df965f586c59e2abb93bbba94d3a0920eb522c9e092af05ff5f46b7ae57f&",
+          "filename": "image.png",
+          "width": 552,
+          "height": 263,
+          "att_id": "1518354870627991592",
+          "local": "data/attachments/1518354870627991592_image.png"
         }
       ]
     }
