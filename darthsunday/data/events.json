@@ -15541,6 +15541,28 @@
           "local": "data/attachments/1518813736272662639_api_assets_andalas-sardegna_ade9e91d-c7d1-41cb-a6ec-ab00a09551d4_.png"
         }
       ]
+    },
+    {
+      "id": "1518840032771706890",
+      "channel_id": "1505545415213449216",
+      "date": "1411-01-01",
+      "country": "MIL",
+      "countryRaw": null,
+      "province": "Milan",
+      "tag": "History",
+      "author": "Hoang",
+      "snippet": "# The Promises of the Visconti\n\nIn contrast to the Italianzug, Emperor Giovonni Maria embarked on a years long Germanzug, touring the lands of Germany",
+      "fullText": "# The Promises of the Visconti\n\nIn contrast to the Italianzug, Emperor Giovonni Maria embarked on a years long Germanzug, touring the lands of Germany to gather support for the passing of Imperial taxation\n\nTo secure the passage of Imperial taxation and strengthen his position within the Empire, Emperor Giovanni Maria Visconti made promises to many princes, bishops and cities. Some were clear grants of land or gold. Others were vague, leaving room for interpretation.\n\n- Ferrara shall receive three provinces from Mantua. <@315868897012219904> \n\n- Trier shall receive gold, along with Imperial support for bringing the town of Besacon under their rule. <@137101075411894272> \n\n- The Habsburgs were to be granted access to the sea through Trieste. <@190640828954181632> \n\n- Lusatia League shall receive formal recognition as a state. In addition, the Lusatia League is granted the title of Margraves and are tasked to defend the Empire's northern frontier.  <@255439449448644608> \n\n- The Hanseatic Order shall receive money as support for the improvement of the northern towns. <@288410456526422016> \n\n- Berg shall receive the submission of the city of Dortmund. However, the wording of the promise remains ambiguous: it is unclear whether Dortmund is merely to submit to Berg’s authority, or whether the city is to be fully annexed. <@792904515795550218>\n\n- Ruhr shall receive support for the consolidation of Munster, though the Emperor’s definition of “Munster” remains unclear. Whether this refers only to the city itself, its surrounding lands, or a broader territorial claim has been left vauge. <@253679178552049665> \n\n- Brabant shall receive an Imperial edict legitimizing the unification of the Netherlands should they choose to do so. <@99704182809853952> \n\n- Bavaria shall receive Imperial support for the unification of Wittelsbach lands under a single ruler, as well as changes to succession law. Due to the vague wording, it is unclear whether the Emperor meant only the current Bavarian lands, or ALL lands held by the Wittelsbach dynasty. <@763652399784919080> \n\n- Zurich shall receive bribes worth up to 160 gold. <@883471267506843668> \n\nThus were the promises of the Visconti Emperor: some written plainly, others vauge. This may soon become the source of new disputes, as every prince now reads the Emperor’s words in the way most favorable to themself.\n\nThe Emperor himself will also unlikely be able to resolve disputes between Princes because for the German part of the Empire, **the Alps are high and the Emperor is far away**.\n\nWhoever is the next Emperor will have their work cut out for them.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1518840078254870608/image.png?ex=6a3b618d&is=6a3a100d&hm=a24bfa4673e2d237bdd4570989260eb13053bccd3600bf942666c2372c68c969&",
+          "filename": "image.png",
+          "width": 544,
+          "height": 806,
+          "att_id": "1518840078254870608",
+          "local": "data/attachments/1518840078254870608_image.png"
+        }
+      ]
     }
   ]
 }
