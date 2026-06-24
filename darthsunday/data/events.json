@@ -15747,6 +15747,44 @@
           "local": "data/attachments/1519096111049084928_112318-54-History-Medieval-Middle-Ages-Seventh-Crusade.png"
         }
       ]
+    },
+    {
+      "id": "1519115385356554410",
+      "channel_id": "1505545331591610549",
+      "date": "1427-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Aberystwyth",
+      "tag": "Economy",
+      "author": "Ceb",
+      "snippet": "### Dyn Nod - A Man’s Mark\n-# ||(Pun on the work ‘marked’ - can mean both ways)||\n\nThe old Uchelwr (High Men) were gone, that much was certain. The up",
+      "fullText": "### Dyn Nod - A Man’s Mark\n-# ||(Pun on the work ‘marked’ - can mean both ways)||\n\nThe old Uchelwr (High Men) were gone, that much was certain. The uprisings of the past decades had wiped away the old orders of local Breyrs (councilors) in favor of English appointed judges and barons. Though Wales has been under the High Lordship of English sovereigns for some 300+ years it had never yet seen the systemic replacement of its local leadership like after the [Penal Laws of 1404](https://discord.com/channels/507915886477312023/1505545331591610549/1516269508027744406). In absence of the former local nobility and representation what was left?\n\n**A void**. One increasingly filled by Welsh Bwrdeisiaid (Burghers), Dynion Newydd (New Men), and clever Swyddogion (Officials) with strong enough ties to the English administration to overlook their place of birth.\n\nThese men are made to leave their marks on documents as an officially recorded part of their work. Signatures can be forged and orders fabricated in this, but marks are known and nearly impossible to replicate. Thus it is customary for any man of means, a gentleman - Pobl Dda, in Wales to wear a signet ring of some descript. Not always fancy, rarely consistent, but always personalized. It is this growing class of English speaking people that now make up a growing proportion of walled settlements like Cardiff, Pembroke, and Carnarvon.\n\n*These, and a vast array of other precious metal objects, are produced by the jewelry workshops of Pembroke. They take the silver of Aberystwyth, the rare [Welsh gold](https://en.wikipedia.org/wiki/Welsh_gold) of Roman Dolaucothi, and the baser metals of the north and turn them into works of art. These are then provided to men of means across the isles and beyond - a spot of decided prosperity for the relatively cosmopolitan towns of Southern Wales.*\n\n-# A decorative fede ring made for a well-to-do family in Wrexham. It bears the inscription: \"de bon cuer - of good heart\"",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1519115384744054892/85226823_silverringhaverfrodwest.jpg.png?ex=6a3c61f3&is=6a3b1073&hm=0ec80b5ff0c2fc143442c7e77fe9fe89940ab36d2c38905375e153e880d92e46&",
+          "filename": "85226823_silverringhaverfrodwest.jpg.png",
+          "width": 624,
+          "height": 351,
+          "att_id": "1519115384744054892",
+          "local": "data/attachments/1519115384744054892_85226823_silverringhaverfrodwest.jpg.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1519115385075400866/86828DE8-0C5B-43BD-92C1-D37A0D7C0914.png?ex=6a3c61f3&is=6a3b1073&hm=3a8ea3da4f134403962d8da2d9ae478536852ab817664ad51e87f887f1c82b04&",
+          "filename": "86828DE8-0C5B-43BD-92C1-D37A0D7C0914.png",
+          "width": 1251,
+          "height": 937,
+          "att_id": "1519115385075400866",
+          "local": "data/attachments/1519115385075400866_86828DE8-0C5B-43BD-92C1-D37A0D7C0914.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1519116064376619089/Treasure-21.14-DAL-148072-e1680616498303-1024x474.png?ex=6a3c6295&is=6a3b1115&hm=be25688c8c7444b69297d7ed77ade4fd71e594c72d641673ba8216481d64195b&",
+          "filename": "Treasure-21.14-DAL-148072-e1680616498303-1024x474.png",
+          "width": 1024,
+          "height": 474,
+          "att_id": "1519116064376619089",
+          "local": "data/attachments/1519116064376619089_Treasure-21.14-DAL-148072-e1680616498303-1024x474.png"
+        }
+      ]
     }
   ]
 }
