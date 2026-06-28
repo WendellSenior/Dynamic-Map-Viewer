@@ -17634,6 +17634,63 @@
         }
       ],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1520907184450437261",
+      "channel_id": "1505545415213449216",
+      "date": "1437-09-22",
+      "country": "SOR",
+      "countryRaw": null,
+      "province": "Görlitz",
+      "tag": null,
+      "author": "Redcola",
+      "snippet": "**Formation of the Duchy of Sorbia**\n<@763652399784919080> <@261290667106369536> \n\nThough it would take a two year campaign of military occupation and",
+      "fullText": "**Formation of the Duchy of Sorbia**\n<@763652399784919080> <@261290667106369536> \n\nThough it would take a two year campaign of military occupation and political dealings with town leaders the Upper Lusatia League which had become de-facto independent of Bohemia due to the Hungarian occupation forces only extending into Bohemia proper combined with no immediate imperial forces occupying the area would be dissolved. Citing previous claims and historic marchdom of Lusatia Klementia August Von Wittelsbach would in a ceremony at Sts. Peter and Paul Church at Görlitz declare himself Duke of all Sorbs, Görlitz to become the new capital of the realm and to be within the wider Bavarian demesne. \n\nThough he would withdraw the rule of the merchant towns they would be offered to remain to sit on his council as a Kaufmannsrat alongside the German and allied Sorbian nobles. the Urban privileges would remain as well, one part a concession and one part simply lacking the ability to enforce centralized power. Though there would remain much ill feeling the losses suffered in the Hussite wars coupled with a shift into German markets making more merchants eager to keep the empire happy would accept Klementia as Duke, yet such a thing hangs dangerously over the precipice. Resentment high and Upper Lusatia nobility now dominating lower lusatia whose nobility mauled by the war is split betwen German Bavarian plants and merchants whose powers have been reduced, shifting power southwards and leaving only bitterness in its wake.\n\n**(Spremberg/Upper Lusatia unites with Lower Lusatia to form the Duchy of Sorbia. Unrest remains high, only kept in balance by a lack of unity among the Sorbs)**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520907184169554001/044a116e9a06c9cb1cfaf62aae96dd1b.png?ex=6a42e6b1&is=6a419531&hm=c76d8622789a0ed54c9eafb3882be9fd7cd0f1d3f24153b694dfe275bac74eb0&",
+          "filename": "044a116e9a06c9cb1cfaf62aae96dd1b.png",
+          "width": 828,
+          "height": 821,
+          "att_id": "1520907184169554001",
+          "local": "data/attachments/1520907184169554001_044a116e9a06c9cb1cfaf62aae96dd1b.png"
+        }
+      ]
+    },
+    {
+      "id": "1520907322417745941",
+      "channel_id": "1505545331591610549",
+      "date": "1442-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Newport",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### Necessary Tactics\n\nWelsh Marchers have become early and enthusiastic adopters of continental tactics imported from France. They feat that the next",
+      "fullText": "### Necessary Tactics\n\nWelsh Marchers have become early and enthusiastic adopters of continental tactics imported from France. They feat that the next conflict, no matter whose side they are on, will make such actions necessary in order to not suffer such heavy losses. May only God know if these will prove effective on the often unique conflicts of the Isles.\n\n<@460814348487753730>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520907322388381747/image.png?ex=6a42e6d2&is=6a419552&hm=9723d841d0cb603af7bfe289681ece1a2a1f9dcf3eb25d6642e4c74b6a083b54&",
+          "filename": "image.png",
+          "width": 641,
+          "height": 804,
+          "att_id": "1520907322388381747",
+          "local": "data/attachments/1520907322388381747_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520871056406089790",
+      "channel_id": "1505545331591610549",
+      "date": "1432-03-01",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "WarDec",
+      "author": "Cloud",
+      "snippet": "### War for the Liberation of Navarra\nLong ago there was the Dragon, and he had not cared for wrongdoings by his own hands or of others. However, his ",
+      "fullText": "### War for the Liberation of Navarra\nLong ago there was the Dragon, and he had not cared for wrongdoings by his own hands or of others. However, his son saw the vassalization and annexation of Navarra as a terrible act of deposition that deserved punishment, but had not pressed the opportunity due to distractions with the Lyon Papacy. King Charles V de Valois on the other hand has no distractions, and sees the restoration of the Kingdom as an opportunistic maneuver to expand his prestige and influence.\n-# Dec on March 1st 1432 for the Kingdom of Navarra as a subject of Franc with undecided ruler of it at present\n-# ally will be  <@298192682554228738> \n-# opposition <@422498641425596418>  <@1007414347347271730> <@698400527834415145>\n\n<@564196329132261376> <@1123821809704374313> <@259426601865838592>",
+      "images": []
     }
   ]
 }
