@@ -17470,6 +17470,29 @@
           "local": "data/attachments/1520890110755999785_Screenshot_2026-06-28_162817.png"
         }
       ]
+    },
+    {
+      "id": "1520893938142023710",
+      "channel_id": "1505545331591610549",
+      "date": "1437-10-01",
+      "country": "MTH",
+      "countryRaw": null,
+      "province": "Leeds",
+      "tag": "History",
+      "author": "Chase",
+      "snippet": "Despite the initial hype for this war to defend Percy and Wales, the Irish have failed, 2,000 men went in, and only 500 return to their families. The ",
+      "fullText": "Despite the initial hype for this war to defend Percy and Wales, the Irish have failed, 2,000 men went in, and only 500 return to their families. The Irish Morale is depleted and just in time for England to demand peace, leaving, the Ango-Irish King Thomas FitzGerald no  choice other than to pull out of the war, lest he raise the anger of his Irish people. \n\n<@1094722105855189062>  <@1106651545296195655><@205264068053827584>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520893937412472943/image.png?ex=6a42da5b&is=6a4188db&hm=649c2ded136df845bbcf3515db2b13c23ee5bc3d8f10fde74c217044560e54b0&",
+          "filename": "image.png",
+          "width": 1189,
+          "height": 837,
+          "att_id": "1520893937412472943",
+          "local": "data/attachments/1520893937412472943_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
     }
   ]
 }
