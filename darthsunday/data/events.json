@@ -17249,6 +17249,93 @@
           "local": "data/attachments/1520877557527089172_image.png"
         }
       ]
+    },
+    {
+      "id": "1520884284125085766",
+      "channel_id": "1505545415213449216",
+      "date": "1436-03-06",
+      "country": "UBV",
+      "countryRaw": null,
+      "province": "Frankfurt",
+      "tag": "History",
+      "author": "The Kryft",
+      "snippet": "### Coronation of Leopold II in Aachen\n\nAfter the victories in Bohemia, Wurttemberg and also having his debt paid off, Leopold II can finally be crown",
+      "fullText": "### Coronation of Leopold II in Aachen\n\nAfter the victories in Bohemia, Wurttemberg and also having his debt paid off, Leopold II can finally be crowned in Aachen.\n\nA dignified ceremony, owing to the ~~greedy~~ well-mannered nature of Leopold.\n\nAnd now, he looks south, to be crowned as emperor in his Italienzug!\n\n*The Free City of Frankfurt is condemned!*",
+      "images": []
+    },
+    {
+      "id": "1520882658316648641",
+      "channel_id": "1505545331591610549",
+      "date": "1436-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Buckingham",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "## Ambush!\n<@205264068053827584> \n\nThe Welsh army led by Theodore of Colchester has been caught off guard and **decimated**. Edward Plantagenet's forc",
+      "fullText": "## Ambush!\n<@205264068053827584> \n\nThe Welsh army led by Theodore of Colchester has been caught off guard and **decimated**. Edward Plantagenet's force had advanced ahead to capture Oxford and left the army split. By the time they had turned around and arrived at the battle it was too late, the advance on London was shattered.\n\n*The Welsh army retreats to Cardiff where they expect the English to follow and put it to seige.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520882657385255133/image.png?ex=6a42cfda&is=6a417e5a&hm=f29ab02c0456d7bf13d0133df63d03ba074ef4092e2f36d0ac034ab90aeb0ba8&",
+          "filename": "image.png",
+          "width": 881,
+          "height": 621,
+          "att_id": "1520882657385255133",
+          "local": "data/attachments/1520882657385255133_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520882658031304784/image.png?ex=6a42cfda&is=6a417e5a&hm=b5ee0d75a59bfbeead21e7287e43992175311dacf35967b63e4d7e1b4f7a7a28&",
+          "filename": "image.png",
+          "width": 1178,
+          "height": 719,
+          "att_id": "1520882658031304784",
+          "local": "data/attachments/1520882658031304784_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520883026609836182",
+      "channel_id": "1505545331591610549",
+      "date": "1436-03-10",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Neath",
+      "tag": "History",
+      "author": "Chase",
+      "snippet": "**The Irish Arrival** \nWith the claws closing in on their ally Percy, the Irish seek to help, especially on the welsh border, a close friend. 2,000 ir",
+      "fullText": "**The Irish Arrival** \nWith the claws closing in on their ally Percy, the Irish seek to help, especially on the welsh border, a close friend. 2,000 irish men are dispatched to aid the war efforts.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520883026135875584/image.png?ex=6a42d032&is=6a417eb2&hm=39808b65acdabff9c6d545b1e5e4399438edafc3887cb0039dd0b67103559bc5&",
+          "filename": "image.png",
+          "width": 716,
+          "height": 477,
+          "att_id": "1520883026135875584",
+          "local": "data/attachments/1520883026135875584_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520532827517616311",
+      "channel_id": "1519256016980672645",
+      "date": "1426-10-03",
+      "country": "HUN",
+      "countryRaw": null,
+      "province": "Szeged",
+      "tag": null,
+      "author": "DinoHunter65100",
+      "snippet": "# The Battle of Szeged #\n\nAfter meeting each other outside the town of Szeged, the Ruthenian and Johannian Valois armies clashed in a bloody brawl tha",
+      "fullText": "# The Battle of Szeged #\n\nAfter meeting each other outside the town of Szeged, the Ruthenian and Johannian Valois armies clashed in a bloody brawl that resulted in roughly 2400 Ruthenian casualties compared to the 1200 losses of the Hungarian combined army. In the aftermath of the battle, Prince Jean de Valois felt a great sense of confidence in his army and the ability to win the conflict. However, the Ruthenian army had conducted an orderly retreat despite the loss and prepared to make moves towards the large town of Pest. The Hungarian armies also moved to nearby Buda and planned to cross at Pest to head east, laying the groundwork for the Battle of Pest.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1519256016980672645/1520532827270021353/35.png?ex=6a4232cc&is=6a40e14c&hm=ab645e2ba8b63456481dc926a043b18e1c9a28efceb971ceb5ee283b88cbd89a&",
+          "filename": "35.png",
+          "width": 3840,
+          "height": 1252,
+          "att_id": "1520532827270021353",
+          "local": "data/attachments/1520532827270021353_35.png"
+        }
+      ]
     }
   ]
 }
