@@ -17589,6 +17589,51 @@
           "local": "data/attachments/1520899979038953592_image.png"
         }
       ]
+    },
+    {
+      "id": "1520904469737640016",
+      "channel_id": "1505545415213449216",
+      "date": "1441-06-06",
+      "country": "PAP",
+      "countryRaw": null,
+      "province": "Rome",
+      "tag": null,
+      "author": "Murlock",
+      "snippet": "**The Boethios Reforms <:prestige:587042877356376103> **\n\nFollowing the invention of the printing press in <@1007414347347271730> , there must be stan",
+      "fullText": "**The Boethios Reforms <:prestige:587042877356376103> **\n\nFollowing the invention of the printing press in <@1007414347347271730> , there must be standardised versions of the bible that will be printed. Bibles that are not confirmed by the church, WILL NOT be allowed to be printed in Workshops. \n\nThis must be enforced across **ALL REALMS** @here\n\nThe bible that has been produced for printing is the https://discord.com/channels/507915886477312023/1505545415213449216/1513260384835080306 Jacobus Bible Standardised in 1376. Boethios Halkias, a Greek who defected from the Byzantium Empire <@302128861209165824> has made some minor changes to the bible to better follow its Greek Origins, including affirming text such as:\n\n```diff\n-Old Translation (Hebrews 13:17)\n-\"Obey your leaders and submit to them, for they are keeping watch over your souls...\"\n\n+Reformed Jacobus Bible (1441)\n+\"Obey those whom the Holy Church hath set over you, and submit unto their godly instruction; for they keep watch over your souls as stewards appointed before God.\"\n\n-Old Translation (James 2:17)\n-\"Faith by itself, if it does not have works, is dead.\"\n\n+Reformed Jacobus Bible (1441)\n+\"Faith, if it be not adorned with works of mercy and holy devotion, is dead; and blessed are they who, with humble charity, aid the works of Christs Church.\"```\n\nRome will provide \"printing kits\" that shall provide a copy of the Reformed Jacobus Bible <:admin:587043136988250153> as well as keys to be used to produce the new bible. These kits are free and will be funded by the church.\n\n(Please react with <:Keys_of_heaven:1082042509359845458> if you confirm to print this bible. Aka, your going to stay printing your bible in Latin and not in any other language)",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520904469414412339/image.png?ex=6a42e42a&is=6a4192aa&hm=f6767ed436fb5675bb728bbfcffe3d673ae73ace9a01fcf8bd20e6b88c1c73b6&",
+          "filename": "image.png",
+          "width": 737,
+          "height": 452,
+          "att_id": "1520904469414412339",
+          "local": "data/attachments/1520904469414412339_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520905127836389497",
+      "channel_id": "1505545331591610549",
+      "date": "1441-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Carnarvon",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "Sir Gilbert Wentworth's rule is growing more unpopular as time goes on. His power stems only from his threat to march on the south and his submission ",
+      "fullText": "Sir Gilbert Wentworth's rule is growing more unpopular as time goes on. His power stems only from his threat to march on the south and his submission to King-Consort William Neville. The other notables of the principality have no loyalty to this abrasive Justiciar even as he technically secures the continued stability of Wales and its relationship with the crown.\n\n*The Principality of Wales grows increasingly united against, not for, a specific cause. ~~Down with the Nevilles~~ Long may the King reign!*\n\n<@1106651545296195655>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520905127316422767/image.png?ex=6a42e4c7&is=6a419347&hm=7859b373c581e0248e89bad6d69f079e92d31ff599ff20e6431202da96490879&",
+          "filename": "image.png",
+          "width": 1346,
+          "height": 855,
+          "att_id": "1520905127316422767",
+          "local": "data/attachments/1520905127316422767_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
     }
   ]
 }
