@@ -16806,6 +16806,278 @@
           "local": "data/attachments/1520851100998176940_Bathory_Banner.png"
         }
       ]
+    },
+    {
+      "id": "1520868895605391523",
+      "channel_id": "1505545492736639056",
+      "date": "1427-01-01",
+      "country": "BYZ",
+      "countryRaw": null,
+      "province": "Guzelhisar",
+      "tag": "WarDec",
+      "author": "Guy",
+      "snippet": "*The invasion of turkic beyliks will not be allowed, leave now Roman.*\n\n<@302128861209165824> 6 months\n\n*extending towards December of next year.*",
+      "fullText": "*The invasion of turkic beyliks will not be allowed, leave now Roman.*\n\n<@302128861209165824> 6 months\n\n*extending towards December of next year.*",
+      "images": [],
+      "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1520860985471143946",
+      "channel_id": "1505545415213449216",
+      "date": "1427-07-15",
+      "country": "SAX",
+      "countryRaw": null,
+      "province": "Most",
+      "tag": "Battle",
+      "author": "surr",
+      "snippet": "As the armies of Saxony marched to siege the Bohemia fort of Most on their border, in a suprising attack, the entire Bohemia army fell upon Most and d",
+      "fullText": "As the armies of Saxony marched to siege the Bohemia fort of Most on their border, in a suprising attack, the entire Bohemia army fell upon Most and defeated the Saxon forces.\n\nPerhaps it was folly by the Saxons to begin their seige so soonly without awaiting the arrival of allies, but they did not anticipate the entire Bohemia army moving onto them",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1520862097616146533",
+      "channel_id": "1505545415213449216",
+      "date": "1428-01-30",
+      "country": "CTH",
+      "countryRaw": null,
+      "province": "Carthage",
+      "tag": "WarDec",
+      "author": "JPThunda",
+      "snippet": "**Enough is Enough**\n\n\nThe piracy perpetrated by the Visby Pirates has gone on for too long already, and it will be put to an end.  Now.  The Visby wi",
+      "fullText": "**Enough is Enough**\n\n\nThe piracy perpetrated by the Visby Pirates has gone on for too long already, and it will be put to an end.  Now.  The Visby will be forcibly expelled from the Mediterranean and peace shall be restored to the seas, delivered at the end of a blade.\n\nAny who do not support piracy are urged not to interfere.\n\n((This is a War Dec warning 4 months from time of post for the Anti-Piracy CB against Burgas.))\n\n<@326414282851876875> <@1007414347347271730> <@302128861209165824>\n\nThere will be no sympathy or quarter for those who defend piracy.  No lands shall be seized, but the pirates shall be expelled from their warrens.",
+      "images": []
+    },
+    {
+      "id": "1520865055170891956",
+      "channel_id": "1505545415213449216",
+      "date": "1430-01-01",
+      "country": "MIL",
+      "countryRaw": null,
+      "province": "Milan",
+      "tag": null,
+      "author": "Hoang",
+      "snippet": "# Milan receives a cardinal seat !\n\nA great boon from the Papal States! <@150411715757080576>",
+      "fullText": "# Milan receives a cardinal seat !\n\nA great boon from the Papal States! <@150411715757080576>",
+      "images": []
+    },
+    {
+      "id": "1520866800198352928",
+      "channel_id": "1505545415213449216",
+      "date": "1429-07-12",
+      "country": "SOR",
+      "countryRaw": null,
+      "province": "Chosebuz",
+      "tag": null,
+      "author": "Redcola",
+      "snippet": "**The Parliament of 1429 **\n\nWith debates over Bohemia and the North Konstantin has had enough of political infighting yet can not act as an autocrat ",
+      "fullText": "**The Parliament of 1429 **\n\nWith debates over Bohemia and the North Konstantin has had enough of political infighting yet can not act as an autocrat to declare or unite foreign policy of the towns. Opting for a subtle touch in the Parliament of 1429 Luckau would offer a bill of expansion of rural exports into the North, though genuine at an outward glance the implications are most curious for to do trade in the area would mean securing the security of said merchants who would demand their own towns involvement, creating a knock on effect.\n\nTaking only some months later the towns of lower Lusatia would almost universally declare the need for a campaign into the warlord realm of former Brandenburg.. just as planned.\n\n**(Foreign Policy is set northwards) **",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520866798965100594/image.png?ex=6a42c115&is=6a416f95&hm=cca39454ec1234af24ba7923d6304ebcb8ad79c2c52f77784438e491b1f61c6a&",
+          "filename": "image.png",
+          "width": 577,
+          "height": 521,
+          "att_id": "1520866798965100594",
+          "local": "data/attachments/1520866798965100594_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520866799418343434/image.png?ex=6a42c115&is=6a416f95&hm=af17fa4c2db722c92ef528fc4e9dfc55376899ce14257976eb463f3e1bd8481e&",
+          "filename": "image.png",
+          "width": 585,
+          "height": 610,
+          "att_id": "1520866799418343434",
+          "local": "data/attachments/1520866799418343434_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520866799925596290/images.png?ex=6a42c115&is=6a416f95&hm=dc21367a868c8c10fbf9b26d3dad48243e9dd87f13fd062261e3e2aa5e866907&",
+          "filename": "images.png",
+          "width": 554,
+          "height": 554,
+          "att_id": "1520866799925596290",
+          "local": "data/attachments/1520866799925596290_images.png"
+        }
+      ]
+    },
+    {
+      "id": "1520862066221519009",
+      "channel_id": "1505545331591610549",
+      "date": "1427-04-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Cardigan",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "### The Family United\n\nTudur and Cardigan have come into loose alliance via the marriage of Tudur Tudur and Eleanore de Cardigan. The advanced Baron J",
+      "fullText": "### The Family United\n\nTudur and Cardigan have come into loose alliance via the marriage of Tudur Tudur and Eleanore de Cardigan. The advanced Baron Jean de Cardigan passed not some three months past, but his son and heir Michel quickly renewed these ties and inherited his father's position in Wales.\n\nTensions between the House of Cardigan and Wentworth remain high. Wales still has no direction when it comes to the chaos of England.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520862065785307297/image.png?ex=6a42bcac&is=6a416b2c&hm=a5d077f3b9a777d265c9425e36d449b55bac6cf621fbf47846473240fa99430d&",
+          "filename": "image.png",
+          "width": 1388,
+          "height": 748,
+          "att_id": "1520862065785307297",
+          "local": "data/attachments/1520862065785307297_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520862066141954089/image.png?ex=6a42bcac&is=6a416b2c&hm=505c3ae3dfcee50b5c4514f233174cf287a3fb03d53c23400a1b1856b57f97c8&",
+          "filename": "image.png",
+          "width": 1137,
+          "height": 687,
+          "att_id": "1520862066141954089",
+          "local": "data/attachments/1520862066141954089_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520864037037146182",
+      "channel_id": "1505545331591610549",
+      "date": "1428-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "Economy",
+      "author": "Ceb",
+      "snippet": "### God's Gifts\n\nReparations for piracy from his Holiness's coffers themselves <@150411715757080576> have come to Wales. These unexpected gifts have p",
+      "fullText": "### God's Gifts\n\nReparations for piracy from his Holiness's coffers themselves <@150411715757080576> have come to Wales. These unexpected gifts have proven a boon to the Justiciar's ~~piracy~~ stability efforts and in turn some has trickeld down to the Welsh nobility. Edward Tudur, Earl of Pembroke and pre-eminant figure in the south, has seen the righteousness of these arguments. Favor to the new organization of Rome has grown considerably.\n\n*Persecutions of Lollardy in Wales have risen ||ineffectually|| in public spaces.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520864036240097300/Screenshot_2026-06-28_143936.png?ex=6a42be82&is=6a416d02&hm=b75a2eea239a344a36bef331255d7252e4401112c24b075f439be5871b076b05&",
+          "filename": "Screenshot_2026-06-28_143936.png",
+          "width": 572,
+          "height": 328,
+          "att_id": "1520864036240097300",
+          "local": "data/attachments/1520864036240097300_Screenshot_2026-06-28_143936.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520864036781031637/image.png?ex=6a42be82&is=6a416d02&hm=261bfedcae8e296000d3b4b8ce37d6b2ce1b7fe23762ec9a83ba7632c8a3bfa3&",
+          "filename": "image.png",
+          "width": 571,
+          "height": 462,
+          "att_id": "1520864036781031637",
+          "local": "data/attachments/1520864036781031637_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520866328108466176",
+      "channel_id": "1505545331591610549",
+      "date": "1429-05-03",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "York",
+      "tag": "Battle",
+      "author": "jeudlvie",
+      "snippet": "## YORK RESISTS; TURNS AWAY NEVILLE BARBARISM\n\nThe Neville forces attempted to seize the city of York from the local authorities, but with INSPIRING W",
+      "fullText": "## YORK RESISTS; TURNS AWAY NEVILLE BARBARISM\n\nThe Neville forces attempted to seize the city of York from the local authorities, but with INSPIRING WORDS from the Archbishop of York, the garrison DID NOT YIELD!!!\n\n<@205264068053827584> <@1094722105855189062>",
+      "images": []
+    },
+    {
+      "id": "1520866792061538407",
+      "channel_id": "1505545331591610549",
+      "date": "1429-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Anglesey",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "### Promises Come True\n\nShips bearing no allegiance have been sighted off the coast of the Isle of Mann <@1218063544940232784><@1417260821674852363>, ",
+      "fullText": "### Promises Come True\n\nShips bearing no allegiance have been sighted off the coast of the Isle of Mann <@1218063544940232784><@1417260821674852363>, Munster, and the isle of Jersey <@460814348487753730>. Their disruptions are rather...inexperienced, but they still post an obstacle for some shipping - particularly in the more sparse regions they visit.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520866791218483300/Screenshot_2026-06-28_145350.png?ex=6a42c113&is=6a416f93&hm=94c71ca7f7f998a6848e805bb9e7e96ec4176e36ee7fce180137da9402fb6faa&",
+          "filename": "Screenshot_2026-06-28_145350.png",
+          "width": 1797,
+          "height": 870,
+          "att_id": "1520866791218483300",
+          "local": "data/attachments/1520866791218483300_Screenshot_2026-06-28_145350.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520866791818264586/image.png?ex=6a42c113&is=6a416f93&hm=6f6f8b10d93564e9aa4c1336ff991d8509481029ee4fdeecfb6d22aa9da6134a&",
+          "filename": "image.png",
+          "width": 1363,
+          "height": 855,
+          "att_id": "1520866791818264586",
+          "local": "data/attachments/1520866791818264586_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1520867655748161778",
+      "channel_id": "1505545331591610549",
+      "date": "1430-05-01",
+      "country": "MTH",
+      "countryRaw": null,
+      "province": "Dublin",
+      "tag": "History",
+      "author": "Chase",
+      "snippet": "Praise be a son! Gerald FitzGerald, a promising male heir has been born!",
+      "fullText": "Praise be a son! Gerald FitzGerald, a promising male heir has been born!",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520867655270273024/image.png?ex=6a42c1e1&is=6a417061&hm=0f3196f0e8c946b89bed71364ce3df594ee564845a01df88f8debae6169eed3c&",
+          "filename": "image.png",
+          "width": 550,
+          "height": 553,
+          "att_id": "1520867655270273024",
+          "local": "data/attachments/1520867655270273024_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1520869011255201992",
+      "channel_id": "1505545331591610549",
+      "date": "1430-09-01",
+      "country": "MTH",
+      "countryRaw": null,
+      "province": "Dublin",
+      "tag": "Battle",
+      "author": "Chase",
+      "snippet": "Due to a recent increase of pirates of the coast of the Isle Mann, Meath has sought to send their navy out to hunt down these pirates, and work toward",
+      "fullText": "Due to a recent increase of pirates of the coast of the Isle Mann, Meath has sought to send their navy out to hunt down these pirates, and work toward securing a safe coastline for generations to come.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520869236766150686/image.png?ex=6a42c35a&is=6a4171da&hm=0da4a374df78d3b226c78f52f4dca4e8d22ff11a6cba61f1d87a029232805cb5&",
+          "filename": "image.png",
+          "width": 1291,
+          "height": 966,
+          "att_id": "1520869236766150686",
+          "local": "data/attachments/1520869236766150686_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1520870673398894602",
+      "channel_id": "1505545331591610549",
+      "date": "1431-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "Economy",
+      "author": "Ceb",
+      "snippet": "*Inquisitions continue to mount under Papal direction. Justiciar Gilbert Wentworth requests an increased Roman presence in Wales to help combat the sp",
+      "fullText": "*Inquisitions continue to mount under Papal direction. Justiciar Gilbert Wentworth requests an increased Roman presence in Wales to help combat the spread of Lollardy from nearby England.*\n\n<@150411715757080576>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520870672820207829/image.png?ex=6a42c4b0&is=6a417330&hm=4d502e48ddb2ef17ec0758484b83258fbc17529e29082567db74d9a143582ec4&",
+          "filename": "image.png",
+          "width": 568,
+          "height": 470,
+          "att_id": "1520870672820207829",
+          "local": "data/attachments/1520870672820207829_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520870673168203926/image.png?ex=6a42c4b0&is=6a417330&hm=5e86e46e0b40f21309e701dc0b8d226079712cc716b96c4a270a9a3bcd195dc4&",
+          "filename": "image.png",
+          "width": 488,
+          "height": 168,
+          "att_id": "1520870673168203926",
+          "local": "data/attachments/1520870673168203926_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
     }
   ]
 }
