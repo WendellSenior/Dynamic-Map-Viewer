@@ -17197,6 +17197,58 @@
           "local": "data/attachments/1520874739122307253_image.png"
         }
       ]
+    },
+    {
+      "id": "1520878098730582176",
+      "channel_id": "1505545415213449216",
+      "date": "1433-08-09",
+      "country": "SOR",
+      "countryRaw": null,
+      "province": "Lubin",
+      "tag": "Battle",
+      "author": "Redcola",
+      "snippet": "**The Chalice Coup**\n<@261290667106369536><@763652399784919080><@252560004069064705> \n\nWith imperial maneuvering the pro imperial faction backed by Ko",
+      "fullText": "**The Chalice Coup**\n<@261290667106369536><@763652399784919080><@252560004069064705> \n\nWith imperial maneuvering the pro imperial faction backed by Konstantin would join the second Hussite crusade, angling to secure hard imperial support for the army and even economic concessions. years of planning would crumble in five days. the sudden Hussite counter attack would smash the Sorbian forces, the towns on the border with Hussite populations would rise in revolt, joining Bohemia and the rule of Luckau would collapse, the defenses of the town, built by the Byzantines would fall to cannon and elite veteran troops in a matter of hours. \n\nKonstantin would be defenestrated from St. Nicholas church, his family chased from the town by troops and mobs of men. in its place a council of pro hussites, priests, soldiers and nobles would dominate the league, effectively becoming a vassal of the government in Prauge. Though a roaring success in the area, the Hussite armies would suffer the heavy costs of leaving their southern flank completely open, a sad irony as now Lusatia is not only on the losing side once but twice....",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520878098088853604/image.png?ex=6a42cb9b&is=6a417a1b&hm=361430324c18e989c82f0256f7a79169fbcc77905cb549098e2893e44d93f824&",
+          "filename": "image.png",
+          "width": 547,
+          "height": 357,
+          "att_id": "1520878098088853604",
+          "local": "data/attachments/1520878098088853604_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520878098453631138/365d2fcb7b25fbf2d3896fe3990c6f2b.png?ex=6a42cb9b&is=6a417a1b&hm=06bc8d2d5d3b3ddf9de49ab1fe18abcc5d252ca8243938bba1fe6ce54a5e46bb&",
+          "filename": "365d2fcb7b25fbf2d3896fe3990c6f2b.png",
+          "width": 1024,
+          "height": 864,
+          "att_id": "1520878098453631138",
+          "local": "data/attachments/1520878098453631138_365d2fcb7b25fbf2d3896fe3990c6f2b.png"
+        }
+      ]
+    },
+    {
+      "id": "1520877557807841370",
+      "channel_id": "1505545331591610549",
+      "date": "1433-10-27",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Ludlow",
+      "tag": "WarDec",
+      "author": "Ceb",
+      "snippet": "### Wales Divided, Still Stands\nFaction Views previous: https://discord.com/channels/507915886477312023/1518755524210851931/1520487454501634190\n\nThe f",
+      "fullText": "### Wales Divided, Still Stands\nFaction Views previous: https://discord.com/channels/507915886477312023/1518755524210851931/1520487454501634190\n\nThe factions of Wales have come to no firm conclusion...**however** the loss of the Nevilles by Scottish betrayal have changed opinions.\n\nContinued Papal support has convinced many lords that the more extreme views of the Nevilles regarding England's faith are misguided. Meanwhile, the moderate stance of Edward Plantagenet attracts ever more support amongst the Marcher lords, the Mortimers, and the Tudurs. Even if the Justiciar remains impassive, or even pro-Neville, the rest of the country moves out a sizeable contingent into England proper.\n\n*A Marcher army readies to march support the Percys at York. An Irish allied contingent is also hired from allied Dublin and the FitzGeralds <@1218063544940232784>.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520877557527089172/image.png?ex=6a42cb1a&is=6a41799a&hm=fa707c089bd54bf2cbc5642d420f6dbfddab3c16e07e9005d751072b806038ff&",
+          "filename": "image.png",
+          "width": 942,
+          "height": 668,
+          "att_id": "1520877557527089172",
+          "local": "data/attachments/1520877557527089172_image.png"
+        }
+      ]
     }
   ]
 }
