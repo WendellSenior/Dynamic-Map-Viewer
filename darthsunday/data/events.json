@@ -17493,6 +17493,28 @@
         }
       ],
       "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1520896187136217129",
+      "channel_id": "1505545415213449216",
+      "date": "1438-06-12",
+      "country": "UBV",
+      "countryRaw": null,
+      "province": "Rome",
+      "tag": null,
+      "author": "The Kryft",
+      "snippet": "# Coronation of Emperor Leopold in Rome!\n\nLeopold, after eight years of being crownless, has finally been named the emperor of the Romans!\n\nHuzzah for",
+      "fullText": "# Coronation of Emperor Leopold in Rome!\n\nLeopold, after eight years of being crownless, has finally been named the emperor of the Romans!\n\nHuzzah for Leopold! Huzzah for the Wittelsbachs! Huzzah for Bavaria!\n\n*The emperor obliges! What could go wrong? It's just a bathhouse!*\n\n*Leopold quickly leaves before the bloodshed can occur!*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520896186750337186/Europa_Universalis_V_Screenshot_2026.06.29_-_04.58.06.02.png?ex=6a42dc73&is=6a418af3&hm=0edcece5eb97f1d0625110afe6aa45c337625fc7de805c470d0c8eeab885202a&",
+          "filename": "Europa_Universalis_V_Screenshot_2026.06.29_-_04.58.06.02.png",
+          "width": 555,
+          "height": 312,
+          "att_id": "1520896186750337186",
+          "local": "data/attachments/1520896186750337186_Europa_Universalis_V_Screenshot_2026.06.29_-_04.58.06.02.png"
+        }
+      ]
     }
   ]
 }
