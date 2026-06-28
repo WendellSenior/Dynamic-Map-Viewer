@@ -17404,6 +17404,72 @@
           "local": "data/attachments/1520887122201018450_image.png"
         }
       ]
+    },
+    {
+      "id": "1520890318096957682",
+      "channel_id": "1505545492736639056",
+      "date": "1437-08-05",
+      "country": "WAL",
+      "countryRaw": null,
+      "province": "Targoviste",
+      "tag": "History",
+      "author": "Hermans",
+      "snippet": "**The Balkan League**\n\nUnder the threat of the Angevin aggression towards the realms of Serbia and Wallachia, the Balkan League was formed to protect ",
+      "fullText": "**The Balkan League**\n\nUnder the threat of the Angevin aggression towards the realms of Serbia and Wallachia, the Balkan League was formed to protect each other from Hungarian and Halych-Volhynian ambitions in the region. With the Anjous threatening the League, Kyiv stepped up and joined as a guarantor of the independence of the League's member realms. Kievan guarantees alone were not enough to deter Angevin aggression, the League sought outside help, and their calls were answered by the Queen of Poland. They would stand with the League’s side in case of Angevin attack. \n<@493830084893999104> <@759277551117402194> <@637897577207037962>  <@252560004069064705> <@423689694258397195> <@1432820281000333392>",
+      "images": []
+    },
+    {
+      "id": "1520889137534865408",
+      "channel_id": "1505545415213449216",
+      "date": "1437-04-12",
+      "country": "MIL",
+      "countryRaw": null,
+      "province": "Milan",
+      "tag": null,
+      "author": "Hoang",
+      "snippet": "Milan opens it doors for the Imperial army.\n\nAt the cathedral of Milan, the Emperor is crowned King of Italy !",
+      "fullText": "Milan opens it doors for the Imperial army.\n\nAt the cathedral of Milan, the Emperor is crowned King of Italy !",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1520889137220157440/800px-corona_ferrea.png?ex=6a42d5e3&is=6a418463&hm=1bfec900336992cfeedb5cd1210a6b79e8e47087efe5aa66b35afbb369937212&",
+          "filename": "800px-corona_ferrea.png",
+          "width": 800,
+          "height": 554,
+          "att_id": "1520889137220157440",
+          "local": "data/attachments/1520889137220157440_800px-corona_ferrea.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1520890111049334914",
+      "channel_id": "1505545331591610549",
+      "date": "1437-08-05",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Cardiff",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "### Fickle Fortunes\n<@205264068053827584> <@1106651545296195655> \n\nA mercenary army of Highlanders and Welsh reform to take Cardiff castle...properly ",
+      "fullText": "### Fickle Fortunes\n<@205264068053827584> <@1106651545296195655> \n\nA mercenary army of Highlanders and Welsh reform to take Cardiff castle...properly this time. Any renewed defense of the formidable keep is shattered as even the combined force of Irish, Welsh, and the Percy host fail to eject this force from southern Wales.\n\n*Justiciar Gilbert Wentworth promises King-Consort William Neville, Lord Protector of England, that he will march on the rebellious Cardigans and Tudurs...if he is provided the resources to do so.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520890110462136320/Screenshot_2026-06-28_162649.png?ex=6a42d6cb&is=6a41854b&hm=6bf1fd181434166c20492cd3290613d7b55a6e9d9a32f292c2e7dbeceed9c640&",
+          "filename": "Screenshot_2026-06-28_162649.png",
+          "width": 624,
+          "height": 557,
+          "att_id": "1520890110462136320",
+          "local": "data/attachments/1520890110462136320_Screenshot_2026-06-28_162649.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1520890110755999785/Screenshot_2026-06-28_162817.png?ex=6a42d6cb&is=6a41854b&hm=e607c67d255427d2fb9aeea589123cf00dc6234c846a09ffd49e4722ce33358a&",
+          "filename": "Screenshot_2026-06-28_162817.png",
+          "width": 1046,
+          "height": 585,
+          "att_id": "1520890110755999785",
+          "local": "data/attachments/1520890110755999785_Screenshot_2026-06-28_162817.png"
+        }
+      ]
     }
   ]
 }
