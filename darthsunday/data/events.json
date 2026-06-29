@@ -17836,6 +17836,44 @@
           "local": "data/attachments/1520958606810550333_The_Interior_of_St_Davids_Cathedral.jpg"
         }
       ]
+    },
+    {
+      "id": "1521082345283911821",
+      "channel_id": "1505545415213449216",
+      "date": "1443-06-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Lübeck",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "**HANSETAG** \n\n\n\nIn the last Hansetag https://discord.com/channels/507915886477312023/1505545415213449216/1518548987278266378, much faith was placed o",
+      "fullText": "**HANSETAG** \n\n\n\nIn the last Hansetag https://discord.com/channels/507915886477312023/1505545415213449216/1518548987278266378, much faith was placed on Albrecht to achieve results for the cities. It would seem he delivered, for in the Hansetag of 1443 his merits were numerous: expansion on Rome (both Romes, in fact), the lands of Milan, what could be a victory of Edward V, defence of Frankfurt and an astounding increase of 40% in trade income. Hamburg led the way, and the League looks to be back on track.\n\nThe London market hasn't collapsed, but it has become stagnant due to the civil war. A lot of demand for weapons, yet no growth at all, no new opportunities. Meanwhile, Bordeaux has become untransitable due to the French embargo, making equally impossible to trade in Castille. And Brugges, one of the most profitable markets, cannot be expanded due to that same embargo. Truly, the French are the most evil people, restricting Hanseatic trade...\n\nThe trade data also reveals that this has alienated the traditional kontors, given that most of the income now comes from Italy and beyond instead of the traditional markets (bar Lübeck, the jewel of the Hansa), but the reforms brought forward intend to silence their complaints. The betrayal of the London Kontor showed that their influence has overreached, and the german communities established out there must answer to the League, or else. They depend on the members, not the other way around.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521082344394719323/image.png?ex=6a4389d3&is=6a423853&hm=92167eb6a18b2f3574b95351a510c837a8424e5e0dadf4695babe553f218dc54&",
+          "filename": "image.png",
+          "width": 763,
+          "height": 452,
+          "att_id": "1521082344394719323",
+          "local": "data/attachments/1521082344394719323_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521082344642187304/image.png?ex=6a4389d3&is=6a423853&hm=154549803d969568ebb1da29c6900222fc2c36def3a6869536bfda4f8faac9d1&",
+          "filename": "image.png",
+          "width": 762,
+          "height": 452,
+          "att_id": "1521082344642187304",
+          "local": "data/attachments/1521082344642187304_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521082344965013544/image.png?ex=6a4389d3&is=6a423853&hm=9e12490d32f0e615a1fc99bf284c337fd35b24676a8c35922efdb586ad26fab6&",
+          "filename": "image.png",
+          "width": 762,
+          "height": 452,
+          "att_id": "1521082344965013544",
+          "local": "data/attachments/1521082344965013544_image.png"
+        }
+      ]
     }
   ]
 }
