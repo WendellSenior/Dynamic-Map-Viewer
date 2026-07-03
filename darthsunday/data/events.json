@@ -18444,6 +18444,43 @@
           "local": "data/attachments/1521527102719918231_image.png"
         }
       ]
+    },
+    {
+      "id": "1522175755386097766",
+      "channel_id": "1505545492736639056",
+      "date": "1443-08-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Hamburg",
+      "tag": "Trade",
+      "author": "Onnirio",
+      "snippet": "https://discord.com/channels/507915886477312023/1505545415213449216/1522011016282771527\n<@302128861209165824>\n \nWhen Albrecht received news on the Com",
+      "fullText": "https://discord.com/channels/507915886477312023/1505545415213449216/1522011016282771527\n<@302128861209165824>\n \nWhen Albrecht received news on the Commercial Code in Eastern Rome, they came with maps collected by hanseatic traders, much more detailed and precise than anything he could have had before, with barely an outline of Eastern Rome. Albrecht was surprised by the maps, and after reading a summary of the Code, he understood. The uniformization of trade regulations were good, for a proper standard is always helpful, yet only as long as the Hansa could become privileged or predominant enough in those lands.\n\nHe looked around on the maps. It was not easy. Already, the practice of a joint city was developed in Hansyhorod, looked for expansion in England, and now perhaps in Greece. Only someone as ambitious as Albrecht could have seen this through. But he needed good, hard-working men that the Hansetag could trust so far away, and for that he would petition the Emperor for a rough spot, where the germans had to endure to gain their coin. Leukás, an island in Epirus, poor and barren as they come, with its only renowned product being… sand, which is coarse, rough, and irritating, and it gets everywhere. \n\nHowever, the islands are situated in the right spot to move goods from the Adriatic to the Gulfs of Patras and Corinth, to Athens and then to Constantinople, much better than going around Laconia. Almost no way to place a ship in those coasts, but a hanseatic community makes possible of the impossible. With so little people, and an Albanian minority already, there would be less friction with the germans. Tight contact between them and Melk would be required. Indeed, after choosing the spot, Albrecht left any further negotiation to the Melk council, otherwise this would stall for years.\n\n-# AI image",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1522175754849357836/image.png?ex=6a48d5a4&is=6a478424&hm=cf6bc06930098965edc7456a9ef72e552d270a9c80f075f716a0eaddb7f69897&",
+          "filename": "image.png",
+          "width": 844,
+          "height": 502,
+          "att_id": "1522175754849357836",
+          "local": "data/attachments/1522175754849357836_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1522158026214211634",
+      "channel_id": "1505545415213449216",
+      "date": "1444-01-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Cologne",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "Albrecht receives the letter from the city of Köln. Perhaps it is the right time. With the loss of so many cities, it would only be right for a new on",
+      "fullText": "Albrecht receives the letter from the city of Köln. Perhaps it is the right time. With the loss of so many cities, it would only be right for a new one to be granted status, to demonstrate that their role is at least respected and that the number of free cities can increase. But if the League fails in this, it could not be made clearer that all cities are under threat. Though in that case, a conqueror Albrecht will consider that perhaps some cities would need to be expedited urgent membership for protection…\n\nHe sends word to the Emperor in the Nuremberg Imperial Diet, and to Bernard who represents the League there. A copy of Köln’s cry for help, for a freedom that de facto they enjoy and do not want to see crushed by the Archbishop, and the Hanseatic League’s formal support to recognize it as a Free Imperial City.\n\n<@763652399784919080>",
+      "images": [],
+      "title": "Central Europe and North Africa Diplo"
     }
   ]
 }
