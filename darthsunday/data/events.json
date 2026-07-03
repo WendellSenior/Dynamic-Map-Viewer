@@ -18406,6 +18406,44 @@
           "local": "data/attachments/1522391056027615313_full-9789004749702_webready_content_m000049.png"
         }
       ]
+    },
+    {
+      "id": "1521526663551389826",
+      "channel_id": "1505545415213449216",
+      "date": "1443-06-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Lübeck",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "**The reforms of Albrecht**\nThe League has expanded a lot and, while the standing navy prospers, there has been a lack of proper army coordination. Th",
+      "fullText": "**The reforms of Albrecht**\nThe League has expanded a lot and, while the standing navy prospers, there has been a lack of proper army coordination. The kontors that hold so much influence made impossible to fund Edward Plantagenet until the last moment, and despite this, Albrecht made sure he has a good chance at victory. An army would have ensured the cities’ interests to be fought for.\n\nThis is not all, for in these years the Lusatian League was disbanded and substituted by a duchy by the Emperor, again free imperial cities (Frankfurt) were threatened, and the city of Riga annexed. It has become clear that no one stands up for the cities, except the cities themselves.\n\nThe Consul, ruling for 20 years now, has promised to undo this issue by establishing proper “centralizing” reforms in the Hanseatic League, which have always been hinted at by Consuls and never done due to lack of support. The reforms will protect the interests of Hanseatic members everywhere. He has not pointed fingers towards the kontors, but it’s in everyone’s minds that the League as a whole should stop favoring them and be placed under further authority of a powerful Hansetag. Albrecht is aware that he will have to concede power if he desires to do so, because no Burgermeister on their right mind would accept his reforms with a Consul set for life. Thus, the reforms entail:\n\n-    Increasing the manpower contribution for a standing army dedicated to defend every city. The standing navy exists, so it’s only natural to extend the League’s protection to land too, especially if we are to assert Hanseatic power in the Empire.\n-    The Consul will be able to assume further control on trade matters with the explicit consent of the Hansetag, and the affected city.\n-    The League changes its laws to elect a Consul every 4 years, so the Hanseatic cities can pursue change of leadership and policy more frequently. The Consul is renamed as Syndic and elections are called for next year (… which Albrecht expects to win)\nThe result will be an empowered Hansetag, with the main cities acquiring more influence than before. When no city has clear say, Hamburg will take precedence if nearby. Delegations of each city will have to stay in Lübeck permanently.  \n\nOf note, the town of Hansyhorod has the rights to supervise the affairs of the kontors in Constantinople <@1432820281000333392> <@302128861209165824>, and Melk has rights over the kontors of all Italy <@190640828954181632>  both mainly due to being the ‘closest’ member to those markets.\n-# Primacy and influence of the main cities of the Hansa, more or less",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521527101751169307/image.png?ex=6a4873c9&is=6a472249&hm=aab6e8a84a4aca5433955b18ddf9e7d2ae61e7815be9b9b0529f82a0439141ea&",
+          "filename": "image.png",
+          "width": 1056,
+          "height": 862,
+          "att_id": "1521527101751169307",
+          "local": "data/attachments/1521527101751169307_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521527102145564874/image.png?ex=6a4873c9&is=6a472249&hm=e9f21794a93e77401c516c1c836ca4d0f044c08ee7cfd29f45a586211d524625&",
+          "filename": "image.png",
+          "width": 953,
+          "height": 785,
+          "att_id": "1521527102145564874",
+          "local": "data/attachments/1521527102145564874_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1521527102719918231/image.png?ex=6a4873c9&is=6a472249&hm=8e771d696f057bf3505a091c6cfc9c83985a59806567fa52a7884b026eae8159&",
+          "filename": "image.png",
+          "width": 1392,
+          "height": 1109,
+          "att_id": "1521527102719918231",
+          "local": "data/attachments/1521527102719918231_image.png"
+        }
+      ]
     }
   ]
 }
