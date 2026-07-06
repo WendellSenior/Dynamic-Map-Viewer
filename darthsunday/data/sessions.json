@@ -1,5 +1,5 @@
 {
-  "_comment": "If a session is in-progress and you don't know its end date yet, omit `end` (or set it to null). The viewer treats the missing end as 'tracks the latest known event' (state.allTMax) and labels the dropdown / timeline as '(ongoing)' / 'present'. When the session actually wraps, set the real end here and add the next session.",
+  "_comment": "If a session is in-progress and you don't know its end date yet, omit `end` (or set it to null). The viewer treats the missing end as 'tracks the latest known event' (state.allTMax) and labels the dropdown / timeline as '(ongoing)' / 'present'. When a session wraps, the Sunday heartbeat workflow auto-closes it at the in-game frontier and appends the next session (tools/roll_session.py); the auto-set end is approximate (max event date, not the save date) — nudge it here or in sessions.html if the end-of-session map says otherwise.",
   "sessions": [
     {
       "name": "Pre-Game",

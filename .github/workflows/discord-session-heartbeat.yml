@@ -131,3 +131,23 @@ jobs:
             sleep "${nap}"
           done
           echo "Heartbeat complete."
+
+      # After the session window closes, check whether today's posting burst
+      # looks like a play session actually happened, and if so roll the
+      # session boundary in sessions.json (close the open session at today's
+      # in-game frontier, open the next one). Conservative multi-gate
+      # detection + naturally idempotent — see tools/roll_session.py.
+      - name: Roll session boundary
+        id: roll
+        run: python tools/roll_session.py --campaign darthsunday
+
+      - name: Commit and push (session rollover)
+        if: steps.roll.outputs.had_changes == 'true'
+        run: |
+          git add darthsunday/data/sessions.json
+          git commit -m "chore(darthsunday): auto-roll session boundary $(date -u +%Y-%m-%d)"
+          git pull --rebase --autostash origin main || true
+          if ! git push; then
+            git pull --rebase --autostash origin main || true
+            git push
+          fi

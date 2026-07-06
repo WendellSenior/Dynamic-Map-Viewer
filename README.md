@@ -14,6 +14,8 @@ assets/reference/<game>/         shared game data — read-only at runtime
                                  See assets/reference/PARADOX-GAME-DATA.md.
 tools/preprocess.py              Discord export → events.json
 tools/sync_events.py             GH-Actions Discord poller (--campaign <folder>)
+tools/roll_session.py            auto-closes the open session + opens the next
+                                 (runs at the end of the Sunday heartbeat)
 tools/parse_positions.py         EU4 positions.txt → provinces.json
 tools/parse_eu5_reference.py     EU5 locators + names → provinces.json + tags.json
 tools/new_instance.py            campaign scaffolder
@@ -152,6 +154,8 @@ The repo includes an hourly GitHub Actions workflow (`.github/workflows/discord-
 ```
 
 Requires a `DISCORD_TOKEN` repo secret with View Channels + Read Message History permissions. The workflow is single-campaign for now (hardcoded to `--campaign darthsunday`); fan out via matrix strategy for multiple synced campaigns. The local preprocess pipeline auto-skips campaigns with `discord_sync.enabled` to avoid clobbering live data.
+
+A second workflow (`discord-session-heartbeat.yml`) covers the live Sunday play session: GitHub's cron scheduler drops sub-hourly schedules, so instead of many scheduled runs it fires **once** near session start and self-loops internally (sync → sleep 10 min → repeat) for the session window. When the window closes it runs `tools/roll_session.py`, which auto-rolls `sessions.json` if today's burst looks like a real session (Sunday + ≥25 posts today + in-game frontier ≥1 year past the open session's start; dates >30 years out are ignored as typos). The auto-set session end is the max in-game event date — nudge it in `sessions.html` if the end-of-session map export disagrees.
 
 ## Local preview
 
