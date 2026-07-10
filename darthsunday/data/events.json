@@ -18948,6 +18948,36 @@
           "local": "data/attachments/1525195653171515462_Plantagenet_1340.png"
         }
       ]
+    },
+    {
+      "id": "1525228703859081427",
+      "channel_id": "1505545331591610549",
+      "date": "1445-02-01",
+      "country": "MTH",
+      "countryRaw": null,
+      "province": "Dublin",
+      "tag": "Culture",
+      "author": "Chase",
+      "snippet": "**Irish Clothing** \n\nLong since the recent innovations the Irish and thus the Anglo-Irish leaders have noticed how outdated their clothing may actuall",
+      "fullText": "**Irish Clothing** \n\nLong since the recent innovations the Irish and thus the Anglo-Irish leaders have noticed how outdated their clothing may actually be,  in response to such a lacking attire, the Irish source out new clothing, sending out a note to Wales to start purchasing more modern clothing especially for the nobility who are tired of their drab attire.  \n\nAnother member of the court had the idea to also reach out to french merchants, in which Meath was reluctant but at the request of nobility will also be purchasing higher quality clothes from that market. \n\nHuzzah to new attire and may such clothing bring decadence to the Anglo-Irish court of Meath! \n\n<@1094722105855189062> <@1106651545296195655> <@460814348487753730>\n\nfyi to those @'d (including england atp) I will be sending u ducats on game start this coming game to reflect these investments 🙂",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525228702659772547/1400-french-056-costumes-of-all-nations-1882-8dd697-640.png?ex=6a529f6c&is=6a514dec&hm=2582e49fae23cd0ee70d1f0e024b5bf5f8b730b037b208e6b10d548c4cdea6b8&",
+          "filename": "1400-french-056-costumes-of-all-nations-1882-8dd697-640.png",
+          "width": 495,
+          "height": 640,
+          "att_id": "1525228702659772547",
+          "local": "data/attachments/1525228702659772547_1400-french-056-costumes-of-all-nations-1882-8dd697-640.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525228703515414548/images.png?ex=6a529f6c&is=6a514dec&hm=0c4069f9f8ce3ff9b86680347b191aa687734ff2a6255bfbfc615d1aa96f94a1&",
+          "filename": "images.png",
+          "width": 408,
+          "height": 490,
+          "att_id": "1525228703515414548",
+          "local": "data/attachments/1525228703515414548_images.png"
+        }
+      ]
     }
   ]
 }
