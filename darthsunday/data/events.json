@@ -19199,6 +19199,52 @@
           "local": "data/attachments/1525957090957590649_image.png"
         }
       ]
+    },
+    {
+      "id": "1525960241169305693",
+      "channel_id": "1505545415213449216",
+      "date": "1455-04-15",
+      "country": "PAP",
+      "countryRaw": null,
+      "province": "Praha",
+      "tag": "History",
+      "author": "Murlock",
+      "snippet": "**## The Hussites Return to Communion with the Holy Mother Church <:mary3:1126382749612249108> **\n\nA papal representative, **Phelix Dinglinger**, a na",
+      "fullText": "**## The Hussites Return to Communion with the Holy Mother Church <:mary3:1126382749612249108> **\n\nA papal representative, **Phelix Dinglinger**, a native of the monastery in **Munich**, met with Jan of the Hussites. For many days, weeks, and eventually months, they debated the spiritual concerns of the Hussites and the authority of the Church.\n\nThey argued over the language through which the Word of God should be taught, the proper administration of Communion, the nature of the Body of Christ, and the question of His Blood 🩸 . Their discussions often continued deep into the night, with the wine <:resource_wine:1481705094922768505> running dry and fresh barrels repeatedly brought up from the monastery reserves.\n\nAt last, confusion gave way to understanding, and an agreement was reached:\n\nPrague shall be elevated in status, and a new **Archbishopric of Prague shall be established.** The Archbishop of Prague shall answer **directly to the authority of Rome.**\n\nAll churches must use sanctioned Bibles. These need** not necessarily** be copies of the Jacobus Bible, but they **must be written in Latin** and formally approved by the Holy Mother Church.\n\nCommunion shall be offered in both forms, bread and wine, in every church. A full barrel of sacramental wine shall be commissioned for every parish (500 gold given for this). Any parish found without a full barrel of wine shall be investigated and charged with heresy. Furtermore, 15 gold a month will be sent to Prague in payment for Communion Wine.\n\nPapal Wine is being delivered to Prague <@261290667106369536> . This wine was bought from <@315868897012219904> (when we unpause i will give you 500 gold)",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525960240653271160/image.png?ex=6a5548b8&is=6a53f738&hm=78a818810c4e037a06297c8e0289d660112ad5f82bcfe4733eab94b29d267fa4&",
+          "filename": "image.png",
+          "width": 827,
+          "height": 506,
+          "att_id": "1525960240653271160",
+          "local": "data/attachments/1525960240653271160_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525960241106124810/image.png?ex=6a5548b8&is=6a53f738&hm=bf1167849726f3a1f041c1ff4ad849cad41fb46bc33d261311536cfe5cfa4c9a&",
+          "filename": "image.png",
+          "width": 730,
+          "height": 420,
+          "att_id": "1525960241106124810",
+          "local": "data/attachments/1525960241106124810_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525961066583035964/image.png?ex=6a55497d&is=6a53f7fd&hm=856f24acd35c84b4c6076fd3079cf76a6b094e023a2ede3325729610edcd6cfc&",
+          "filename": "image.png",
+          "width": 836,
+          "height": 515,
+          "att_id": "1525961066583035964",
+          "local": "data/attachments/1525961066583035964_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525961067539464346/images.png?ex=6a55497d&is=6a53f7fd&hm=37b9af649cfed34ea48f2afcd63028aad3a2223b8df495b6289c71773298f7c0&",
+          "filename": "images.png",
+          "width": 516,
+          "height": 387,
+          "att_id": "1525961067539464346",
+          "local": "data/attachments/1525961067539464346_images.png"
+        }
+      ]
     }
   ]
 }
