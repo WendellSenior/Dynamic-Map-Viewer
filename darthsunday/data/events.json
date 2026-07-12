@@ -19155,6 +19155,28 @@
           "local": "data/attachments/1525949821616394431_image.png"
         }
       ]
+    },
+    {
+      "id": "1525951264364691466",
+      "channel_id": "1505545331591610549",
+      "date": "1451-01-15",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Lincoln",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "### Rebellion out the Gate\n\nThe announcement of the Tudors as the heir apparent was met with doubt from some, though tacit acceptance by many ||after ",
+      "fullText": "### Rebellion out the Gate\n\nThe announcement of the Tudors as the heir apparent was met with doubt from some, though tacit acceptance by many ||after bribes||. Notably, this sentiment was not shared amongst many of the [now marginalized](https://discord.com/channels/507915886477312023/1505545331591610549/1525940495199768647) Lollard community who rightly viewed the ascension of the more zealous Tudors as an end to their liberties tacitly granted by willful ignorance from previous monarchs.\n\n*Rebels rose up around the country and were swiftly put down in many. Heavily Lollard Lincolnshire resisted to the bitter end and had to be put down to by both the new King's uncle Theodore and the reformed Royal army itself.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525951264016437403/Screenshot_2026-07-12_153245.png?ex=6a55405c&is=6a53eedc&hm=5df17d6a9775b4a36fe3efd5b32ab755e44b9d325e40774c006cb37932e2d4d0&",
+          "filename": "Screenshot_2026-07-12_153245.png",
+          "width": 867,
+          "height": 638,
+          "att_id": "1525951264016437403",
+          "local": "data/attachments/1525951264016437403_Screenshot_2026-07-12_153245.png"
+        }
+      ]
     }
   ]
 }
