@@ -19125,6 +19125,36 @@
           "local": "data/attachments/1525941149087432857_image.png"
         }
       ]
+    },
+    {
+      "id": "1525949821926768660",
+      "channel_id": "1505545331591610549",
+      "date": "1449-01-15",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "London",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "# The Act of Succession\n<@1106651545296195655> \n\nIn the view of God, His Majesty Edward V, **has passed**.\n\nHe lived a long 61 years but failed to pro",
+      "fullText": "# The Act of Succession\n<@1106651545296195655> \n\nIn the view of God, His Majesty Edward V, **has passed**.\n\nHe lived a long 61 years but failed to produced legitimate heir. Though his reign was contested at times, he triumphed over those that would throw glorious Britannia into chaos. In his crowned years he took to ward the young **Arthur Tudor**, whose father Edward had proven to be the unfailing pillar and Lord Chancellor of the late government.\n\nAt the end of his days he declared the now young man to **be his heir**. Arthur's claim was distant, via Edward III and the Beauforts, but his **kind-hearted** nature and aptitude is undoubted. By witness of the reinstated Archbishop of Canterbury, the King, and his own father, Arthur Tudor was declared the **Prince of Wales** and heir of England and her domains.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525949821247029339/image.png?ex=6a553f04&is=6a53ed84&hm=e1aa7fa396b870501302bbb03f50fbce381149fc49c075a90af0a1730f2dfa3c&",
+          "filename": "image.png",
+          "width": 514,
+          "height": 540,
+          "att_id": "1525949821247029339",
+          "local": "data/attachments/1525949821247029339_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525949821616394431/image.png?ex=6a553f04&is=6a53ed84&hm=de001c90159772d96304341318b3213d3f15b39ae3eae032b9e371b8b0001e51&",
+          "filename": "image.png",
+          "width": 512,
+          "height": 602,
+          "att_id": "1525949821616394431",
+          "local": "data/attachments/1525949821616394431_image.png"
+        }
+      ]
     }
   ]
 }
