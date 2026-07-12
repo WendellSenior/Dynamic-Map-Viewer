@@ -19245,6 +19245,36 @@
           "local": "data/attachments/1525961067539464346_images.png"
         }
       ]
+    },
+    {
+      "id": "1525963662257553518",
+      "channel_id": "1505545331591610549",
+      "date": "1455-07-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "London",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "## Kymry a Romani - The Welsh and Romans\n\nOf Ednyfed Fycha, of Marchudd ap Cynan, and eventually Magnus Maximus himself. The Welsh of now and old have",
+      "fullText": "## Kymry a Romani - The Welsh and Romans\n\nOf Ednyfed Fycha, of Marchudd ap Cynan, and eventually Magnus Maximus himself. The Welsh of now and old have grand claims about their lineage from the first people of the land and the Roman conquerors who then settled on Britannia in the ensuing centuries. Its truth? Largely an irrelevancy for those intent on their own plans.\n\nArthur Tudor never intended to marry outside the British isles. By design of his father, the former King Edward, and himself he had advocated for an English match ||to secure his own uncertain legitimacy|| as is proper. When an envoy of the young Greek Emperor Demetrios <@302128861209165824> approached he was thus **rejected**, just as Portuguese envoys <@298192682554228738> had been some months earlier.\n\nHowever the question stuck with the **kind-hearted** and **benevolent** King. Would not a match to the distant and venerable east be to his advantage, no matter his necessity?\n\n*Arthur Tudor and Theodora Palaiologos were married in the Autumn of 1455 to much celebration in London and Wales. The Crown in England is not yet secure, but come the birth of a hopeful son it will be revitalized as it has not been since the White Dragon first landed on Albion's virgin shores.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525963661602984106/Screenshot_2026-07-12_155951.png?ex=6a554be7&is=6a53fa67&hm=73f90cfe693fcb77d04185aaee7194c9ddfed644e1b4b38782decb6e2fab81bf&",
+          "filename": "Screenshot_2026-07-12_155951.png",
+          "width": 512,
+          "height": 552,
+          "att_id": "1525963661602984106",
+          "local": "data/attachments/1525963661602984106_Screenshot_2026-07-12_155951.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1525963661921747168/image.png?ex=6a554be8&is=6a53fa68&hm=2ab70ccd4dcc7fe264f4e71b62d58134811a0ccf6d75067230bcca0d83642c7b&",
+          "filename": "image.png",
+          "width": 510,
+          "height": 541,
+          "att_id": "1525963661921747168",
+          "local": "data/attachments/1525963661921747168_image.png"
+        }
+      ]
     }
   ]
 }
