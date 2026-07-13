@@ -19482,6 +19482,37 @@
         }
       ],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1525951289068879962",
+      "channel_id": "1505545415213449216",
+      "date": "1449-01-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Trier",
+      "tag": "Economy",
+      "author": "Onnirio",
+      "snippet": "After some good northern germans start working together with the franconians in Trier, the League convenes during a Hansetag to aid the town further, ",
+      "fullText": "After some good northern germans start working together with the franconians in Trier, the League convenes during a Hansetag to aid the town further, making it a city, a true jewel through which the Moselle flows. Coin, people and materials start flowing into the town, to build up a wall and to reinforce existing structures... <@385875387608989714>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525951288456642570/image.png?ex=6a5691e1&is=6a554061&hm=c7517e39b33c68def28d98cb2875a4128405a25ecd2fbcf3f9eaccb4f5584e93&",
+          "filename": "image.png",
+          "width": 637,
+          "height": 144,
+          "att_id": "1525951288456642570",
+          "local": "data/attachments/1525951288456642570_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525951288779735111/image.png?ex=6a5691e2&is=6a554062&hm=df452958bf1f133740fe8ad6c4c63e1486120c35a05ccc30e0169c3e7d4cea53&",
+          "filename": "image.png",
+          "width": 764,
+          "height": 587,
+          "att_id": "1525951288779735111",
+          "local": "data/attachments/1525951288779735111_image.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
     }
   ]
 }
