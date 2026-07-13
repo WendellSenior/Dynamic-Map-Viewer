@@ -19422,6 +19422,66 @@
           "local": "data/attachments/1526087003530068068_arthur-under-the-stars-with-merlin_Cropped_horizonally.jpg"
         }
       ]
+    },
+    {
+      "id": "1525938901154402364",
+      "channel_id": "1505545415213449216",
+      "date": "1446-01-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Nuremberg",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "Unshackled, with the triumph of Köln and Triet on his back, Albrecht will approach other Free Cities and republics to protect them against any undue t",
+      "fullText": "Unshackled, with the triumph of Köln and Triet on his back, Albrecht will approach other Free Cities and republics to protect them against any undue threat. Many counts have started to use their ‘towns’ as an excuse to ask to be protected by the League, especially those besides Saxony, but the Hansa already has Holstein-Plön under its wing, it is unlikely that many more princes will be accepted, given that princes are especially fickle. Their membership is rarely secure.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545415213449216/1525938900726714518/image.png?ex=6a55dd98&is=6a548c18&hm=a9909fe4d8d1917cfdc650d794a4c83a2bd4646a166ddb55746fe383e055ef19&",
+          "filename": "image.png",
+          "width": 805,
+          "height": 933,
+          "att_id": "1525938900726714518",
+          "local": "data/attachments/1525938900726714518_image.png"
+        }
+      ],
+      "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1525920994072461333",
+      "channel_id": "1505545331591610549",
+      "date": "1445-01-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Portsmouth",
+      "tag": "Economy",
+      "author": "Onnirio",
+      "snippet": "With the civil war certainly over now, the Hanseatic merchants are flooding England at Albrecht’s word that Edward V, undoubtedly grateful as he is, w",
+      "fullText": "With the civil war certainly over now, the Hanseatic merchants are flooding England at Albrecht’s word that Edward V, undoubtedly grateful as he is, will not complain at their appearance. The german and frisian communities will establish themselves along England on those towns and cities that will have them, to tap their true potential and make the recovery of a battered England much faster. \n\nThere is also much interest in Wight, despite Edward’s silence on that regard. Many germans are looking to establish themselves in the island, in theory only to trade. The League is willing to pay for any buildings and roads that need to be made to accommodate this new influx \n-# The Hansa will pay 600 ducats to make Wight a town, if Edward allows it",
+      "images": [],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1525970421739163789",
+      "channel_id": "1505545492736639056",
+      "date": "1455-01-01",
+      "country": "HSA",
+      "countryRaw": null,
+      "province": "Lübeck",
+      "tag": "History",
+      "author": "Onnirio",
+      "snippet": "It has become clear, with the re-election of Albrecht, who was up against... his younger brother, and against a von Lübeck, that the Hanseatic League ",
+      "fullText": "It has become clear, with the re-election of Albrecht, who was up against... his younger brother, and against a von Lübeck, that the Hanseatic League is shifting to a more dynastic principle. This is not new, for cities usually select their meisters form a bunch of important and rich families. What is unusual is this process being replicated in the Hansetag, where the Syndic is being chosen from the most important and well-connected families (the Münsterlands, the Lübeck, the Walbeck...)",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1525970421072134374/image.png?ex=6a55faf3&is=6a54a973&hm=71b0165bf37c32e37560adcf151afeaca5f0961abcecfde44da223808dd301fb&",
+          "filename": "image.png",
+          "width": 860,
+          "height": 698,
+          "att_id": "1525970421072134374",
+          "local": "data/attachments/1525970421072134374_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
     }
   ]
 }
