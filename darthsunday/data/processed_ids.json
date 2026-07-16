@@ -119,26 +119,6 @@
   },
   "last_snowflake": "1527139631340978226",
   "rejected_meta": {
-    "1524637601468911667": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": null,
-      "last_checked": "2026-07-15T21:12:17.997086+00:00"
-    },
-    "1524637748747698378": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": null,
-      "last_checked": "2026-07-15T21:12:17.997086+00:00"
-    },
-    "1524637784395092070": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": null,
-      "last_checked": "2026-07-15T21:12:17.997086+00:00"
-    },
-    "1524638262948270100": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": null,
-      "last_checked": "2026-07-15T21:12:17.997086+00:00"
-    },
     "1524737454853329046": {
       "channel_id": "1520937458320146643",
       "edited_timestamp": "2026-07-09T14:16:31.757000+00:00",
@@ -212,12 +192,12 @@
     "1524874790886834289": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524874841381929050": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524874864073113723": {
       "channel_id": "1518432010383790181",
@@ -402,37 +382,37 @@
     "1524883643120615508": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524883687009947828": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524883761773281391": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524884025683083444": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524884314263916689": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524884359226720469": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524885146690392124": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1524886426561282098": {
       "channel_id": "1518432010383790181",
@@ -862,117 +842,117 @@
     "1525649583961800704": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525649838832750743": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525650381814632659": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525650400445989044": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525650881931120852": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525650980878811327": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525651058532290580": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525651081416151152": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525651530479435867": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525651547550122134": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525663252669927434": {
       "channel_id": "1520937458320146643",
       "edited_timestamp": "2026-07-12T00:41:48.966000+00:00",
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525663290477252638": {
       "channel_id": "1520937458320146643",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525669403973255208": {
       "channel_id": "1520937458320146643",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525705229121884221": {
       "channel_id": "1520937458320146643",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525684959929434222": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685066951426118": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685446418366475": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685507172864041": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685592099131412": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685894697324605": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525685984979714068": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525686055133642973": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525686061337022514": {
       "channel_id": "1518432010383790181",
       "edited_timestamp": null,
-      "last_checked": "2026-07-15T17:34:51.706090+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525686229188874311": {
       "channel_id": "1518432010383790181",
@@ -2396,275 +2376,343 @@
     },
     "1527114115070431389": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527114158821212300": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122016501628959": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": "2026-07-16T01:19:16.859000+00:00"
+      "edited_timestamp": "2026-07-16T01:19:16.859000+00:00",
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122474758574131": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122589976363108": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122855958151280": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122927563047062": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527122972937293994": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123044777197568": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123097893732423": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123184028094484": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123247513079910": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123277850480773": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123337724035154": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123451330957464": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123485946548326": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123524345663629": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123655233114183": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123693413728327": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527123708186198067": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124051728928888": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124176497021089": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124204519035002": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124214728101908": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124234210644120": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527124247787602071": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527126398819504230": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527126648686776430": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527126682165706852": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527126838172848139": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527126947170091160": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127035414319174": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127084839993457": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127103366107147": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127120537718835": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127148224053340": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127237697208330": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127392546459668": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127455591043214": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127569491689562": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127704783294496": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127747237908674": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527127756658180166": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128079372390530": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128155632963706": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128357161013249": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128410076483764": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128456364560535": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128482583150672": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128548630859888": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128799978983484": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128933768888390": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527128995429355531": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129158742966382": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129332877758627": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129402805194852": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129412191916103": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129638839652433": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129786353324194": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129818179702905": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527129861687214080": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527139182424887428": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527139239903367189": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527139631340978226": {
       "channel_id": "1518432010383790181",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527094588081442997": {
       "channel_id": "1505545331591610549",
-      "edited_timestamp": "2026-07-15T23:29:04.054000+00:00"
+      "edited_timestamp": "2026-07-15T23:29:04.054000+00:00",
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527121854823665694": {
       "channel_id": "1505545331591610549",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527134207162187776": {
       "channel_id": "1505545331591610549",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527137845448413204": {
       "channel_id": "1505545331591610549",
-      "edited_timestamp": null
+      "edited_timestamp": null,
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     }
   },
   "merged_meta": {
@@ -2672,193 +2720,193 @@
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140418663022602": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140462556676207": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140554709467248": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": "2026-07-10T14:43:12.257000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140681042169917": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": "2026-07-10T14:35:09.740000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140824776511508": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": "2026-07-10T14:39:44.800000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525140968108720311": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525141280487772303": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": "2026-07-10T14:27:07.673000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525141374502965318": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": "2026-07-10T14:28:09.924000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525141394929225728": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525141737834807407": {
       "parent_id": "1525140200370470975",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525195705075896501": {
       "parent_id": "1525195653586747423",
       "channel_id": "1505545331591610549",
       "edited_timestamp": "2026-07-11T01:13:35.485000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525229230462603396": {
       "parent_id": "1525228703859081427",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525575276023648447": {
       "parent_id": "1525575228464562287",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525933216018468955": {
       "parent_id": "1525931443799327021",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525933239464624188": {
       "parent_id": "1525931443799327021",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525937342198710312": {
       "parent_id": "1525936509386227873",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525937894018256968": {
       "parent_id": "1525936509386227873",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525941149423108136": {
       "parent_id": "1525940495199768647",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525957097483931722": {
       "parent_id": "1525957090827436085",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525961067732140194": {
       "parent_id": "1525960241169305693",
       "channel_id": "1505545415213449216",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1525963673871319110": {
       "parent_id": "1525963662257553518",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526063502525993112": {
       "parent_id": "1526063464039055490",
       "channel_id": "1505545492736639056",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526063838393401496": {
       "parent_id": "1526063719287619758",
       "channel_id": "1505545492736639056",
       "edited_timestamp": "2026-07-13T03:18:54.508000+00:00",
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526064000125767680": {
       "parent_id": "1526063719287619758",
       "channel_id": "1505545492736639056",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526064016298872953": {
       "parent_id": "1526063719287619758",
       "channel_id": "1505545492736639056",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526087003433861181": {
       "parent_id": "1526086929345548301",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526087110459658260": {
       "parent_id": "1526086929345548301",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526634066177429666": {
       "parent_id": "1526634044794732707",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1526817866014265375": {
       "parent_id": "1526817702445056041",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527031059626201178": {
       "parent_id": "1527030918689198310",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     },
     "1527031133907193907": {
       "parent_id": "1527030918689198310",
       "channel_id": "1505545331591610549",
       "edited_timestamp": null,
-      "last_checked": "2026-07-16T03:31:33.977624+00:00"
+      "last_checked": "2026-07-16T06:28:30.025874+00:00"
     }
   },
   "reacted_ids": [
