@@ -19969,8 +19969,8 @@
       "province": "Pembroke",
       "tag": "History",
       "author": "Ceb",
-      "snippet": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, and now even Edward Tudor himself.",
-      "fullText": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, and now even Edward Tudor himself.*\n\nThe generation that saw endless war and strife in England has largely passed. Those that now bear the burden of the land's current state are only bound to their memory, no longer their direct voice. As this time comes to pass it is hoped that some semblance of peace and prosperity will once again return...even as fears loom about King Arthur's still unsecure succession...",
+      "snippet": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, Margaret Beuufort, and now even Ed",
+      "fullText": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, Margaret Beuufort, and now even Edward Tudor himself.*\n\nThe generation that saw endless war and strife in England has largely passed. Those that now bear the burden of the land's current state are only bound to their memory, no longer their direct voice. As this time comes to pass it is hoped that some semblance of peace and prosperity will once again return...even as fears loom about King Arthur's still unsecure succession...",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528487288533811290/image.png?ex=6a5e7a37&is=6a5d28b7&hm=685217f0657eed504332e2627b1ef2437ff7eb908bce189f36a5bf997ccc9006&",
@@ -20232,6 +20232,19 @@
         }
       ],
       "title": "Eastern Europe and Asia Diplo"
+    },
+    {
+      "id": "1528504837048762528",
+      "channel_id": "1505545415213449216",
+      "date": "1476-03-01",
+      "country": "MOR",
+      "countryRaw": null,
+      "province": "Fez",
+      "tag": "History",
+      "author": "Wolf legion 45",
+      "snippet": "# A New Land?\n\n\nToday the brave Moroccan Explorers have returned to Fez. They talk of a land far to the west, not india as was expected but a land of ",
+      "fullText": "# A New Land?\n\n\nToday the brave Moroccan Explorers have returned to Fez. They talk of a land far to the west, not india as was expected but a land of fruits, clear waters and small native populations never before seen. Seeking knowledge from both their own libraries and the great libraries of Alexandria, none of the Sultans agents report any information on this land before. What this will mean for the Sultanate is yet to be seen but alreday the great sultan is intrested in the possibilities of this new land.",
+      "images": []
     }
   ]
 }
