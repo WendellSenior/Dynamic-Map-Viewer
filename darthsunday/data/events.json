@@ -20258,6 +20258,28 @@
       "snippet": "# Milan has lost !\n\nMondovi and Salluzo is now under French control !",
       "fullText": "# Milan has lost !\n\nMondovi and Salluzo is now under French control !",
       "images": []
+    },
+    {
+      "id": "1528508929372323986",
+      "channel_id": "1505545331591610549",
+      "date": "1477-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "York",
+      "tag": "WarDec",
+      "author": "Ceb",
+      "snippet": "### Readying the Pikes\n<@1417260821674852363> <@1106651545296195655> \n\nThe time has come, no matter Arthur's own troubles at home. Scotland and its Da",
+      "fullText": "### Readying the Pikes\n<@1417260821674852363> <@1106651545296195655> \n\nThe time has come, no matter Arthur's own troubles at home. Scotland and its Danish monarchs <@210779670663135232> are absentee landlords at best. Many nearby interests do not find their inheritance of the northern Kingdom as a welcome addition no matter their general ambivalence to the region.\n\nKing Arthur intends to once again march north at the head of another well-drilled army. He aims to impose the rights of his brother in law, Henry Steward - the Duke of Aosta, as the King of Scotland once again. This cousin of the former line has the best claim (Arthur claims) to the throne and the right connections to do so. His ascension will undoubtedly come with the re-empowerment of the lowlands at the cost of the Highland Clans so feted by the absentee Danish Crown.\n\n(War Dec on Scotland to install the Italian Stuarts on the throne and make them primary Scots again, Save edit if win.)\n\n*Among his army Arthur attempts to recruit many disaffected Scotsmen. They, along with the Welsh, Irish, and of course English, will once again bring home rule to the isles*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528508928995102950/29e0d03e812acc352ff3fc0dbeda1332.png?ex=6a5e8e5e&is=6a5d3cde&hm=d395bf144434d77932cccd84cdf3eb38ef4008562d2afeca8578b5b48bcd4a53&",
+          "filename": "29e0d03e812acc352ff3fc0dbeda1332.png",
+          "width": 750,
+          "height": 563,
+          "att_id": "1528508928995102950",
+          "local": "data/attachments/1528508928995102950_29e0d03e812acc352ff3fc0dbeda1332.png"
+        }
+      ]
     }
   ]
 }
