@@ -20003,6 +20003,28 @@
           "local": "data/attachments/1528487405374410973_Wycliffe_John_Gospel.png"
         }
       ]
+    },
+    {
+      "id": "1528490863511208207",
+      "channel_id": "1505545331591610549",
+      "date": "1473-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "Character",
+      "author": "Ceb",
+      "snippet": "### A Strengthened Name\n\nThe marriage of Henry FitzArthur and Jeanne de Valois is **accepted**. King Arthur himself has all but acknowledged his only ",
+      "fullText": "### A Strengthened Name\n\nThe marriage of Henry FitzArthur and Jeanne de Valois is **accepted**. King Arthur himself has all but acknowledged his only son as his own in the eyes of court, but has stopped short of legitimizing him in the eyes of the law. As time progresses this position increasingly slips as he now gives him royal dignity in at least France via his new marriage to King Henry's eldest and capable daughter.\n\n*Tensions continue to mount as Queen Theodora <@302128861209165824> has yet to produce a son and the lords look to the King's only son - who increasingly spends time in Paris <@460814348487753730>.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528490863175536731/image.png?ex=6a5e7d8b&is=6a5d2c0b&hm=d0a8b5294786afdb60e44a18d2770e49b184c5fcee45a3be2c20b867dac81102&",
+          "filename": "image.png",
+          "width": 510,
+          "height": 543,
+          "att_id": "1528490863175536731",
+          "local": "data/attachments/1528490863175536731_image.png"
+        }
+      ]
     }
   ]
 }
