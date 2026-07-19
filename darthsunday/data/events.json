@@ -20014,7 +20014,7 @@
       "tag": "Character",
       "author": "Ceb",
       "snippet": "### A Strengthened Name\n\nThe marriage of Henry FitzArthur and Jeanne de Valois is **accepted**. King Arthur himself has all but acknowledged his only ",
-      "fullText": "### A Strengthened Name\n\nThe marriage of Henry FitzArthur and Jeanne de Valois is **accepted**. King Arthur himself has all but acknowledged his only son as his own in the eyes of court, but has stopped short of legitimizing him in the eyes of the law. As time progresses this position increasingly slips as he now gives him royal dignity in at least France via his new marriage to King Henry's eldest and capable daughter.\n\n*Tensions continue to mount as Queen Theodora <@302128861209165824> has yet to produce a son and the lords look to the King's only son - who increasingly spends time in Paris <@460814348487753730>.*",
+      "fullText": "### A Strengthened Name\n\nThe marriage of Henry FitzArthur and Jeanne de Valois is **accepted**. King Arthur himself has all but acknowledged his only son as his own in the eyes of court, but has stopped short of legitimizing him in the eyes of the law. As time progresses this position increasingly slips as he now gives him royal dignity in at least France via his new marriage to King Henry's eldest and capable daughter.\n\n*Tensions continue to mount as Queen Theodora <@302128861209165824> has yet to produce a son and the lords look to the King's only bastard son - who increasingly spends time in Paris <@460814348487753730>.*",
       "images": [
         {
           "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528490863175536731/image.png?ex=6a5e7d8b&is=6a5d2c0b&hm=d0a8b5294786afdb60e44a18d2770e49b184c5fcee45a3be2c20b867dac81102&",
@@ -20023,6 +20023,28 @@
           "height": 543,
           "att_id": "1528490863175536731",
           "local": "data/attachments/1528490863175536731_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1528494583598551110",
+      "channel_id": "1505545492736639056",
+      "date": "1470-01-01",
+      "country": "HUN",
+      "countryRaw": null,
+      "province": "pest",
+      "tag": "Meeting",
+      "author": "Redcola",
+      "snippet": "**The Great Entrenchment**\n\nThe years of careful power plays by the Anjou union would see a select few of Hungarian houses consolidate power over thei",
+      "fullText": "**The Great Entrenchment**\n\nThe years of careful power plays by the Anjou union would see a select few of Hungarian houses consolidate power over their peers both in Halych and the local older houses, invited in and favored the French would appoint the variously separate to a Báró council, a military command officially but unofficially a means by which the Magnates can organize their affairs over the head of the King, though Anjou protection of their lands and Dynastic prestige keeps them for now all well in line. \n\n- **Hunyadi **to the south of Hungary, lords of the river ways and breadbasket for the growing cities of the Danube\n\n- **Cillei ** to the west within Slovenia and imperially focused, lost much in power and influence in the wars within Bohemia their house remains the middle men to Hapsburgs and with it the gateway to the west\n\n- **Garai** of Croatia and much the voice of the liberals and opponents to the hard power of the church, though many whisper his house has the support of Hussite and Bogmolists nothing has been proven\n\n- **Báthory** of the east and lords of Transyvania, holding with an iron grip the great many mines and towns of the eastern lands, their material support fueling the Anjou Black army, holding very much the sword of Damocles above the heads of the crown\n\n- **Rozgonyi** of the north who since the courtly move to Pest have only risen in power, the voice of the growing Urban centers and much the sword of the great lords of central Hungary\n\n- **Frankopan ** of the Adriatic, their voices ever leaning towards Italy, though at each turn overuled for favour of the south they remain a persistent opponent to the current Anjou policy, leaning towards instead Naples and Venice.\n\nAs the century turns Hungary remains at the vanguard of the future, while held ever back to Medieval standards...",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1528494583304945836/5b2c041e620004e082935dcac690050b.png?ex=6a5e8102&is=6a5d2f82&hm=c8fa1780c8ee1a05a484634e4c9e47da3dbed8492e4e74ef53ef55de75c852ae&",
+          "filename": "5b2c041e620004e082935dcac690050b.png",
+          "width": 736,
+          "height": 1030,
+          "att_id": "1528494583304945836",
+          "local": "data/attachments/1528494583304945836_5b2c041e620004e082935dcac690050b.png"
         }
       ]
     }
