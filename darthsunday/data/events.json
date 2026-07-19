@@ -20368,6 +20368,28 @@
         }
       ],
       "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1528515969327042611",
+      "channel_id": "1505545492736639056",
+      "date": "1478-04-09",
+      "country": "HUN",
+      "countryRaw": null,
+      "province": "Severin",
+      "tag": "Battle",
+      "author": "Redcola",
+      "snippet": "**The Swing at Wallachia**\n<@493830084893999104> \n\nIn the midst of the war in Serbia the Duke of Wallachia coveting his ancestral seat would launch a ",
+      "fullText": "**The Swing at Wallachia**\n<@493830084893999104> \n\nIn the midst of the war in Serbia the Duke of Wallachia coveting his ancestral seat would launch a surprise attack to seize lands from the Bathory their old rivals, though initially successful the realm of Halych would send reinforcements to the Transylvania (in exchange for certain mining rights), ending hopes of a lighting seizure of land.\n\nDespite this the military skill and expertise of the Wallachian nobility would see their forces fight against terrible odds, raids, aymstertical warfare strategies and scorched earth countering each Anjou advance. Yet with the loss in southern Serbia the Hungarian armies there would turn upon the Wallachian flank at Severin. Though suffering truly terrible lossess against the Wallachians in the end through sheer weight of numbers Wallachia would be humbled and beaten back. Yet the damage to the prestige of the Hungarian kingdom has been made, that a singular minor duchy could so effectively fight such a grander realm poses dark questions for the future of the land....",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1528515968974979154/8ca77818068531329d506b63d7adc491.png?ex=6a5e94ed&is=6a5d436d&hm=c21f5333b32315ca05d5c08c85e2776a1ecc7ce76ba5c84aa2e6a65ecf2315d1&",
+          "filename": "8ca77818068531329d506b63d7adc491.png",
+          "width": 1024,
+          "height": 717,
+          "att_id": "1528515968974979154",
+          "local": "data/attachments/1528515968974979154_8ca77818068531329d506b63d7adc491.png"
+        }
+      ]
     }
   ]
 }
