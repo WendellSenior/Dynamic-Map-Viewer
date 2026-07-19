@@ -20412,6 +20412,28 @@
           "local": "data/attachments/1528519618245820456_image.png"
         }
       ]
+    },
+    {
+      "id": "1528523200462454974",
+      "channel_id": "1505545331591610549",
+      "date": "1483-06-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "London",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### The Act of Legitimization\n\n*Sir Henry FitzArthur, of formerly base birth from [Beatrix Hood](https://discord.com/channels/507915886477312023/15055",
+      "fullText": "### The Act of Legitimization\n\n*Sir Henry FitzArthur, of formerly base birth from [Beatrix Hood](https://discord.com/channels/507915886477312023/1505545331591610549/1525957090827436085), is declared **Henry Tudor** and the **heir of England**.*\n\nThe middle aged noble has been granted middling favor from his father throughout his life. However when it became clear that the Queen Theodora was not going to produce legitimate male heir it became necessary for more overt action. Thus the patiently waiting Henry was legitimized, with the Curia's consent <@150411715757080576>, and given offical title as the Prince of Wales. A fact only further bolstered by his marriage to the noble Jeanne de Valois and their two healthy sons - Edmund and Henry.\n\n*Some may contest the ascension of a previous, though highly placed, bastard. Arthur hopes that his own good name in conjunction with the man's popular English heritage will mollify any such complaints among the Commons. Now there there is only the probable quarreling of the High Lords to overcome...* <@1106651545296195655>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528523200189829311/image.png?ex=6a5e9ba9&is=6a5d4a29&hm=b1bae05a1b791ec637a0f4cc274c93212a86dde5c4dd5f3025af3e42db41d160&",
+          "filename": "image.png",
+          "width": 1439,
+          "height": 873,
+          "att_id": "1528523200189829311",
+          "local": "data/attachments/1528523200189829311_image.png"
+        }
+      ]
     }
   ]
 }
