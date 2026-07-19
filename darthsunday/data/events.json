@@ -20051,7 +20051,7 @@
     {
       "id": "1528499061114536088",
       "channel_id": "1505545492736639056",
-      "date": "1470-01-01",
+      "date": "1474-01-01",
       "country": "HUN",
       "countryRaw": null,
       "province": "Novobrodo",
@@ -20139,6 +20139,99 @@
         }
       ],
       "title": "Central Europe and North Africa Diplo"
+    },
+    {
+      "id": "1528469799288438884",
+      "channel_id": "1505545331591610549",
+      "date": "1461-01-01",
+      "country": null,
+      "countryRaw": "Castille",
+      "province": "La Guardia",
+      "tag": "Battle",
+      "author": "Onnirio",
+      "snippet": "The Second Battle of La Guardia... also a bloodbath! By now, 100.000 people have been felled in this land. How many more will have to die before the w",
+      "fullText": "The Second Battle of La Guardia... also a bloodbath! By now, 100.000 people have been felled in this land. How many more will have to die before the war is over?\n\nWith the war going so badly, the King has made a request for levies to be raised and fight against the perfidious French once more. As they say, \"a la tercera va la vencida\" <@460814348487753730>\n\nThe Austrian Mercenaries will soon reach Castille and join the fight against the French... after crossing through France! <@302527114283057153>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528469798982389760/image.png?ex=6a5e69ed&is=6a5d186d&hm=b80d5cd1e1d8f35e90f131ade5cf4a0dd89f4275683f8051fca509a45eaa1378&",
+          "filename": "image.png",
+          "width": 1745,
+          "height": 757,
+          "att_id": "1528469798982389760",
+          "local": "data/attachments/1528469798982389760_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528470283164450948/image.png?ex=6a5e6a61&is=6a5d18e1&hm=07c40fb3e2a497b00bfd1ddd753fc6e0182130c4ab1787a9f78853872e318ce3&",
+          "filename": "image.png",
+          "width": 916,
+          "height": 434,
+          "att_id": "1528470283164450948",
+          "local": "data/attachments/1528470283164450948_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528471664139042978/image.png?ex=6a5e6baa&is=6a5d1a2a&hm=604a128c92046781469388e5b7ab268c0338fa756627cd5d5026c89d25568866&",
+          "filename": "image.png",
+          "width": 714,
+          "height": 465,
+          "att_id": "1528471664139042978",
+          "local": "data/attachments/1528471664139042978_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1528476666563661925",
+      "channel_id": "1505545331591610549",
+      "date": "1465-01-01",
+      "country": null,
+      "countryRaw": "Castille",
+      "province": "Donosti",
+      "tag": "Treaty",
+      "author": "Onnirio",
+      "snippet": "The War has ended successfully, though if anything this has been a Pyrrhic victory (if it can even called a victory...). Much battles have been fought",
+      "fullText": "The War has ended successfully, though if anything this has been a Pyrrhic victory (if it can even called a victory...). Much battles have been fought, much blood spilled. Navarre has been liberated and the basque-speaking lands have been provided to Navarra as a \"reward\", given that during the war their lands were completely devastated, and now the center of power will shift to the Castillian loyalists land <@460814348487753730> <@422498641425596418>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528476665389383820/image.png?ex=6a5e7052&is=6a5d1ed2&hm=1b781ac19ce31ece3aa926fd25fc66335299e2e1f894922ee27c767b88ff4dc3&",
+          "filename": "image.png",
+          "width": 859,
+          "height": 784,
+          "att_id": "1528476665389383820",
+          "local": "data/attachments/1528476665389383820_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528476666106740736/image.png?ex=6a5e7052&is=6a5d1ed2&hm=d28b4efb21a70d3d6c1e8248c39d322cd2f888557a0814efef0e960b31a9e859&",
+          "filename": "image.png",
+          "width": 805,
+          "height": 622,
+          "att_id": "1528476666106740736",
+          "local": "data/attachments/1528476666106740736_image.png"
+        }
+      ],
+      "title": "Atlantic Diplo"
+    },
+    {
+      "id": "1528488084021182646",
+      "channel_id": "1505545492736639056",
+      "date": "1473-01-01",
+      "country": null,
+      "countryRaw": "Castille",
+      "province": "Jerusalem",
+      "tag": "Meeting",
+      "author": "Onnirio",
+      "snippet": "The King is dead, long live the King! Though there are affairs to be settled in Castille, Fernando wants to celebrate the previous victory of his fath",
+      "fullText": "The King is dead, long live the King! Though there are affairs to be settled in Castille, Fernando wants to celebrate the previous victory of his father (and his, as he participated when he was younger), so he wants to make a pilgrimage to the lands he distantly rules in Jerusalem, to honour both God, who granted him victory, and to oversee what is going on in the Noble Council of the Holiest of Cities. He has asked privately to his Confessor to request the Pope for some money to do this voyage, as many of his retinue will come with him <@150411715757080576> <@698400527834415145>",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1528488082763157564/image.png?ex=6a5e7af4&is=6a5d2974&hm=86fb36de60c3b7e94de4715309b6b32438bfe2bf499221234f6e87fd0079d4fc&",
+          "filename": "image.png",
+          "width": 696,
+          "height": 436,
+          "att_id": "1528488082763157564",
+          "local": "data/attachments/1528488082763157564_image.png"
+        }
+      ],
+      "title": "Eastern Europe and Asia Diplo"
     }
   ]
 }
