@@ -20390,6 +20390,28 @@
           "local": "data/attachments/1528515968974979154_8ca77818068531329d506b63d7adc491.png"
         }
       ]
+    },
+    {
+      "id": "1528519618573111477",
+      "channel_id": "1505545331591610549",
+      "date": "1481-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Newcastle",
+      "tag": "Battle",
+      "author": "Ceb",
+      "snippet": "### A Humiliation Borne of Complacency\n<@210779670663135232> <@1417260821674852363> \n\n*What was once thought to be a simple excursion, turned into an ",
+      "fullText": "### A Humiliation Borne of Complacency\n<@210779670663135232> <@1417260821674852363> \n\n*What was once thought to be a simple excursion, turned into an utter disaster.*\n\nSir Goronwy Tudor commanded the Welsh garrison of Newcastle and was preparing for the arrival of the English army some few days later. They had not advanced into Scotland and did not intend offensive action for some month yet. Spirits were high as King Arthur and newly minted Baron Henry were personally planning on assisting the campaign.\n\nIn the dead of the night. Under shadow of a silent march. The Danish army approached. The Welsh garrison numbered some 11,000 men; a sizeable and well drilled number, but less than the known numbers of the northerners. They expected to put up a good fight even if caught unawares with such advantage. They were sorely mistaken.\n\n*The battle was a one-sided decimation and the entire field army of Wales was scattered or captured. Sir Goronwy Tudor himself was captured and had to be ransomed after the war's conclusion. Some days later the field army of England arrived at the scene in order to expel the Danes...and was similarly defeated. The northerner's advance into England was stopped only by the gifting of excessive incomes from the royal treasury <@1106651545296195655> to the Danish crown.*\n\n**English forces did not even step foot into Scotland...**",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528519618245820456/image.png?ex=6a5e9853&is=6a5d46d3&hm=6c42d9f46b0c17786454acfcc02f001a01b950d43470549d2f00887f67a4fb86&",
+          "filename": "image.png",
+          "width": 1082,
+          "height": 805,
+          "att_id": "1528519618245820456",
+          "local": "data/attachments/1528519618245820456_image.png"
+        }
+      ]
     }
   ]
 }
