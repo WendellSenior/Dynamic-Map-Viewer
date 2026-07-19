@@ -19929,6 +19929,80 @@
           "local": "data/attachments/1528478436190847106_image.png"
         }
       ]
+    },
+    {
+      "id": "1528484947730628801",
+      "channel_id": "1505545492736639056",
+      "date": "1466-07-20",
+      "country": "HUN",
+      "countryRaw": null,
+      "province": "Pest",
+      "tag": "History",
+      "author": "Redcola",
+      "snippet": "**The Anjou Royal Army**\n\nAs the realm looks inwards the issue of ruling such vast lands is ever a pressing concern, the spread of heresy and orthodox",
+      "fullText": "**The Anjou Royal Army**\n\nAs the realm looks inwards the issue of ruling such vast lands is ever a pressing concern, the spread of heresy and orthodox unrest while the military losses against the Imperial army show the need for a more standing reliable force. Using the core of veteran Mercenary regiments and officers from the Hussite then Imperial war the Anjou crown has levied (*through great political effort*) a fund of which to salary and hire such an army. \n\ninspired by the renaissance works of the university of Pdnesio the crown has organised forces partially along old roman lines, seeing well the Byzantine empires own successes and the need for discpline not just pure firepower. The armies black plate and standards setting them apart from the feudal forces of the Pannonian plane, much to the disdain of the nobility, such a force only able to maintain itself provided it gets results, lest the nobility calls for their dissolution.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1528484946979848543/image.png?ex=6a5e7809&is=6a5d2689&hm=2414d1d1e3961007f84ab2d9e36336bab6ad249d82a4e9dd4fa0a072e276eb27&",
+          "filename": "image.png",
+          "width": 452,
+          "height": 604,
+          "att_id": "1528484946979848543",
+          "local": "data/attachments/1528484946979848543_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545492736639056/1528484947545817150/1iYX7__I7Nt-oFTiObH-2ZA.png?ex=6a5e7809&is=6a5d2689&hm=d809ffe0bf4a7107fd1332ac9ebb83c1f5c02a3ae46fc48816779501d8772a03&",
+          "filename": "1iYX7__I7Nt-oFTiObH-2ZA.png",
+          "width": 628,
+          "height": 502,
+          "att_id": "1528484947545817150",
+          "local": "data/attachments/1528484947545817150_1iYX7__I7Nt-oFTiObH-2ZA.png"
+        }
+      ]
+    },
+    {
+      "id": "1528487288881811487",
+      "channel_id": "1505545331591610549",
+      "date": "1470-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Pembroke",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, and now even Edward Tudor himself.",
+      "fullText": "### The Passing of an Era\n\n*Queen Judith Piast, King-Consort William Neville, the last of the Mathrafals in France, and now even Edward Tudor himself.*\n\nThe generation that saw endless war and strife in England has largely passed. Those that now bear the burden of the land's current state are only bound to their memory, no longer their direct voice. As this time comes to pass it is hoped that some semblance of peace and prosperity will once again return...even as fears loom about King Arthur's still unsecure succession...",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528487288533811290/image.png?ex=6a5e7a37&is=6a5d28b7&hm=685217f0657eed504332e2627b1ef2437ff7eb908bce189f36a5bf997ccc9006&",
+          "filename": "image.png",
+          "width": 586,
+          "height": 387,
+          "att_id": "1528487288533811290",
+          "local": "data/attachments/1528487288533811290_image.png"
+        }
+      ]
+    },
+    {
+      "id": "1528487405231800404",
+      "channel_id": "1505545331591610549",
+      "date": "1471-01-01",
+      "country": "PAP",
+      "countryRaw": null,
+      "province": "London",
+      "tag": "History",
+      "author": "Murlock",
+      "snippet": "**The Church Buys the Wycliffe Bible for a staggering 7000 Gold <:eu4_gold:839128116436664370> **\n<@1094722105855189062> <@1106651545296195655> \nThe c",
+      "fullText": "**The Church Buys the Wycliffe Bible for a staggering 7000 Gold <:eu4_gold:839128116436664370> **\n<@1094722105855189062> <@1106651545296195655> \nThe church has found the orginal copy of the Wycliffe Bible, and in a moment of clarity and scholarship, offers to not burn or destroy the bible, but to buy the bible and for it to be on display in the Papal Libary to be studied. The Bible shall be translated into Latin, and show the many things Wycliffe got wrong, as well as point out how Latin is the word of god. The Bible is an interesting part of Church History, and it should be displayed.\n\n**The true catholic church of christ has nothing to hide.**\n\nThis also represents the largest art purchase in modern times. <:eu4_gold:839128116436664370> <:eu4_gold:839128116436664370> <:eu4_gold:839128116436664370>  (Perharps forshadowing)",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1528487405374410973/Wycliffe_John_Gospel.png?ex=6a5e7a53&is=6a5d28d3&hm=0b1fc38859badeae0e45efca81fc2a98287a1966065a8dc5b154e592f6537629&",
+          "filename": "Wycliffe_John_Gospel.png",
+          "width": 624,
+          "height": 1050,
+          "att_id": "1528487405374410973",
+          "local": "data/attachments/1528487405374410973_Wycliffe_John_Gospel.png"
+        }
+      ]
     }
   ]
 }
