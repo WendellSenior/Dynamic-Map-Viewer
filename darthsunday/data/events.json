@@ -20688,6 +20688,28 @@
           "local": "data/attachments/1531036192898941028_image.png"
         }
       ]
+    },
+    {
+      "id": "1531040098030981292",
+      "channel_id": "1505545331591610549",
+      "date": "1500-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Saint Davids",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### King Arthur the Saint\n\nWisdom be to His Holiness Paulus III for his righteous decision. Before the English lawyers and clergymen <@110665154529619",
+      "fullText": "### King Arthur the Saint\n\nWisdom be to His Holiness Paulus III for his righteous decision. Before the English lawyers and clergymen <@1106651545296195655> even arrived to Italy the Pope himself had seemingly reviewed the clear documentation around the Tudor dynasty's support of the Church on the Isles. There could be no greater sign of the reconciliation of London and Rome than this blessing upon its royal family.",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1531040097443512502/image.png?ex=6a67c3b4&is=6a667234&hm=eab2d8ae58abeaeec6697270cb07826384636a522e7a34f7000e9f2f4b566ef4&",
+          "filename": "image.png",
+          "width": 809,
+          "height": 617,
+          "att_id": "1531040097443512502",
+          "local": "data/attachments/1531040097443512502_image.png"
+        }
+      ]
     }
   ]
 }
