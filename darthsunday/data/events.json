@@ -20710,6 +20710,44 @@
           "local": "data/attachments/1531040097443512502_image.png"
         }
       ]
+    },
+    {
+      "id": "1531049069013630997",
+      "channel_id": "1505545331591610549",
+      "date": "1507-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Carlisle",
+      "tag": "WarDec",
+      "author": "Ceb",
+      "snippet": "### The Second Restoration War\n\nThe first invasion was a disaster only rectified by a renewed Danegeld. The second, King Henry has resolved, will not ",
+      "fullText": "### The Second Restoration War\n\nThe first invasion was a disaster only rectified by a renewed Danegeld. The second, King Henry has resolved, will not be as such.\n\nEnglish, French, and Welsh forces mass in northern England with Duke Charles Stewart close behind. The newfound marriage ties of the Tudors bring such a coalition to bear against the distant Gryf Kings and their abundant crowns. They aim to bring once critical Scotland back into the fold of the British isles, not Scandinavia or the Highlands anymore.\n\n(War dec to restore Stewarts in Scotland - January 1507)\nEnglish Side: <@1106651545296195655> <@1094722105855189062> <@460814348487753730> \nScotland and Danes <@210779670663135232>\n\n*The forces of Wales, once again under the competent Goronwy Tudur, are made ready at their cousin's direction.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1531049068493672558/flod4.png?ex=6a67cc0f&is=6a667a8f&hm=4f13dce313d7efe79325c718736e633b39a0ce9d50ac8e9ae05d14375b01cc35&",
+          "filename": "flod4.png",
+          "width": 640,
+          "height": 351,
+          "att_id": "1531049068493672558",
+          "local": "data/attachments/1531049068493672558_flod4.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1531049613744668772/image.png?ex=6a67cc91&is=6a667b11&hm=b0944594d42b281085ccc7f22809ac6b6b65a7a09c04952aba12eb037ffa9754&",
+          "filename": "image.png",
+          "width": 593,
+          "height": 527,
+          "att_id": "1531049613744668772",
+          "local": "data/attachments/1531049613744668772_image.png"
+        },
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1531049614080479353/image.png?ex=6a67cc91&is=6a667b11&hm=bda7ff34337c81176ee44ee2e1920c5d054d74b4e56247b6397800b5598a2033&",
+          "filename": "image.png",
+          "width": 506,
+          "height": 530,
+          "att_id": "1531049614080479353",
+          "local": "data/attachments/1531049614080479353_image.png"
+        }
+      ]
     }
   ]
 }
