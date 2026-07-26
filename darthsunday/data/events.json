@@ -20666,6 +20666,28 @@
           "local": "data/attachments/1531024685892898826_3_6_1_1.png"
         }
       ]
+    },
+    {
+      "id": "1531036193284689941",
+      "channel_id": "1505545331591610549",
+      "date": "1499-01-01",
+      "country": "WLS",
+      "countryRaw": null,
+      "province": "Avalon",
+      "tag": "History",
+      "author": "Ceb",
+      "snippet": "### The Royal Tradition of Tours\n\nMany English dynasties throughout history have shepherded their family with jealous privacy. To be seen, and to see,",
+      "fullText": "### The Royal Tradition of Tours\n\nMany English dynasties throughout history have shepherded their family with jealous privacy. To be seen, and to see, London and the capital was of paramount importance above all. Those that arrived in its guarded walls first were often proclaimed monarch no matter their claims or lack thereof.\n\nThe Tudor dynasty has operated differently.\n\nThey arrived to the throne under special circumstances. More than that, both the previous Prince of Wales, now King Henry himself, and now his heir have spent extensive time away from London in their younger years. The former to his wife's home in Paris <@460814348487753730> and the latter to his in-law's capital in Lisbon <@298192682554228738>. \n\n*Many now view it as a prerequisite that the Prince of Wales, no matter his extract, have some form of experience abroad before they return to govern England and add to its already rich tradition.*",
+      "images": [
+        {
+          "url": "https://cdn.discordapp.com/attachments/1505545331591610549/1531036192898941028/image.png?ex=6a67c011&is=6a666e91&hm=6097f53914b57e59833964822cc8e4432a0a9a2eacabcf63b12fcef1b982d596&",
+          "filename": "image.png",
+          "width": 1226,
+          "height": 927,
+          "att_id": "1531036192898941028",
+          "local": "data/attachments/1531036192898941028_image.png"
+        }
+      ]
     }
   ]
 }
