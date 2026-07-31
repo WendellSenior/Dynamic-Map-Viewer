@@ -18,6 +18,9 @@ tools/roll_session.py            auto-closes the open session + opens the next
                                  (runs at the end of the Sunday heartbeat)
 tools/parse_positions.py         EU4 positions.txt → provinces.json
 tools/parse_eu5_reference.py     EU5 locators + names → provinces.json + tags.json
+tools/parse_hoi4_reference.py    HoI4 provinces.bmp + states + localisation →
+                                 provinces.json + tags.json (derives coordinates;
+                                 HoI4 ships none)
 tools/new_instance.py            campaign scaffolder
 <game>-<campaign>/               one folder per campaign
     view.html                    viewer page; declares window.CAMPAIGN_GAME
@@ -133,8 +136,22 @@ For an existing-game campaign (game reference data already in `assets/reference/
 For a **new game** with no shared reference data yet:
 
 1. Seed `assets/reference/<game>/` with the game's tag list + position/locator files (see `assets/reference/PARADOX-GAME-DATA.md` for the file list).
-2. Run the relevant parser (`tools/parse_positions.py` for EU4-style games, `tools/parse_eu5_reference.py` for EU5) to derive `tags.json` + `provinces.json`.
-3. Then proceed as above.
+2. Run the relevant parser (`tools/parse_positions.py` for EU4-style games, `tools/parse_eu5_reference.py` for EU5, `tools/parse_hoi4_reference.py` for HoI4) to derive `tags.json` + `provinces.json`.
+3. Add the game's native map dimensions to `NATIVE_MAP_DIMS` in `tools/new_instance.py` so the first campaign of that game gets the right `snapshots.json` config. Reference coordinates are in the game's native map pixel space, and the viewer scales pins from it — a wrong value silently misplaces every pin.
+4. Then proceed as above.
+
+### Supported games
+
+| Game | Reference parser | Native map | Location unit |
+|---|---|---|---|
+| `eu4` | `parse_positions.py` | 5632×2048 | Province |
+| `eu5` | `parse_eu5_reference.py` | 16384×8192 | Location |
+| `hoi4` | `parse_hoi4_reference.py` | 5632×2048 | State / victory-point city |
+
+The viewer, the tagging system, and the Discord sync pipeline are all
+game-agnostic — `view.html` declares `window.CAMPAIGN_GAME` and `app.js`
+loads `assets/reference/<game>/` from that, so adding a game is a matter of
+producing `tags.json` + `provinces.json` in the shared shape.
 
 ## Discord sync (alternative to local preprocessing)
 

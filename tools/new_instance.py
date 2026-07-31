@@ -7,6 +7,18 @@ import sys
 from pathlib import Path
 
 
+# Native map pixel dimensions per game, used for the FIRST campaign of a game
+# (later ones copy dims from a sibling campaign of the same game). Coordinates
+# in assets/reference/<game>/provinces.json are in this space and app.js scales
+# pins from it onto whatever the uploaded snapshot images are, so getting this
+# wrong silently misplaces every pin.
+NATIVE_MAP_DIMS = {
+    "eu4":  {"width": 5632,  "height": 2048},
+    "eu5":  {"width": 16384, "height": 8192},
+    "hoi4": {"width": 5632,  "height": 2048},
+}
+
+
 VIEW_HTML_TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
@@ -201,27 +213,51 @@ def main():
     shared_ref_dir = repo_root / "assets" / "reference" / game
     shared_ref_present = (shared_ref_dir / "tags.json").exists()
 
-    # Port over map dimensions from an existing campaign of the same game —
+    # Port over map dimensions from an existing campaign of the SAME game —
     # snapshots.json is per-campaign, but reusing dimensions is a sane default.
+    # Matching on game matters: coordinates in assets/reference/<game>/
+    # provinces.json are in that game's native map pixel space (EU4/HoI4
+    # 5632x2048, EU5 16384x8192), and app.js scales pins using this config. A
+    # cross-game default would silently misplace every pin on the map.
+    campaign_games = {}
+    campaigns_manifest = repo_root / "campaigns.json"
+    if campaigns_manifest.exists():
+        try:
+            for entry in json.loads(
+                    campaigns_manifest.read_text(encoding="utf-8")).get("campaigns", []):
+                if entry.get("folder"):
+                    campaign_games[entry["folder"]] = entry.get("game")
+        except json.JSONDecodeError:
+            pass
+
     ref_source = next(
         (
             c for c in sorted(repo_root.iterdir())
             if c.is_dir() and c != folder_path
+            and campaign_games.get(c.name) == game
             and (c / "data" / "snapshots.json").exists()
         ),
         None,
     )
+    dims, dims_origin = None, ""
     if ref_source:
         src_snap_path = ref_source / "data" / "snapshots.json"
         try:
             src_cfg = json.loads(src_snap_path.read_text(encoding="utf-8")).get("config") or {}
             if src_cfg.get("width") and src_cfg.get("height"):
-                snapshots_init["config"] = src_cfg
-                write_json(folder_path / "data" / "snapshots.json", snapshots_init)
-                print(f"  set map dimensions to {src_cfg['width']}x{src_cfg['height']} "
-                      f"(from {ref_source.name}/data/snapshots.json)")
+                dims = src_cfg
+                dims_origin = f"from {ref_source.name}/data/snapshots.json"
         except (json.JSONDecodeError, KeyError):
             pass
+    if dims is None and game in NATIVE_MAP_DIMS:
+        # First campaign for this game — fall back to the game's known native
+        # map size so pins land correctly out of the box.
+        dims = dict(NATIVE_MAP_DIMS[game])
+        dims_origin = f"{game} native map size"
+    if dims:
+        snapshots_init["config"] = dims
+        write_json(folder_path / "data" / "snapshots.json", snapshots_init)
+        print(f"  set map dimensions to {dims['width']}x{dims['height']} ({dims_origin})")
 
     view = (
         VIEW_HTML_TEMPLATE

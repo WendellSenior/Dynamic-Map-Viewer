@@ -1,0 +1,27 @@
+{
+  "_comment": "Hand-curated extra country names merged into tags.json by tools/parse_hoi4_reference.py. The game's own localisation covers formal and ideology names well (Netherlands, Turkey, Iran, German Reich all resolve on their own); this file is for the everyday shorthand and nicknames players actually type in [Country:...] that appear nowhere in the game files. Keys are HoI4 tags; values are extra names. Keys with a leading underscore are ignored as comments.",
+
+  "SOV": ["USSR", "U.S.S.R.", "Soviets", "Soviet Russia", "Union of Soviet Socialist Republics"],
+  "ENG": ["UK", "U.K.", "England", "Great Britain and Northern Ireland"],
+  "USA": ["US", "U.S.", "U.S.A.", "United States of America", "the States"],
+  "GER": ["Nazi Germany", "Third Reich", "3rd Reich", "Deutschland"],
+  "JAP": ["Empire of Japan", "Nippon"],
+  "ITA": ["Fascist Italy", "Kingdom of Italy", "Italian Empire"],
+  "FRA": ["French Republic", "Third Republic"],
+  "MAN": ["Manchukuo", "Manchuria"],
+  "SIA": ["Thailand"],
+  "PER": ["Persian Empire"],
+  "CHI": ["Nationalist China", "Kuomintang", "KMT", "Republic of China"],
+  "PRC": ["Communist China", "Chinese Communists", "CCP"],
+  "SPR": ["Spanish Republic", "Francoist Spain"],
+  "AUS": ["Austria-Hungary"],
+  "CZE": ["Czechoslovakia"],
+  "YUG": ["Yugoslavia", "Kingdom of Yugoslavia"],
+  "TUR": ["Ottoman Empire", "Ottomans"],
+  "HOL": ["Dutch", "Dutch Republic"],
+  "BEL": ["Belgian Congo"],
+  "CAN": ["Dominion of Canada"],
+  "AST": ["Australia"],
+  "NZL": ["New Zealand"],
+  "RAJ": ["British Raj", "India", "British India"]
+}
