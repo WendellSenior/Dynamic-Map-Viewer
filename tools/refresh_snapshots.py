@@ -10,6 +10,7 @@ force regeneration. The "Half quality" toggle in the viewer points at these."""
 
 import json
 import re
+from collections import defaultdict
 from pathlib import Path
 
 
@@ -56,6 +57,11 @@ LOWRES_SCALE = 0.5
 # same content — actually fulfilling the "lowres = faster page load" promise.
 LOWRES_EXT     = ".webp"
 LOWRES_QUALITY = 80
+
+# Index 1-12; used to disambiguate timeline labels when a campaign has more
+# than one map in the same year.
+MONTH_ABBR = ("", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 
 def derive_date(stem):
@@ -167,6 +173,7 @@ def refresh_one(snapshots_path, maps_dir):
 
     new_snapshots = []
     skipped = []
+    fresh = set()  # ids of entries derived this run — safe to relabel below
     for path in sorted(maps_dir.iterdir()):
         if path.suffix.lower() not in IMAGE_EXTS:
             continue
@@ -183,6 +190,7 @@ def refresh_one(snapshots_path, maps_dir):
                 "image": rel,
                 "label": date.split("-")[0],
             }
+            fresh.add(rel)
         # Sync the lowres pointer with what's on disk — accept any image extension.
         lowres_match = None
         for ext in IMAGE_EXTS:
@@ -196,6 +204,24 @@ def refresh_one(snapshots_path, maps_dir):
             snap.pop("image_lowres", None)
         new_snapshots.append(snap)
     new_snapshots.sort(key=lambda s: s["date"])
+
+    # The label is the year stamp printed above each timeline tick. A year on
+    # its own is fine when maps are years apart (EU4/EU5 campaigns), but HoI4
+    # exports carry a full date in the filename and a wartime campaign can
+    # produce several maps in one year — which would print "1936" over every
+    # tick. Where a year is ambiguous, add the month. Only entries derived
+    # this run are relabelled, so hand-edited labels in existing campaigns are
+    # left alone.
+    year_counts = defaultdict(int)
+    for snap in new_snapshots:
+        year_counts[snap["date"][:4]] += 1
+    for snap in new_snapshots:
+        if snap["image"] not in fresh:
+            continue
+        year = snap["date"][:4]
+        if year_counts[year] > 1:
+            month = MONTH_ABBR[int(snap["date"][5:7])]
+            snap["label"] = f"{year} {month}"
 
     out = {"config": config, "snapshots": new_snapshots}
     snapshots_path.write_text(

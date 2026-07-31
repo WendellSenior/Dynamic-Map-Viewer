@@ -6,9 +6,9 @@
   "snapshots": [
     {
       "date": "1936-01-01",
-      "image": "data/maps/1936_January_01.png",
+      "image": "data/maps/hoi4_map_GER_1936_01_01_01_1.png",
       "label": "1936",
-      "image_lowres": "data/maps/lowres/1936_January_01.webp"
+      "image_lowres": "data/maps/lowres/hoi4_map_GER_1936_01_01_01_1.webp"
     }
   ]
 }
