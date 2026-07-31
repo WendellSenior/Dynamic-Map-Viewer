@@ -70,18 +70,54 @@ DEFAULT_INSTALL_GUESSES = [
     r"E:/SteamLibrary/steamapps/common/Hearts of Iron IV",
 ]
 
+# Steam Workshop ids for mods we support out of the box, so --mod kaiserreich
+# works without pasting a path. HoI4's Steam appid is 394360.
+WORKSHOP_ROOTS = [
+    r"C:/Program Files (x86)/Steam/steamapps/workshop/content/394360",
+    r"C:/Program Files/Steam/steamapps/workshop/content/394360",
+    r"D:/SteamLibrary/steamapps/workshop/content/394360",
+    r"E:/SteamLibrary/steamapps/workshop/content/394360",
+]
+KNOWN_MODS = {
+    # name -> (workshop id, default output game id)
+    "kaiserreich": ("1521695605", "hoi4-kr"),
+}
+
+# Sanity probes per output game — a rebuild that loses these has gone wrong.
+# Mods rename the world (KR has no Soviet Union; Russia is RUS), so the set
+# is per-game rather than universal.
+VALIDATION_PROBES = {
+    "hoi4":    {"tags": ("GER", "FRA", "ENG", "SOV", "USA"),
+                "locations": ("Berlin", "Paris", "London", "Moscow", "Rome")},
+    "hoi4-kr": {"tags": ("GER", "FRA", "ENG", "RUS", "USA"),
+                "locations": ("Berlin", "Paris", "London", "Moscow", "Rome")},
+}
+
 # Paradox .yml localisation: ` KEY:0 "Value"` — the :0 version suffix is
 # optional and the leading space is conventional but not guaranteed. Values
 # can contain escaped quotes. Not real YAML, so it gets a regex, not a parser.
 LOC_RE = re.compile(r'^\s*([A-Za-z0-9_.]+):\d*\s*"(.*)"\s*$')
 
-# Colour codes (§Y ... §!) and $VARIABLE$ placeholders inside display strings.
-LOC_CLEAN_RE = re.compile(r"§.|\$[^$]*\$")
+# Paradox colour codes (§Y ... §!) inside display strings.
+LOC_COLOUR_RE = re.compile(r"§.")
+# $SOMETHING$ — either a runtime variable ($NAME$) or, more usefully, a
+# reference to another localisation key. Kaiserreich names many states after
+# their main city that way: STATE_797 = "$VICTORY_POINTS_9671$".
+LOC_REF_RE = re.compile(r"\$([A-Za-z0-9_.]+)\$")
+# Any leftover $...$ once references have been resolved — a genuine runtime
+# variable we can't fill in, so it gets dropped from display text.
+LOC_LEFTOVER_RE = re.compile(r"\$[^$]*\$")
 
 # `TAG = "countries/Name.txt"` — same shape as EU4's 00_countries.txt.
 COUNTRY_TAG_RE = re.compile(r'^\s*([A-Z]{3})\s*=\s*"([^"]+)"')
 
-# HoI4 ideologies; used to recognise `GER_fascism`-style localisation keys.
+# Vanilla HoI4 ideologies, used to recognise `GER_fascism`-style country-name
+# keys. Only a fallback: the real list is read from common/ideologies at run
+# time, because total-conversion mods replace it wholesale — Kaiserreich's are
+# totalist / syndicalist / radical_socialist / social_democrat / ... and none
+# of vanilla's four survive. Reading them matters: `GER_totalist` is
+# "German Empire", and with the wrong list KR's countries all fall back to
+# their bland vanilla names.
 IDEOLOGY_SUFFIXES = ("fascism", "democratic", "neutrality", "communism")
 
 
@@ -89,9 +125,157 @@ def log(msg):
     print(msg, flush=True)
 
 
+class GameFiles:
+    """Resolves data paths across a base install and an optional mod, the way
+    HoI4 itself does.
+
+    Two different override rules, and getting them the wrong way round
+    silently corrupts the output:
+
+      - `replace_path="history/states"` in descriptor.mod means the mod owns
+        that directory outright; base files there are ignored even when the
+        mod has no file of the same name. Kaiserreich relies on this — its
+        1125 state files share ZERO filenames with the base game's 1081, so
+        without honouring replace_path we would merge two incompatible maps
+        and emit states whose province ids don't exist in KR's definition.csv.
+      - Everywhere else it's per-file: a mod file shadows the base file at the
+        same relative path, and base files the mod doesn't mention still load.
+        That's how KR swaps map/definition.csv + map/provinces.bmp while
+        inheriting the rest of map/.
+
+    Localisation is deliberately NOT a replace_path in KR, so mod names layer
+    on top of base names key-by-key — see load_localisation."""
+
+    def __init__(self, base_dir, mod_dir=None):
+        self.base = Path(base_dir)
+        self.mod = Path(mod_dir) if mod_dir else None
+        self.replace_paths = set()
+        if self.mod:
+            descriptor = self.mod / "descriptor.mod"
+            if descriptor.exists():
+                self.replace_paths = {
+                    m.strip().strip("/")
+                    for m in re.findall(r'replace_path\s*=\s*"([^"]+)"',
+                                        descriptor.read_text(encoding="utf-8-sig",
+                                                             errors="replace"))
+                }
+
+    def _is_replaced(self, rel):
+        rel = rel.strip("/")
+        return any(rel == rp or rel.startswith(rp + "/") for rp in self.replace_paths)
+
+    def file(self, rel):
+        """Single file — the mod's copy wins when it exists."""
+        if self.mod:
+            candidate = self.mod / rel
+            if candidate.exists():
+                return candidate
+        return self.base / rel
+
+    def dir_files(self, rel, pattern="*.txt"):
+        """Every file that would load from `rel`, honouring replace_path.
+
+        Within a directory the mod shadows base files of the same NAME (not
+        full path), matching how Paradox resolves loose files."""
+        results = {}
+        if not (self.mod and self._is_replaced(rel)):
+            base_dir = self.base / rel
+            if base_dir.is_dir():
+                for p in sorted(base_dir.glob(pattern)):
+                    results[p.name] = p
+        if self.mod:
+            mod_dir = self.mod / rel
+            if mod_dir.is_dir():
+                for p in sorted(mod_dir.glob(pattern)):
+                    results[p.name] = p
+        return [results[k] for k in sorted(results)]
+
+    def localisation_layers(self, mod_only=False):
+        """Localisation dirs in increasing precedence.
+
+        `localisation/replace/` is HoI4's explicit "override anything" folder,
+        so it sorts last.
+
+        `mod_only` drops the base layer, for strings keyed by a numeric id the
+        mod has taken ownership of. STATE_<n> / VICTORY_POINTS_<n> names are
+        only meaningful alongside the history/states and map data they came
+        from; when a mod replaces those, a base name surviving for an id the
+        mod reused describes a completely different place."""
+        layers = []
+        if not mod_only and not (self.mod and self._is_replaced("localisation")):
+            layers.append(self.base / "localisation" / "english")
+        if self.mod:
+            layers.append(self.mod / "localisation" / "english")
+            layers.append(self.mod / "localisation" / "replace")
+        return [d for d in layers if d.is_dir()]
+
+    def owns_map_data(self):
+        """True when the mod supplies its own states AND province ids, making
+        base STATE_/VICTORY_POINTS_ names unsafe to inherit."""
+        return bool(self.mod and self._is_replaced("history/states")
+                    and (self.mod / "map" / "definition.csv").exists())
+
+
+def load_localisation(layers):
+    """Merge every .yml across `layers`, later layers winning per key.
+
+    Scans recursively by key pattern rather than reading known filenames,
+    because mods scatter their strings wherever they like: Kaiserreich's
+    countries_l_english.yml is an empty 3-byte stub and the real names live in
+    'KR_common/00 Map States l_english.yml' and 40-odd
+    'KR_country_specific/XXX - Name l_english.yml' files."""
+    out = {}
+    for layer in layers:
+        for path in sorted(layer.rglob("*.yml")):
+            out.update(read_loc_file(path))
+    return out
+
+
 def clean_loc(value):
-    """Strip Paradox colour codes and $VAR$ placeholders from a display string."""
-    return LOC_CLEAN_RE.sub("", value).strip()
+    """Strip Paradox colour codes. $...$ is deliberately preserved here so
+    resolve_references can follow key references after the merge; whatever is
+    still unresolved gets dropped by finalise_localisation."""
+    return LOC_COLOUR_RE.sub("", value).strip()
+
+
+def resolve_references(loc, max_depth=5):
+    """Expand `$OTHER_KEY$` references in localisation values.
+
+    Kaiserreich names a state after its capital by pointing at that city's key
+    (STATE_797 = "$VICTORY_POINTS_9671$"). Dropping those leaves the entry
+    empty, and the base game's unrelated name for the same numeric id wins the
+    merge instead — which is how KR's state 797 ended up displaying as
+    "Istanbul" at coordinates in the Americas. Resolving them keeps the mod's
+    own name and, more importantly, keeps the wrong one out.
+
+    Iterative with a depth cap so reference chains resolve without a malformed
+    or cyclic pair looping forever."""
+    for _ in range(max_depth):
+        changed = False
+        for key, value in loc.items():
+            if "$" not in value:
+                continue
+            def _sub(m):
+                target = loc.get(m[1])
+                # Leave it alone if it doesn't resolve or would self-reference.
+                return target if target is not None and m[1] != key else m[0]
+            new = LOC_REF_RE.sub(_sub, value)
+            if new != value:
+                loc[key] = new
+                changed = True
+        if not changed:
+            break
+    return loc
+
+
+def finalise_localisation(loc):
+    """Drop unresolved runtime variables, then discard now-empty entries."""
+    out = {}
+    for key, value in loc.items():
+        cleaned = LOC_LEFTOVER_RE.sub("", value).strip()
+        if cleaned:
+            out[key] = cleaned
+    return out
 
 
 def read_loc_file(path):
@@ -138,7 +322,7 @@ def parse_definitions(path):
     return colour_to_id, kinds
 
 
-def parse_state_files(states_dir):
+def parse_state_files(state_paths):
     """history/states/*.txt -> [{id, name_key, provinces[], victory_points[]}].
 
     Hand-rolled field extraction rather than a full Clausewitz parser: we only
@@ -147,7 +331,7 @@ def parse_state_files(states_dir):
     specifically so the province-id block inside `buildings={ 3838 = {...} }`
     can't be mistaken for it."""
     states = []
-    for path in sorted(states_dir.glob("*.txt")):
+    for path in state_paths:
         text = path.read_text(encoding="utf-8-sig", errors="replace")
 
         m_id = re.search(r"\bid\s*=\s*(\d+)", text)
@@ -267,16 +451,39 @@ def centroids_for_groups(labels, groups):
     return out, snapped
 
 
-def parse_ruling_parties(countries_dir):
+def parse_ideologies(files):
+    """common/ideologies/*.txt -> {ideology_name}.
+
+    Country names are keyed `<TAG>_<ideology>`, and the `<TAG>_` namespace is
+    also full of focus/decision strings (GER_abolish_death_penalty), so we
+    need the real ideology list to tell names from noise rather than accepting
+    any suffix. Brace depth is tracked instead of trusting indentation: the
+    ideology names are the keys directly inside `ideologies = { ... }`."""
+    names = set()
+    for path in files.dir_files("common/ideologies"):
+        text = re.sub(r"#[^\n]*", "",
+                      path.read_text(encoding="utf-8-sig", errors="replace"))
+        depth = 0
+        for m in re.finditer(r"([A-Za-z_]\w*)\s*=\s*\{|\{|\}", text):
+            if m.group(0) == "}":
+                depth -= 1
+            elif m.group(1):
+                if depth == 1:
+                    names.add(m.group(1))
+                depth += 1
+            else:
+                depth += 1
+    return names or set(IDEOLOGY_SUFFIXES)
+
+
+def parse_ruling_parties(country_paths):
     """history/countries/<TAG> - <Name>.txt -> {TAG: ideology}.
 
     A country's name in HoI4 depends on who runs it, so knowing the 1936
     ruling party lets us pick the historically apt variant ("Chinese Soviet
     Republic" for communist PRC) instead of an arbitrary one."""
     out = {}
-    if not countries_dir.is_dir():
-        return out
-    for path in countries_dir.glob("*.txt"):
+    for path in country_paths:
         tag = path.name.split(" ", 1)[0].strip().upper()
         if len(tag) != 3:
             continue
@@ -287,11 +494,11 @@ def parse_ruling_parties(countries_dir):
     return out
 
 
-def build_tags(game_dir, ref_dir):
-    """{TAG: {name, aliases}} from country_tags + countries localisation."""
-    tags_file = game_dir / "common" / "country_tags" / "00_countries.txt"
-    loc = read_loc_file(game_dir / "localisation" / "english" / "countries_l_english.yml")
-    ruling = parse_ruling_parties(game_dir / "history" / "countries")
+def build_tags(files, loc, ref_dir):
+    """{TAG: {name, aliases}} from country_tags + merged localisation."""
+    tags_file = files.file("common/country_tags/00_countries.txt")
+    ruling = parse_ruling_parties(files.dir_files("history/countries"))
+    ideologies = parse_ideologies(files)
 
     # Group localisation by tag: base name + ideology variants + _DEF forms.
     by_tag = defaultdict(dict)
@@ -301,24 +508,48 @@ def build_tags(game_dir, ref_dir):
             continue
         by_tag[m[1]][m[2] or ""] = value
 
+    # Cosmetic-tag names: `AUS_empire_paternal_autocrat = "Austrian Empire"`.
+    # A country renames itself on completing a focus, and in an alt-history mod
+    # those are the names people actually use — Kaiserreich's Austria is
+    # localised blandly as "Austria" but becomes the Austrian Empire in play.
+    # Matched as <TAG>_<something>_<real ideology> so the vast `<TAG>_` focus
+    # and decision namespace can't leak in, with a length cap because a country
+    # name is short and focus/description strings are not.
+    cosmetic = defaultdict(set)
+    for key, value in loc.items():
+        m = re.fullmatch(r"([A-Z]{3})_([a-z_]+)_(" + "|".join(map(re.escape, ideologies)) + r")", key)
+        if m and 0 < len(value) <= 60:
+            cosmetic[m[1]].add(value)
+
     # Collect candidates in 00_countries.txt order — that order is meaningful:
     # the 1936 majors head the file (GER line 1, CHI line 38) and the
     # derivative/alt-history tags come later (PRC 81, WGR 90, DDR 91, RNG 364).
-    candidates = []
     raw_lines = tags_file.read_text(encoding="utf-8-sig", errors="replace").splitlines()
+    rows = []
     for line in raw_lines:
         if line.strip().startswith("#"):
             continue
         m = COUNTRY_TAG_RE.match(line)
-        if not m:
-            continue
-        tag, country_file = m[1], m[2]
+        if m:
+            rows.append((m[1], m[2]))
+
+    # Vanilla names one file per country ("countries/Germany.txt"), so the stem
+    # doubles as a decent plain-English name. Kaiserreich instead points dozens
+    # of tags at shared files ("countries/WestEur.txt"), where the stem is a
+    # graphics grouping, not a country — using it would inject junk aliases
+    # like "WestEur"/"Asian" and could even surface as a display name. So only
+    # trust a stem that belongs to exactly one tag.
+    stem_uses = defaultdict(int)
+    for _tag, country_file in rows:
+        stem_uses[Path(country_file).stem] += 1
+
+    candidates = []
+    for tag, country_file in rows:
         variants = by_tag.get(tag, {})
 
-        # The countries/<Name>.txt stem is a unique-per-tag fallback and often
-        # the plain-English name ("United Kingdom" for ENG, whose localised
-        # display name is "Britain"; "West Germany" for WGR).
-        stem = re.sub(r"\s*\(.*\)$", "", Path(country_file).stem).strip()
+        raw_stem = Path(country_file).stem
+        stem = ("" if stem_uses[raw_stem] > 1
+                else re.sub(r"\s*\(.*\)$", "", raw_stem).strip())
 
         # Preferred display name: the bare `GER: "Germany"` key, else the stem.
         preferred = variants.get("") or stem or tag
@@ -331,14 +562,15 @@ def build_tags(game_dir, ref_dir):
             # ("the German Reich") — players write both. Skip everything else
             # (ADJ forms etc. are noise for country matching).
             base = suffix[:-4] if suffix.endswith("_DEF") else suffix
-            if base in IDEOLOGY_SUFFIXES or base == "":
+            if base in ideologies or base == "":
                 extras.add(value)
         if stem:
             extras.add(stem)
         # Preferred fallback when the bare name is already claimed by an
         # earlier tag: this tag's name under its own 1936 ruling party.
         ideology_name = variants.get(ruling.get(tag, ""), "")
-        candidates.append((tag, preferred, stem, extras, ideology_name))
+        candidates.append((tag, preferred, stem, extras, ideology_name,
+                           set(cosmetic.get(tag, ()))))
 
     # Resolve name collisions: several tags legitimately share a localisation
     # name ("Germany" is GER, WGR and DDR; "China" is CHI, PRC, MAN and RNG).
@@ -349,7 +581,7 @@ def build_tags(game_dir, ref_dir):
     # fall back to their unique stems ("West Germany", "East Germany").
     claimed = {}
     out = {}
-    for tag, preferred, stem, extras, ideology_name in candidates:
+    for tag, preferred, stem, extras, ideology_name, _cosmetic in candidates:
         # Order matters only for collision losers: try the bare name, then the
         # ruling-party name (a real in-game name — "Chinese Soviet Republic"),
         # then other ideology variants, and only fall back to the raw
@@ -363,7 +595,14 @@ def build_tags(game_dir, ref_dir):
 
         name = next((n for n in ordered if n.lower() not in claimed), None)
         if name is None:
-            name = tag  # every candidate name already taken by an earlier tag
+            # Every candidate is taken by an earlier tag. Common in mods with
+            # civil-war factions: Kaiserreich's ACC/APG are both localised
+            # "America", already claimed by USA. Qualify the contested name
+            # with the tag rather than showing a bare code — "America (ACC)"
+            # reads as a place, "ACC" reads as a bug. Still derived from game
+            # data, so no faction names are invented.
+            contested = next((n for n in ordered if n), "")
+            name = f"{contested} ({tag})" if contested else tag
         claimed[name.lower()] = tag
 
         aliases = set()
@@ -376,6 +615,20 @@ def build_tags(game_dir, ref_dir):
             aliases.add(cand)
 
         out[tag] = {"name": name, "aliases": sorted(aliases)}
+
+    # Cosmetic names are claimed only after every tag has taken its own
+    # identity names. A cosmetic name is what a country may RENAME ITSELF to
+    # after a focus, not who it is — and several tags can offer the same one.
+    # Claiming them in the first pass let Kaiserreich's NFA (National France,
+    # earlier in 00_countries.txt) take "Commune of France" out from under
+    # FRA, whose actual ideology name it is.
+    for tag, _preferred, _stem, _extras, _ideology, cosmetic_names in candidates:
+        for cand in sorted(cosmetic_names):
+            if not cand or cand.lower() in claimed:
+                continue
+            claimed[cand.lower()] = tag
+            out[tag]["aliases"] = sorted(set(out[tag]["aliases"]) | {cand}
+                                         - {out[tag]["name"]})
 
     # Hand-curated extras, same convention as EU5's country_aliases.json.
     alias_path = ref_dir / "country_aliases.json"
@@ -408,17 +661,15 @@ def build_tags(game_dir, ref_dir):
     return out
 
 
-def build_locations(game_dir, states, prov_centroids, state_centroids):
+def build_locations(loc, states, prov_centroids, state_centroids):
     """{DisplayName: {id, coords, aliases}} covering states and VP cities."""
-    loc_dir = game_dir / "localisation" / "english"
-    state_names = read_loc_file(loc_dir / "state_names_l_english.yml")
-    vp_loc      = read_loc_file(loc_dir / "victory_points_l_english.yml")
+    state_names = {k: v for k, v in loc.items() if re.fullmatch(r"STATE_\d+", k)}
 
     # VICTORY_POINTS_<province_id> is the default name; <TAG>_VICTORY_POINTS_<id>
     # is that country's own name for the same place -> alias.
     vp_names   = {}
     vp_aliases = defaultdict(set)
-    for key, value in vp_loc.items():
+    for key, value in loc.items():
         m = re.fullmatch(r"(?:([A-Z]{3})_)?VICTORY_POINTS_(\d+)", key)
         if not m:
             continue
@@ -536,33 +787,92 @@ def resolve_game_dir(explicit):
     sys.exit("ERROR: couldn't find a HoI4 install; pass --game-dir explicitly.")
 
 
+def resolve_mod_dir(explicit):
+    """--mod accepts a known name ('kaiserreich'), a bare workshop id, or a
+    path. Returns (path, default_game_id)."""
+    if not explicit:
+        return None, GAME
+    key = explicit.strip().lower()
+    if key in KNOWN_MODS:
+        workshop_id, default_game = KNOWN_MODS[key]
+        for root in WORKSHOP_ROOTS:
+            candidate = Path(root) / workshop_id
+            if candidate.is_dir():
+                return candidate, default_game
+        sys.exit(f"ERROR: {explicit} (workshop id {workshop_id}) not found in any "
+                 f"known workshop folder; pass the path to --mod instead.")
+    direct = Path(explicit)
+    if direct.is_dir():
+        return direct, GAME
+    for root in WORKSHOP_ROOTS:  # bare workshop id
+        candidate = Path(root) / explicit
+        if candidate.is_dir():
+            return candidate, GAME
+    sys.exit(f"ERROR: --mod {explicit} is not a directory, known mod name, or "
+             f"workshop id.")
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Build HoI4 reference data")
+    ap = argparse.ArgumentParser(description="Build HoI4 (or HoI4 mod) reference data")
     ap.add_argument("--game-dir", default="", help="path to the HoI4 install")
+    ap.add_argument("--mod", default="",
+                    help="mod to layer on top: a known name (kaiserreich), a "
+                         "Steam Workshop id, or a path to the mod folder")
+    ap.add_argument("--game", default="",
+                    help="output game id under assets/reference/ "
+                         "(default: hoi4, or the known mod's id e.g. hoi4-kr)")
     ap.add_argument("--check", action="store_true",
                     help="parse + validate but write nothing")
     args = ap.parse_args()
 
     game_dir = resolve_game_dir(args.game_dir)
+    mod_dir, default_game = resolve_mod_dir(args.mod)
+    game_id = args.game or default_game
+
     repo_root = Path(__file__).resolve().parent.parent
-    ref_dir = repo_root / "assets" / "reference" / GAME
+    ref_dir = repo_root / "assets" / "reference" / game_id
     ref_dir.mkdir(parents=True, exist_ok=True)
 
+    files = GameFiles(game_dir, mod_dir)
+
     log(f"HoI4 install: {game_dir}")
+    if mod_dir:
+        log(f"Mod overlay : {mod_dir}")
+        log(f"  {len(files.replace_paths)} replace_path directive(s) from descriptor.mod")
+    log(f"Output game : {game_id}  ->  {ref_dir}")
+
+    log("Loading localisation ...")
+    layers = files.localisation_layers()
+    loc = finalise_localisation(resolve_references(load_localisation(layers)))
+    log(f"  {len(loc)} key(s) from {len(layers)} layer(s)")
+
+    # Map-keyed strings come from the mod alone when it owns the map, so a
+    # stale base name can't attach itself to a reused numeric id.
+    if files.owns_map_data():
+        map_layers = files.localisation_layers(mod_only=True)
+        map_loc = finalise_localisation(
+            resolve_references(load_localisation(map_layers)))
+        log(f"  {len(map_loc)} map key(s) from {len(map_layers)} mod layer(s) "
+            f"(mod owns history/states + definition.csv)")
+    else:
+        map_loc = loc
 
     log("Parsing definition.csv ...")
-    colour_to_id, kinds = parse_definitions(game_dir / "map" / "definition.csv")
+    definition_path = files.file("map/definition.csv")
+    colour_to_id, kinds = parse_definitions(definition_path)
     land = sum(1 for k in kinds.values() if k == "land")
     log(f"  {len(colour_to_id)} province colour(s), {land} land")
 
     log("Parsing history/states/*.txt ...")
-    states = parse_state_files(game_dir / "history" / "states")
+    state_paths = files.dir_files("history/states")
+    states = parse_state_files(state_paths)
     total_vps = sum(len(s["victory_points"]) for s in states)
-    log(f"  {len(states)} state(s), {total_vps} victory point(s)")
+    log(f"  {len(states)} state(s) from {len(state_paths)} file(s), "
+        f"{total_vps} victory point(s)")
 
     log("Rasterising provinces.bmp (this takes a few seconds) ...")
     labels, pixel_counts = compute_province_pixels(
-        game_dir / "map" / "provinces.bmp", colour_to_id)
+        files.file("map/provinces.bmp"), colour_to_id)
     log(f"  {labels.shape[1]}x{labels.shape[0]}, "
         f"{len(pixel_counts)} province(s) present on the map")
 
@@ -578,12 +888,12 @@ def main():
     log(f"  {len(state_centroids)} state centroid(s) ({state_snapped} snapped)")
 
     log("Building tags.json ...")
-    tags = build_tags(game_dir, ref_dir)
+    tags = build_tags(files, loc, ref_dir)
     log(f"  {len(tags)} country tag(s)")
 
     log("Building provinces.json ...")
     locations, collisions = build_locations(
-        game_dir, states, prov_centroids, state_centroids)
+        map_loc, states, prov_centroids, state_centroids)
     log(f"  {len(locations)} location(s)")
     aliased = merge_location_aliases(locations, ref_dir)
     if aliased:
@@ -600,10 +910,11 @@ def main():
         x, y = entry["coords"]
         if not (0 <= x < width and 0 <= y < height):
             problems.append(f"{name}: coords {entry['coords']} outside map")
-    for probe in ("Berlin", "Paris", "London", "Moscow", "Rome"):
+    probes = VALIDATION_PROBES.get(game_id, VALIDATION_PROBES[GAME])
+    for probe in probes["locations"]:
         if probe not in locations:
             problems.append(f"expected location {probe!r} missing")
-    for probe in ("GER", "FRA", "ENG", "SOV", "USA"):
+    for probe in probes["tags"]:
         if probe not in tags:
             problems.append(f"expected tag {probe!r} missing")
 

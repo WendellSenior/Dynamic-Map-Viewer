@@ -37,10 +37,32 @@
   },
   "AFG": {
     "aliases": [
+      "Afghano-Pakistani Caliphate",
+      "Afghano-Pakistani Confederacy",
+      "Afghano-Pakistani Confederation",
+      "Afghano-Pakistani Union",
+      "Amanullah Caliphate",
+      "Daryan Empire",
       "Democratic Republic of Afghanistan",
+      "Emirate of Afghanistan",
+      "Federal Republics of Central Asia",
+      "Islamic Republic of Afghanistan",
+      "Khorasan",
+      "Khorasan Empire",
       "Kingdom of Afghanistan",
+      "Kingdom of Darya",
+      "Maintain Neutrality",
+      "Mughal Emirate",
       "New Afghan Empire",
+      "Pashtun Caliphate",
+      "Pashtun People's Republic",
+      "Pashtunistan Ascendancy",
       "Republic of Afghanistan",
+      "Republic of Khorasan",
+      "Second Afghan Empire",
+      "Socialist Republic of Khorasan",
+      "Socialist Republics of Central Asia",
+      "United Pashtun Republics",
       "the Democratic Republic of Afghanistan",
       "the Kingdom of Afghanistan",
       "the New Afghan Empire",
@@ -53,6 +75,7 @@
       "Albanian Kingdom",
       "Albanian Republic",
       "Greater Albania",
+      "Principality of Albania",
       "Socialist Republic of Albania",
       "the Albanian Kingdom",
       "the Albanian Republic",
@@ -124,9 +147,19 @@
   },
   "ARG": {
     "aliases": [
+      "Argentina Legionaria",
       "Argentina Populares",
       "Argentine League",
       "Argentine Republic",
+      "Confederación Argentina",
+      "Confederación Sudamericana",
+      "Extinguish South American Communism",
+      "Extinguish South American Fascism",
+      "Reject the Allies",
+      "Second Argentine Republic",
+      "South American Socialist Republics",
+      "South American Soviet Republics",
+      "Sudamérica Legionaria",
       "the Argentine League",
       "the Argentine Republic"
     ],
@@ -146,9 +179,15 @@
   },
   "AST": {
     "aliases": [
+      "Abandon the Westminster System",
+      "Aerodrome of Domination",
+      "Aerodrome of Emancipation",
+      "Aerodrome of Strength",
+      "Against War and Fascism",
       "Australian People's Republic",
       "Centralist Australia",
       "Emu Empire",
+      "Irrepressible Freethinker",
       "the Australian People's Republic",
       "the Emu Empire"
     ],
@@ -158,7 +197,11 @@
     "aliases": [
       "Assyrian Republic",
       "Assyrian Socialist Republic",
+      "Grand Neo-Assyrian Empire",
       "Great Assyria",
+      "Neo-Assyrian Empire",
+      "Sublime Federation of Assyrian Peoples",
+      "Union of Assyrian Soviet Socialist Republics",
       "the Assyrian Republic",
       "the Assyrian Socialist Republic",
       "the Great Assyria"
@@ -181,9 +224,27 @@
   },
   "AUS": {
     "aliases": [
+      "Alpine Anti-Fascist Offensive",
+      "An End to European Fascism",
+      "Archduchy of Austria",
       "Austria-Hungary",
+      "Austrian Anti-Fascist Crusade",
+      "Austrian Empire",
+      "Broke our Treaty",
+      "Cisleithania",
+      "Crusade on Communism",
+      "Embraced Fascism",
+      "Financier of Fascism",
+      "Greater Austrian Empire",
+      "Großösterreich",
+      "Liechtenstein",
+      "Reichsbund der Österreicher",
       "Republic of Austria",
       "Socialist Republic of Austria",
+      "Süddeutschland",
+      "The Correct Form of Communism",
+      "Union of Danubian Socialists",
+      "Vocal German Unionist",
       "the Federal State of Austria",
       "the Republic of Austria",
       "the Socialist Republic of Austria"
@@ -278,10 +339,22 @@
   },
   "BEL": {
     "aliases": [
+      "Abandon Neutrality",
       "Belgian Congo",
+      "Belgica",
+      "Broken Neutrality",
+      "Bundesstaat Flandern",
+      "Burgundy",
       "Co-operative of Belgium",
+      "Defensive Neutrality",
+      "Grand Duchy of Flanders",
+      "Greater Flemish State",
+      "Growing Threat of Fascism",
       "Leopoldian Belgium",
+      "Perpetual Neutrality",
       "Rexist Belgium",
+      "Socialist People's Republic of Flanders",
+      "Vlaanderen",
       "the Co-operative of Belgium"
     ],
     "name": "Belgium"
@@ -371,6 +444,8 @@
     "aliases": [
       "Bolivia Izquerdista",
       "Falangist Bolivia",
+      "Orélia",
+      "Plurinational State of Bolivia",
       "the Bolivian Republic"
     ],
     "name": "Bolivia"
@@ -411,8 +486,20 @@
   "BRA": {
     "aliases": [
       "Brazilian Socialist Republic",
+      "Cangaço Brazil",
+      "Communism on the Rise",
+      "Empire of Brazil",
+      "Empire of Brazil and Portugal",
+      "Greater South America",
       "Integralist Brazil",
+      "Kingdom of Brazil",
       "Second Brazilian Republic",
+      "Smash South American Fascism",
+      "Socialist Republics of South America",
+      "South American Empire",
+      "Third Republic of Brazil",
+      "United States of Brazil",
+      "United States of South America",
       "the Brazilian Socialist Republic",
       "the Second Brazilian Republic"
     ],
@@ -442,6 +529,7 @@
   },
   "BRM": {
     "aliases": [
+      "British Burma",
       "Fourth Burmese Empire",
       "Socialist Republic of the Union of Burma",
       "State of Burma",
@@ -489,9 +577,16 @@
   },
   "BUL": {
     "aliases": [
+      "Balkan Communism",
+      "Bogdan Filov",
+      "League of Balkan Confederacies",
       "Legionnaires Bulgaria",
       "Republic of Bulgaria",
       "Socialist Republic of Bulgaria",
+      "United Front Against Fascism",
+      "comrade",
+      "partisans, Ivan Burudjiev,",
+      "the Balkan Entente",
       "the Republic of Bulgaria",
       "the Socialist Republic of Bulgaria",
       "the Tsardom of Bulgaria"
@@ -514,6 +609,7 @@
     "aliases": [
       "Imperial Khmer",
       "Kingdom of Cambodia",
+      "Kingdom of Kampuchea",
       "People's Republic of Kampuchea",
       "Republic of Cambodia",
       "the Kingdom of Cambodia",
@@ -525,7 +621,9 @@
   "CAN": {
     "aliases": [
       "Canada Popular State",
+      "Defence of Canada Regulations",
       "Dominion of Canada",
+      "Dominion of North America",
       "Free Canadian Republic",
       "Unitary Canada",
       "the Canada Popular State",
@@ -547,9 +645,13 @@
   },
   "CAT": {
     "aliases": [
+      "Aragonese Republic",
       "Catalan State",
       "Catalonian Free Republic",
       "Communion of Catalans",
+      "Crown of Aragon",
+      "People's Republic of Aragon",
+      "State of Aragon",
       "the Catalan State",
       "the Catalonian Communion",
       "the Free Republic of Catalonia"
@@ -594,12 +696,26 @@
   },
   "CHI": {
     "aliases": [
+      "A World Freed from Communism",
+      "Aggressive Prosecution of Opposition",
+      "Anti-Communism",
+      "CC Clique",
       "Chinese People's Republic",
+      "Chinese People's State",
+      "Chinese Sultanate",
+      "Demand [FROM.GetLeader] Submit to the Central Government",
+      "Empire of the Great Khan",
+      "Great Ma",
+      "Great Yuan",
+      "Internal Party Support",
       "KMT",
       "Kuomintang",
+      "Ma Empire",
       "Nationalist China",
+      "Reintegration Efforts in [FROM.GetName]",
       "Reorganized Nationalist China",
       "Republic of China",
+      "Republican Government of China",
       "the Chinese People's Republic",
       "the Republic of China"
     ],
@@ -607,8 +723,24 @@
   },
   "CHL": {
     "aliases": [
+      "An Attempt to Maintain Our Neutrality",
+      "Carabineros de Chile",
       "Chilean Republic",
       "Chilean Socialist Republic",
+      "Federation of Hispanic Republics",
+      "Grand Federation of Amerindian Peoples",
+      "Hispanic Empire",
+      "Mapuche Empire",
+      "Mapuche Indigenous People's Union",
+      "Mapuche Republic",
+      "Mapuche State",
+      "Patria Nueva",
+      "Patria Vieja",
+      "Reino de la Patria Nueva",
+      "Strike Down South American Fascism",
+      "Stubbornly Maintaining Neutrality",
+      "Union of Hispanic Peoples",
+      "United Collectives of the Southern Andes",
       "Vanguard Chile",
       "the Chilean Republic",
       "the Chilean Socialist Republic"
@@ -701,9 +833,20 @@
   },
   "COG": {
     "aliases": [
+      "Afrosocialist State of the Congo",
+      "Congo-Kisangani",
       "Congo-Léopoldville",
+      "Congo-Stanleyville",
       "Congolese State",
       "Democratic Republic of the Congo",
+      "Kingdom of Bakuba",
+      "Kingdom of Kongo",
+      "Kingdom of Loango",
+      "Kingdom of Mittelafrika",
+      "Kingdom of Rwanda",
+      "People's Republic of the Congo",
+      "Popular Revolutionary State of the Congo",
+      "Social-Democratic People's Republic of the Congo",
       "Zaire",
       "the Congolese State",
       "the Republic of Congo-Léopoldville"
@@ -780,6 +923,7 @@
     "aliases": [
       "Independent State of Croatia",
       "Kingdom of Croatia",
+      "Kingdom of Croatia-Slavonia",
       "Republic of Croatia",
       "SR Croatia",
       "the Independent State of Croatia",
@@ -822,10 +966,19 @@
   },
   "CZE": {
     "aliases": [
+      "Czech Fascism",
+      "Czecho-Slovak Republic",
       "Czechoslovak Republic",
       "Czechoslovak Socialist Republic",
       "Czechoslovak State",
+      "Czechoslovak Union",
+      "Empire of Great Moravia",
+      "Federation of Moravian States",
+      "Kingdom of Bohemia-Moravia and Silesia",
       "Kingdom of Czechoslovakia",
+      "National Fascism",
+      "Protect Neutrality",
+      "Union of Central and Eastern European Republics",
       "the Czechoslovak Republic",
       "the Czechoslovak Socialist Republic",
       "the Czechoslovak State",
@@ -869,12 +1022,28 @@
   },
   "DEN": {
     "aliases": [
+      "Baltic Sea Dominion",
+      "Baltic Sea Republic",
       "Danevælde",
       "Danevælden",
       "Danish Civil Union",
+      "Danish Empire",
+      "Danske Enevælde",
+      "Danske Storrige",
+      "Declaration of Neutrality",
       "Kingdom of Denmark",
+      "Nordgermanske Folkerepublik",
+      "Reaffirm Neutrality",
+      "Store Danske Republik",
+      "United Baltic Sea People's Republic",
       "the Danish Civil Union",
-      "the Kingdom of Denmark"
+      "the Kingdom of Denmark",
+      "£BoP_left_texticon Allow Communism",
+      "£BoP_left_texticon Allow Fascism",
+      "£BoP_left_texticon Ban Communism",
+      "£BoP_left_texticon Ban Fascism",
+      "£BoP_left_texticon Defend Our Chosen Path",
+      "£BoP_left_texticon Defend the Policy of Neutrality"
     ],
     "name": "Denmark"
   },
@@ -930,8 +1099,11 @@
   "ECU": {
     "aliases": [
       "Ecuadorian Authority",
+      "Ecuadorian Government in Exile",
       "Equatorial Socialist Republic",
       "Galapagos Regime",
+      "Great Galapagos State",
+      "Independent People's Republic of the Galapagos",
       "the Ecuadorian Authority",
       "the Equatorial Socialist Republic"
     ],
@@ -959,10 +1131,36 @@
   },
   "ENG": {
     "aliases": [
+      "Albion",
       "British Empire",
+      "Commonwealth of Nations",
+      "Commonwealth of Peoples",
+      "Commune of Anglia",
+      "Create WLNS Vanguard.\\n",
+      "Edward VIII",
       "England",
       "Great Britain",
       "Great Britain and Northern Ireland",
+      "Imperial Federation",
+      "Imperialist Australia",
+      "Imperialist Canada",
+      "Imperialist New Zealand",
+      "Imperialist South Africa",
+      "Install Communist Government in Australia",
+      "Install Communist Government in British Raj",
+      "Install Communist Government in Canada",
+      "Install Communist Government in New Zealand",
+      "Install Communist Government in South Africa",
+      "Install Fascist Government in Australia",
+      "Install Fascist Government in British Raj",
+      "Install Fascist Government in Canada",
+      "Install Fascist Government in New Zealand",
+      "Install Fascist Government in South Africa",
+      "Kingdom of England",
+      "Tackle Fascism",
+      "The British Path to Fascism",
+      "The Empire",
+      "True Union of Britain",
       "U.K.",
       "UK",
       "Union of Britain",
@@ -996,7 +1194,11 @@
   },
   "EST": {
     "aliases": [
+      "Estonia-Belarus Nationalist Assembly",
+      "Estonia-Belarus Republic",
+      "Estonia-Belarus SSR",
       "Estonian People's Republic",
+      "No Surrender",
       "Republic of Estonia",
       "Vapsid Estonia",
       "the Estonian People's Republic",
@@ -1008,7 +1210,10 @@
     "aliases": [
       "Ethiopian Empire",
       "Federal Democratic Republic of Ethiopia",
+      "Federation of Ethiopia",
+      "Military Communism",
       "People's Democratic Republic of Ethiopia",
+      "Territorial Army",
       "the Ethiopian Empire",
       "the Federal Democratic Republic of Ethiopia",
       "the People's Democratic Republic of Ethiopia"
@@ -1065,6 +1270,8 @@
   },
   "FIN": {
     "aliases": [
+      "Finnish Neutrality",
+      "Obliterated European Fascism",
       "Republic of Finland",
       "Socialist Republic of Finland",
       "White Finland",
@@ -1088,10 +1295,13 @@
   },
   "FRA": {
     "aliases": [
+      "Ban Communism",
       "Bourbon France",
       "French Commune",
       "French Republic",
+      "Leftist Rhetoric",
       "Nation Française",
+      "Right Wing Rhetoric",
       "Third Republic",
       "the French Commune"
     ],
@@ -1224,16 +1434,50 @@
   "GER": {
     "aliases": [
       "3rd Reich",
+      "Align Hungary",
+      "Align Romania",
+      "Autobahn",
+      "Bundeswerke",
+      "Clamp Down on Fascism",
+      "Deutsche Marine",
       "Deutschland",
+      "Eastern Autonomous States",
+      "End European Communism",
+      "Establish Eastern Grand Duchies",
+      "Establish Western Grand Duchies",
       "German Empire",
+      "German Kaiserreich",
+      "German Military Junta",
       "German Reich",
       "German Republic",
+      "German Socialist Volksunion",
+      "German Transitional Government",
+      "Greater German Proletarian State",
+      "Greater Germanic Reich",
+      "Kaiserliche Marine",
+      "Kaiserliche Marinewerft",
+      "Kingdom of Germany",
+      "Kriegsmarine",
+      "Kriegsmarinewerft",
+      "Marinewerft",
       "Nazi Germany",
+      "No Balkan Communism",
+      "People's Republic of Germany",
+      "Reichsautobahn",
       "Socialist Republic of Germany",
+      "The Final Blow to Communism",
       "Third Reich",
+      "Volksautobahn",
+      "Volksmarine",
+      "Volksmarinewerft",
+      "Volkswerke",
+      "Western Autonomous States",
+      "[GER.GetName]",
       "the German Empire",
       "the German Reich",
       "the German Republic",
+      "the Proletarian Revolution",
+      "the Reich",
       "the Socialist Republic of Germany"
     ],
     "name": "Germany"
@@ -1299,7 +1543,12 @@
       "Hellenic Republic",
       "Hellenic State",
       "Kingdom of Greece",
+      "National Union of Greece",
+      "People's Republic of Hellas",
+      "Political Instability",
       "Provisional Democratic Greece",
+      "State of the Nation",
+      "Union of Greek Soviet Republics",
       "the Hellenic Republic",
       "the Hellenic State",
       "the Kingdom of Greece"
@@ -1448,11 +1697,16 @@
   },
   "HOL": {
     "aliases": [
+      "Aloof Neutrality",
+      "Bastion of True Communism",
+      "Benelux Federation",
       "Dutch",
       "Dutch Republic",
       "Dutch Rijk",
       "Holland",
       "Kingdom of Netherlands",
+      "Maintain Trade Neutrality",
+      "Maintained Trade Neutrality",
       "People's United Provinces",
       "the Kingdom of Netherlands",
       "the Netherlands",
@@ -1482,9 +1736,18 @@
   },
   "HUN": {
     "aliases": [
+      "Hungarian Monarchy",
       "Hungarian People's Republic",
+      "Interventionism",
       "Kingdom of Hungary",
+      "Legionary Union of Hungary and Romania",
+      "Pan-European National Movement",
+      "People's Federative Republics of Hungary and Romania",
+      "People's Federative Republics of Sweden and Hungary",
       "Republic of Hungary",
+      "Transleithania",
+      "United Kingdoms of Hungary and Romania",
+      "United Kingdoms of Sweden and Hungary",
       "the Hungarian People's Republic",
       "the Kingdom of Hungary",
       "the Republic of Hungary"
@@ -1517,6 +1780,7 @@
   },
   "ICE": {
     "aliases": [
+      "Declare Absolute Neutrality",
       "Island",
       "Islandsveldi",
       "Worker's Republic of Iceland",
@@ -1553,6 +1817,7 @@
   },
   "INS": {
     "aliases": [
+      "Aslia",
       "People's Democratic Front",
       "Republic of Indonesia",
       "the People's Democratic Front",
@@ -1585,9 +1850,22 @@
   "IRQ": {
     "aliases": [
       "Al-Muthanna Iraq",
+      "Ba'athist Arab Union",
+      "Greater Arab Union",
+      "Greater Iraq",
+      "Greater Iraqi Dominion",
+      "Greater Iraqi Republic",
+      "Hashemite Arab Federation",
+      "Hashemite Caliphate",
       "Iraqi People's State",
       "Iraqi Republic",
       "Kingdom of Iraq",
+      "Kurdistan Democratic Party",
+      "Socialist Arab Republics",
+      "Socialist Republic of Greater Iraq",
+      "United Arab Federation",
+      "United Arab Republic",
+      "United Arab States",
       "the Hashemite Kingdom of Iraq",
       "the Iraqi People's State",
       "the Iraqi Republic"
@@ -1607,14 +1885,21 @@
   },
   "ITA": {
     "aliases": [
+      "Boost the Grand Council of Fascism",
       "Fascist Italy",
+      "Grand Italian Union",
       "Italian Empire",
+      "Italian National Union",
       "Italian Republic",
       "Italian Union",
       "Kingdom of Italy",
+      "Republic of Italy",
+      "Socialist Republic of Italy",
+      "United Italian Empire",
       "the Italian Republic",
       "the Italian Union",
-      "the Kingdom of Italy"
+      "the Kingdom of Italy",
+      "£BoP_left_texticon Condemn Fascism"
     ],
     "name": "Italy"
   },
@@ -1666,12 +1951,20 @@
   },
   "JAP": {
     "aliases": [
+      "Empire of Great Japan",
       "Empire of Japan",
+      "Greater East Asian Federation",
+      "Greater Pan-Asian Empire",
+      "Greater Pan-Asian State",
       "Imperial Japan",
       "Japanese Empire",
       "Japanese People's Republic",
+      "Japanese Shogunate",
+      "Jobukkokudo",
       "Nippon",
+      "Pacific Union of Soviet Socialist Republics",
       "State of Japan",
+      "War Communism",
       "the Empire of Japan",
       "the Japanese People's Republic",
       "the State of Japan"
@@ -1808,8 +2101,10 @@
   },
   "KHM": {
     "aliases": [
+      "Khotan Emirate",
       "Khotan Hui Republic",
       "Khotan Ma Free State",
+      "Promote Anti-Communism",
       "the Khotan Hui Republic",
       "the Khotan Ma Clique",
       "the Khotan Ma Free State"
@@ -1866,7 +2161,9 @@
   },
   "KOR": {
     "aliases": [
+      "Chosen SSR",
       "Democratic People's Republic of Korea",
+      "Government-General of Chosen",
       "Independent Korean Governorate",
       "People's Republic of Korea",
       "the Democratic People's Republic of Korea",
@@ -1914,6 +2211,8 @@
       "Chagatai Khanate",
       "Kumul Republic",
       "Turco-Mongol Federative People's Republic",
+      "Yettishar",
+      "Yettishar Khaganate",
       "the Chagatai Khanate",
       "the Kumul Khanate",
       "the Kumul Republic",
@@ -1924,6 +2223,7 @@
   "KUR": {
     "aliases": [
       "Kingdom of Kurdistan",
+      "Republic of Mahabad",
       "Socialist Republic of Kurdistan",
       "Xoybun Kurdistan",
       "the Kingdom of Kurdistan",
@@ -1967,6 +2267,10 @@
   },
   "LAT": {
     "aliases": [
+      "Fascist Propaganda in [From.Owner.GetNameDef]",
+      "Latvia-Belarus Nationalist Assembly",
+      "Latvia-Belarus Republic",
+      "Latvia-Belarus SSR",
       "Latvian People's Republic",
       "Republic of Latvia",
       "Thunder Cross Latvia",
@@ -2020,7 +2324,11 @@
   },
   "LIT": {
     "aliases": [
+      "Fascist Propaganda in Poland",
       "Iron Wolf Lithuania",
+      "Lithuania-Belarus Nationalist Assembly",
+      "Lithuania-Belarus Republic",
+      "Lithuania-Belarus SSR",
       "Lithuanian People's Republic",
       "Republic of Lithuania",
       "the Lithuanian People's Republic",
@@ -2071,11 +2379,20 @@
   },
   "MAN": {
     "aliases": [
+      "Beiyang Clique",
+      "Chinese Constitutional Monarchy",
+      "Empire of China",
+      "Empire of Great Manchuria",
       "Free Democratic People's Republic of Manchukuo",
+      "Imperial Kwantung Territories",
+      "Integrating [FROM.GetName]",
       "Manchu Republic",
       "Manchukou",
       "Manchukuo",
       "Manchuria",
+      "Manchurian Federated Provinces",
+      "Manchurian People's Republic",
+      "United Chinese People's Republics",
       "the Free Democratic People's Republic of Manchukuo",
       "the Manchu Republic"
     ],
@@ -2121,6 +2438,10 @@
   "MEN": {
     "aliases": [
       "Mengjiang",
+      "Mengjiang United Autonomous Government",
+      "Mongol Military Government",
+      "Mongol United Autonomous Government",
+      "Mongolian Autonomous State",
       "People's Mengjiang",
       "Republic of Mengjiang",
       "the People's Mengjiang",
@@ -2130,8 +2451,12 @@
   },
   "MEX": {
     "aliases": [
+      "Catholic Mexico",
       "Mexican Junta",
+      "Mexican Republic",
+      "Mexican Socialist Republic",
       "Mexican Soviet Republic",
+      "Third Mexican Empire",
       "United Mexican States",
       "the Mexican Junta",
       "the Mexican Soviet Republic",
@@ -2390,7 +2715,10 @@
     "aliases": [
       "Den Norsk Nasjonale Regjering",
       "Norges Nasjonale Regjering",
+      "Norgesveldet",
+      "Northern Revolutionary Front",
       "Norwegian People's Republic",
+      "Norwegian War Cabinet",
       "the Norwegian People's Republic"
     ],
     "name": "Norway"
@@ -2455,6 +2783,7 @@
       "People's Republic of Oman",
       "Republic of Oman",
       "Sultanate of Muscat and Oman",
+      "Sultanate of Oman",
       "the Omani Empire",
       "the People's Republic of Oman",
       "the Republic of Oman",
@@ -2531,6 +2860,7 @@
   },
   "PAR": {
     "aliases": [
+      "Flip to Fascism",
       "Provisional Republic of Paraguay",
       "Republic of Paraguay",
       "the Provisional Republic of Paraguay",
@@ -2540,7 +2870,9 @@
   },
   "PER": {
     "aliases": [
+      "Education Campaign",
       "Iranian Communist Authority",
+      "Islamic Republic of Iran",
       "New Persian Empire",
       "Persia",
       "Persian Empire",
@@ -2554,9 +2886,22 @@
   },
   "PHI": {
     "aliases": [
+      "Austronesia",
+      "Austronesian Commonwealth",
+      "Austronesian Empire",
       "Commonwealth of the Philippines",
       "Community of the Philippines",
+      "Federated Maritime Commonwealth",
+      "Federation of Malayan Peoples",
+      "Hispanic Union",
+      "Malayan Empire",
+      "Maritime Communism",
+      "Philippine People's Republic",
+      "Philippine Republic",
       "Philippine State",
+      "Reino de Filipinas",
+      "Union of Malayan Peoples",
+      "Union of South East Asian Nations",
       "the Commonwealth of the Philippines",
       "the Community of the Philippines",
       "the Philippine State",
@@ -2609,7 +2954,15 @@
   },
   "POR": {
     "aliases": [
+      "Anti-Fascism",
+      "Communist Opinion",
+      "Deal with Fascism",
+      "Democratic Opinion",
+      "Fifth Portuguese Empire",
       "Greater Portugal",
+      "Iberian Communism",
+      "Kingdom of Portugal",
+      "Latin American Communism",
       "Maximalist Portugal",
       "Portuguese Republic",
       "the Portuguese Republic"
@@ -2624,6 +2977,8 @@
       "Chinese Republic",
       "ComChina",
       "Communist China",
+      "People's Republic of China",
+      "Purge the World of Fascism",
       "the Chinese Empire",
       "the Chinese Republic",
       "the Chinese Soviet Republic"
@@ -2733,10 +3088,15 @@
   },
   "RAJ": {
     "aliases": [
+      "All India Forward Bloc",
       "British India",
       "British Raj",
       "Free India",
       "Indian People's Republic",
+      "Timurid Empire",
+      "Timurid Republic",
+      "Timurid Socialist Republic",
+      "Timurid Union",
       "the Indian People's Republic"
     ],
     "name": "India"
@@ -3113,6 +3473,7 @@
     "aliases": [
       "Kingdom of Romania",
       "Legionary Romania",
+      "Provisional Kingdom of Poland-Romania",
       "Socialist Republic of Romania",
       "the Kingdom of Romania",
       "the Socialist Republic of Romania"
@@ -3164,8 +3525,10 @@
   },
   "SAF": {
     "aliases": [
+      "Abandon Westminster",
       "Cape Commune",
       "Nationalist South Africa",
+      "Ossewabrandwag",
       "Unitary South Africa",
       "the Cape Commune"
     ],
@@ -3285,6 +3648,7 @@
   },
   "SIA": {
     "aliases": [
+      "Look to European Fascism",
       "Republic of Thailand",
       "Siamese Empire",
       "Thai People's Republic",
@@ -3335,6 +3699,8 @@
   "SIK": {
     "aliases": [
       "Neo-Chagatai Khanate",
+      "Sinkiang Autonomous SSR",
+      "Sinkiang Clique",
       "Sinkiang Independent Republic",
       "State of Sinkiang",
       "the Neo-Chagatai Khanate",
@@ -3470,14 +3836,26 @@
   },
   "SOV": {
     "aliases": [
+      "Architect of Communism",
+      "Eradicate Western Fascism",
+      "Greetings to the Fighters Against Fascism",
+      "Imperial",
+      "Red",
+      "Russian",
       "Russian Empire",
       "Russian Federation",
+      "Russian Soviet Socialist Republic",
+      "SSSR",
       "Soviet Russia",
       "Soviet Union",
       "Soviets",
+      "The Construction of Communism",
       "U.S.S.R.",
       "USSR",
+      "Union of Soviet Republics",
       "Union of Soviet Socialist Republics",
+      "Young Builders of Communism",
+      "Young Builders of Communism!",
       "the Russian Empire",
       "the Russian Federation",
       "the Soviet Union"
@@ -3498,9 +3876,26 @@
   },
   "SPR": {
     "aliases": [
+      "Against Fascism",
+      "Carlist Castille",
+      "Carlist Spain",
+      "Castillian Commune",
+      "Castillian Republic",
+      "Crown of Castille",
       "Francoist Spain",
+      "Global Defense Council",
+      "Habsburg Spain",
+      "Join the Global Fight Against Fascism",
+      "Nationalist Castille",
       "Nationalist Spain",
+      "People's Republic of Castille",
+      "People's Republic of Spain",
+      "Regional Defense Council of Aragón",
+      "Regional Defense Council of Castille",
+      "Regional Defense Council of Iberia",
+      "Republican Castille",
       "Republican Spain",
+      "Spanish Commune",
       "Spanish Empire",
       "Spanish Republic",
       "the Spanish Empire"
@@ -3511,6 +3906,7 @@
     "aliases": [
       "Democratic Socialist Republic of Sri Lanka",
       "Nationalist Ceylon",
+      "State of Ceylon",
       "Tamil-Sinhalese Socialist Federation",
       "the Democratic Socialist Republic of Sri Lanka",
       "the Tamil-Sinhalese Socialist Federation"
@@ -3551,17 +3947,37 @@
   },
   "SWE": {
     "aliases": [
+      "Dagens Sanning",
+      "Folkets Radio",
+      "Folkhemmet",
       "Folkrepubliken Sverige",
       "Kingdom of Sweden",
+      "Radiotjänst",
+      "Republic of Nordland",
       "Svea Rike",
+      "Undermine the Fascists",
+      "United Kingdoms of Nordland",
       "the Kingdom of Sweden"
     ],
     "name": "Sweden"
   },
   "SWI": {
     "aliases": [
+      "Abandoned Neutrality",
+      "Alpine Confederation",
+      "Alpine Protectorate",
+      "Alpine Supremacy",
+      "Alpine Union",
+      "Armed Neutrality",
+      "Considerable breach of neutrality",
+      "Embrace Communism",
+      "Grave Breach of Neutrality",
       "Helvetic Junta",
       "Imperial Helvetia",
+      "In breach of Neutrality",
+      "Mild breach of neutrality",
+      "Spouse Fascist Ideals",
+      "Swiss Neutrality",
       "The Helvetic Junta",
       "United Cantons",
       "the Imperial Helvetic Confederation",
@@ -3734,8 +4150,12 @@
   "TRA": {
     "aliases": [
       "Carpathian Socialist Union",
+      "Federal Republic of Székelyföld",
+      "Greater Székely Land",
       "Legionary Transylvania",
       "Principality of Transylvania",
+      "Union of Székely, Saxon and Romanian Soviets",
+      "United Székely Duchies",
       "the Carpathian Socialist Union",
       "the Principality of Transylvania"
     ],
@@ -3777,11 +4197,15 @@
   },
   "TUR": {
     "aliases": [
+      "Brace Against the Red Menace",
       "Ottoman Empire",
       "Ottomans",
+      "Provide Refuge to the Victims of Fascism",
       "Republic of Turkey",
       "Turkish Empire",
       "Turkish Socialist Republic",
+      "Victory or Death Against Communism",
+      "[GetVictoryOrDeathAgainstCommunismName]",
       "the Republic of Turkey",
       "the Turkish Empire",
       "the Turkish Socialist Republic"
@@ -3861,8 +4285,11 @@
   },
   "URG": {
     "aliases": [
+      "Declare Neutrality",
+      "Deutsch-Uruguay",
       "New Constitutional Uruguay",
       "Oriental Republic of Uruguay",
+      "Reichsprotektorat Uruguay",
       "Socialist Republic of Uruguay",
       "the Oriental Republic of Uruguay",
       "the Socialist Republic of Uruguay"
@@ -3872,11 +4299,13 @@
   "USA": {
     "aliases": [
       "Communist States of America",
+      "Crusade Against Communism",
       "Free American Empire",
       "U.S.",
       "U.S.A.",
       "US",
       "USA",
+      "United Kingdom of America",
       "United States",
       "United States of America",
       "the Communist States of America",
@@ -3944,6 +4373,7 @@
       "Democratic Republic of Vietnam",
       "Empire of Dai Nam",
       "Empire of Vietnam",
+      "Kingdom of Annam",
       "Republic of Vietnam",
       "the Democratic Republic of Vietnam",
       "the Empire of Dai Nam",
@@ -4057,6 +4487,10 @@
   },
   "XIC": {
     "aliases": [
+      "New Fengtian Clique",
+      "New Fengtian Empire",
+      "New Fengtian Federation",
+      "New Fengtian People's Republic",
       "Northeastern Army",
       "Xi'an Free State",
       "Xi'an Republic",
@@ -4134,10 +4568,12 @@
   },
   "YUG": {
     "aliases": [
+      "Enforce Yugoslav Neutrality",
       "Kingdom of Yugoslavia",
       "Radikalna Yugoslavia",
       "SFR Yugoslavia",
       "Yugoslavian Confederation",
+      "Yugoslavian Path to Communism",
       "the Kingdom of Yugoslavia",
       "the Yugoslavian Confederation"
     ],

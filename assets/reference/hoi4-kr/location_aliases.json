@@ -1,0 +1,31 @@
+{
+  "_comment": "Hand-curated extra names for Kaiserreich locations, merged into provinces.json by tools/parse_hoi4_reference.py --mod kaiserreich. Keys MUST be canonical display names already in KR's provinces.json (the parser warns about any that aren't); values are alternative spellings a Discord poster might write in [Location:...]. NOTE the direction differs from base HoI4: in Kaiserreich the Bolsheviks never took Russia and the Ottomans never fell, so the PRE-revolutionary names are canonical — Tsaritsyn not Stalingrad, Petrograd not Leningrad, Constantinople not Istanbul, Smyrna not Izmir. The Soviet-era names below are listed as aliases so posters typing from vanilla-HoI4 habit still pin correctly. Keys with a leading underscore are ignored as comments.",
+
+  "Tsaritsyn": ["Stalingrad", "Volgograd"],
+  "Petrograd": ["Leningrad", "St Petersburg", "Saint Petersburg"],
+  "Ekaterinburg": ["Sverdlovsk", "Yekaterinburg"],
+  "Samara": ["Kuybyshev", "Kuibyshev"],
+  "Tver": ["Kalinin"],
+  "Nizhny Novgorod": ["Gorky", "Gorki"],
+  "Constantinople": ["Istanbul"],
+  "Smyrna": ["Izmir"],
+  "Shenyang": ["Mukden"],
+  "Pressburg": ["Bratislava"],
+
+  "Honolulu": ["Pearl Harbor", "Pearl Harbour"],
+  "Königsberg": ["Konigsberg", "Koenigsberg", "Kaliningrad"],
+  "Danzig": ["Gdansk", "Gdańsk"],
+  "Breslau": ["Wroclaw", "Wrocław"],
+  "Saigon": ["Ho Chi Minh City"],
+  "Batavia": ["Jakarta", "Djakarta"],
+  "Bombay": ["Mumbai"],
+  "Calcutta": ["Kolkata"],
+  "Madras": ["Chennai"],
+  "Rangoon": ["Yangon"],
+  "Addis Ababa": ["Addis Abeba"],
+  "Rijeka": ["Fiume"],
+  "Oslo": ["Christiania", "Kristiania"],
+  "Guangzhou": ["Canton"],
+  "Taipei": ["Taihoku"],
+  "Chemnitz": ["Karl-Marx-Stadt"]
+}

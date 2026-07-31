@@ -20,7 +20,8 @@ tools/parse_positions.py         EU4 positions.txt → provinces.json
 tools/parse_eu5_reference.py     EU5 locators + names → provinces.json + tags.json
 tools/parse_hoi4_reference.py    HoI4 provinces.bmp + states + localisation →
                                  provinces.json + tags.json (derives coordinates;
-                                 HoI4 ships none)
+                                 HoI4 ships none). --mod kaiserreich layers a
+                                 workshop mod over the base install.
 tools/new_instance.py            campaign scaffolder
 <game>-<campaign>/               one folder per campaign
     view.html                    viewer page; declares window.CAMPAIGN_GAME
@@ -147,6 +148,13 @@ For a **new game** with no shared reference data yet:
 | `eu4` | `parse_positions.py` | 5632×2048 | Province |
 | `eu5` | `parse_eu5_reference.py` | 16384×8192 | Location |
 | `hoi4` | `parse_hoi4_reference.py` | 5632×2048 | State / victory-point city |
+| `hoi4-kr` | `parse_hoi4_reference.py --mod kaiserreich` | 5632×2048 | State / victory-point city |
+
+Kaiserreich is a HoI4 **mod** but is treated as its own game id, because it
+ships its own map, states and countries — a `hoi4-kr` campaign must not load
+base HoI4 reference data. Name a campaign folder `hoi4-kr-<something>` and the
+scaffolder infers the right game (it matches the longest known game id, so
+`hoi4-kr-sunday` resolves to `hoi4-kr`, not `hoi4`).
 
 The viewer, the tagging system, and the Discord sync pipeline are all
 game-agnostic — `view.html` declares `window.CAMPAIGN_GAME` and `app.js`

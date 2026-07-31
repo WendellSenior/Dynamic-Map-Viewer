@@ -13,9 +13,11 @@ from pathlib import Path
 # pins from it onto whatever the uploaded snapshot images are, so getting this
 # wrong silently misplaces every pin.
 NATIVE_MAP_DIMS = {
-    "eu4":  {"width": 5632,  "height": 2048},
-    "eu5":  {"width": 16384, "height": 8192},
-    "hoi4": {"width": 5632,  "height": 2048},
+    "eu4":     {"width": 5632,  "height": 2048},
+    "eu5":     {"width": 16384, "height": 8192},
+    "hoi4":    {"width": 5632,  "height": 2048},
+    # Kaiserreich ships its own provinces.bmp, but at HoI4's native size.
+    "hoi4-kr": {"width": 5632,  "height": 2048},
 }
 
 
@@ -181,7 +183,19 @@ def main():
         print(f"Already exists: {folder_path}. Aborted.")
         return
 
-    game_default = folder.split("-", 1)[0]
+    # Infer the game from the folder name, preferring the LONGEST known game id
+    # that prefixes it. Splitting on the first "-" would read "hoi4-kr-sunday"
+    # as plain "hoi4" and silently load base Hearts of Iron reference data for
+    # a Kaiserreich campaign — same names, different map.
+    known_games = set(NATIVE_MAP_DIMS)
+    ref_root = repo_root / "assets" / "reference"
+    if ref_root.is_dir():
+        known_games |= {d.name for d in ref_root.iterdir() if d.is_dir()}
+    game_default = next(
+        (g for g in sorted(known_games, key=len, reverse=True)
+         if folder == g or folder.startswith(g + "-")),
+        folder.split("-", 1)[0],
+    )
     game = slugify(prompt("Game tag", game_default)) or game_default
 
     default_label = raw.replace("-", " ").replace("_", " ").strip().title()

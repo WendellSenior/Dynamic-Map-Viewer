@@ -1299,7 +1299,10 @@ async function init() {
     // Per-game column label for the events table.
     const provHeader = document.querySelector('th.col-province');
     if (provHeader) {
-      const labels = { eu4: 'Province', eu5: 'Location', hoi4: 'State / City' };
+      const labels = {
+        eu4: 'Province', eu5: 'Location',
+        hoi4: 'State / City', 'hoi4-kr': 'State / City',
+      };
       provHeader.textContent = labels[window.CAMPAIGN_GAME] || 'Location';
     }
 

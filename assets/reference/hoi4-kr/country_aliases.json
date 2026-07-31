@@ -1,0 +1,16 @@
+{
+  "_comment": "Hand-curated extra country names for Kaiserreich, merged into tags.json by tools/parse_hoi4_reference.py --mod kaiserreich. KR's own data already covers the formal and cosmetic names very well (German Empire, Commune of France, Union of Britain, Austrian Empire, Danubian Federation, Ottoman Empire all resolve unaided), so this file is only for community shorthand that appears nowhere in the mod files. Deliberately short — add your group's own shorthand here; the parser warns about unknown tags, so a typo is caught on rebuild rather than silently ignored. Keys with a leading underscore are ignored as comments.",
+
+  "GER": ["Reich", "Kaiserreich"],
+  "FRA": ["Commune", "Syndicalist France", "Syndie France"],
+  "NFA": ["National France"],
+  "ENG": ["UoB", "Syndicalist Britain", "Britannia"],
+  "AUS": ["Austria-Hungary", "Austro-Hungarian Empire", "Habsburgs", "KuK", "Danubia"],
+  "TUR": ["Ottomans", "Sublime Porte", "Porte"],
+  "RUS": ["Russian State"],
+  "ACC": ["Constitutionalists"],
+  "APG": ["Syndicalist America"],
+  "JAP": ["Nippon"],
+  "ITA": ["Italian Federation"],
+  "SRI": ["Socialist Italy"]
+}
