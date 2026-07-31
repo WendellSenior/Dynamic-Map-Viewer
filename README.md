@@ -22,6 +22,9 @@ tools/parse_hoi4_reference.py    HoI4 provinces.bmp + states + localisation →
                                  provinces.json + tags.json (derives coordinates;
                                  HoI4 ships none). --mod kaiserreich layers a
                                  workshop mod over the base install.
+tools/render_basemap.py          HoI4 provinces.bmp → plain land/sea PNG at the
+                                 game's native size, for checking derived pins
+                                 before you have real screenshots
 tools/new_instance.py            campaign scaffolder
 <game>-<campaign>/               one folder per campaign
     view.html                    viewer page; declares window.CAMPAIGN_GAME

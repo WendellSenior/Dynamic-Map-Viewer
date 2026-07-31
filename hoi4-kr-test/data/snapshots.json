@@ -1,0 +1,14 @@
+{
+  "config": {
+    "width": 5632,
+    "height": 2048
+  },
+  "snapshots": [
+    {
+      "date": "1936-01-01",
+      "image": "data/maps/1936_January_01.png",
+      "label": "1936",
+      "image_lowres": "data/maps/lowres/1936_January_01.webp"
+    }
+  ]
+}

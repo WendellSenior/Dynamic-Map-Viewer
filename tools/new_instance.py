@@ -329,8 +329,9 @@ def main():
     if not shared_ref_present:
         print(f"  - Seed reference data  assets/reference/{game}/  (no shared {game} reference found)")
         print(f"      - Need: tags.json, provinces.json, plus game files used by tools/parse_*.py")
-    if ref_source is None:
-        print(f"  - Update map dims in   {folder}/data/snapshots.json config")
+    if dims is None:
+        print(f"  - Update map dims in   {folder}/data/snapshots.json config "
+              f"(no known native size for '{game}')")
     print(f"  - Launch with          {folder}\\init.bat")
     print(f"  - Edit campaign card   campaigns.json  (dates/description optional)")
 

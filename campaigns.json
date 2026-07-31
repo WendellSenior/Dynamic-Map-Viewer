@@ -38,6 +38,14 @@
         "guild_id": "507915886477312023",
         "reference_game": "eu5"
       }
+    },
+    {
+      "folder": "hoi4-kr-test",
+      "game": "hoi4-kr",
+      "label": "Kaiserreich Test",
+      "dates": "1936",
+      "description": "Test instance for the hoi4-kr reference data. The map is a land/sea render of Kaiserreich's own province bitmap (tools/render_basemap.py), so pins can be checked against the same data their coordinates came from. Twelve hand-written events exercise country aliases, state vs city locations, and KR's pre-revolutionary place names.",
+      "hidden": false
     }
   ]
 }

@@ -1,0 +1,149 @@
+{
+  "_comment": "Hand-written test fixtures for the hoi4-kr reference data — NOT a Discord sync target. Each event exercises a specific part of the pipeline: canonical country names, ideology aliases, curated shorthand, victory-point cities, state-level locations, and the pre-revolutionary place names Kaiserreich uses. Ids are sequential rather than Discord snowflakes because nothing here came from Discord; the viewer only uses them as keys. Safe to delete once a real campaign exists.",
+  "events": [
+    {
+      "id": "kr-test-001",
+      "date": "1936-01-01",
+      "country": "GER",
+      "countryRaw": null,
+      "province": "Berlin",
+      "tag": "History",
+      "author": "test-fixture",
+      "snippet": "# The German Empire at the height of its power",
+      "fullText": "# The German Empire at the height of its power\n\nTwenty years after the victory in the Weltkrieg, Mitteleuropa binds the continent to Berlin. Tests the canonical tag name and a victory-point city.",
+      "images": []
+    },
+    {
+      "id": "kr-test-002",
+      "date": "1936-02-14",
+      "country": "FRA",
+      "countryRaw": null,
+      "province": "Paris",
+      "tag": "Chaos",
+      "author": "test-fixture",
+      "snippet": "## The Commune prepares",
+      "fullText": "## The Commune prepares\n\nSyndicalist France drills its militias. Posted as [Country:Commune of France] — tests an ideology-name alias resolving to FRA rather than to NFA, whose cosmetic names also include it.",
+      "images": []
+    },
+    {
+      "id": "kr-test-003",
+      "date": "1936-03-07",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "London",
+      "tag": "Meeting",
+      "author": "test-fixture",
+      "snippet": "### Congress of the Union of Britain",
+      "fullText": "### Congress of the Union of Britain\n\nTests [Country:Union of Britain] and [Country:UoB], the latter coming from the curated country_aliases.json overlay.",
+      "images": []
+    },
+    {
+      "id": "kr-test-004",
+      "date": "1936-04-20",
+      "country": "AUS",
+      "countryRaw": null,
+      "province": "Vienna",
+      "tag": "Treaty",
+      "author": "test-fixture",
+      "snippet": "# Danubian negotiations in Vienna",
+      "fullText": "# Danubian negotiations in Vienna\n\nTests cosmetic-tag aliases: Kaiserreich localises AUS blandly as \"Austria\", but [Country:Austrian Empire] and [Country:Danubian Federation] both resolve through the names it can adopt after a focus.",
+      "images": []
+    },
+    {
+      "id": "kr-test-005",
+      "date": "1936-05-11",
+      "country": "TUR",
+      "countryRaw": null,
+      "province": "Constantinople",
+      "tag": "Muslim",
+      "author": "test-fixture",
+      "snippet": "## The Sublime Porte endures",
+      "fullText": "## The Sublime Porte endures\n\nThe Ottoman Empire never fell here, so Constantinople — not Istanbul — is the canonical location name. Writing [Location:Istanbul] still resolves, via location_aliases.json.",
+      "images": []
+    },
+    {
+      "id": "kr-test-006",
+      "date": "1936-06-30",
+      "country": "RUS",
+      "countryRaw": null,
+      "province": "Petrograd",
+      "tag": "Character",
+      "author": "test-fixture",
+      "snippet": "### The Russian Republic looks west",
+      "fullText": "### The Russian Republic looks west\n\nNo Bolshevik victory means no Leningrad: Petrograd is canonical. [Location:Leningrad] and [Location:St Petersburg] both resolve as aliases.",
+      "images": []
+    },
+    {
+      "id": "kr-test-007",
+      "date": "1936-08-02",
+      "country": "RUS",
+      "countryRaw": null,
+      "province": "Tsaritsyn",
+      "tag": "Battle",
+      "author": "test-fixture",
+      "snippet": "# Clashes on the lower Volga",
+      "fullText": "# Clashes on the lower Volga\n\nCanonically Tsaritsyn in Kaiserreich. A poster typing [Location:Stalingrad] from vanilla-HoI4 habit still pins here — the alias direction that is inverted relative to base HoI4.",
+      "images": []
+    },
+    {
+      "id": "kr-test-008",
+      "date": "1936-09-18",
+      "country": "JAP",
+      "countryRaw": null,
+      "province": "Beijing",
+      "tag": "WarDec",
+      "author": "test-fixture",
+      "snippet": "## Incident in north China",
+      "fullText": "## Incident in north China\n\nKaiserreich calls it Beijing where base HoI4 says Peking — a genuine difference between the two datasets, not a parser artefact.",
+      "images": []
+    },
+    {
+      "id": "kr-test-009",
+      "date": "1936-10-05",
+      "country": "ACC",
+      "countryRaw": null,
+      "province": "Chicago",
+      "tag": "Warning",
+      "author": "test-fixture",
+      "snippet": "### The Constitutional Coalition mobilises",
+      "fullText": "### The Constitutional Coalition mobilises\n\nACC is a Kaiserreich-only tag whose bare localisation is just \"America\" — already claimed by USA. It gets its real name, American Constitutional Coalition, from a cosmetic key.",
+      "images": []
+    },
+    {
+      "id": "kr-test-010",
+      "date": "1936-11-11",
+      "country": "NFA",
+      "countryRaw": null,
+      "province": "Algiers",
+      "tag": "Text",
+      "author": "test-fixture",
+      "snippet": "# Dispatches from Algiers",
+      "fullText": "# Dispatches from Algiers\n\nNational France in exile. Tests that NFA keeps its own identity after the two-pass name claiming, rather than absorbing FRA's \"Commune of France\".",
+      "images": []
+    },
+    {
+      "id": "kr-test-011",
+      "date": "1936-12-01",
+      "country": "ENG",
+      "countryRaw": null,
+      "province": "Bombay",
+      "tag": "Trade",
+      "author": "test-fixture",
+      "snippet": "### Cotton and the Raj",
+      "fullText": "### Cotton and the Raj\n\nPeriod name canonical, [Location:Mumbai] resolving as the modern alias.",
+      "images": []
+    },
+    {
+      "id": "kr-test-012",
+      "date": "1937-01-15",
+      "country": "USA",
+      "countryRaw": null,
+      "province": "Honolulu",
+      "tag": "Discover",
+      "author": "test-fixture",
+      "snippet": "## Pacific survey out of Honolulu",
+      "fullText": "## Pacific survey out of Honolulu\n\nFar from any landmass edge — a good check that an island centroid was snapped onto its own pixels rather than drifting into open ocean.",
+      "images": []
+    }
+  ]
+}

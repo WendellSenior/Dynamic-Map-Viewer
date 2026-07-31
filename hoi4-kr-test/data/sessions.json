@@ -1,0 +1,14 @@
+{
+  "_comment": "Test-instance sessions. The open-ended entry (no `end`) exercises the viewer's '(ongoing)' handling, which is also what tools/roll_session.py leaves behind after it closes a session.",
+  "sessions": [
+    {
+      "name": "Pre-Game",
+      "start": "1935-01-01",
+      "end": "1935-12-31"
+    },
+    {
+      "name": "Session 1",
+      "start": "1936-01-01"
+    }
+  ]
+}
