@@ -46,7 +46,7 @@
       "tag": "Treaty",
       "author": "test-fixture",
       "snippet": "# Danubian negotiations in Vienna",
-      "fullText": "# Danubian negotiations in Vienna\n\nTests cosmetic-tag aliases: Kaiserreich localises AUS blandly as \"Austria\", but [Country:Austrian Empire] and [Country:Danubian Federation] both resolve through the names it can adopt after a focus.",
+      "fullText": "# Danubian negotiations in Vienna\n\nKaiserreich localises AUS blandly as \"Austria\", but its history file sets a starting cosmetic tag (AUS_empire), so the map shows Austrian Empire. [Country:Austria] still resolves, and [Country:Danubian Federation] resolves through a name it can adopt later.",
       "images": []
     },
     {

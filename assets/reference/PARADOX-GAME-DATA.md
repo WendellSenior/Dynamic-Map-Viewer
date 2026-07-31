@@ -75,6 +75,16 @@ at `[3086, 323]` against EU4's shipped `[3085, 325]`.
 
 Two HoI4-specific naming wrinkles the parser handles:
 
+- **The display name is the formal name the game prints at the 1936 start**,
+  not the bland dictionary one — `GER` shows as "German Reich" (Kaiserreich:
+  "German Empire"), `SOV` as "Soviet Union", `ENG` as "United Kingdom"
+  (Kaiserreich: "Union of Britain"). It is resolved from the country's own
+  history file: a `set_cosmetic_tag` wins (KR's `AUS_empire` → "Austrian
+  Empire", `TUR_ottoman_empire` → "Ottoman Empire"), otherwise it's the name
+  under that country's `ruling_party`. Countries whose formal name is simply
+  the plain one — Bulgaria, Serbia, Portugal, Belgium, Sweden, Morocco — are
+  unaffected. The plain name always survives as an alias, so
+  `[Country:Germany]` still resolves.
 - **Countries are named per ideology.** `GER` is "Germany", but also "German
   Reich" (fascism), "German Republic" (democratic) and "Socialist Republic of
   Germany" (communism). All variants become aliases, so `[Country:German

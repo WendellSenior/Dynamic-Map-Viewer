@@ -476,28 +476,38 @@ def parse_ideologies(files):
     return names or set(IDEOLOGY_SUFFIXES)
 
 
-def parse_ruling_parties(country_paths):
-    """history/countries/<TAG> - <Name>.txt -> {TAG: ideology}.
+def parse_country_history(country_paths):
+    """history/countries/<TAG> - <Name>.txt -> {TAG: (ruling_party, cosmetic_tag)}.
 
-    A country's name in HoI4 depends on who runs it, so knowing the 1936
-    ruling party lets us pick the historically apt variant ("Chinese Soviet
-    Republic" for communist PRC) instead of an arbitrary one."""
+    Both fields decide what the game actually prints on the map at the 1936
+    start, which is the name we want to display:
+
+      - `ruling_party` picks between a country's per-ideology names, because
+        HoI4 renames a country according to who runs it.
+      - `set_cosmetic_tag` overrides that entirely. Kaiserreich uses it for
+        countries whose starting identity isn't their plain one: AUS starts as
+        AUS_empire ("Austrian Empire", not "Austria") and TUR as
+        TUR_ottoman_empire ("Ottoman Empire", not "Republic of Turkey"). Both
+        also carry several rival cosmetic identities they can switch to later,
+        so the starting one has to be read rather than guessed."""
     out = {}
     for path in country_paths:
         tag = path.name.split(" ", 1)[0].strip().upper()
         if len(tag) != 3:
             continue
-        m = re.search(r"\bruling_party\s*=\s*(\w+)",
-                      path.read_text(encoding="utf-8-sig", errors="replace"))
-        if m:
-            out[tag] = m[1].lower()
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        text = re.sub(r"#[^\n]*", "", text)  # a commented-out tag isn't applied
+        m_rule = re.search(r"\bruling_party\s*=\s*(\w+)", text)
+        m_cos  = re.search(r"\bset_cosmetic_tag\s*=\s*(\w+)", text)
+        out[tag] = (m_rule[1].lower() if m_rule else "",
+                    m_cos[1] if m_cos else "")
     return out
 
 
 def build_tags(files, loc, ref_dir):
     """{TAG: {name, aliases}} from country_tags + merged localisation."""
     tags_file = files.file("common/country_tags/00_countries.txt")
-    ruling = parse_ruling_parties(files.dir_files("history/countries"))
+    history = parse_country_history(files.dir_files("history/countries"))
     ideologies = parse_ideologies(files)
 
     # Group localisation by tag: base name + ideology variants + _DEF forms.
@@ -566,11 +576,24 @@ def build_tags(files, loc, ref_dir):
                 extras.add(value)
         if stem:
             extras.add(stem)
-        # Preferred fallback when the bare name is already claimed by an
-        # earlier tag: this tag's name under its own 1936 ruling party.
-        ideology_name = variants.get(ruling.get(tag, ""), "")
+
+        # The formal name the game prints on the map at the 1936 start, which
+        # is what the dynmap should show: GER as "German Empire" rather than
+        # "Germany", ENG as "Union of Britain". A starting cosmetic tag wins
+        # (AUS_empire -> "Austrian Empire", TUR_ottoman_empire -> "Ottoman
+        # Empire"), otherwise it's the country's name under its own ruling
+        # party. Countries whose formal name IS the plain one — Bulgaria,
+        # Serbia, Portugal, Belgium, Sweden, Morocco — resolve to the same
+        # string either way and are unaffected.
+        ruling_party, cosmetic_tag = history.get(tag, ("", ""))
+        ideology_name = variants.get(ruling_party, "") if ruling_party else ""
+        formal_name = ""
+        if cosmetic_tag and ruling_party:
+            formal_name = loc.get(f"{cosmetic_tag}_{ruling_party}", "")
+        formal_name = formal_name or ideology_name
+
         candidates.append((tag, preferred, stem, extras, ideology_name,
-                           set(cosmetic.get(tag, ()))))
+                           set(cosmetic.get(tag, ())), formal_name))
 
     # Resolve name collisions: several tags legitimately share a localisation
     # name ("Germany" is GER, WGR and DDR; "China" is CHI, PRC, MAN and RNG).
@@ -581,15 +604,17 @@ def build_tags(files, loc, ref_dir):
     # fall back to their unique stems ("West Germany", "East Germany").
     claimed = {}
     out = {}
-    for tag, preferred, stem, extras, ideology_name, _cosmetic in candidates:
-        # Order matters only for collision losers: try the bare name, then the
-        # ruling-party name (a real in-game name — "Chinese Soviet Republic"),
-        # then other ideology variants, and only fall back to the raw
-        # countries/<file>.txt stem ("ComChina") as a last resort.
-        ordered = [preferred]
-        if ideology_name and ideology_name != preferred:
-            ordered.append(ideology_name)
-        ordered += sorted(extras - {preferred, stem, ideology_name})
+    for tag, preferred, stem, extras, ideology_name, _cosmetic, formal_name in candidates:
+        # The formal in-game name leads, so the map presents "German Empire"
+        # and "Union of Britain" rather than "Germany" and "Britain". The
+        # plain name follows as an alias, so [Country:Germany] keeps working.
+        # After those come other ideology variants, and only as a last resort
+        # the raw countries/<file>.txt stem ("ComChina").
+        ordered = []
+        for cand in (formal_name, preferred, ideology_name):
+            if cand and cand not in ordered:
+                ordered.append(cand)
+        ordered += sorted(extras - set(ordered) - {stem})
         if stem and stem not in ordered:
             ordered.append(stem)
 
@@ -622,7 +647,7 @@ def build_tags(files, loc, ref_dir):
     # Claiming them in the first pass let Kaiserreich's NFA (National France,
     # earlier in 00_countries.txt) take "Commune of France" out from under
     # FRA, whose actual ideology name it is.
-    for tag, _preferred, _stem, _extras, _ideology, cosmetic_names in candidates:
+    for tag, _preferred, _stem, _extras, _ideology, cosmetic_names, _formal in candidates:
         for cand in sorted(cosmetic_names):
             if not cand or cand.lower() in claimed:
                 continue

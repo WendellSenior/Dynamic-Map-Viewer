@@ -14,14 +14,14 @@
   },
   "ADA": {
     "aliases": [
-      "Adamawa Clique",
+      "Adamawa",
       "Adamawa Commune",
       "Adamawa Emirate",
       "the Adamawa Clique",
       "the Adamawa Commune",
       "the Adamawa Emirate"
     ],
-    "name": "Adamawa"
+    "name": "Adamawa Clique"
   },
   "AFG": {
     "aliases": [
@@ -59,11 +59,11 @@
   },
   "ANQ": {
     "aliases": [
-      "Anqing Clique",
+      "Anqing",
       "Nanjing Government",
       "the Anqing Clique"
     ],
-    "name": "Anqing"
+    "name": "Anqing Clique"
   },
   "ANT": {
     "aliases": [],
@@ -93,17 +93,17 @@
   "AST": {
     "aliases": [
       "Australasian Workers' Republic",
+      "Australia",
       "Australian Commonwealth",
       "Australian Republic",
       "Australian Workers' Republic",
-      "Commonwealth of Australasia",
       "Commonwealth of Australia",
       "Republic of Australasia",
       "Republic of Australia",
       "the Australian Workers' Republic",
       "the Republic of Australia"
     ],
-    "name": "Australia"
+    "name": "Commonwealth of Australasia"
   },
   "ASY": {
     "aliases": [
@@ -113,8 +113,8 @@
   },
   "AUS": {
     "aliases": [
+      "Austria",
       "Austria-Hungary",
-      "Austrian Empire",
       "Austro-Hungarian Empire",
       "Danubia",
       "Danubian Federation",
@@ -125,7 +125,7 @@
       "United States of Greater Austria",
       "the Republic of Austria"
     ],
-    "name": "Austria"
+    "name": "Austrian Empire"
   },
   "AZR": {
     "aliases": [
@@ -144,28 +144,28 @@
   },
   "BAT": {
     "aliases": [
+      "Baltic",
       "Baltic Federation",
       "Baltic State",
       "Baltic Union",
       "Collectivisation",
       "German Union",
-      "United Baltic Duchy",
       "the Baltic Federation",
       "the Baltic Union",
       "the United Baltic Duchy"
     ],
-    "name": "Baltic"
+    "name": "United Baltic Duchy"
   },
   "BAY": {
     "aliases": [
       "South German Confederation",
       "South German Council Republic",
-      "South German State",
+      "South Germany",
       "the South German Confederation",
       "the South German Council Republic",
       "the South German State"
     ],
-    "name": "South Germany"
+    "name": "South German State"
   },
   "BEL": {
     "aliases": [
@@ -181,14 +181,14 @@
   },
   "BLR": {
     "aliases": [
+      "Belarus",
       "Belarusian National Republic",
-      "Belarusian People's Republic",
       "Belarusian Workers' Socialist Republic",
       "the Belarusian National Republic",
       "the Belarusian People's Republic",
       "the Belarusian Workers' Socialist Republic"
     ],
-    "name": "Belarus"
+    "name": "Belarusian People's Republic"
   },
   "BNG": {
     "aliases": [
@@ -239,15 +239,15 @@
   },
   "BRM": {
     "aliases": [
+      "Burma",
       "Kingdom of Burma",
-      "Republic of Burma",
       "State of Burma",
       "Union of Burma",
       "the Republic of Burma",
       "the State of Burma",
       "the Union of Burma"
     ],
-    "name": "Burma"
+    "name": "Republic of Burma"
   },
   "BRT": {
     "aliases": [
@@ -292,7 +292,7 @@
   },
   "CEN": {
     "aliases": [
-      "Central American Confederation",
+      "Central America",
       "Central American Republic",
       "Centroamérica",
       "The Confederación Obrera",
@@ -301,7 +301,7 @@
       "the Central American Confederation",
       "the Central American Republic"
     ],
-    "name": "Central America"
+    "name": "Central American Confederation"
   },
   "CEY": {
     "aliases": [
@@ -312,11 +312,11 @@
   },
   "CHA": {
     "aliases": [
+      "Chad",
       "Federation of Chad",
-      "Wadai Empire",
       "the Federation of Chad"
     ],
-    "name": "Chad"
+    "name": "Wadai Empire"
   },
   "CHI": {
     "aliases": [
@@ -413,12 +413,12 @@
   },
   "EGY": {
     "aliases": [
+      "Egypt",
       "Egyptian Republic",
       "Khedivate of Egypt",
-      "Kingdom of Egypt",
       "the Egyptian Republic"
     ],
-    "name": "Egypt"
+    "name": "Kingdom of Egypt"
   },
   "ELS": {
     "aliases": [
@@ -433,14 +433,14 @@
   },
   "ENG": {
     "aliases": [
+      "Britain",
       "Britannia",
       "Syndicalist Britain",
-      "Union of Britain",
       "Union of England",
       "UoB",
       "the Union of Britain"
     ],
-    "name": "Britain"
+    "name": "Union of Britain"
   },
   "EPR": {
     "aliases": [
@@ -483,22 +483,22 @@
   },
   "FER": {
     "aliases": [
-      "Far Eastern Army",
+      "Far Eastern Republic",
       "Far Eastern Socialist Republic",
       "Far Eastern State",
       "the Far Eastern Socialist Republic",
       "the Far Eastern State"
     ],
-    "name": "Far Eastern Republic"
+    "name": "Far Eastern Army"
   },
   "FIN": {
     "aliases": [
+      "Finland",
       "Finnish Socialist Workers' Republic",
-      "Kingdom of Finland",
       "National Republic of Finland",
       "the Finnish Socialist Workers' Republic"
     ],
-    "name": "Finland"
+    "name": "Kingdom of Finland"
   },
   "FLA": {
     "aliases": [
@@ -509,32 +509,33 @@
   },
   "FNG": {
     "aliases": [
+      "Fengtian",
       "Fengtian Clique",
-      "Fengtian Government",
       "the Fengtian Clique"
     ],
-    "name": "Fengtian"
+    "name": "Fengtian Government"
   },
   "FOP": {
     "aliases": [
+      "Argentinian Free Territory",
       "People's Republic of Argentina",
       "Socialist Republic of Argentina",
       "the Argentinian Free Territory",
       "the Democratic People's Republic of Argentina",
       "the Socialist Republic of Argentina"
     ],
-    "name": "Argentinian Free Territory"
+    "name": "Patagonian Workers' Front"
   },
   "FRA": {
     "aliases": [
       "Commune",
-      "Commune of France",
+      "France",
       "National Syndicalist",
       "Syndicalist France",
       "Syndie France",
       "the Commune of France"
     ],
-    "name": "France"
+    "name": "Commune of France"
   },
   "FRP": {
     "aliases": [],
@@ -573,13 +574,13 @@
   },
   "GER": {
     "aliases": [
-      "German Empire",
+      "Germany",
       "Kaiserreich",
       "Reich",
       "Staunch Social Democrat",
       "the German Empire"
     ],
-    "name": "Germany"
+    "name": "German Empire"
   },
   "GHA": {
     "aliases": [
@@ -618,13 +619,13 @@
   "GRP": {
     "aliases": [
       "Confederation of the Equator",
-      "Guararápes Confederation",
+      "Guararápes",
       "Union of Palmares",
       "the Confederation of the Equator",
       "the Guararápes Confederation",
       "the Union of Palmares"
     ],
-    "name": "Guararápes"
+    "name": "Guararápes Confederation"
   },
   "GRU": {
     "aliases": [
@@ -661,10 +662,10 @@
   },
   "GXC": {
     "aliases": [
-      "Liangguang Clique",
+      "Liangguang",
       "the Liangguang Clique"
     ],
-    "name": "Liangguang"
+    "name": "Liangguang Clique"
   },
   "GYA": {
     "aliases": [],
@@ -710,7 +711,7 @@
   },
   "HND": {
     "aliases": [
-      "Bharatiya People's Republic",
+      "India",
       "Republic of Bharat",
       "Republic of Hindustan",
       "Republic of India",
@@ -719,14 +720,14 @@
       "the Republic of Hindustan",
       "the Republic of India"
     ],
-    "name": "India"
+    "name": "Bharatiya People's Republic"
   },
   "HNN": {
     "aliases": [
-      "Hunan Clique",
+      "Hunan",
       "the Hunan Clique"
     ],
-    "name": "Hunan"
+    "name": "Hunan Clique"
   },
   "HOL": {
     "aliases": [
@@ -770,8 +771,10 @@
     "name": "Ikhwan"
   },
   "IMP": {
-    "aliases": [],
-    "name": "IMP"
+    "aliases": [
+      "IMP"
+    ],
+    "name": "Dominion of Canada"
   },
   "INC": {
     "aliases": [],
@@ -814,13 +817,13 @@
   "ITA": {
     "aliases": [
       "Italian Federation",
-      "Italian Republic",
       "Italian State",
+      "Italy",
       "Kingdom of Italy",
       "the Italian Republic",
       "the Italian State"
     ],
-    "name": "Italy"
+    "name": "Italian Republic"
   },
   "IVO": {
     "aliases": [],
@@ -832,7 +835,7 @@
   },
   "JAP": {
     "aliases": [
-      "Empire of Japan",
+      "Japan",
       "Nippon",
       "People's Republic of Japan",
       "Republic of Japan",
@@ -840,15 +843,15 @@
       "the Empire of Japan",
       "the People's Republic of Japan"
     ],
-    "name": "Japan"
+    "name": "Empire of Japan"
   },
   "JBS": {
     "aliases": [
+      "Ha'il",
       "Ha'il Commune",
-      "Jabal Shammar",
       "the Ha'il Commune"
     ],
-    "name": "Ha'il"
+    "name": "Jabal Shammar"
   },
   "KAC": {
     "aliases": [],
@@ -867,14 +870,14 @@
   },
   "KBR": {
     "aliases": [
-      "Bornu Emirate",
+      "Bornu",
       "Bornu Republic",
       "Union of Bornu",
       "the Bornu Emirate",
       "the Bornu Republic",
       "the Union of Bornu"
     ],
-    "name": "Bornu"
+    "name": "Bornu Emirate"
   },
   "KDR": {
     "aliases": [],
@@ -902,12 +905,12 @@
   "KOR": {
     "aliases": [
       "Empire of Korea",
+      "Korea",
       "People's Republic of Korea",
-      "Republic of Korea",
       "the People's Republic of Korea",
       "the Republic of Korea"
     ],
-    "name": "Korea"
+    "name": "Republic of Korea"
   },
   "KTG": {
     "aliases": [],
@@ -917,13 +920,13 @@
     "aliases": [
       "Dihua Government",
       "Hami Prefecture",
+      "Kumul",
       "Kumul Commune",
-      "Kumul Khanate",
       "Uyghur Republic",
       "the Kumul Commune",
       "the Kumul Khanate"
     ],
-    "name": "Kumul"
+    "name": "Kumul Khanate"
   },
   "KUR": {
     "aliases": [],
@@ -932,13 +935,13 @@
   "LAO": {
     "aliases": [
       "Kingdom of Lan Xang",
-      "Kingdom of Laos",
       "Lao People's Democratic Republic",
+      "Laos",
       "the Kingdom of Lan Xang",
       "the Kingdom of Laos",
       "the Lao People's Democratic Republic"
     ],
-    "name": "Laos"
+    "name": "Kingdom of Laos"
   },
   "LAT": {
     "aliases": [
@@ -949,13 +952,13 @@
   },
   "LBA": {
     "aliases": [
-      "Emirate of Cyrenaica",
+      "Cyrenaica",
       "Libyan People's Republic",
       "Union of Cyrenaica",
       "the Emirate of Cyrenaica",
       "the Union of Cyrenaica"
     ],
-    "name": "Cyrenaica"
+    "name": "Emirate of Cyrenaica"
   },
   "LEB": {
     "aliases": [
@@ -973,10 +976,11 @@
   },
   "LEP": {
     "aliases": [
+      "Nanjing",
       "Nanjing Clique",
       "the Nanjing Clique"
     ],
-    "name": "Nanjing"
+    "name": "League of Eight Provinces"
   },
   "LIB": {
     "aliases": [
@@ -1017,10 +1021,10 @@
   },
   "MAF": {
     "aliases": [
-      "Provisional Government of Germany",
+      "Mittelafrika",
       "the Mittelafrika Colonial Federation"
     ],
-    "name": "Mittelafrika"
+    "name": "Provisional Government of Germany"
   },
   "MAL": {
     "aliases": [
@@ -1032,14 +1036,14 @@
   },
   "MAN": {
     "aliases": [
+      "Manchuria",
       "Manchurian Peoples Federation",
-      "Republic of Manchuria",
       "State of Manchuria",
       "the Manchurian Peoples Federation",
       "the Republic of Manchuria",
       "the State of Manchuria"
     ],
-    "name": "Manchuria"
+    "name": "Republic of Manchuria"
   },
   "MDR": {
     "aliases": [
@@ -1099,10 +1103,10 @@
   },
   "MRT": {
     "aliases": [
-      "Trarza",
+      "Mauritania",
       "the Emirate of Trarza"
     ],
-    "name": "Mauritania"
+    "name": "Trarza"
   },
   "MYS": {
     "aliases": [],
@@ -1123,13 +1127,13 @@
   "NFA": {
     "aliases": [
       "French Empire",
-      "French Republic",
+      "French Exiles",
       "French State",
       "Kingdom of France",
       "National France",
       "the French Republic"
     ],
-    "name": "French Exiles"
+    "name": "French Republic"
   },
   "NGA": {
     "aliases": [],
@@ -1139,12 +1143,12 @@
     "aliases": [
       "North German Federation",
       "North German Socialist Republic",
-      "North German State",
+      "North Germany",
       "the North German Federation",
       "the North German Socialist Republic",
       "the North German State"
     ],
-    "name": "North Germany"
+    "name": "North German State"
   },
   "NGR": {
     "aliases": [],
@@ -1179,11 +1183,11 @@
   },
   "OMA": {
     "aliases": [
-      "Muscat and Oman",
+      "Oman",
       "Socialist Republic of Oman",
       "the Socialist Republic of Oman"
     ],
-    "name": "Oman"
+    "name": "Muscat and Oman"
   },
   "ORI": {
     "aliases": [],
@@ -1191,11 +1195,11 @@
   },
   "PAL": {
     "aliases": [
-      "Mutasarrifate of Jerusalem",
+      "Palestine",
       "Suez International Zone",
       "the Mutasarrifate of Jerusalem"
     ],
-    "name": "Palestine"
+    "name": "Mutasarrifate of Jerusalem"
   },
   "PAN": {
     "aliases": [
@@ -1225,12 +1229,12 @@
   },
   "PHI": {
     "aliases": [
-      "Republic of the Philippines",
+      "Philippines",
       "Socialist Republic of the Philippines",
       "the Republic of the Philippines",
       "the Socialist Republic of the Philippines"
     ],
-    "name": "Philippines"
+    "name": "Republic of the Philippines"
   },
   "PIR": {
     "aliases": [
@@ -1258,15 +1262,15 @@
   },
   "POL": {
     "aliases": [
+      "Poland",
       "Polish People's Republic",
       "Polish Socialist Republic",
-      "Republic of Poland",
       "Slavic National Union",
       "the Polish People's Republic",
       "the Polish Socialist Republic",
       "the Republic of Poland"
     ],
-    "name": "Poland"
+    "name": "Republic of Poland"
   },
   "POR": {
     "aliases": [
@@ -1313,10 +1317,10 @@
   "QIE": {
     "aliases": [
       "Beijing Government",
-      "Qing Government",
+      "Zhili Clique",
       "the Beijing Government"
     ],
-    "name": "Zhili Clique"
+    "name": "Qing Government"
   },
   "QUE": {
     "aliases": [],
@@ -1330,10 +1334,10 @@
   },
   "RHI": {
     "aliases": [
-      "Rhenish Republic",
+      "Rhineland",
       "the Rhenish Republic"
     ],
-    "name": "Rhineland"
+    "name": "Rhenish Republic"
   },
   "RJS": {
     "aliases": [],
@@ -1349,17 +1353,16 @@
   },
   "RSA": {
     "aliases": [
-      "Free Russia",
-      "Free Russian Army"
+      "Free Russia"
     ],
-    "name": "Russia (RSA)"
+    "name": "Free Russian Army"
   },
   "RUS": {
     "aliases": [
+      "Russia",
       "Russian Empire",
       "Russian Labour Republic",
       "Russian National Republic",
-      "Russian Republic",
       "Russian Socialist Federative Republic",
       "Russian Socialist Republic",
       "Russian State",
@@ -1370,7 +1373,7 @@
       "the Russian Democratic Federative Republic",
       "the Russian Socialist Federative Republic"
     ],
-    "name": "Russia"
+    "name": "Russian Republic"
   },
   "RWA": {
     "aliases": [],
@@ -1379,27 +1382,27 @@
   "SAF": {
     "aliases": [
       "Republic of South Africa",
+      "South Africa",
       "South African Federation",
       "South African People's Union",
       "South African Republic",
-      "Union of South Africa",
       "the South African People's Union"
     ],
-    "name": "South Africa"
+    "name": "Union of South Africa"
   },
   "SAR": {
     "aliases": [
       "East Malaya",
       "People's Republic of Sarawak",
-      "Raj of Sarawak",
       "Republic of Sarawak",
+      "Sarawak",
       "State of Sarawak",
       "the People's Republic of Sarawak",
       "the Republic of Sarawak",
       "the State of East Malaya",
       "the State of Sarawak"
     ],
-    "name": "Sarawak"
+    "name": "Raj of Sarawak"
   },
   "SAU": {
     "aliases": [],
@@ -1407,12 +1410,12 @@
   },
   "SCA": {
     "aliases": [
-      "Nordic Federation",
+      "Scandinavia",
       "Scandinavian Union",
       "the Nordic Federation",
       "the Scandinavian Union"
     ],
-    "name": "Scandinavia"
+    "name": "Nordic Federation"
   },
   "SCO": {
     "aliases": [
@@ -1444,32 +1447,32 @@
   },
   "SHD": {
     "aliases": [
-      "Shandong Clique",
+      "Shandong",
       "Shangqing Tianguo",
       "the Shandong Clique",
       "the Shangqing Tianguo"
     ],
-    "name": "Shandong"
+    "name": "Shandong Clique"
   },
   "SHX": {
     "aliases": [
       "Guominjun",
-      "Shanxi Clique",
+      "Shanxi",
       "the Guominjun",
       "the Shanxi Clique"
     ],
-    "name": "Shanxi"
+    "name": "Shanxi Clique"
   },
   "SIA": {
     "aliases": [
-      "Kingdom of Siam",
+      "Siam",
       "Siamese People's Democratic Republic",
       "Socialist State of Siam",
       "the Kingdom of Siam",
       "the Siamese People's Democratic Republic",
       "the Socialist State of Siam"
     ],
-    "name": "Siam"
+    "name": "Kingdom of Siam"
   },
   "SIC": {
     "aliases": [],
@@ -1481,10 +1484,10 @@
   },
   "SIK": {
     "aliases": [
-      "Xinjiang Clique",
+      "Xinjiang",
       "the Xinjiang Clique"
     ],
-    "name": "Xinjiang"
+    "name": "Xinjiang Clique"
   },
   "SKM": {
     "aliases": [],
@@ -1515,13 +1518,13 @@
       "Iberian Confederation",
       "Iberian Union",
       "Kingdom of Spain",
-      "Spanish Republic",
+      "Spain",
       "Spanish Socialist Republic",
       "Spanish State",
       "the Spanish Republic",
       "the Spanish State"
     ],
-    "name": "Spain"
+    "name": "Spanish Republic"
   },
   "SPO": {
     "aliases": [
@@ -1536,10 +1539,10 @@
   },
   "SRI": {
     "aliases": [
-      "Socialist Republic of Italy",
+      "Socialist Italy",
       "the Socialist Republic of Italy"
     ],
-    "name": "Socialist Italy"
+    "name": "Socialist Republic of Italy"
   },
   "SSI": {
     "aliases": [],
@@ -1547,10 +1550,10 @@
   },
   "SUD": {
     "aliases": [
-      "Imamate of Sudan",
+      "Sudan",
       "the Imamate of Sudan"
     ],
-    "name": "Sudan"
+    "name": "Imamate of Sudan"
   },
   "SUR": {
     "aliases": [],
@@ -1591,17 +1594,17 @@
     "aliases": [
       "Chengdu Government",
       "Chongqing Government",
-      "Sichuan Clique",
+      "Sichuan",
       "the Sichuan Clique"
     ],
-    "name": "Sichuan"
+    "name": "Sichuan Clique"
   },
   "TAI": {
     "aliases": [
-      "Republic of Taiwan",
+      "Taiwan",
       "the Republic of Taiwan"
     ],
-    "name": "Taiwan"
+    "name": "Republic of Taiwan"
   },
   "TIB": {
     "aliases": [
@@ -1628,13 +1631,13 @@
   "TRK": {
     "aliases": [
       "Socialist Republic of Turkestan",
-      "Turkestan Republic",
+      "Turkestan",
       "Turkestan Socialist Republic",
       "Turkestani Labour Republic",
       "the Turkestan Republic",
       "the Turkestan Socialist Republic"
     ],
-    "name": "Turkestan"
+    "name": "Turkestan Republic"
   },
   "TRP": {
     "aliases": [
@@ -1678,7 +1681,6 @@
   },
   "TUR": {
     "aliases": [
-      "Ottoman Empire",
       "Ottoman State",
       "Ottomans",
       "Porte",
@@ -1686,11 +1688,12 @@
       "Sublime Ottoman Federation",
       "Sublime Porte",
       "The Kadroist Party",
+      "Turkey",
       "Turkish Socialist Republic",
       "the Republic of Turkey",
       "the Turkish Socialist Republic"
     ],
-    "name": "Turkey"
+    "name": "Ottoman Empire"
   },
   "TUS": {
     "aliases": [
@@ -1708,16 +1711,16 @@
   },
   "UKR": {
     "aliases": [
+      "Ukraine",
       "Ukrainian National Republic",
       "Ukrainian People's Republic",
       "Ukrainian Socialist Republic",
-      "Ukrainian State",
       "the Ukrainian National Republic",
       "the Ukrainian People's Republic",
       "the Ukrainian Socialist Republic",
       "the Ukrainian State"
     ],
-    "name": "Ukraine"
+    "name": "Ukrainian State"
   },
   "URG": {
     "aliases": [
@@ -1728,10 +1731,10 @@
   },
   "USA": {
     "aliases": [
-      "United States of America",
+      "America",
       "the United States of America"
     ],
-    "name": "America"
+    "name": "United States of America"
   },
   "VCR": {
     "aliases": [],
@@ -1779,14 +1782,14 @@
   "WIF": {
     "aliases": [
       "Caribbean State",
+      "West Indies",
       "West Indies Confederation",
-      "West Indies Federation",
       "West Indies Union",
       "the Caribbean State",
       "the West Indies Federation",
       "the West Indies Union"
     ],
-    "name": "West Indies"
+    "name": "West Indies Federation"
   },
   "WLS": {
     "aliases": [
@@ -1817,10 +1820,10 @@
   },
   "YUN": {
     "aliases": [
-      "Yunnan Clique",
+      "Yunnan",
       "the Yunnan Clique"
     ],
-    "name": "Yunnan"
+    "name": "Yunnan Clique"
   },
   "ZAM": {
     "aliases": [],
@@ -1832,12 +1835,12 @@
   },
   "ZIM": {
     "aliases": [
-      "Southern Rhodesia",
       "Zambesian Commune",
       "Zambesian Federation",
+      "Zimbabwe",
       "Zimbabwean Commune",
       "the Zimbabwean Commune"
     ],
-    "name": "Zimbabwe"
+    "name": "Southern Rhodesia"
   }
 }
