@@ -1,18 +1,7 @@
 {
   "event_meta": {},
   "last_snowflake": "1534020584047116449",
-  "rejected_meta": {
-    "1534020486328221838": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": null,
-      "last_checked": "2026-08-10T23:47:09.064441+00:00"
-    },
-    "1534020584047116449": {
-      "channel_id": "1518432010383790181",
-      "edited_timestamp": "2026-08-04T02:10:15.341000+00:00",
-      "last_checked": "2026-08-10T23:47:09.064441+00:00"
-    }
-  },
+  "rejected_meta": {},
   "merged_meta": {},
   "reacted_ids": [
     "1505347662616989757",
