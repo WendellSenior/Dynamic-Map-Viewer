@@ -1,7 +1,13 @@
 {
   "event_meta": {},
-  "last_snowflake": "1534020584047116449",
-  "rejected_meta": {},
+  "last_snowflake": "1540835577342070794",
+  "rejected_meta": {
+    "1540835577342070794": {
+      "channel_id": "1434628920371581079",
+      "edited_timestamp": null,
+      "last_checked": "2026-08-23T18:40:56.044904+00:00"
+    }
+  },
   "merged_meta": {},
   "reacted_ids": [
     "1505347662616989757",
